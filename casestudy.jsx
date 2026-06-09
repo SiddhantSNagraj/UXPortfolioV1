@@ -45,7 +45,7 @@ function CaseStudy({ project, projects, onOpen, onHome }) {
       {/* stat band */}
       <section className="case__stats">
         <div className="wrap case__statsrow">
-          <span className="mono mono--ink case__statslabel">Impact —</span>
+          <span className="mono mono--ink case__statslabel">Impact,</span>
           {p.stat.map(([n, l], i) => (
             <div className="case__stat" key={i}>
               <span className="case__statn display" style={{ color: i === 1 ? accent : 'var(--ink)' }}>{n}</span>

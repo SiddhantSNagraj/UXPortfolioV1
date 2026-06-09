@@ -1,5 +1,5 @@
 /* =========================================================================
-   SIDDHANT NAGRAJ — PORTFOLIO
+   SIDDHANT NAGRAJ, PORTFOLIO
    Dark editorial system · Archivo / Space Mono / Pixelify Sans
    Accents: electric blue + signal yellow
    ========================================================================= */
@@ -24,12 +24,12 @@
   --yellow:    #f7c14a;
   --yellow-ink: var(--yellow);   /* yellow for TEXT / thin strokes; darkens in light mode */
   --accent:    var(--blue);
-  --available: #1f8a5b;   /* available-for-work status — fixed green, independent of accent */
+  --available: #1f8a5b;   /* available-for-work status, fixed green, independent of accent */
 
   /* ----- type ----- */
   --display: 'Archivo', system-ui, sans-serif;
   --mono:    'Space Mono', ui-monospace, monospace;
-  /* 'pixel' tokens retired — now point at the grotesk so all legacy usages render as Archivo */
+  /* 'pixel' tokens retired, now point at the grotesk so all legacy usages render as Archivo */
   --pixel:   'Archivo', system-ui, sans-serif;
   --pixel-blk: 'Archivo', system-ui, sans-serif;
 
@@ -230,15 +230,12 @@ img { display: block; max-width: 100%; }
 .nav__link::after { content:''; position:absolute; left:0; bottom:0; height:1px; width:0; background: currentColor; transition: width .35s var(--ease); }
 .nav__link:hover::after { width: 100%; }
 .nav__link.is-active::after { width: 100%; }
-@media (max-width: 720px) {
+@media (max-width: 760px) {
   .nav { padding: 12px 16px; }
-  .nav__links { gap: 15px; }
-  .nav__link { font-size: 11px; letter-spacing: 0.04em; }
-  .nav__theme { padding: 5px 10px 5px 9px; font-size: 11px; gap: 6px; }
-}
-@media (max-width: 380px) {
-  .nav__links { gap: 11px; }
-  .nav__link { letter-spacing: 0.02em; }
+  /* declutter: text links are reachable by scrolling, keep just brand + theme toggle */
+  .nav__links .nav__link { display: none; }
+  .nav__links { gap: 0; }
+  .nav__theme { padding: 6px 12px 6px 10px; font-size: 11px; gap: 6px; }
 }
 
 /* nav scrim (non blend) variant used on case study */

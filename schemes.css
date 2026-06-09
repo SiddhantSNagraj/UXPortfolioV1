@@ -1,7 +1,7 @@
 /* =========================================================================
-   COLOR SCHEMES — each is a hand-tuned pairing of a DARK and LIGHT palette.
+   COLOR SCHEMES, each is a hand-tuned pairing of a DARK and LIGHT palette.
    Driven by data-scheme on <html>; data-theme="light" picks the light half.
-   Neutrals only (bg / surface / ink / lines) — the blue+yellow accents stay
+   Neutrals only (bg / surface / ink / lines), the blue+yellow accents stay
    independently tweakable. Every value carries a gentle material cast so the
    site reads "human" rather than pure #000/#fff digital.
    ========================================================================= */

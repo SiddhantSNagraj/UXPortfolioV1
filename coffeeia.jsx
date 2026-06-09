@@ -1,4 +1,4 @@
-/* COFFEEHOUSE — native, on-brand Information Architecture + card-sort boards
+/* COFFEEHOUSE, native, on-brand Information Architecture + card-sort boards
    (replaces the flat screenshot exports). Data transcribed from the originals. */
 
 const IA_DATA = {

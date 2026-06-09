@@ -1,4 +1,4 @@
-/* COFFEEHOUSE — native Error-Handling field states + Style Guide.
+/* COFFEEHOUSE, native Error-Handling field states + Style Guide.
    CoffeeHouse's own brand: navy #003566, yellow #FFD60A, Kanit. Yellow sticky notes. */
 
 const { useState: useStateCB } = React;
@@ -68,10 +68,10 @@ function ErrorHandling() {
         <CBNote tone="y" rot={-3} className="cberr__n1">State-aware icon shifts grey → navy → red as the field validates</CBNote>
         <CBField icon={CB_FIELDS[2][0]} label={CB_FIELDS[2][1]} empty={CB_FIELDS[2][2]} valid={CB_FIELDS[2][3]} invalid={CB_FIELDS[2][4]} error={CB_FIELDS[2][5]} />
         <CBField icon={CB_FIELDS[3][0]} label={CB_FIELDS[3][1]} empty={CB_FIELDS[3][2]} valid={CB_FIELDS[3][3]} invalid={CB_FIELDS[3][4]} error={CB_FIELDS[3][5]} />
-        <CBNote tone="navy" rot={2} className="cberr__n2">Inline message names the exact fix — never a generic “error”</CBNote>
+        <CBNote tone="navy" rot={2} className="cberr__n2">Inline message names the exact fix, never a generic “error”</CBNote>
         <CBField icon={CB_FIELDS[4][0]} label={CB_FIELDS[4][1]} empty={CB_FIELDS[4][2]} valid={CB_FIELDS[4][3]} invalid={CB_FIELDS[4][4]} error={CB_FIELDS[4][5]} />
         <CBField icon={CB_FIELDS[5][0]} label={CB_FIELDS[5][1]} empty={CB_FIELDS[5][2]} valid={CB_FIELDS[5][3]} invalid={CB_FIELDS[5][4]} error={CB_FIELDS[5][5]} />
-        <CBNote tone="y" rot={-2} className="cberr__n3">Real-time check on blur, so users fix as they go — not at submit</CBNote>
+        <CBNote tone="y" rot={-2} className="cberr__n3">Real-time check on blur, so users fix as they go, not at submit</CBNote>
       </div>
     </div>
   );
@@ -93,22 +93,17 @@ function Bean({ fill }) {
 }
 
 function StyleGuide() {
-  const [v, setV] = useStateCB('Editorial');
+  const v = 'Editorial';
   return (
     <div className={`sg sg--${v.toLowerCase()}`}>
       <div className="sg__bar">
-        <span className="sg__brand">CoffeeHouse — Brand Kit</span>
-        <div className="sg__switch">
-          {SG_VARIANTS.map((x) => (
-            <button key={x} className={`sg__sw ${v === x ? 'is-on' : ''}`} onClick={() => setV(x)}>{x}</button>
-          ))}
-        </div>
+        <span className="sg__brand">CoffeeHouse, Brand Kit</span>
       </div>
 
       <div className="sg__body">
         {/* TYPE */}
         <div className="sg__block sg__type">
-          <span className="sg__h">Typeface — Kanit</span>
+          <span className="sg__h">Typeface, Kanit</span>
           <div className="sg__specimen">
             <div className="sg__line"><span className="sg__wt">Regular</span><span className="sg__chars sg__chars--lc">abcdefghijklmnopqrstuvwxyz</span></div>
             <div className="sg__line"><span className="sg__wt">Medium</span><span className="sg__chars sg__chars--m">ABCDEFGHIJKLMNOPQRSTUVWXYZ</span></div>
@@ -166,7 +161,7 @@ function StyleGuide() {
         </div>
       </div>
 
-      <CBNote tone="navy" rot={-3} className="sg__note">One typeface, four colors — enough range to feel warm, tight enough to stay consistent</CBNote>
+      <CBNote tone="navy" rot={-3} className="sg__note">One typeface, four colors, enough range to feel warm, tight enough to stay consistent</CBNote>
     </div>
   );
 }

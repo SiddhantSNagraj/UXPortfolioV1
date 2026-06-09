@@ -1,4 +1,4 @@
-/* Shared components — exported to window for cross-file use */
+/* Shared components, exported to window for cross-file use */
 
 const { useState, useEffect, useRef } = React;
 
@@ -14,7 +14,7 @@ function Slot({ label, corner, style, className = '', img, alt, objectPosition, 
   );
 }
 
-/* reveal-on-scroll wrapper — robust: never leaves content hidden ----------- */
+/* reveal-on-scroll wrapper, robust: never leaves content hidden ----------- */
 function Reveal({ children, className = '', delay = '', as = 'div', ...rest }) {
   const ref = useRef(null);
   useEffect(() => {
@@ -63,7 +63,7 @@ function Contact({ profile }) {
   return (
     <section className="contact" id="contact">
       <div className="wrap">
-        <div className="mono mono--accent" style={{ marginBottom: 28 }}>( CONTACT ) — OPEN TO PRODUCT DESIGN ROLES</div>
+        <div className="mono mono--accent" style={{ marginBottom: 28 }}>( CONTACT ), OPEN TO PRODUCT DESIGN ROLES</div>
         <a
           href={`mailto:${profile.email}`}
           className="contact__big"
@@ -83,10 +83,10 @@ function Contact({ profile }) {
         <div className="foot">
           <div className="foot__links">
             <span className="pixel" style={{ fontSize: 22 }}>SIDDHANT NAGRAJ®</span>
-            <span className="mono" style={{ marginTop: 8 }}>Product Designer — based in {profile.location}</span>
+            <span className="mono" style={{ marginTop: 8 }}>Product Designer, based in {profile.location}</span>
           </div>
           <div className="col" style={{ alignItems: 'flex-end', gap: 6 }}>
-            <span className="mono">© 2026 — Designed &amp; built in the dark</span>
+            <span className="mono">© 2026, Designed &amp; built in the dark</span>
             <span className="mono mono--ink">{profile.philosophy.toUpperCase()}</span>
           </div>
         </div>

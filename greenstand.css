@@ -1,5 +1,5 @@
 /* =========================================================================
-   GREENSTAND — "Roots" design-system case study  (prefix gs-)
+   GREENSTAND, "Roots" design-system case study  (prefix gs-)
    Dark portfolio system · emerald accent · long-form editorial
    Also defines the live component gallery + home-row hover cluster.
    ========================================================================= */
@@ -155,7 +155,7 @@
 .gs-princ__t { font-family: var(--display); font-weight: 700; font-size: clamp(17px,1.6vw,21px); letter-spacing: -.01em; margin-bottom: 8px; }
 .gs-princ__d { font-size: 14px; line-height: 1.6; color: var(--ink-2); }
 
-/* "what I explored" — Tried → Learned → Decided cards -------------------- */
+/* "what I explored", Tried → Learned → Decided cards -------------------- */
 .gs-explore { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(14px,1.8vw,22px); margin-top: 22px; }
 @media (max-width: 760px) { .gs-explore { grid-template-columns: 1fr; } }
 .gs-tld { border: 1px solid var(--line); background: var(--surface); border-radius: 12px; padding: clamp(18px,2.1vw,26px); display: flex; flex-direction: column; gap: 14px; }
@@ -186,7 +186,7 @@
 .gs-flowstep__n { font-family: var(--mono); font-size: 11px; color: var(--gs-400); flex: none; }
 .gs-flowstep__t { font-family: var(--display); font-weight: 600; font-size: 12.5px; letter-spacing: -.005em; color: var(--ink-2); line-height: 1.25; }
 
-/* ===== native User Flow diagram — transparent, themed ==================== */
+/* ===== native User Flow diagram, transparent, themed ==================== */
 .gsflow { margin-top: 18px; overflow-x: auto; padding: 8px 2px 22px; scrollbar-width: thin; scrollbar-color: var(--line-2) transparent; }
 .gsflow__inner { display: flex; flex-direction: column; align-items: center; min-width: 660px; }
 .gsflow__legend { display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 24px; }
@@ -375,7 +375,7 @@ html[data-theme="light"] .gs-anat__legend .n { color: var(--gs-700); }
 .gs-action__d { font-size: 12.5px; line-height: 1.5; color: var(--ink-2); }
 
 /* =========================================================================
-   LIVE COMPONENT GALLERY (GSKit)  — real Roots components, rendered natively
+   LIVE COMPONENT GALLERY (GSKit), real Roots components, rendered natively
    ========================================================================= */
 .gsk { border: 1px solid var(--line); border-radius: 16px; overflow: hidden; background: var(--surface); margin-top: 8px; }
 .gsk__tabs { display: flex; gap: 4px; padding: 10px; background: var(--bg-2); border-bottom: 1px solid var(--line); flex-wrap: wrap; }
@@ -392,7 +392,7 @@ html[data-theme="light"] .gs-anat__legend .n { color: var(--gs-700); }
 .gsk__cap { font-family: var(--mono); font-size: 10px; letter-spacing: .04em; color: var(--ink-4); margin-top: 5px; }
 .gsk__stack { display: flex; flex-direction: column; gap: 6px; }
 
-/* — tokens / color — */
+/*, tokens / color, */
 .gsk-scale { display: flex; border-radius: 10px; overflow: hidden; border: 1px solid var(--line); }
 .gsk-scale__c { flex: 1; height: 76px; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 6px; font-family: var(--mono); font-size: 9px; }
 .gsk-sem { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
@@ -403,13 +403,13 @@ html[data-theme="light"] .gs-anat__legend .n { color: var(--gs-700); }
 .gsk-sem__n { font-size: 12px; font-weight: 600; color: var(--ink); }
 .gsk-sem__h { font-family: var(--mono); font-size: 10px; color: var(--ink-4); }
 
-/* — type scale — */
+/*, type scale, */
 .gsk-type { display: flex; flex-direction: column; gap: 14px; }
 .gsk-type__row { display: flex; align-items: baseline; gap: 18px; border-bottom: 1px solid var(--line); padding-bottom: 14px; }
 .gsk-type__k { font-family: var(--mono); font-size: 10px; color: var(--ink-4); width: 78px; flex: none; letter-spacing: .04em; }
 .gsk-type__s { font-family: var(--display); color: var(--ink); line-height: 1.05; letter-spacing: -.01em; }
 
-/* — buttons (REAL Roots components) — */
+/*, buttons (REAL Roots components), */
 .gsbtn { font-family: var(--display); font-weight: 600; font-size: 14px; letter-spacing: -.005em; border-radius: 9px; padding: 11px 20px; border: 1.5px solid transparent; cursor: pointer; transition: background .2s, border-color .2s, color .2s, box-shadow .2s; display: inline-flex; align-items: center; gap: 8px; line-height: 1; white-space: nowrap; }
 .gsbtn--primary { background: var(--gs-600); color: #fff; }
 .gsbtn--primary:hover { background: var(--gs-700); }
@@ -423,7 +423,7 @@ html[data-theme="light"] .gs-anat__legend .n { color: var(--gs-700); }
 .gsbtn--secondary.is-disabled { background: transparent; border-color: var(--gs-n600); color: var(--gs-n400); }
 .gsbtn__dot { width: 7px; height: 7px; border-radius: 50%; background: currentColor; opacity: .9; }
 
-/* — text fields — */
+/*, text fields, */
 .gsfield { display: flex; flex-direction: column; gap: 6px; width: 220px; max-width: 100%; }
 .gsfield__l { font-family: var(--display); font-weight: 600; font-size: 12.5px; color: var(--ink-2); }
 .gsfield__box { display: flex; align-items: center; gap: 9px; background: var(--gs-n900); border: 1.5px solid var(--gs-n600); border-radius: 9px; padding: 11px 13px; transition: border-color .2s, box-shadow .2s; }
@@ -436,7 +436,7 @@ html[data-theme="light"] .gs-anat__legend .n { color: var(--gs-700); }
 .gsfield--error .gsfield__msg { color: var(--gs-error); }
 .gsfield__ico { width: 15px; height: 15px; flex: none; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 9px; color: #fff; }
 
-/* — toggles / checkboxes / radios — */
+/*, toggles / checkboxes / radios, */
 .gstog { width: 44px; height: 26px; border-radius: 999px; background: var(--gs-n600); position: relative; cursor: pointer; transition: background .25s var(--ease); flex: none; }
 .gstog::after { content: ''; position: absolute; top: 3px; left: 3px; width: 20px; height: 20px; border-radius: 50%; background: #fff; transition: transform .25s var(--ease); box-shadow: 0 1px 3px rgba(0,0,0,.3); }
 .gstog.is-on { background: var(--gs-600); }
@@ -451,7 +451,7 @@ html[data-theme="light"] .gs-anat__legend .n { color: var(--gs-700); }
 .gsk-ctl { display: flex; align-items: center; gap: 10px; }
 .gsk-ctl span { font-family: var(--display); font-size: 13px; color: var(--ink-2); }
 
-/* — chips / badges — */
+/*, chips / badges, */
 .gschip { font-family: var(--mono); font-size: 11px; letter-spacing: .03em; padding: 5px 11px; border-radius: 999px; display: inline-flex; align-items: center; gap: 6px; }
 .gschip--solid { background: var(--gs-600); color: #fff; }
 .gschip--soft { background: var(--gs-900); color: var(--gs-300); border: 1px solid var(--gs-700); }
@@ -459,7 +459,7 @@ html[data-theme="light"] .gs-anat__legend .n { color: var(--gs-700); }
 .gschip--warning { background: color-mix(in srgb, var(--gs-warning) 16%, transparent); color: var(--gs-warning); border: 1px solid color-mix(in srgb, var(--gs-warning) 40%, transparent); }
 .gschip--error { background: color-mix(in srgb, var(--gs-error) 16%, transparent); color: var(--gs-error); border: 1px solid color-mix(in srgb, var(--gs-error) 40%, transparent); }
 
-/* — cards (TreeTracker grower card) — */
+/*, cards (TreeTracker grower card), */
 .gscard { width: 256px; max-width: 100%; border: 1px solid var(--line); border-radius: 14px; overflow: hidden; background: var(--bg); }
 .gscard__media { height: 96px; background: linear-gradient(135deg, var(--gs-700), var(--gs-500)); position: relative; display: flex; align-items: flex-end; padding: 12px; }
 .gscard__badge { font-family: var(--mono); font-size: 9.5px; letter-spacing: .06em; text-transform: uppercase; color: #fff; background: rgba(0,0,0,.32); padding: 4px 9px; border-radius: 999px; }
@@ -472,14 +472,14 @@ html[data-theme="light"] .gs-anat__legend .n { color: var(--gs-700); }
 .gscard__sn { font-family: var(--display); font-weight: 700; font-size: 16px; color: var(--gs-400); }
 .gscard__sl { font-family: var(--mono); font-size: 9.5px; letter-spacing: .04em; text-transform: uppercase; color: var(--ink-4); }
 
-/* — states matrix — */
+/*, states matrix, */
 .gsk-matrix { display: grid; grid-template-columns: 90px repeat(4, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
 @media (max-width: 680px) { .gsk-matrix { grid-template-columns: 70px repeat(4,1fr); } }
 .gsk-matrix__h, .gsk-matrix__c { background: var(--bg); padding: 14px 10px; display: flex; align-items: center; justify-content: center; }
 .gsk-matrix__h { font-family: var(--mono); font-size: 9.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-4); background: var(--bg-2); }
 .gsk-matrix__rh { font-family: var(--mono); font-size: 9.5px; letter-spacing: .06em; text-transform: uppercase; color: var(--gs-400); background: var(--bg-2); justify-content: flex-start; }
 
-/* — a11y contrast proof — */
+/*, a11y contrast proof, */
 .gsk-aa { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
 @media (max-width: 680px) { .gsk-aa { grid-template-columns: 1fr; } }
 .gsk-aa__c { border-radius: 11px; padding: 16px; display: flex; flex-direction: column; gap: 10px; min-height: 104px; justify-content: space-between; }
@@ -488,7 +488,7 @@ html[data-theme="light"] .gs-anat__legend .n { color: var(--gs-700); }
 .gsk-aa__pass { display: inline-flex; align-items: center; gap: 5px; padding: 3px 8px; border-radius: 999px; background: rgba(255,255,255,.16); }
 
 /* =========================================================================
-   HOME-ROW HOVER — Greenstand "mini component board" popover
+   HOME-ROW HOVER, Greenstand "mini component board" popover
    ========================================================================= */
 .workrow__gs {
   position: absolute; right: 17%; top: 50%;
@@ -552,7 +552,7 @@ html[data-gshover="grid"] .gspk--grid { display: block; }
 html[data-gshover="tokens"] .gspk--tokens,
 html:not([data-gshover]) .gspk--tokens { display: block; }
 
-/* ===== variant: SCATTER — individual components pop in around the centre = */
+/* ===== variant: SCATTER, individual components pop in around the centre = */
 .gss { position: absolute; left: 0; top: 0; transform: translate(-50%, -50%);
   background: var(--surface); border: 1px solid var(--line-2); border-radius: 11px;
   box-shadow: 0 22px 44px rgba(0,0,0,.5); opacity: 0; }
@@ -573,7 +573,7 @@ html:not([data-gshover]) .gspk--tokens { display: block; }
 .gss--toggle .lab { font-family: var(--mono); font-size: 9px; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-3); }
 .gss--chip  { left: 132px; top: 54px;  padding: 6px 12px; border-radius: 999px; background: var(--gs-900); border-color: var(--gs-700); color: var(--gs-300); font-family: var(--mono); font-size: 9.5px; }
 
-/* ===== variant: GRID — Storybook tile grid ============================== */
+/* ===== variant: GRID, Storybook tile grid ============================== */
 .gsg { position: absolute; left: 0; top: 0; transform: translate(-50%, -50%);
   width: 300px; background: var(--surface); border: 1px solid var(--line-2);
   border-radius: 15px; box-shadow: 0 34px 66px rgba(0,0,0,.6), 0 0 0 6px rgba(31,122,77,.12);
@@ -592,7 +592,7 @@ html:not([data-gshover]) .gspk--tokens { display: block; }
 .gsg-mini-c { display: flex; gap: 4px; }
 .gsg-mini-c i { width: 12px; height: 12px; border-radius: 3px; display: block; }
 
-/* ===== variant: TOKENS — palette-forward artifact card (default) ======== */
+/* ===== variant: TOKENS, palette-forward artifact card (default) ======== */
 .gst { position: absolute; left: 0; top: 0; transform: translate(-50%, -50%);
   width: 330px; background: var(--surface); border: 1px solid var(--line-2);
   border-radius: 18px; box-shadow: 0 38px 74px rgba(0,0,0,.62), 0 0 0 7px rgba(31,122,77,.13);

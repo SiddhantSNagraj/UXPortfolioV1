@@ -1,11 +1,11 @@
 /* =========================================================================
-   APMC — MacBook hover + bespoke case study styles (prefix am-)
+   APMC, MacBook hover + bespoke case study styles (prefix am-)
    Northeastern red + APMC coral accent · dark editorial
    ========================================================================= */
 
-/* ---- MacBook hover — realistic aluminum, head-on view ----------------- */
+/* ---- MacBook hover, realistic aluminum, head-on view ----------------- */
 /* =========================================================================
-   APMC WORK-ROW HOVER — flat-screen treatments using the husky logo
+   APMC WORK-ROW HOVER, flat-screen treatments using the husky logo
    set via <html data-apmchover="display|panel|poster">  (default: display)
    ========================================================================= */
 .workrow__apmc {
@@ -83,7 +83,7 @@ html[data-apmchover="poster"] .apk--poster { display: block; }
 
 
 /* =========================================================================
-   APMC CASE STUDY — prefix am-
+   APMC CASE STUDY, prefix am-
    ========================================================================= */
 
 .am { padding-bottom: 0; --accent: #FF6666; --yellow-ink: #FF6666; }
@@ -97,7 +97,7 @@ a.am-live:hover .am-live__dot { background: #fff; }
 @keyframes amLive { 0% { box-shadow: 0 0 0 0 rgba(255,102,102,.6); } 70% { box-shadow: 0 0 0 7px rgba(255,102,102,0); } 100% { box-shadow: 0 0 0 0 rgba(255,102,102,0); } }
 @media (prefers-reduced-motion: reduce) { .am-live__dot { animation: none; } }
 
-/* ── hero layout: stacked — text top, large devices below ── */
+/* ── hero layout: stacked, text top, large devices below ── */
 .am-hero__wrap { display: flex; flex-direction: column; gap: 0; }
 .am-hero__left { max-width: 760px; }
 .am-hero__devices {
@@ -118,7 +118,7 @@ a.am-live:hover .am-live__dot { background: #fff; }
   .am-hero__floor { gap: 16px; }
 }
 
-/* ── laptop — the dominant element ── */
+/* ── laptop, the dominant element ── */
 .am-hlaptop {
   position: relative;
   flex: 0 1 760px;
@@ -151,7 +151,7 @@ a.am-live:hover .am-live__dot { background: #fff; }
 .am-hlaptop__chin::before { content: ''; width: 28px; height: 3px; background: rgba(255,255,255,.14); border-radius: 2px; }
 .am-hlaptop__base { width: 112%; margin-left: -6%; height: 12px; background: linear-gradient(to bottom, #201d19, #171411); border-radius: 0 0 8px 8px; border: 1.5px solid rgba(255,255,255,.06); border-top: none; }
 
-/* ── phone — large, sits beside the laptop ── */
+/* ── phone, large, sits beside the laptop ── */
 .am-hphone {
   flex: 0 0 auto;
   width: clamp(150px, 22%, 250px);
@@ -334,10 +334,10 @@ a.am-live:hover .am-live__dot { background: #fff; }
 
 /* ---- annotated problem map -------------------------------------------- */
 .am-probmap {
-  display: grid; grid-template-columns: 1fr minmax(400px, 560px) 1fr;
+  display: grid; grid-template-columns: 1fr minmax(0, 540px) 1fr;
   gap: clamp(14px, 1.8vw, 26px); align-items: center; margin-top: 28px;
 }
-.am-probmap__col { display: flex; flex-direction: column; gap: clamp(14px, 1.8vw, 24px); }
+.am-probmap__col { display: flex; flex-direction: column; gap: clamp(14px, 1.8vw, 24px); min-width: 0; }
 .am-probmap__shot { position: relative; border-radius: 12px; overflow: hidden; border: 1px solid var(--line); box-shadow: 0 30px 60px rgba(0,0,0,.45); }
 .am-probmap__shot img { width: 100%; height: auto; display: block; }
 
@@ -371,7 +371,7 @@ a.am-live:hover .am-live__dot { background: #fff; }
 .am-prob__ref { display: inline-block; margin-top: 7px; font-family: var(--mono); font-size: 10px; letter-spacing: .04em; text-transform: uppercase; color: var(--accent); }
 .am-prob--note { background: transparent; border-style: dashed; }
 
-@media (max-width: 880px) {
+@media (max-width: 1024px) {
   .am-probmap { grid-template-columns: 1fr; }
   .am-probmap__shot { order: -1; max-width: 480px; margin: 0 auto; }
   .am-probmap__col { gap: 14px; }
@@ -383,12 +383,13 @@ html[data-theme="light"] .am-husky { opacity: .055; }
 .am-husky--obj { width: 300px; bottom: -60px; left: -30px; transform: rotate(-10deg); opacity: .06; }
 .am-husky--learn { width: 260px; top: 20px; right: -30px; transform: rotate(6deg); }
 .am-band .wrap, .am-sec .am-sec__body, .am-sec__label { position: relative; z-index: 1; }
+@media (max-width: 820px) { .am-sec .am-sec__label { position: static; margin-bottom: 6px; align-items: center; } }
 @media (max-width: 760px) { .am-husky { display: none; } }
 
 /* ---- real screenshots & photography ----------------------------------- */
 .am-cap { display: block; margin-top: 12px; color: var(--ink-3); }
 
-/* (hero image removed — plain text hero for now) */
+/* (hero image removed, plain text hero for now) */
 
 /* community photo + seal */
 .am-community { display: grid; grid-template-columns: 1.1fr 1fr; gap: clamp(18px,2.5vw,34px); align-items: stretch; }
@@ -400,7 +401,7 @@ html[data-theme="light"] .am-husky { opacity: .055; }
 html[data-theme="light"] .am-community__seal { filter: none; opacity: .72; }
 .am-community__note { font-family: var(--display); font-weight: 600; font-size: clamp(16px,1.5vw,20px); line-height: 1.4; color: var(--ink-2); }
 
-/* execution screenshots — full-page captures pinned to top */
+/* execution screenshots, full-page captures pinned to top */
 .am-execitem__shot { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; }
 
 /* heatmap figure */
@@ -408,7 +409,7 @@ html[data-theme="light"] .am-community__seal { filter: none; opacity: .72; }
 .am-heatmap img { width: 100%; height: auto; display: block; }
 .am-metrics { margin-top: clamp(20px,2.5vw,32px); }
 
-/* annotated heatmap gallery — 3 Hotjar captures with notes */
+/* annotated heatmap gallery, 3 Hotjar captures with notes */
 .am-heatgrid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(18px,2.4vw,32px); align-items: start; margin-top: 4px; }
 .am-heatfig { display: flex; flex-direction: column; gap: 13px; margin: 0; }
 .am-heatfig--reg { grid-column: 1; grid-row: 1; }
@@ -476,7 +477,7 @@ html[data-theme="light"] .am-community__seal { filter: none; opacity: .72; }
 .am-sticky--final:nth-child(2) { background: #fef3a0; transform: rotate(-1.2deg); }
 .am-sticky--final:nth-child(3) { background: #d1fae5; transform: rotate(0.8deg); }
 
-/* ── Layout: SCATTERED — notes float over frame edges ── */
+/* ── Layout: SCATTERED, notes float over frame edges ── */
 [data-notelayout="scattered"] .am-stickies {
   position: absolute; top: 0; left: 0; right: 0; bottom: 0;
   display: block; margin: 0; overflow: visible; pointer-events: none;
@@ -488,7 +489,7 @@ html[data-theme="light"] .am-community__seal { filter: none; opacity: .72; }
 [data-notelayout="scattered"] .am-stickies .am-sticky:nth-child(2) { top: 43%; left: -20px; transform: rotate(-2.8deg); z-index: 10; }
 [data-notelayout="scattered"] .am-stickies .am-sticky:nth-child(3) { top: 75%; right: -24px; transform: rotate(2deg);   z-index: 10; }
 
-/* ── Layout: SIDE — stacked vertically beside frame ── */
+/* ── Layout: SIDE, stacked vertically beside frame ── */
 [data-notelayout="side"] .am-showwrap { display: grid; grid-template-columns: 1fr 170px; gap: 0 16px; align-items: start; }
 [data-notelayout="side"] .am-stickies { flex-direction: column; gap: 14px; margin-top: 0; padding-top: 10px; flex-wrap: nowrap; overflow: visible; }
 [data-notelayout="side"] .am-sticky { flex: none; max-width: none; width: auto; }
@@ -496,7 +497,7 @@ html[data-theme="light"] .am-community__seal { filter: none; opacity: .72; }
 [data-notelayout="side"] .am-sticky:nth-child(2) { transform: rotate(1.5deg); }
 [data-notelayout="side"] .am-sticky:nth-child(3) { transform: rotate(-1deg); }
 
-/* ── Layout: FANNED — overlapping cards spread below ── */
+/* ── Layout: FANNED, overlapping cards spread below ── */
 [data-notelayout="fanned"] .am-stickies { justify-content: center; gap: 0; margin-top: 20px; flex-wrap: nowrap; }
 [data-notelayout="fanned"] .am-sticky { flex: none; width: 158px; max-width: none; position: relative; }
 [data-notelayout="fanned"] .am-stickies .am-sticky:nth-child(1) { transform: rotate(-9deg) translateX(22px);  z-index: 3; }
@@ -583,7 +584,7 @@ html[data-theme="light"] .am-community__seal { filter: none; opacity: .72; }
 
 
 /* =========================================================================
-   AUTHENTIC RESEARCH ARTIFACT STYLES — affinity map + priority matrix
+   AUTHENTIC RESEARCH ARTIFACT STYLES, affinity map + priority matrix
    set via <html data-artifact="sticky|whiteboard|brand">  (default: sticky)
    "brand" = original dark red/black look (already defined above).
    ========================================================================= */

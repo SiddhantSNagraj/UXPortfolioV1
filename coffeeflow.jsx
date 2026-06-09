@@ -1,4 +1,4 @@
-/* COFFEEHOUSE — interactive auto-play prototype flow (Sign in / Sign up)
+/* COFFEEHOUSE, interactive auto-play prototype flow (Sign in / Sign up)
    Real screen exports in the minimal thin-frame phone, looping with
    pause + scrub controls and a New-user / Returning track toggle. */
 
@@ -7,9 +7,9 @@ const { useState: useStateF, useEffect: useEffectF, useRef: useRefF } = React;
 const FLOW_TRACKS = {
   'New user': [
     ['flow/splash.png', 'Splash'],
-    ['flow/onb1.png', 'Onboarding — choose'],
-    ['flow/onb2.png', 'Onboarding — loyalty'],
-    ['flow/onb3.png', 'Onboarding — relax'],
+    ['flow/onb1.png', 'Onboarding, choose'],
+    ['flow/onb2.png', 'Onboarding, loyalty'],
+    ['flow/onb3.png', 'Onboarding, relax'],
     ['flow/welcome.png', 'Welcome'],
     ['flow/signup.png', 'Sign up'],
     ['flow/verify.png', 'Verification'],

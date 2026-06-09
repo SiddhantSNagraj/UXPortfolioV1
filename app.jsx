@@ -1,4 +1,4 @@
-/* APP — state router (home + case studies) */
+/* APP, state router (home + case studies) */
 
 const { useState: useStateA, useEffect: useEffectA } = React;
 

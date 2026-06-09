@@ -1,5 +1,5 @@
 /* =========================================================================
-   PAGE STYLES — hero · work · about · reviews · case study
+   PAGE STYLES, hero · work · about · reviews · case study
    ========================================================================= */
 
 /* ---------- shared block head ------------------------------------------- */
@@ -35,7 +35,7 @@
 .hero__eyebrow { display: flex; flex-wrap: wrap; gap: 14px 28px; align-items: center; padding-bottom: clamp(18px, 4vw, 40px); border-bottom: 1px solid var(--line); }
 .hero__eyebrow .mono--accent { color: var(--blue); }
 
-/* available-for-work status pill — fixed green, independent of accent */
+/* available-for-work status pill, fixed green, independent of accent */
 .hero__eyebrow .mono--accent.hero__status { color: var(--available); }
 .hero__status { display: inline-flex; align-items: center; gap: 8px; padding: 6px 13px 6px 11px; border-radius: 999px; border: 1px solid color-mix(in srgb, var(--available) 48%, transparent); background: color-mix(in srgb, var(--available) 12%, transparent); line-height: 1; }
 .hero__status-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--available); flex: none; box-shadow: 0 0 0 0 color-mix(in srgb, var(--available) 70%, transparent); animation: heroStatusPulse 2.4s ease-out infinite; }
@@ -61,7 +61,7 @@
 .hero__scrollcue { display: flex; align-items: center; gap: 12px; padding: 0 var(--pad) 16px; color: var(--ink-3); }
 .hero__scrollcue-line { flex: 1; max-width: 120px; height: 1px; background: var(--line-2); }
 
-/* ===== hero marquee — capabilities + tools, auto-scrolling ============== */
+/* ===== hero marquee, capabilities + tools, auto-scrolling ============== */
 .hmq { display: flex; flex-direction: column; gap: clamp(12px, 1.4vw, 18px); overflow: hidden; padding: 8px 0;
   -webkit-mask: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
           mask: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent); }
@@ -86,17 +86,17 @@ html[data-theme="light"] .hmq-tool img.hmq-logo[src*="notion"] { filter: none; }
 .hmq-ailead { display: inline-flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: clamp(11px, 1.2vw, 14px); letter-spacing: .12em; text-transform: uppercase; color: var(--accent); border: 1px solid color-mix(in srgb, var(--accent) 45%, transparent); background: color-mix(in srgb, var(--accent) 12%, transparent); padding: 7px 14px; border-radius: 999px; white-space: nowrap; }
 .hmq-ailead__spark { font-size: .95em; }
 
-/* ---- variant: AI-FIRST (default) — AI tools highlighted, badge shown ---- */
+/* ---- variant: AI-FIRST (default), AI tools highlighted, badge shown ---- */
 html:not([data-marquee]) .hmq-ailead, html[data-marquee="aifirst"] .hmq-ailead { display: inline-flex; }
 html[data-marquee="dual"] .hmq-ailead, html[data-marquee="chips"] .hmq-ailead { display: none; }
 
 html:not([data-marquee]) .hmq-tool.is-ai .hmq-tool__ai, html[data-marquee="aifirst"] .hmq-tool.is-ai .hmq-tool__ai {
   display: inline-block; font-family: var(--mono); font-size: 9px; letter-spacing: .1em; color: var(--accent); margin-left: 3px; }
 
-/* ---- variant: DUAL — plain two-rail, AI gets a subtle accent dot -------- */
+/* ---- variant: DUAL, plain two-rail, AI gets a subtle accent dot -------- */
 html[data-marquee="dual"] .hmq-tool.is-ai .hmq-tool__name { color: var(--accent); }
 
-/* ---- variant: CHIPS — everything boxed, AI not specially highlighted ---- */
+/* ---- variant: CHIPS, everything boxed, AI not specially highlighted ---- */
 html[data-marquee="chips"] .hmq-cap,
 html[data-marquee="chips"] .hmq-tool {
   border: 1px solid var(--line-2); border-radius: 999px; padding: 8px 15px; background: var(--surface); }
@@ -225,7 +225,7 @@ html[data-marquee="chips"] .hmq-tool.is-ai .hmq-tool__ai { display: none; }
 }
 .hero__avatar-tipline::before { content: '✳ '; color: var(--accent); }
 
-/* ===== variant: REVEAL (default) — spinning rings + tooltip ===== */
+/* ===== variant: REVEAL (default), spinning rings + tooltip ===== */
 html[data-avhover="reveal"] .hero__avatar:hover .hero__avatar-ring,
 html[data-avhover="reveal"] .hero__avatar:focus-visible .hero__avatar-ring,
 html[data-avhover="fusion"] .hero__avatar:hover .hero__avatar-ring,
@@ -243,7 +243,7 @@ html[data-avhover="fusiontip"] .hero__avatar:focus-visible .hero__avatar-ring--2
   animation: spinRing 14s linear infinite reverse;
 }
 
-/* ===== variant: SPOTLIGHT — soft glow halo + bigger zoom + tooltip ===== */
+/* ===== variant: SPOTLIGHT, soft glow halo + bigger zoom + tooltip ===== */
 html[data-avhover="spotlight"] .hero__avatar-img,
 html[data-avhover="fusionglow"] .hero__avatar-img { transition: filter .5s var(--ease), transform .6s var(--ease), box-shadow .5s var(--ease); }
 html[data-avhover="spotlight"] .hero__avatar:hover .hero__avatar-img,
@@ -254,7 +254,7 @@ html[data-avhover="fusionglow"] .hero__avatar:focus-visible .hero__avatar-img {
   box-shadow: 0 0 0 4px var(--bg), 0 0 0 5px color-mix(in srgb, var(--accent) 55%, transparent), 0 18px 60px color-mix(in srgb, var(--accent) 45%, transparent);
 }
 
-/* ===== variant: DUOTONE — accent color wash + chromatic nudge + tooltip ===== */
+/* ===== variant: DUOTONE, accent color wash + chromatic nudge + tooltip ===== */
 html[data-avhover="duotone"] .hero__avatar:hover .hero__avatar-img,
 html[data-avhover="duotone"] .hero__avatar:focus-visible .hero__avatar-img {
   filter: grayscale(1) contrast(1.25) brightness(1.05);
@@ -263,7 +263,7 @@ html[data-avhover="duotone"] .hero__avatar:focus-visible .hero__avatar-img {
 html[data-avhover="duotone"] .hero__avatar:hover .hero__avatar-duo,
 html[data-avhover="duotone"] .hero__avatar:focus-visible .hero__avatar-duo { opacity: 0.85; }
 
-/* ===== variant: ORBIT (+ all FUSION variants) — rotating circular text ===== */
+/* ===== variant: ORBIT (+ all FUSION variants), rotating circular text ===== */
 html[data-avhover="orbit"] .hero__avatar:hover .hero__avatar-orbit,
 html[data-avhover="orbit"] .hero__avatar:focus-visible .hero__avatar-orbit,
 html[data-avhover="fusion"] .hero__avatar:hover .hero__avatar-orbit,
@@ -284,7 +284,7 @@ html[data-avhover="fusiontip"] .hero__avatar-ring--2 { inset: -31px; }
 html[data-avhover="fusion"] .hero__avatar-orbit,
 html[data-avhover="fusiontip"] .hero__avatar-orbit { inset: -40px; width: calc(100% + 80px); height: calc(100% + 80px); }
 
-/* tooltip reveal — every variant except Orbit / Fusion / Fusion Glow / Comic ===== */
+/* tooltip reveal, every variant except Orbit / Fusion / Fusion Glow / Comic ===== */
 html:not([data-avhover="orbit"]):not([data-avhover="fusion"]):not([data-avhover="fusionglow"]):not([data-avhover="comic"]) .hero__avatar:hover .hero__avatar-tip,
 html:not([data-avhover="orbit"]):not([data-avhover="fusion"]):not([data-avhover="fusionglow"]):not([data-avhover="comic"]) .hero__avatar:focus-visible .hero__avatar-tip {
   opacity: 1; transform: translateX(-50%) translateY(0);
@@ -296,7 +296,7 @@ html:not([data-avhover="orbit"]):not([data-avhover="fusion"]):not([data-avhover=
 .hero__avatar:hover .hero__avatar-tipline:nth-child(3) { transition-delay: .22s; }
 @media (max-width: 600px) { .hero__avatar-tip { white-space: normal; max-width: 220px; } }
 
-/* ===== variant: COMIC — roles burst out as outlined speech bubbles ===== */
+/* ===== variant: COMIC, roles burst out as outlined speech bubbles ===== */
 .hero__avatar-comic { position: absolute; inset: 0; pointer-events: none; z-index: 5; }
 .hero__comic-bubble {
   --bub: #ffffff; --txt: #0b0b0c;
@@ -355,7 +355,7 @@ html[data-taglayout="leftstack"] .hero__comic-bubble--1 { top: 4%; }
 html[data-taglayout="leftstack"] .hero__comic-bubble--2 { top: 42%; }
 html[data-taglayout="leftstack"] .hero__comic-bubble--3 { top: 80%; }
 
-/* Clock: spread around — top-right, left-middle, bottom-right */
+/* Clock: spread around, top-right, left-middle, bottom-right */
 html[data-taglayout="clock"] .hero__comic-bubble--1 { --tx: 0; left: 44%; right: auto; top: auto; bottom: calc(100% + 6px); transform-origin: 0% 120%; }
 html[data-taglayout="clock"] .hero__comic-bubble--2 { --tx: 0; right: calc(100% + 12px); left: auto; top: 42%; bottom: auto; transform-origin: 100% 50%; }
 html[data-taglayout="clock"] .hero__comic-bubble--3 { --tx: 0; left: 44%; right: auto; top: calc(100% - 4px); bottom: auto; transform-origin: 0% -30%; }
@@ -367,6 +367,15 @@ html[data-taglayout="scatter"] .hero__comic-bubble--3 { --tx: 0; right: 36%; lef
 
 /* keep bubbles tucked away unless the comic variant is active */
 html:not([data-avhover="comic"]) .hero__avatar-comic { display: none; }
+/* comic bubbles are a desktop hover delight, never on touch (they overflow the screen) */
+@media (hover: none) { .hero__avatar-comic { display: none !important; } }
+
+/* ---- mobile hero polish: controlled avatar, clean stacking ---- */
+@media (max-width: 640px) {
+  .hero__namerow { display: flex; flex-direction: column; align-items: flex-start; gap: 20px; }
+  .hero__avatar { position: static; transform: none; margin: 4px 0 0; width: 138px; height: 138px; }
+  .hero__avatar-ring, .hero__avatar-ring--2, .hero__avatar-orbit, .hero__avatar-tip { display: none; }
+}
 
 /* ---------- WORK --------------------------------------------------------- */
 .work { padding-bottom: clamp(20px, 4vw, 40px); }
@@ -449,7 +458,7 @@ html:not([data-avhover="comic"]) .hero__avatar-comic { display: none; }
 .workrow__peek .slot { height: 100%; border-color: var(--pk); }
 .workrow:hover .workrow__peek { opacity: 1; transform: translateY(-50%) scale(1) rotate(-2deg); }
 
-/* ===== CoffeeHouse hover fan — 3 phones, cursor parallax ================= */
+/* ===== CoffeeHouse hover fan, 3 phones, cursor parallax ================= */
 .workrow__fan {
   position: absolute; right: 17%; top: 50%; width: 0; height: 0;
   pointer-events: none; z-index: 6;
@@ -509,7 +518,7 @@ html:not([data-avhover="comic"]) .hero__avatar-comic { display: none; }
 .about__body { font-size: clamp(15px, 1.25vw, 18px); color: var(--ink-2); line-height: 1.6; max-width: 56ch; margin-bottom: 16px; }
 .about__pix { color: var(--yellow-ink); font-size: 1.05em; }
 
-/* Rocky mantra — editorial pull quote */
+/* Rocky mantra, editorial pull quote */
 .about__mantra { position: relative; margin: 34px 0 0; padding-top: 28px; border-top: 1px solid var(--line); max-width: 58ch; }
 .about__mantra-eyebrow { display: block; margin-bottom: 16px; }
 .about__mantra-quote {
@@ -596,3 +605,98 @@ html:not([data-avhover="comic"]) .hero__avatar-comic { display: none; }
 .case__nextsub { font-family: var(--mono); font-size: 13px; color: var(--ink-3); }
 .case__nextarr { font-size: clamp(40px, 6vw, 80px); transition: transform .4s var(--ease); }
 .case__next:hover .case__nextarr { transform: translateX(16px); color: var(--accent); }
+
+/* =========================================================================
+   CASE SECTION NAV, floating jump-to-section menu
+   ========================================================================= */
+.csnav { position: fixed; left: clamp(14px, 2vw, 30px); bottom: clamp(14px, 2vw, 30px); z-index: 95; font-family: var(--display); }
+
+.csnav__toggle {
+  position: relative; z-index: 2;
+  display: inline-flex; align-items: center; gap: 10px;
+  background: var(--surface); border: 1px solid var(--line-2); border-radius: 999px;
+  padding: 10px 15px; cursor: pointer; color: var(--ink);
+  box-shadow: 0 14px 34px rgba(0,0,0,.34); max-width: min(70vw, 280px);
+  transition: border-color .25s var(--ease), transform .25s var(--ease);
+}
+.csnav__toggle:hover { border-color: var(--accent); transform: translateY(-1px); }
+.csnav__bars { display: inline-flex; flex-direction: column; gap: 3px; flex: none; }
+.csnav__bars i { width: 15px; height: 2px; border-radius: 2px; background: var(--accent); display: block; transition: transform .3s var(--ease); }
+.csnav.is-open .csnav__bars i:nth-child(1) { transform: translateY(5px) rotate(45deg); }
+.csnav.is-open .csnav__bars i:nth-child(2) { opacity: 0; }
+.csnav.is-open .csnav__bars i:nth-child(3) { transform: translateY(-5px) rotate(-45deg); }
+.csnav__current { font-weight: 600; font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-transform: capitalize; }
+.csnav__count { font-size: 11px; color: var(--ink-3); flex: none; letter-spacing: .02em; }
+
+.csnav__panel {
+  position: absolute; left: 0; bottom: calc(100% + 12px); width: 256px; z-index: 3;
+  background: var(--surface); border: 1px solid var(--line-2); border-radius: 15px;
+  padding: 9px; box-shadow: 0 26px 64px rgba(0,0,0,.5);
+  opacity: 0; transform: translateY(12px) scale(.97); transform-origin: bottom left;
+  pointer-events: none; transition: opacity .26s var(--ease), transform .26s var(--ease);
+  max-height: min(72vh, 560px); display: flex; flex-direction: column;
+}
+.csnav.is-open .csnav__panel { opacity: 1; transform: none; pointer-events: auto; }
+.csnav__head { font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: var(--ink-3); padding: 8px 12px 11px; flex: none; }
+.csnav__list { overflow-y: auto; display: flex; flex-direction: column; gap: 2px; scrollbar-width: thin; scrollbar-color: var(--line-2) transparent; }
+.csnav__list::-webkit-scrollbar { width: 7px; }
+.csnav__list::-webkit-scrollbar-thumb { background: var(--line-2); border-radius: 7px; }
+.csnav__item {
+  position: relative; display: flex; align-items: center; gap: 12px; width: 100%;
+  text-align: left; background: none; border: none; border-radius: 9px;
+  padding: 11px 13px 11px 16px; cursor: pointer; color: var(--ink-3);
+  transition: background .2s var(--ease), color .2s var(--ease);
+}
+.csnav__item:hover { background: var(--bg-2); color: var(--ink); }
+.csnav__bar { position: absolute; left: 6px; top: 50%; width: 3px; height: 64%; border-radius: 3px; background: var(--accent); transform: translateY(-50%) scaleY(0); transform-origin: center; transition: transform .22s var(--ease); }
+.csnav__item.is-active { background: var(--bg-2); color: var(--ink); font-weight: 600; }
+.csnav__item.is-active .csnav__bar { transform: translateY(-50%) scaleY(1); }
+.csnav__num { display: none; flex: none; font-size: 10.5px; color: var(--ink-4); width: 18px; letter-spacing: 0; }
+.csnav__lbl { flex: 1; min-width: 0; font-size: 13.5px; letter-spacing: -.005em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-transform: capitalize; }
+
+/* --- variant: NUMBERED, 01/02 indices, editorial --- */
+html[data-csnav="numbered"] .csnav__num { display: block; }
+html[data-csnav="numbered"] .csnav__item.is-active .csnav__num { color: var(--accent); }
+html[data-csnav="numbered"] .csnav__bar { display: none; }
+html[data-csnav="numbered"] .csnav__item { padding-left: 13px; }
+html[data-csnav="numbered"] .csnav__item.is-active { background: var(--bg-2); }
+
+/* --- variant: FILLED, active row fully painted in the accent --- */
+html[data-csnav="filled"] .csnav__bar { display: none; }
+html[data-csnav="filled"] .csnav__item { padding-left: 13px; }
+html[data-csnav="filled"] .csnav__item.is-active { background: var(--accent); color: #fff; font-weight: 600; }
+html[data-csnav="filled"] .csnav__item.is-active .csnav__lbl { color: #fff; }
+
+/* --- variant: TICKS, minimal; active marked by an accent dot, no fill --- */
+html[data-csnav="ticks"] .csnav__bar { left: 8px; top: 50%; width: 7px; height: 7px; border-radius: 50%; transform: translateY(-50%) scale(0); }
+html[data-csnav="ticks"] .csnav__item { padding-left: 26px; border-radius: 7px; }
+html[data-csnav="ticks"] .csnav__item.is-active { background: none; color: var(--ink); font-weight: 600; }
+html[data-csnav="ticks"] .csnav__item:hover { background: var(--bg-2); }
+html[data-csnav="ticks"] .csnav__item.is-active .csnav__bar { transform: translateY(-50%) scale(1); }
+
+.csnav__scrim { position: fixed; inset: 0; z-index: 0; background: transparent; border: none; opacity: 0; pointer-events: none; cursor: default; }
+.csnav.is-open .csnav__scrim { pointer-events: auto; }
+
+@media print { .csnav { display: none; } }
+
+/* =========================================================================
+   MENU SHELL VARIANTS (data-csnavshell): pill | fab | rail | topbar
+   ========================================================================= */
+/* --- FAB: compact circular launcher --- */
+html[data-csnavshell="fab"] .csnav__current, html[data-csnavshell="fab"] .csnav__count { display: none; }
+html[data-csnavshell="fab"] .csnav__toggle { width: 54px; height: 54px; padding: 0; justify-content: center; border-radius: 50%; }
+
+/* --- RAIL: always-visible vertical dock on the left edge --- */
+@media (min-width: 1180px) {
+  html[data-csnavshell="rail"] .csnav { left: clamp(16px, 2.2vw, 40px); top: 50%; bottom: auto; transform: translateY(-50%); }
+  html[data-csnavshell="rail"] .csnav__toggle { display: none; }
+  html[data-csnavshell="rail"] .csnav__scrim { display: none; }
+  html[data-csnavshell="rail"] .csnav__panel { position: static; opacity: 1 !important; transform: none !important; pointer-events: auto !important; width: 210px; box-shadow: 0 22px 54px rgba(0,0,0,.4); max-height: 76vh; }
+}
+
+/* --- TOPBAR: slim sticky bar under the nav --- */
+html[data-csnavshell="topbar"] .csnav { left: 0; right: 0; top: 54px; bottom: auto; width: 100%; }
+html[data-csnavshell="topbar"] .csnav__toggle { width: 100%; max-width: none; border-radius: 0; border-left: none; border-right: none; box-shadow: 0 6px 18px rgba(0,0,0,.18); background: color-mix(in srgb, var(--surface) 92%, transparent); backdrop-filter: blur(8px); justify-content: flex-start; padding: 13px clamp(16px,4vw,40px); }
+html[data-csnavshell="topbar"] .csnav__count { margin-left: auto; }
+html[data-csnavshell="topbar"] .csnav__panel { bottom: auto; top: calc(100% + 1px); left: clamp(16px,4vw,40px); transform-origin: top left; transform: translateY(-10px) scale(.98); }
+html[data-csnavshell="topbar"].is-open .csnav__panel, html[data-csnavshell="topbar"] .csnav.is-open .csnav__panel { transform: none; }

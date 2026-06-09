@@ -1,4 +1,4 @@
-/* GREENSTAND — Roots live component gallery (GSKit)
+/* GREENSTAND, Roots live component gallery (GSKit)
    Real, natively-rendered design-system components with a tab switcher.
    Shared into window for the case study to mount. */
 
@@ -57,7 +57,7 @@ function GSKit() {
         {tab === 0 && (
           <div className="gsk__panel">
             <div className="gsk__group">
-              <span className="gsk__gl">Primary scale — one green, ten steps (replacing 7+ ad-hoc greens)</span>
+              <span className="gsk__gl">Primary scale, one green, ten steps (replacing 7+ ad-hoc greens)</span>
               <div className="gsk-scale">
                 {GS_SCALE.map(([n, bg, fg]) => (
                   <span key={n} className="gsk-scale__c" style={{ background: bg, color: fg }}>{n}</span>
@@ -77,7 +77,7 @@ function GSKit() {
               </div>
             </div>
             <div className="gsk__group">
-              <span className="gsk__gl">Type scale — one family, clear hierarchy</span>
+              <span className="gsk__gl">Type scale, one family, clear hierarchy</span>
               <div className="gsk-type">
                 {GS_TYPE.map(([k, sz, sample, w]) => (
                   <div key={k} className="gsk-type__row">
@@ -93,7 +93,7 @@ function GSKit() {
         {tab === 1 && (
           <div className="gsk__panel">
             <div className="gsk__group">
-              <span className="gsk__gl">Buttons — unified from fragmented variants across both apps</span>
+              <span className="gsk__gl">Buttons, unified from fragmented variants across both apps</span>
               <div className="gsk__row">
                 <GsBtn variant="primary">Plant a tree</GsBtn>
                 <GsBtn variant="secondary">View map</GsBtn>
@@ -136,7 +136,7 @@ function GSKit() {
                 </div>
               </div>
               <div className="gsk__group">
-                <span className="gsk__gl">Card — TreeTracker grower</span>
+                <span className="gsk__gl">Card, TreeTracker grower</span>
                 <div className="gscard">
                   <div className="gscard__media"><span className="gscard__badge">Verified plot</span></div>
                   <div className="gscard__body">
@@ -185,7 +185,7 @@ function GSKit() {
               </div>
             </div>
             <div className="gsk__group">
-              <span className="gsk__gl">WCAG AA contrast — verified, not assumed</span>
+              <span className="gsk__gl">WCAG AA contrast, verified, not assumed</span>
               <div className="gsk-aa">
                 <div className="gsk-aa__c" style={{ background: 'var(--gs-600)', color: '#fff' }}>
                   <span className="gsk-aa__t">White on gs-600</span>

@@ -3,7 +3,7 @@
 function About({ profile, reviews }) {
   const facts = [
     ['05', 'Years designing products'],
-    ['03', 'Disciplines — systems, web, mobile'],
+    ['03', 'Disciplines, systems, web, mobile'],
     ['∞', 'Pixels sweated'],
   ];
   return (
@@ -21,12 +21,12 @@ function About({ profile, reviews }) {
           <Reveal className="about__lead">
             <p className="about__statement">
               I’m a product designer who believes the best work
-              <em> disappears</em> — you don’t notice the design, you just
+              <em> disappears</em>, you don’t notice the design, you just
               get what you came for.
             </p>
             <p className="about__body">
               Over five years I’ve worked across design systems, marketing sites
-              and mobile products — for non-profits scaling globally, B2B
+              and mobile products, for non-profits scaling globally, B2B
               marketplaces chasing clarity, and consumer apps fighting for the
               morning rush. I like the messy middle: turning a vague problem and
               a wall of constraints into something that feels obvious in hindsight.
@@ -41,7 +41,7 @@ function About({ profile, reviews }) {
               <blockquote className="about__mantra-quote">
                 It ain’t about how hard you hit. It’s about how hard you can get hit and keep moving forward; how much you can take and keep moving forward. That’s how winning is done!
               </blockquote>
-              <figcaption className="about__mantra-cite">— Rocky Balboa</figcaption>
+              <figcaption className="about__mantra-cite">, Rocky Balboa</figcaption>
             </figure>
           </Reveal>
 
@@ -60,7 +60,7 @@ function About({ profile, reviews }) {
 
         {/* approach pills */}
         <div className="about__approach">
-          <span className="mono mono--ink" style={{ marginRight: 8 }}>How I work —</span>
+          <span className="mono mono--ink" style={{ marginRight: 8 }}>How I work,</span>
           {['Systems thinking', 'Research-led', 'Prototype to decide', 'Ship & measure', 'Sweat the type'].map((t, i) => (
             <span className="pill" key={i}>{t}</span>
           ))}
@@ -81,7 +81,7 @@ function About({ profile, reviews }) {
                 <p className="quote__text">{r.quote}</p>
                 <div className="quote__by">
                   <span className="quote__name">{r.name}</span>
-                  <span className="mono">{r.role} — {r.company}</span>
+                  <span className="mono">{r.role}, {r.company}</span>
                 </div>
               </Reveal>
             ))}

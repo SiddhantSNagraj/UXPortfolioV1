@@ -1,4 +1,4 @@
-/* SLACK — "Reimagined" concept / playground case study.
+/* SLACK, "Reimagined" concept / playground case study.
    Self-initiated mobile redesign. Real wireframe → hi-fi process pulled from
    the Figma file. Honestly framed: a craft + POV piece, no client, no metrics. */
 
@@ -6,7 +6,7 @@ const { useEffect: useEffectSL } = React;
 
 const SL = {
   problems: [
-    ['Clutter', 'Too much packed into every screen — the eye never gets to rest.'],
+    ['Clutter', 'Too much packed into every screen, the eye never gets to rest.'],
     ['Overwhelming', 'New users meet a wall of channels, threads and menus all at once.'],
     ['Complex', 'Core actions hide behind nested menus and long-press gestures.'],
     ['Unorganized', 'DMs, channels, saved items and people each follow a different mental model.'],
@@ -33,17 +33,17 @@ const SL = {
     ['hi-you.png', '07', 'You · profile'],
   ],
   decisions: [
-    ['Bottom tab bar', 'The biggest fix. Five core destinations — Home, DM’s, Search, Flags, You — sit in a persistent bottom bar, so the whole app is one tap away instead of buried behind a hamburger menu.'],
+    ['Bottom tab bar', 'The biggest fix. Five core destinations, Home, DM’s, Search, Flags, You, sit in a persistent bottom bar, so the whole app is one tap away instead of buried behind a hamburger menu.'],
     ['One calm dark surface', 'A single, consistent dark theme with generous spacing and a clear type hierarchy. The screen finally has room to breathe, and the eye knows where to land.'],
-    ['A real search hub', 'Search gets its own tab — Browse People, Channels and Workspaces — so finding something stops being a treasure hunt through menus.'],
+    ['A real search hub', 'Search gets its own tab, Browse People, Channels and Workspaces, so finding something stops being a treasure hunt through menus.'],
     ['Flagged, in one place', 'Saved people and channels collected under a single Flags tab, so the things you actually care about aren’t scattered across the app.'],
     ['A cleaner workspace switcher', 'Hopping between Mavericks, Apple, Nike and the rest becomes a calm, logo-led list instead of a cramped rail of tiny squares.'],
-    ['Restrained accent', 'Slack’s yellow anchors just one job — the New Chat action and key CTAs — while pink and green unread badges carry only enough colour to signal what truly needs you.'],
+    ['Restrained accent', 'Slack’s yellow anchors just one job, the New Chat action and key CTAs, while pink and green unread badges carry only enough colour to signal what truly needs you.'],
   ],
   nextSteps: [
     ['Test the navigation model', 'The bottom bar is my bet that flattening navigation helps. I’d run a first-click and tree-test to confirm people genuinely find things faster.'],
     ['Pressure-test at scale', 'My concept uses a handful of channels and workspaces. I’d validate the hierarchy holds up for power users living in dozens of each.'],
-    ['Respect the muscle memory', 'Millions know today’s Slack cold. I’d study which changes truly help versus which just break familiarity — and earn each one.'],
+    ['Respect the muscle memory', 'Millions know today’s Slack cold. I’d study which changes truly help versus which just break familiarity, and earn each one.'],
   ],
 };
 
@@ -54,6 +54,7 @@ function SlackCase({ project, projects, onOpen, onHome }) {
 
   return (
     <article className="case sl">
+      <CaseSectionNav sectionSelector=".sl-sec, .sl-band" />
       {/* ---------- HERO ---------- */}
       <section className="case__hero">
         <div className="wrap">
@@ -63,9 +64,9 @@ function SlackCase({ project, projects, onOpen, onHome }) {
             <span className="sl-ribbon"><span className="sl-ribbon__dot" />Concept · Self-initiated</span>
             <span className="mono">2026</span>
           </div>
-          <h1 className="case__title display">Slack, Reimagined</h1>
-          <p className="case__subtitle">A self-initiated mobile redesign — clearer navigation, calmer UI</p>
-          <p className="case__blurb">No brief, no client, no metrics — just a designer scratching an itch. I’ve always found Slack <strong>confusing to navigate</strong>, so I redesigned the mobile app end to end: from problem framing and lo-fi wireframes to a full hi-fi system built on one idea — make the things that matter easy to reach.</p>
+          <h1 className="case__title display">Slack</h1>
+          <p className="case__subtitle">Reimagined, a self-initiated mobile redesign for clearer navigation &amp; calmer UI</p>
+          <p className="case__blurb">No brief, no client, no metrics, just a designer scratching an itch. I’ve always found Slack <strong>confusing to navigate</strong>, so I redesigned the mobile app end to end: from problem framing and lo-fi wireframes to a full hi-fi system built on one idea, make the things that matter easy to reach.</p>
           <div className="case__meta">
             {[['Type', 'Concept · Playground'], ['Focus', 'Mobile navigation & UI'], ['Platform', 'iOS · dark mode'], ['Tools', 'Figma']].map(([k, v]) => (
               <div className="case__metacell" key={k}>
@@ -74,7 +75,7 @@ function SlackCase({ project, projects, onOpen, onHome }) {
               </div>
             ))}
           </div>
-          <p className="sl-disclaimer">An independent concept made for practice — not affiliated with, endorsed by, or commissioned by Slack. All trademarks belong to their owners.</p>
+          <p className="sl-disclaimer">An independent concept made for practice, not affiliated with, endorsed by, or commissioned by Slack. All trademarks belong to their owners.</p>
         </div>
       </section>
 
@@ -101,7 +102,7 @@ function SlackCase({ project, projects, onOpen, onHome }) {
         <div className="sl-sec__label"><span className="pixel" style={{ color: 'var(--sl-lilac)' }}>00</span><span className="mono">The itch</span></div>
         <div className="sl-sec__body">
           <h2 className="sl-h2">Why I bothered</h2>
-          <p className="sl-lead">Slack is built for the way teams work — but as a collaborative tool, it lives or dies on efficiency, clarity and feel. It’s the app I spend my day in and the one I fight with most. This wasn’t a research project; it was me trusting a gut feeling enough to design through it. I started by naming what actually makes it feel harder than it should.</p>
+          <p className="sl-lead">Slack is built for the way teams work, but as a collaborative tool, it lives or dies on efficiency, clarity and feel. It’s the app I spend my day in and the one I fight with most. This wasn’t a research project; it was me trusting a gut feeling enough to design through it. I started by naming what actually makes it feel harder than it should.</p>
           <div className="sl-probtags">
             {SL.problems.map(([t]) => (
               <span className="sl-probtag" key={t}><span className="sl-probtag__x">✕</span>{t}</span>
@@ -123,7 +124,7 @@ function SlackCase({ project, projects, onOpen, onHome }) {
       <section className="sl-band">
         <div className="wrap">
           <span className="mono mono--plum">( My point of view )</span>
-          <p className="sl-statement">A workspace should make the <em>next thing you need</em> the easiest thing to reach — everything else can wait <em>quietly</em>.</p>
+          <p className="sl-statement">A workspace should make the <em>next thing you need</em> the easiest thing to reach, everything else can wait <em>quietly</em>.</p>
         </div>
       </section>
 
@@ -132,7 +133,7 @@ function SlackCase({ project, projects, onOpen, onHome }) {
         <div className="sl-sec__label"><span className="pixel" style={{ color: 'var(--sl-lilac)' }}>01</span><span className="mono">Wireframes</span></div>
         <div className="sl-sec__body">
           <h2 className="sl-h2">Structure first, in lo-fi</h2>
-          <p className="sl-lead">Before any colour or polish, I sketched the whole flow in lo-fi — sign-in, onboarding, and the core screens — to lock the navigation model and hierarchy while they were still cheap to change.</p>
+          <p className="sl-lead">Before any colour or polish, I sketched the whole flow in lo-fi, sign-in, onboarding, and the core screens, to lock the navigation model and hierarchy while they were still cheap to change.</p>
           <div className="sl-phonegrid">
             {SL.wireframes.map(([src, label], i) => (
               <Reveal key={i} className="sl-phone sl-phone--wf" delay={`d${(i % 4) + 1}`}>
@@ -149,11 +150,11 @@ function SlackCase({ project, projects, onOpen, onHome }) {
         <div className="sl-sec__label"><span className="pixel" style={{ color: 'var(--sl-lilac)' }}>02</span><span className="mono">The redesign</span></div>
         <div className="sl-sec__body">
           <h2 className="sl-h2">Same Slack, fewer decisions per glance</h2>
-          <p className="sl-lead">I kept what people know — the aubergine, the channel model, the rhythm of conversation — and spent my energy on hierarchy and navigation: what floats up, what tucks away, and where colour earns its place.</p>
+          <p className="sl-lead">I kept what people know, the aubergine, the channel model, the rhythm of conversation, and spent my energy on hierarchy and navigation: what floats up, what tucks away, and where colour earns its place.</p>
           <div className="sl-phonegrid">
             {SL.hifi.map(([src, n, label], i) => (
               <Reveal key={i} className="sl-phone" delay={`d${(i % 4) + 1}`}>
-                <div className="sl-phone__scr"><img src={`assets/slack/${src}`} alt={`${label} — redesigned screen`} loading="lazy" /></div>
+                <div className="sl-phone__scr"><img src={`assets/slack/${src}`} alt={`${label}, redesigned screen`} loading="lazy" /></div>
                 <div className="sl-phone__cap"><span className="sl-phone__n">{n}</span><span className="sl-phone__t">{label}</span></div>
               </Reveal>
             ))}

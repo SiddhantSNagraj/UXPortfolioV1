@@ -1,4 +1,4 @@
-/* HOME — hero + work index */
+/* HOME, hero + work index */
 
 const { useState: useStateH, useEffect: useEffectH, useRef: useRefH } = React;
 
@@ -42,7 +42,7 @@ function Hero({ projects, onOpen }) {
     <header className="hero" ref={heroRef}>
       <div className="hero__head wrap">
         <div className="hero__eyebrow">
-          <span className="mono mono--ink">( Portfolio — 2026 )</span>
+          <span className="mono mono--ink">( Portfolio, 2026 )</span>
           <span className="mono">5 Years · Product Design</span>
           <span className="mono mono--accent hero__status"><span className="hero__status-dot" />Available for work</span>
         </div>
@@ -85,7 +85,7 @@ function Hero({ projects, onOpen }) {
         <div className="hero__sub">
           <div className="hero__role display">Product&nbsp;Designer</div>
           <p className="hero__phil">
-            <span className="mono mono--yellow">✳</span> Creating experiences <em>people like</em> — systems,
+            <span className="mono mono--yellow">✳</span> Creating experiences <em>people like</em>, systems,
             sites &amp; products built with clarity, taste, and a little obsession.
           </p>
         </div>
@@ -103,12 +103,12 @@ function Hero({ projects, onOpen }) {
   );
 }
 
-/* ---- APMC PEEK — flat-screen treatments using the husky logo ------------
+/* ---- APMC PEEK, flat-screen treatments using the husky logo ------------
    Controlled by <html data-apmchover="display|panel|poster">. */
 function ApmcPeek() {
   return (
     <span className="workrow__apmc" aria-hidden="true">
-      {/* A — flat-screen monitor on a slim stand */}
+      {/* A, flat-screen monitor on a slim stand */}
       <span className="apk apk--display">
         <span className="apk-mon">
           <span className="apk-mon__screen">
@@ -119,7 +119,7 @@ function ApmcPeek() {
         </span>
       </span>
 
-      {/* B — minimal floating panel (no stand) */}
+      {/* B, minimal floating panel (no stand) */}
       <span className="apk apk--panel">
         <span className="apk-panel">
           <img src="assets/apmc/husky-wide.png" alt="" />
@@ -130,7 +130,7 @@ function ApmcPeek() {
         </span>
       </span>
 
-      {/* C — graphic poster: cut-out husky on a brand panel */}
+      {/* C, graphic poster: cut-out husky on a brand panel */}
       <span className="apk apk--poster">
         <span className="apk-poster">
           <img src="assets/apmc/husky-cut.png" alt="" />
@@ -142,14 +142,14 @@ function ApmcPeek() {
   );
 }
 
-/* ---- GREENSTAND PEEK — switchable hover treatments ----------------------
+/* ---- GREENSTAND PEEK, switchable hover treatments ----------------------
    Controlled by <html data-gshover="board|scatter|grid|tokens"> (default board). */
 const GS_TOKENS = ['var(--gs-200)', 'var(--gs-300)', 'var(--gs-400)', 'var(--gs-500)', 'var(--gs-600)', 'var(--gs-700)', 'var(--gs-800)'];
 
 function GreenstandPeek() {
   return (
     <span className="workrow__gs" aria-hidden="true">
-      {/* A — mini component board (default) */}
+      {/* A, mini component board (default) */}
       <span className="gspk gspk--board">
         <span className="gsp-board">
           <span className="gsp-hd">
@@ -171,7 +171,7 @@ function GreenstandPeek() {
         </span>
       </span>
 
-      {/* B — scatter: individual components pop in around the centre */}
+      {/* B, scatter: individual components pop in around the centre */}
       <span className="gspk gspk--scatter">
         <span className="gss gss--btn gss--1">Plant a tree</span>
         <span className="gss gss--field gss--2"><span className="ph">Grower name</span><span className="car" /></span>
@@ -185,7 +185,7 @@ function GreenstandPeek() {
         <span className="gss gss--chip gss--5">Mapped</span>
       </span>
 
-      {/* C — Storybook tile grid */}
+      {/* C, Storybook tile grid */}
       <span className="gspk gspk--grid">
         <span className="gsg">
           <span className="gsg__hd">
@@ -201,7 +201,7 @@ function GreenstandPeek() {
         </span>
       </span>
 
-      {/* D — palette-forward token card */}
+      {/* D, palette-forward token card */}
       <span className="gspk gspk--tokens">
         <span className="gst">
           <span className="gst__hd">
@@ -226,7 +226,7 @@ function GreenstandPeek() {
   );
 }
 
-/* ---- SLACK PEEK — iPhone-mockup fan (distinct from Coffee's bloom) ----- */
+/* ---- SLACK PEEK, iPhone-mockup fan (distinct from Coffee's bloom) ----- */
 const SLACK_FAN = [
   ['assets/slack/hi-dms.png', 'Direct Messages'],
   ['assets/slack/hi-home.png', 'Home'],
@@ -286,7 +286,7 @@ function WorkIndex({ projects, onOpen }) {
             <span className="mono mono--accent">( Selected Work )</span>
             <h2 className="block-head__title display">Things I’ve<br />shipped</h2>
           </div>
-          <span className="mono block-head__count">{String(projects.length).padStart(2, '0')} — Projects</span>
+          <span className="mono block-head__count">{String(projects.length).padStart(2, '0')}, Projects</span>
         </div>
 
         <div className="worklist" onMouseLeave={() => setHovered(null)}>

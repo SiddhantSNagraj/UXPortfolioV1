@@ -1,4 +1,4 @@
-/* HERO MARQUEE — auto-scrolling "AI-first capabilities + tools" band.
+/* HERO MARQUEE, auto-scrolling "AI-first capabilities + tools" band.
    Two counter-scrolling rows. Variant via <html data-marquee>:
      aifirst (default) · dual · chips
    Exported to window for home.jsx's Hero to mount. */
@@ -72,7 +72,7 @@ const TL = {
   ),
 };
 
-/* AI tools lead the line — reinforces the AI-first positioning */
+/* AI tools lead the line, reinforces the AI-first positioning */
 const HMQ_TOOLS = [
   ['Claude', true], ['Cursor', true], ['Google Antigravity', true],
   ['Figma', false], ['FigJam', false], ['Framer', false],

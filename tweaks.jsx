@@ -1,4 +1,4 @@
-/* TWEAKS — accent, highlight, background tone, hero pixel style */
+/* TWEAKS, accent, highlight, background tone, hero pixel style */
 
 const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
   "accent": "#2b6fff",
@@ -12,6 +12,8 @@ const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
   "gsHover": "Tokens",
   "gsFlow": "Solid",
   "slHero": "Trio",
+  "navStyle": "Panel",
+  "navShell": "Pill",
   "marquee": "Chips",
   "artifact": "Sticky",
   "rowHover": "Swipe",
@@ -47,8 +49,14 @@ const GS_HOVER = { 'Board': 'board', 'Scatter': 'scatter', 'Grid': 'grid', 'Toke
 // Greenstand user-flow diagram style.
 const GS_FLOW = { 'Solid': 'solid', 'Blueprint': 'blueprint' };
 
-// Slack hero showpiece — iPhone mockup arrangement.
+// Slack hero showpiece, iPhone mockup arrangement.
 const SL_HERO = { 'Trio': 'trio', 'Fan': 'fan', 'Stagger': 'stagger' };
+
+// Case-study section menu design.
+const NAV_STYLES = { 'Panel': 'panel', 'Numbered': 'numbered', 'Filled': 'filled', 'Ticks': 'ticks' };
+
+// Case-study section menu shell (overall launcher form).
+const NAV_SHELLS = { 'Pill': 'pill', 'FAB': 'fab', 'Top bar': 'topbar', 'Rail': 'rail' };
 
 // Hero capabilities-and-tools marquee layout.
 const MARQUEE = { 'AI-first': 'aifirst', 'Dual rail': 'dual', 'Chips': 'chips' };
@@ -65,13 +73,13 @@ const NOTE_COLORS = { 'Classic': 'classic', 'Warm': 'warm', 'Cool': 'cool', 'Bol
 // Work list row hover aesthetic.
 const ROW_HOVER = { 'Fill': 'fill', 'Swipe': 'swipe', 'Frame': 'frame', 'Marker': 'marker', 'Glow': 'glow', 'Brush': 'brush' };
 
-// Color schemes — each a hand-tuned dark+light palette (see schemes.css).
+// Color schemes, each a hand-tuned dark+light palette (see schemes.css).
 const SCHEMES = {
-  'Ink': 'ink',           // warm charcoal & bone — editorial neutral
-  'Espresso': 'espresso', // roasted brown & cream — cozy
+  'Ink': 'ink',           // warm charcoal & bone, editorial neutral
+  'Espresso': 'espresso', // roasted brown & cream, cozy
   'Dusk': 'dusk',         // blue-violet night & lavender morning
-  'Forest': 'forest',     // deep pine & sage — organic
-  'Rosewood': 'rosewood', // aubergine & blush — moody
+  'Forest': 'forest',     // deep pine & sage, organic
+  'Rosewood': 'rosewood', // aubergine & blush, moody
 };
 
 const BG_TONES = {
@@ -116,6 +124,8 @@ function TweaksUI() {
     document.documentElement.setAttribute('data-gshover', GS_HOVER[t.gsHover] || 'board');
     document.documentElement.setAttribute('data-flowstyle', GS_FLOW[t.gsFlow] || 'solid');
     document.documentElement.setAttribute('data-slhero', SL_HERO[t.slHero] || 'trio');
+    document.documentElement.setAttribute('data-csnav', NAV_STYLES[t.navStyle] || 'panel');
+    document.documentElement.setAttribute('data-csnavshell', NAV_SHELLS[t.navShell] || 'pill');
     document.documentElement.setAttribute('data-marquee', MARQUEE[t.marquee] || 'chips');
     document.documentElement.setAttribute('data-artifact', ARTIFACT_STYLES[t.artifact] || 'sticky');
     document.documentElement.setAttribute('data-rowhover', ROW_HOVER[t.rowHover] || 'fill');
@@ -150,6 +160,12 @@ function TweaksUI() {
       <TweakSelect label="Slack hero" value={t.slHero}
         options={Object.keys(SL_HERO)}
         onChange={(v) => setTweak('slHero', v)} />
+      <TweakSelect label="Section menu" value={t.navStyle}
+        options={Object.keys(NAV_STYLES)}
+        onChange={(v) => setTweak('navStyle', v)} />
+      <TweakSelect label="Menu shell" value={t.navShell}
+        options={Object.keys(NAV_SHELLS)}
+        onChange={(v) => setTweak('navShell', v)} />
       <TweakSelect label="Hero marquee" value={t.marquee}
         options={Object.keys(MARQUEE)}
         onChange={(v) => setTweak('marquee', v)} />
