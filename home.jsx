@@ -56,7 +56,7 @@ function Hero({ projects, onOpen }) {
           <div className="hero__avatar" tabIndex={0} aria-label="Siddhant Nagraj">
             <span className="hero__avatar-ring" aria-hidden="true"></span>
             <span className="hero__avatar-ring hero__avatar-ring--2" aria-hidden="true"></span>
-            <img className="hero__avatar-img" src="assets/siddhant.png" alt="Siddhant Nagraj" />
+            <img className="hero__avatar-img" src="assets/siddhant-opt.png" alt="Siddhant Nagraj" />
             <span className="hero__avatar-duo" aria-hidden="true"></span>
             <span className="hero__avatar-dot" aria-hidden="true"></span>
             <svg className="hero__avatar-orbit" viewBox="0 0 100 100" aria-hidden="true">
