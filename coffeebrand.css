@@ -87,7 +87,7 @@
 .sg__swatches { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(10px, 1.4vw, 18px); }
 @media (max-width: 560px) { .sg__swatches { grid-template-columns: repeat(2, 1fr); } }
 .sg__sw-card { display: flex; flex-direction: column; gap: 8px; }
-.sg__chip { aspect-ratio: 1; border-radius: 12px; display: flex; align-items: center; justify-content: center; padding: 22%; }
+.sg__chip { aspect-ratio: 1; max-height: 180px; border-radius: 12px; display: flex; align-items: center; justify-content: center; padding: 22%; }
 .sg__bean { width: 100%; height: 100%; }
 .sg__hex { font-family: var(--mono); font-size: 12px; font-weight: 700; color: var(--ch-navy); }
 .sg__role { font-family: 'Kanit', var(--display); font-size: 11px; color: #8a8a8a; }

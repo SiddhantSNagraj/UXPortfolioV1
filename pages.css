@@ -372,9 +372,17 @@ html:not([data-avhover="comic"]) .hero__avatar-comic { display: none; }
 
 /* ---- mobile hero polish: controlled avatar, clean stacking ---- */
 @media (max-width: 640px) {
-  .hero__namerow { display: flex; flex-direction: column; align-items: flex-start; gap: 20px; }
-  .hero__avatar { position: static; transform: none; margin: 4px 0 0; width: 138px; height: 138px; }
-  .hero__avatar-ring, .hero__avatar-ring--2, .hero__avatar-orbit, .hero__avatar-tip { display: none; }
+  .hero { padding-top: clamp(84px, 14vh, 120px); }
+  .hero__eyebrow { padding-bottom: clamp(14px, 3vw, 24px); gap: 10px 20px; }
+  .hero__namerow { display: flex; flex-direction: column; align-items: flex-start; gap: 16px; margin-top: clamp(14px, 3vw, 24px); }
+  .hero__avatar { position: static !important; transform: none !important; margin: 2px 0 0 !important;
+    width: 128px !important; height: 128px !important; aspect-ratio: 1; border-radius: 50%; }
+  .hero__avatar-ring, .hero__avatar-ring--2, .hero__avatar-orbit, .hero__avatar-tip,
+  .hero__avatar-dot, .hero__avatar-duo { display: none !important; }
+  .hero__avatar-img { border-radius: 50%; }
+}
+@media (hover: none) {
+  .hero__avatar-bubble, .hero__avatar-comic, [class*="hero__avatar-bubble"] { display: none !important; }
 }
 
 /* ---------- WORK --------------------------------------------------------- */
