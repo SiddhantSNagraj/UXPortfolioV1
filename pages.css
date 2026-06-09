@@ -124,11 +124,12 @@ html[data-marquee="chips"] .hmq-tool.is-ai .hmq-tool__ai { display: none; }
   right: clamp(0px, 3vw, 56px);
   top: 50%;
   transform: translateY(-50%);
-  flex: none;
-  width: clamp(160px, 17.5vw, 290px);
-  height: clamp(160px, 17.5vw, 290px);
+  flex: 0 0 auto;
+  align-self: flex-start;
+  width: clamp(120px, 17.5vw, 290px);
+  height: auto;
   aspect-ratio: 1 / 1;
-  max-width: 290px;
+  max-width: min(290px, 64vw);
   border-radius: 50%;
   cursor: pointer;
   outline: none;
@@ -136,9 +137,9 @@ html[data-marquee="chips"] .hmq-tool.is-ai .hmq-tool__ai { display: none; }
   z-index: 4;
 }
 @media (max-width: 900px) {
-  .hero__namerow { display: flex; flex-direction: column; align-items: flex-start; gap: 22px; flex-wrap: wrap; }
+  .hero__namerow { display: flex; flex-direction: column; align-items: flex-start; gap: 22px; }
   .hero__avatar { position: static; transform: none; margin-top: clamp(16px, 4vw, 30px);
-    width: 132px; height: 132px; aspect-ratio: 1 / 1; align-self: flex-start; flex: 0 0 auto; }
+    width: 130px; height: auto; }
 }
 .hero__avatar-img {
   position: absolute; inset: 0;
@@ -378,7 +379,7 @@ html:not([data-avhover="comic"]) .hero__avatar-comic { display: none; }
   .hero { padding-top: clamp(84px, 14vh, 120px); }
   .hero__eyebrow { padding-bottom: clamp(14px, 3vw, 24px); gap: 10px 20px; }
   .hero__namerow { gap: 16px; margin-top: clamp(14px, 3vw, 24px); }
-  .hero__avatar { width: 122px !important; height: 122px !important; aspect-ratio: 1 / 1 !important;
+  .hero__avatar { width: 120px !important; height: auto !important; aspect-ratio: 1 / 1 !important;
     margin: 2px 0 0 !important; align-self: flex-start !important; }
   .hero__avatar-ring, .hero__avatar-ring--2, .hero__avatar-orbit, .hero__avatar-tip,
   .hero__avatar-dot, .hero__avatar-duo { display: none !important; }
