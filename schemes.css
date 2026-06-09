@@ -1,0 +1,77 @@
+/* =========================================================================
+   COLOR SCHEMES — each is a hand-tuned pairing of a DARK and LIGHT palette.
+   Driven by data-scheme on <html>; data-theme="light" picks the light half.
+   Neutrals only (bg / surface / ink / lines) — the blue+yellow accents stay
+   independently tweakable. Every value carries a gentle material cast so the
+   site reads "human" rather than pure #000/#fff digital.
+   ========================================================================= */
+
+/* ---------- INK · warm charcoal dark + Espresso cream light ---------- */
+html[data-scheme="ink"] {
+  --bg: #0b0b0c; --bg-2: #111113; --surface: #161618; --surface-2: #1d1d20;
+  --line: rgba(255,255,255,0.10); --line-2: rgba(255,255,255,0.18);
+  --ink: #f2f1ec; --ink-2: #b9b8b2; --ink-3: #75746f; --ink-4: #4a4a47;
+  --slot-stripe: rgba(255,255,255,0.035); --scrim: 11,11,12;
+}
+html[data-scheme="ink"][data-theme="light"] {
+  --bg: #f4ecdd; --bg-2: #ece0cd; --surface: #fffaf2; --surface-2: #f1e7d6;
+  --line: rgba(58,38,16,0.13); --line-2: rgba(58,38,16,0.27);
+  --ink: #271a0d; --ink-2: #5b4836; --ink-3: #8a7860; --ink-4: #b8a88f;
+  --slot-stripe: rgba(58,38,16,0.05); --scrim: 244,236,221;
+}
+
+/* ---------- ESPRESSO · roasted brown-black & cream paper ---------- */
+html[data-scheme="espresso"] {
+  --bg: #100b07; --bg-2: #17100a; --surface: #1e160d; --surface-2: #281d12;
+  --line: rgba(255,228,196,0.10); --line-2: rgba(255,228,196,0.19);
+  --ink: #f4ece0; --ink-2: #c5b6a2; --ink-3: #8d7c67; --ink-4: #5b4d3c;
+  --slot-stripe: rgba(255,228,196,0.045); --scrim: 16,11,7;
+}
+html[data-scheme="espresso"][data-theme="light"] {
+  --bg: #f4ecdd; --bg-2: #ece0cd; --surface: #fffaf2; --surface-2: #f1e7d6;
+  --line: rgba(58,38,16,0.13); --line-2: rgba(58,38,16,0.27);
+  --ink: #271a0d; --ink-2: #5b4836; --ink-3: #8a7860; --ink-4: #b8a88f;
+  --slot-stripe: rgba(58,38,16,0.05); --scrim: 244,236,221;
+}
+
+/* ---------- DUSK · blue-violet night & soft lavender morning ---------- */
+html[data-scheme="dusk"] {
+  --bg: #0a0b12; --bg-2: #0f1019; --surface: #161827; --surface-2: #1d2032;
+  --line: rgba(198,204,255,0.10); --line-2: rgba(198,204,255,0.18);
+  --ink: #ecebf4; --ink-2: #b2b1c6; --ink-3: #74748c; --ink-4: #494a5f;
+  --slot-stripe: rgba(198,204,255,0.04); --scrim: 10,11,18;
+}
+html[data-scheme="dusk"][data-theme="light"] {
+  --bg: #eeedf6; --bg-2: #e4e3ef; --surface: #ffffff; --surface-2: #eae9f3;
+  --line: rgba(28,26,50,0.12); --line-2: rgba(28,26,50,0.26);
+  --ink: #15141f; --ink-2: #45445a; --ink-3: #73728a; --ink-4: #a8a6ba;
+  --slot-stripe: rgba(28,26,50,0.05); --scrim: 238,237,246;
+}
+
+/* ---------- FOREST · deep pine & sage paper (organic) ---------- */
+html[data-scheme="forest"] {
+  --bg: #080d0a; --bg-2: #0d1410; --surface: #121c15; --surface-2: #18251c;
+  --line: rgba(196,255,218,0.09); --line-2: rgba(196,255,218,0.17);
+  --ink: #e9f0ea; --ink-2: #adbcb2; --ink-3: #6f8076; --ink-4: #45524a;
+  --slot-stripe: rgba(196,255,218,0.035); --scrim: 8,13,10;
+}
+html[data-scheme="forest"][data-theme="light"] {
+  --bg: #eef1ea; --bg-2: #e3e9dd; --surface: #fbfdf8; --surface-2: #e9efe2;
+  --line: rgba(18,40,24,0.12); --line-2: rgba(18,40,24,0.26);
+  --ink: #101a13; --ink-2: #415146; --ink-3: #6f8076; --ink-4: #a3b0a6;
+  --slot-stripe: rgba(18,40,24,0.05); --scrim: 238,241,234;
+}
+
+/* ---------- ROSEWOOD · aubergine & blush (moody) ---------- */
+html[data-scheme="rosewood"] {
+  --bg: #0f090c; --bg-2: #160d11; --surface: #1d1218; --surface-2: #26181f;
+  --line: rgba(255,205,220,0.10); --line-2: rgba(255,205,220,0.18);
+  --ink: #f1e9eb; --ink-2: #c1abb3; --ink-3: #8a7077; --ink-4: #5a444c;
+  --slot-stripe: rgba(255,205,220,0.04); --scrim: 15,9,12;
+}
+html[data-scheme="rosewood"][data-theme="light"] {
+  --bg: #f4ecee; --bg-2: #ecdde1; --surface: #fff8fa; --surface-2: #f1e2e6;
+  --line: rgba(58,18,33,0.13); --line-2: rgba(58,18,33,0.27);
+  --ink: #1f0f15; --ink-2: #563a42; --ink-3: #8a6c74; --ink-4: #b89aa2;
+  --slot-stripe: rgba(58,18,33,0.05); --scrim: 244,236,238;
+}
