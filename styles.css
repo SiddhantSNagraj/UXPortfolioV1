@@ -89,13 +89,65 @@ img { display: block; max-width: 100%; }
    TYPE PRIMITIVES
    ========================================================================= */
 
+/* =========================================================================
+   CUSTOM CURSOR (data-cursor: off | invert | label)
+   ========================================================================= */
+html[data-cursor="invert"] .curx, html[data-cursor="label"] .curx {
+  position: fixed; top: 0; left: 0; z-index: 9999; pointer-events: none;
+  margin: -9px 0 0 -9px; transition: opacity .25s var(--ease);
+}
+.curx { display: none; }
+html[data-cursor="invert"].curx-on, html[data-cursor="label"].curx-on { cursor: none; }
+html[data-cursor="invert"].curx-on a, html[data-cursor="invert"].curx-on button,
+html[data-cursor="label"].curx-on a, html[data-cursor="label"].curx-on button,
+html[data-cursor="invert"].curx-on .workrow, html[data-cursor="label"].curx-on .workrow { cursor: none; }
+
+.curx__dot { display: block; width: 32px; height: 32px; border-radius: 50%; margin: -7px 0 0 -7px; }
+.curx__label { display: none; }
+
+/* -- invert variant -- */
+html[data-cursor="invert"] .curx { display: block; }
+html[data-cursor="invert"] .curx__dot {
+  background: #fff; mix-blend-mode: difference;
+  transition: width .25s var(--ease), height .25s var(--ease), margin .25s var(--ease);
+}
+html[data-cursor="invert"].curx-hot .curx__dot { width: 60px; height: 60px; margin: -21px 0 0 -21px; }
+html[data-cursor="invert"].curx-down .curx__dot { width: 24px; height: 24px; margin: -3px 0 0 -3px; }
+
+/* -- label variant -- */
+html[data-cursor="label"] .curx { display: block; }
+html[data-cursor="label"] .curx__dot {
+  background: var(--ink); width: 14px; height: 14px; margin: -5px 0 0 -5px; transition: transform .2s var(--ease), opacity .2s var(--ease);
+}
+html[data-cursor="label"].curx-hot .curx__dot { transform: scale(1.7); }
+html[data-cursor="label"].curx-row .curx__dot { opacity: 0; }
+html[data-cursor="label"] .curx__label {
+  position: absolute; top: -2px; left: -2px; transform: translateY(8px) scale(.9);
+  display: inline-flex; align-items: center; gap: 6px; white-space: nowrap;
+  background: var(--ink); color: var(--bg); font-family: var(--mono); font-size: 11px;
+  letter-spacing: .06em; text-transform: uppercase; padding: 8px 14px; border-radius: 999px;
+  opacity: 0; transition: opacity .22s var(--ease), transform .22s var(--ease);
+  box-shadow: 0 10px 30px rgba(0,0,0,.4);
+}
+html[data-cursor="label"] .curx__label em { font-style: normal; }
+html[data-cursor="label"].curx-row .curx__label { opacity: 1; transform: translateY(8px) scale(1); }
+
+@media (hover: none) { .curx { display: none !important; } html[data-cursor] { cursor: auto; } }
+
+/* =========================================================================
+   CASE STUDY SCROLL PROGRESS BAR
+   ========================================================================= */
+.caseprog { position: fixed; top: 0; left: 0; right: 0; height: 3px; z-index: 98; background: transparent; pointer-events: none; }
+.caseprog__fill { height: 100%; width: 0; background: var(--accent); transform-origin: left; transition: width .1s linear; }
+@media print { .caseprog, .curx { display: none !important; } }
+
 .mono {
   font-family: var(--mono);
-  font-weight: 400;
-  font-size: 11px;
-  letter-spacing: 0.14em;
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--ink-3);
+  color: var(--ink-2);
 }
 .mono--ink { color: var(--ink-2); }
 .mono--accent { color: var(--accent); }

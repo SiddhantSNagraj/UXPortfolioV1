@@ -42,7 +42,7 @@ function Hero({ projects, onOpen }) {
     <header className="hero" ref={heroRef}>
       <div className="hero__head wrap">
         <div className="hero__eyebrow">
-          <span className="mono mono--ink">( Portfolio, 2026 )</span>
+          <span className="mono mono--ink" id="hero-greeting">( Hello )</span>
           <span className="mono">5 Years · Product Design</span>
           <span className="mono mono--accent hero__status"><span className="hero__status-dot" />Available for work</span>
         </div>

@@ -46,7 +46,7 @@ function About({ profile, reviews }) {
           </Reveal>
 
           <div className="about__side">
-            <Slot img="assets/siddhant.png" alt="Siddhant Nagraj" corner="ME" objectPosition="50% 25%" style={{ aspectRatio: '4/5' }} />
+            <Slot img="assets/siddhant-about.jpg" alt="Siddhant Nagraj" corner="ME" objectPosition="50% 32%" style={{ aspectRatio: '4/5' }} />
             <div className="about__facts">
               {facts.map(([n, l], i) => (
                 <Reveal key={i} className="fact" delay={`d${i + 1}`}>

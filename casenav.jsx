@@ -58,6 +58,39 @@ function CaseSectionNav({ sectionSelector }) {
     return () => window.removeEventListener('keydown', onKey);
   }, []);
 
+  // reading time (computed once from the article) + top scroll-progress bar
+  const [mins, setMins] = useStateCN(0);
+  useEffectCN(() => {
+    const article = document.querySelector('.case');
+    if (article) {
+      const words = (article.innerText || '').trim().split(/\s+/).length;
+      setMins(Math.max(1, Math.round(words / 200)));
+    }
+    const bar = document.createElement('div');
+    bar.className = 'caseprog';
+    const fill = document.createElement('div');
+    fill.className = 'caseprog__fill';
+    bar.appendChild(fill);
+    document.body.appendChild(bar);
+    let raf = 0;
+    const update = () => {
+      raf = 0;
+      const doc = document.documentElement;
+      const max = doc.scrollHeight - window.innerHeight;
+      fill.style.width = (max > 0 ? (window.scrollY / max) * 100 : 0) + '%';
+    };
+    const onScroll = () => { if (!raf) raf = requestAnimationFrame(update); };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    update();
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+      if (raf) cancelAnimationFrame(raf);
+      bar.remove();
+    };
+  }, [sectionSelector]);
+
   const jump = (s) => {
     setOpen(false);
     const targetTop = () => s.el.getBoundingClientRect().top + window.scrollY - 74;
@@ -82,7 +115,7 @@ function CaseSectionNav({ sectionSelector }) {
     <div className={`csnav ${open ? 'is-open' : ''}`}>
       <button className="csnav__scrim" aria-label="Close section menu" tabIndex={-1} onClick={() => setOpen(false)} />
       <div className="csnav__panel" role="menu" aria-label="Jump to section">
-        <div className="csnav__head mono">Sections</div>
+        <div className="csnav__head mono">Sections{mins ? ` · ${mins} min read` : ''}</div>
         <div className="csnav__list">
           {sections.map((s, i) => (
             <button
