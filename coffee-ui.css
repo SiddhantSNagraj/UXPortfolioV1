@@ -190,7 +190,7 @@
 .cc-flowrow { display: grid; grid-template-columns: minmax(0, 0.85fr) 1fr; gap: clamp(28px, 5vw, 80px); align-items: center; padding: clamp(20px, 3vw, 40px) 0; }
 .cc-flowrow__media { min-width: 0; }
 .cc-flowrow--flip .cc-flowrow__media { order: 2; }
-@media (max-width: 1024px) { .cc-flowrow, .cc-flowrow--flip { grid-template-columns: 1fr; gap: 32px; } .cc-flowrow--flip .cc-flowrow__media { order: 0; } .cc-flowrow__desc { order: 0; } .cc-flowrow__media { order: 1; } }
+@media (max-width: 1024px) { .cc-flowrow, .cc-flowrow--flip { grid-template-columns: 1fr; gap: 32px; } .cc-flowrow__desc, .cc-flowrow--flip .cc-flowrow__desc { order: 0; } .cc-flowrow__media, .cc-flowrow--flip .cc-flowrow__media { order: 1; } }
 
 .cc-flowrow__desc .cc-flow__no { font-size: 30px; }
 .cc-flowrow__kicker { display: flex; align-items: baseline; gap: 14px; margin-bottom: 18px; }
