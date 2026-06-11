@@ -311,7 +311,7 @@ html[data-cursor="label"].curx-row .curx__label { opacity: 1; transform: transla
 }
 .themetog__ico svg { display: block; }
 .themetog__ico--moon { left: 6px; color: var(--ink-3); }
-.themetog__ico--sun  { right: 4px; color: var(--ink-3); }
+.themetog__ico--sun  { right: 3px; color: var(--ink-3); }
 /* the active side's icon brightens */
 .themetog:not(.is-light) .themetog__ico--moon { color: var(--ink); }
 .themetog.is-light .themetog__ico--sun { color: var(--yellow-ink); }
