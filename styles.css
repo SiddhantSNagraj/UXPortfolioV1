@@ -289,20 +289,47 @@ html[data-cursor="label"].curx-row .curx__label { opacity: 1; transform: transla
   .nav__links { gap: 0; }
   .nav__theme { padding: 6px 12px 6px 10px; font-size: 11px; gap: 6px; }
 }
+/* mobile nav theme toggle keeps its size; no override needed */
 
 /* nav scrim (non blend) variant used on case study */
 .nav--solid { mix-blend-mode: normal; color: var(--ink); background: linear-gradient(180deg, rgba(var(--scrim),0.9), rgba(var(--scrim),0)); backdrop-filter: blur(6px); }
 
-/* theme toggle */
-.nav__theme {
-  display: inline-flex; align-items: center; gap: 8px;
-  font-family: var(--mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase;
-  padding: 6px 13px 6px 11px;
-  border: 1px solid currentColor; border-radius: 999px;
-  opacity: 0.85; transition: opacity .3s var(--ease);
+/* theme toggle — rolling sun/moon, outline style */
+.themetog {
+  position: relative; flex: none;
+  width: 60px; height: 30px; border-radius: 999px;
+  border: 1.5px solid var(--ink-3); background: transparent;
+  cursor: pointer; padding: 0; transition: border-color .4s var(--ease);
+  display: inline-flex; align-items: center;
 }
-.nav__theme:hover { opacity: 1; }
-.nav__themedot { width: 9px; height: 9px; border-radius: 50%; background: var(--yellow); box-shadow: 0 0 0 1px currentColor inset; }
+.themetog:hover { border-color: var(--ink-2); }
+.themetog__ico {
+  position: absolute; top: 50%; transform: translateY(-50%); z-index: 1;
+  width: 14px; height: 14px; line-height: 0;
+  display: inline-flex; align-items: center; justify-content: center;
+  transition: color .35s var(--ease), opacity .35s var(--ease);
+}
+.themetog__ico svg { display: block; }
+.themetog__ico--moon { left: 8px; color: var(--ink-3); }
+.themetog__ico--sun  { right: 7px; color: var(--ink-3); }
+/* the active side's icon brightens */
+.themetog:not(.is-light) .themetog__ico--moon { color: var(--ink); }
+.themetog.is-light .themetog__ico--sun { color: var(--yellow-ink); }
+
+.themetog__knob {
+  position: absolute; top: 50%; left: 3px; z-index: 2;
+  width: 22px; height: 22px; border-radius: 50%;
+  background: transparent; border: 2px solid var(--ink);
+  transform: translateY(-50%) translateX(0) rotate(0deg);
+  transition: transform .5s cubic-bezier(.5,.05,.2,1.05), border-color .4s var(--ease);
+}
+.themetog.is-light .themetog__knob {
+  transform: translateY(-50%) translateX(30px) rotate(360deg);
+}
+@media (max-width: 720px) {
+  .themetog { width: 56px; height: 28px; }
+  .themetog.is-light .themetog__knob { transform: translateY(-50%) translateX(27px) rotate(360deg); }
+}
 
 /* =========================================================================
    FOOTER / CONTACT

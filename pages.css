@@ -31,7 +31,15 @@
 
 /* ---------- HERO --------------------------------------------------------- */
 .hero { position: relative; min-height: 100vh; display: flex; flex-direction: column; justify-content: space-between; padding-top: clamp(108px, 21vh, 250px); overflow: hidden; }
-.hero__head { will-change: transform, opacity; }
+.hero__bg { position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+.hero__bg canvas { position: absolute; inset: 0; opacity: .9; }
+.hero__head, .hero__namerow, .hero__statementrow { position: relative; z-index: 1; }
+/* hide canvas unless constellation is active */
+html:not([data-herobg="constellation"]) .hero__bg canvas { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  html[data-herobg="constellation"] .hero__bg canvas { opacity: .5; }
+}
 .hero__eyebrow { display: flex; flex-wrap: wrap; gap: 14px 28px; align-items: center; padding-bottom: clamp(18px, 4vw, 40px); border-bottom: 1px solid var(--line); }
 .hero__eyebrow .mono--accent { color: var(--blue); }
 

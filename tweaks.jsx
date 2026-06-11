@@ -14,6 +14,7 @@ const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
   "slHero": "Trio",
   "navStyle": "Panel",
   "cursorStyle": "Label",
+  "heroBg": "None",
   "navShell": "Pill",
   "marquee": "Chips",
   "artifact": "Sticky",
@@ -58,6 +59,9 @@ const NAV_STYLES = { 'Panel': 'panel', 'Numbered': 'numbered', 'Filled': 'filled
 
 // Custom cursor style.
 const CURSOR_STYLES = { 'Off': 'off', 'Invert': 'invert', 'Label': 'label' };
+
+// Hero background animation.
+const HERO_BG = { 'None': 'none', 'Constellation': 'constellation' };
 
 // Case-study section menu shell (overall launcher form).
 const NAV_SHELLS = { 'Pill': 'pill', 'FAB': 'fab', 'Top bar': 'topbar', 'Rail': 'rail' };
@@ -130,6 +134,7 @@ function TweaksUI() {
     document.documentElement.setAttribute('data-slhero', SL_HERO[t.slHero] || 'trio');
     document.documentElement.setAttribute('data-csnav', NAV_STYLES[t.navStyle] || 'panel');
     document.documentElement.setAttribute('data-cursor', CURSOR_STYLES[t.cursorStyle] || 'off');
+    document.documentElement.setAttribute('data-herobg', HERO_BG[t.heroBg] || 'none');
     document.documentElement.setAttribute('data-csnavshell', NAV_SHELLS[t.navShell] || 'pill');
     document.documentElement.setAttribute('data-marquee', MARQUEE[t.marquee] || 'chips');
     document.documentElement.setAttribute('data-artifact', ARTIFACT_STYLES[t.artifact] || 'sticky');
@@ -171,6 +176,9 @@ function TweaksUI() {
       <TweakSelect label="Custom cursor" value={t.cursorStyle}
         options={Object.keys(CURSOR_STYLES)}
         onChange={(v) => setTweak('cursorStyle', v)} />
+      <TweakSelect label="Hero background" value={t.heroBg}
+        options={Object.keys(HERO_BG)}
+        onChange={(v) => setTweak('heroBg', v)} />
       <TweakSelect label="Menu shell" value={t.navShell}
         options={Object.keys(NAV_SHELLS)}
         onChange={(v) => setTweak('navShell', v)} />

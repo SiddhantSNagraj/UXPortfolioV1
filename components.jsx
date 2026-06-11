@@ -48,9 +48,14 @@ function TopNav({ onNav, active, solid, theme, onToggleTheme, resumeUrl }) {
         <a className={`nav__link hide-sm ${active === 'about' ? 'is-active' : ''}`} onClick={() => onNav('home', 'about')}>About</a>
         <a className="nav__link hide-sm" onClick={() => onNav('home', 'contact')}>Contact</a>
         {resumeUrl ? <a className="nav__link" href={resumeUrl} target="_blank" rel="noopener noreferrer">Resume ↓</a> : null}
-        <button className="nav__theme" onClick={onToggleTheme} aria-label="Toggle light or dark mode" title="Toggle theme">
-          <span className="nav__themedot" />
-          {theme === 'light' ? 'Dark' : 'Light'}
+        <button className={`themetog ${theme === 'light' ? 'is-light' : ''}`} onClick={onToggleTheme} aria-label="Toggle light or dark mode" title="Toggle theme" role="switch" aria-checked={theme === 'light'}>
+          <span className="themetog__ico themetog__ico--moon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="13" height="13"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" fill="currentColor"/></svg>
+          </span>
+          <span className="themetog__ico themetog__ico--sun" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="13" height="13"><circle cx="12" cy="12" r="4.2" fill="currentColor"/><g stroke="currentColor" strokeWidth="1.7" strokeLinecap="round"><line x1="12" y1="2.5" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="21.5"/><line x1="2.5" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="21.5" y2="12"/><line x1="5.2" y1="5.2" x2="6.9" y2="6.9"/><line x1="17.1" y1="17.1" x2="18.8" y2="18.8"/><line x1="5.2" y1="18.8" x2="6.9" y2="17.1"/><line x1="17.1" y1="6.9" x2="18.8" y2="5.2"/></g></svg>
+          </span>
+          <span className="themetog__knob" aria-hidden="true" />
         </button>
       </div>
     </nav>

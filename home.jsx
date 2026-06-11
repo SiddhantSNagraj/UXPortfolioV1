@@ -40,6 +40,7 @@ function Hero({ projects, onOpen }) {
 
   return (
     <header className="hero" ref={heroRef}>
+      <div className="hero__bg" aria-hidden="true"><canvas id="hero-canvas"></canvas></div>
       <div className="hero__head wrap">
         <div className="hero__eyebrow">
           <span className="mono mono--ink" id="hero-greeting">( Hello )</span>
