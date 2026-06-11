@@ -310,8 +310,8 @@ html[data-cursor="label"].curx-row .curx__label { opacity: 1; transform: transla
   transition: color .35s var(--ease), opacity .35s var(--ease);
 }
 .themetog__ico svg { display: block; }
-.themetog__ico--moon { left: 8px; color: var(--ink-3); }
-.themetog__ico--sun  { right: 7px; color: var(--ink-3); }
+.themetog__ico--moon { left: 6px; color: var(--ink-3); }
+.themetog__ico--sun  { right: 4px; color: var(--ink-3); }
 /* the active side's icon brightens */
 .themetog:not(.is-light) .themetog__ico--moon { color: var(--ink); }
 .themetog.is-light .themetog__ico--sun { color: var(--yellow-ink); }
@@ -324,7 +324,7 @@ html[data-cursor="label"].curx-row .curx__label { opacity: 1; transform: transla
   transition: transform .5s cubic-bezier(.5,.05,.2,1.05), border-color .4s var(--ease);
 }
 .themetog.is-light .themetog__knob {
-  transform: translateY(-50%) translateX(30px) rotate(360deg);
+  transform: translateY(-50%) translateX(32px) rotate(360deg);
 }
 @media (max-width: 720px) {
   .themetog { width: 56px; height: 28px; }
