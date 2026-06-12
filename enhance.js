@@ -76,4 +76,31 @@
     scan();
   });
   mo.observe(root, { childList: true, subtree: true });
+
+  /* ---- 3. per-route page titles + Vercel Analytics virtual pageviews ----
+     Hash routing means Vercel's auto-tracking only ever sees "/".
+     On every hash change we update document.title and report a virtual
+     pageview so the dashboard shows /project/<id> paths. */
+  var TITLES = {
+    '': 'Siddhant Nagraj · Product Designer',
+    'project/greenstand': 'Greenstand, Roots Design System · Siddhant Nagraj',
+    'project/apmc': 'APMC Website Redesign · Siddhant Nagraj',
+    'project/coffeehouse': 'CoffeeHouse Mobile App · Siddhant Nagraj',
+    'project/slack': 'Slack, Reimagined · Siddhant Nagraj'
+  };
+  // queue stub so calls made before the insights script loads are kept
+  window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+
+  function routeChanged(isInitial) {
+    var h = location.hash.replace(/^#\/?/, '').replace(/\/+$/, '');
+    document.title = TITLES[h] || TITLES[''];
+    // initial "/" view is auto-tracked by the script; only report extra
+    // views for in-app navigation, or a deep-link landing on a case study.
+    if (!isInitial || h) {
+      var path = '/' + h;
+      try { window.va('pageview', { route: path, path: path }); } catch (e) {}
+    }
+  }
+  window.addEventListener('hashchange', function () { routeChanged(false); });
+  routeChanged(true);
 })();

@@ -701,6 +701,19 @@ html[data-csnav="ticks"] .csnav__item.is-active .csnav__bar { transform: transla
 @media print { .csnav { display: none; } }
 
 /* =========================================================================
+   CASE TL;DR — 30-second summary card under each case hero
+   ========================================================================= */
+.tldr { margin-top: clamp(26px, 4vw, 48px); }
+.tldr__card { position: relative; border: 1px solid var(--line-2); border-radius: 16px; background: var(--surface); padding: clamp(8px, 1vw, 10px); }
+.tldr__tag { position: absolute; top: -9px; left: clamp(18px, 2.4vw, 30px); background: var(--bg); padding: 0 10px; color: var(--accent); letter-spacing: .12em; }
+.tldr__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--line-2); border-radius: 10px; overflow: hidden; }
+@media (max-width: 940px) { .tldr__grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 520px) { .tldr__grid { grid-template-columns: 1fr; } }
+.tldr__cell { background: var(--surface); padding: clamp(16px, 2vw, 24px) clamp(16px, 2vw, 26px); display: flex; flex-direction: column; gap: 9px; }
+.tldr__k { color: var(--accent); font-size: 10.5px; letter-spacing: .14em; }
+.tldr__v { font-size: clamp(13.5px, 1.15vw, 15px); line-height: 1.55; color: var(--ink-2); margin: 0; text-wrap: pretty; }
+
+/* =========================================================================
    MENU SHELL VARIANTS (data-csnavshell): pill | fab | rail | topbar
    ========================================================================= */
 /* --- FAB: compact circular launcher --- */

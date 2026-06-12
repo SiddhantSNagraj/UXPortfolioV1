@@ -304,14 +304,14 @@ html[data-cursor="label"].curx-row .curx__label { opacity: 1; transform: transla
 }
 .themetog:hover { border-color: var(--ink-2); }
 .themetog__ico {
-  position: absolute; top: 50%; transform: translateY(-50%); z-index: 1;
-  width: 14px; height: 14px; line-height: 0;
-  display: inline-flex; align-items: center; justify-content: center;
+  position: absolute; top: 0; bottom: 0; z-index: 1;
+  width: 16px; line-height: 0;
+  display: grid; place-items: center;
   transition: color .35s var(--ease), opacity .35s var(--ease);
 }
-.themetog__ico svg { display: block; }
+.themetog__ico svg { display: block; width: 13px; height: 13px; }
 .themetog__ico--moon { left: 6px; color: var(--ink-3); }
-.themetog__ico--sun  { right: 3px; color: var(--ink-3); }
+.themetog__ico--sun  { right: 6px; color: var(--ink-3); }
 /* the active side's icon brightens */
 .themetog:not(.is-light) .themetog__ico--moon { color: var(--ink); }
 .themetog.is-light .themetog__ico--sun { color: var(--yellow-ink); }
@@ -324,11 +324,11 @@ html[data-cursor="label"].curx-row .curx__label { opacity: 1; transform: transla
   transition: transform .5s cubic-bezier(.5,.05,.2,1.05), border-color .4s var(--ease);
 }
 .themetog.is-light .themetog__knob {
-  transform: translateY(-50%) translateX(32px) rotate(360deg);
+  transform: translateY(-50%) translateX(29px) rotate(360deg);
 }
 @media (max-width: 720px) {
   .themetog { width: 56px; height: 28px; }
-  .themetog.is-light .themetog__knob { transform: translateY(-50%) translateX(27px) rotate(360deg); }
+  .themetog.is-light .themetog__knob { transform: translateY(-50%) translateX(25px) rotate(360deg); }
 }
 
 /* =========================================================================

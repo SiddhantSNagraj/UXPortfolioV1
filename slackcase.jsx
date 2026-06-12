@@ -79,6 +79,13 @@ function SlackCase({ project, projects, onOpen, onHome }) {
         </div>
       </section>
 
+      <CaseTLDR items={[
+        ['The itch', 'Slack\u2019s mobile navigation always felt confusing to me, so I redesigned it for fun.'],
+        ['My role', 'Self-initiated concept: solo, no brief, no client, pure craft and point of view.'],
+        ['What I made', '8 wireframes to 7 hi-fi screens, built around a bottom tab bar and one calm dark surface.'],
+        ['The honest part', 'No research claims here. I state my POV and exactly what I\u2019d validate next.'],
+      ]} />
+
       {/* ---------- HERO SHOWPIECE ---------- */}
       <section className="wrap">
         <div className="sl-hero3">

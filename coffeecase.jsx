@@ -106,6 +106,13 @@ function CoffeeCase({ project, projects, onOpen, onHome }) {
         </div>
       </section>
 
+      <CaseTLDR items={[
+        ['The problem', 'Ordering coffee still means waiting in line, fiddly customization and zero discovery.'],
+        ['My role', 'Design lead on a team of three: research, IA, the design system and usability testing.'],
+        ['What shipped', 'An end-to-end ordering app with five tested flows and a foundational design system.'],
+        ['The outcome', '+38% checkout completion, customization cut from 6 taps to 1, a 4.0 average test rating.'],
+      ]} />
+
       {/* ---------- HERO SHOWCASE: real screens in phone mockups ---------- */}
       <section className="wrap">
         <CoffeeScreens />

@@ -116,4 +116,23 @@ function Marquee({ items, speed = 36 }) {
   );
 }
 
-Object.assign(window, { Slot, Reveal, TopNav, Contact, Marquee });
+/* 30-second TL;DR card for case studies ------------------------------------ */
+function CaseTLDR({ items }) {
+  return (
+    <section className="wrap tldr" aria-label="30-second summary">
+      <div className="tldr__card">
+        <span className="tldr__tag mono">( The 30-second version )</span>
+        <div className="tldr__grid">
+          {items.map(([k, v], i) => (
+            <div className="tldr__cell" key={i}>
+              <span className="tldr__k mono">{k}</span>
+              <p className="tldr__v">{v}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+Object.assign(window, { Slot, Reveal, TopNav, Contact, Marquee, CaseTLDR });

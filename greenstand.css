@@ -186,6 +186,18 @@
 .gs-flowstep__n { font-family: var(--mono); font-size: 11px; color: var(--gs-400); flex: none; }
 .gs-flowstep__t { font-family: var(--display); font-weight: 600; font-size: 12.5px; letter-spacing: -.005em; color: var(--ink-2); line-height: 1.25; }
 
+/* annotated system row ---------------------------------------------------- */
+.gs-anno { display: grid; grid-template-columns: repeat(5, 1fr); gap: clamp(12px, 1.6vw, 22px); margin-top: 22px; }
+@media (max-width: 900px) { .gs-anno { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 560px) { .gs-anno { grid-template-columns: repeat(2, 1fr); } }
+.gs-anno__ph img { width: 100%; height: auto; display: block; filter: drop-shadow(0 16px 26px rgba(0,0,0,.36)); }
+.gs-anno__legend { list-style: none; display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px clamp(18px, 2.4vw, 32px); margin: clamp(22px, 3vw, 34px) 0 0; padding: 0; }
+@media (max-width: 680px) { .gs-anno__legend { grid-template-columns: 1fr; } }
+.gs-anno__legend li { display: flex; gap: 12px; align-items: flex-start; }
+.gs-anno__chip { flex: none; width: 21px; height: 21px; border-radius: 5px; background: var(--gs-600); color: #fff; font-family: var(--mono); font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; margin-top: 1px; }
+.gs-anno__legend b { display: block; font-family: var(--display); font-weight: 600; font-size: 14px; color: var(--ink); margin-bottom: 3px; }
+.gs-anno__legend p { font-size: 13px; line-height: 1.5; color: var(--ink-2); margin: 0; }
+
 /* ===== native User Flow diagram, transparent, themed ==================== */
 .gsflow { margin-top: 18px; overflow-x: auto; padding: 8px 2px 22px; scrollbar-width: thin; scrollbar-color: var(--line-2) transparent; }
 .gsflow__inner { display: flex; flex-direction: column; align-items: center; min-width: 660px; }

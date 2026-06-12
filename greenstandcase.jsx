@@ -65,29 +65,24 @@ const GS = {
     ['02', 'A living reference, not static specs', 'Remote, rotating volunteers can’t onboard from a PDF. I paired the Figma library with documented guidelines and a Storybook of coded components, so designers and engineers always pulled from one source of truth that stayed in sync with production.'],
     ['03', 'Governance as it scaled', 'When leadership grew the effort into a team of four, I set the contribution standards, reviewed every new addition, and ran the system like a product, so it stayed coherent and on-brand as more hands began building with it.'],
   ],
-  firstRun: [
-    ['flow-01-splash.png', '01', 'Splash'],
-    ['flow-02-tour1.png', '02', 'Onboarding · impact'],
-    ['flow-03-tour2.png', '03', 'Onboarding · wallet'],
-    ['flow-04-tour3.png', '04', 'Onboarding · exchange'],
-    ['flow-05-signup-empty.png', '05', 'Sign up, empty'],
-    ['flow-06-signup-error.png', '06', 'Inline validation'],
-    ['flow-07-signup-password.png', '07', 'Password rules'],
-    ['flow-08-signup-filled.png', '08', 'Ready to submit'],
-    ['flow-09-creating.png', '09', 'Creating account'],
-    ['flow-10-welcome.png', '10', 'Account created'],
+  anno: [
+    ['anno-1-signup.png', 'Sign-up screen with the standardized form fields and buttons annotated'],
+    ['anno-2-dashboard.png', 'Home dashboard with the token and wallet stat cards annotated'],
+    ['anno-3-wallets.png', 'Wallets screen with the reusable wallet cards annotated'],
+    ['anno-4-filters.png', 'Filters sheet with the selection controls and date inputs annotated'],
+    ['anno-5-qr.png', 'QR screen with the unified action buttons annotated'],
   ],
-  walletFlow: [
-    ['app-wallet.png', '01', 'Your wallets'],
-    ['wallet-01-empty.png', '02', 'New wallet, empty'],
-    ['wallet-02-error.png', '03', 'Unique-name error'],
-    ['wallet-03-filled.png', '04', 'Valid & ready'],
-    ['wallet-discard.png', '05', 'Discard guardrail'],
-    ['wallet-04-created.png', '06', 'Wallet created'],
+  annoLegend: [
+    ['Form fields & buttons', 'One input and one button system carries the whole sign-up, with clear labels, spacing and states.'],
+    ['Stat cards', 'Token and wallet balances lead the dashboard with a clear, consistent hierarchy.'],
+    ['Reusable wallet cards', 'The same card flexes to positive, negative and neutral values without breaking.'],
+    ['Selection controls & inputs', 'Radios and date fields pull from the same standardized interaction tokens.'],
+    ['Action buttons', 'The secondary and primary pair makes the critical path obvious at a glance.'],
   ],
-  appScreens: [
-    ['app-notifications.png', '01', 'Notifications'],
-    ['app-settings.png', '02', 'Settings'],
+  states: [
+    ['wallet-01-empty.png', '01', 'Empty, ready'],
+    ['wallet-02-error.png', '02', 'Inline validation'],
+    ['wallet-04-created.png', '03', 'Success'],
   ],
   learnings: [
     'Scaling a design system beyond a single app is a different discipline than designing one, it lives or dies on adoption.',
@@ -194,6 +189,13 @@ function GreenstandCase({ project, projects, onOpen, onHome }) {
           </div>
         </div>
       </section>
+
+      <CaseTLDR items={[
+        ['The problem', 'Two apps built in silos: 7+ greens, duplicated components, missing states and broken accessibility.'],
+        ['My role', 'Started as the only designer, built Roots from scratch, then led a team of four to ship it.'],
+        ['What shipped', '150+ token-driven components in Figma and Storybook, adopted by every engineering team.'],
+        ['The outcome', '25% less developer rework, WCAG AA across key flows, new designers onboarding in days.'],
+      ]} />
 
       {/* ---------- HERO SHOWCASE: live system at a glance ---------- */}
       <section className="wrap">
@@ -420,13 +422,24 @@ function GreenstandCase({ project, projects, onOpen, onHome }) {
           <h2 className="gs-h2">From design system to shipped screens</h2>
           <p className="gs-lead">The unified components went straight into TreeTracker and TreeTrader, improving consistency, reducing developer rework, and giving non-technical growers a clearer, calmer experience.</p>
 
-          <h3 className="gs-h3">A new user's first run</h3>
-          <p className="gs-lead gs-lead--sm">Splash to onboarding to a validated sign-up, including the empty, error, focus and loading states. One input and one button component carry the entire flow. Scroll the strip →</p>
-          <FlowStrip steps={GS.firstRun} />
+          <h3 className="gs-h3">Annotated, where the system lives in the product</h3>
+          <p className="gs-lead gs-lead--sm">Five shipped TreeTrader screens. Each marker points at a Roots component doing its job, traced in the legend below.</p>
+          <div className="gs-anno">
+            {GS.anno.map(([src, alt], i) => (
+              <Reveal key={i} className="gs-anno__ph" delay={`d${(i % 3) + 1}`}>
+                <img src={`assets/greenstand/${src}`} alt={alt} loading="lazy" />
+              </Reveal>
+            ))}
+          </div>
+          <ol className="gs-anno__legend">
+            {GS.annoLegend.map(([t, d], i) => (
+              <li key={i}><span className="gs-anno__chip">{i + 1}</span><div><b>{t}</b><p>{d}</p></div></li>
+            ))}
+          </ol>
 
-          <h3 className="gs-h3">Create a wallet, end to end</h3>
-          <p className="gs-lead gs-lead--sm">The same components compose a second flow, with inline validation, a discard guardrail and a success state, all from the system. Scroll the strip →</p>
-          <FlowStrip steps={GS.walletFlow} />
+          <h3 className="gs-h3">Every state, shipped</h3>
+          <p className="gs-lead gs-lead--sm">The state system in production: the create-wallet form empty, failing validation, and succeeding, all composed from the same components.</p>
+          <FlowStrip steps={GS.states} />
         </div>
       </section>
 

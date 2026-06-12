@@ -171,6 +171,13 @@ function ApmcCase({ project, projects, onOpen, onHome }) {
         </div>
       </section>
 
+      <CaseTLDR items={[
+        ['The problem', 'The club\u2019s event site buried schedules and CTAs, so visitors couldn\u2019t tell what Protothon was or how to join.'],
+        ['My role', 'Lead Product Designer, research through launch in 3 months, with 2 club designers and 3 engineers.'],
+        ['What shipped', 'A conversion-driven redesign built on Wix, validated with usability tests and heatmaps.'],
+        ['The outcome', '450+ sessions at launch, 700+ daily active users, still the club\u2019s live site 2 years on.'],
+      ]} />
+
       {/* CONTEXT */}
       <section className="wrap am-sec">
         <div className="am-sec__label"><span className="pixel">00</span><span className="mono">Context</span></div>
