@@ -4,6 +4,8 @@ const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
   "accent": "#2b6fff",
   "highlight": "#f7c14a",
   "heroFont": "Grotesk",
+  "heroType": "Classic",
+  "ticket": "Sunset",
   "scheme": "Ink",
   "avatarHover": "Comic",
   "tagLayout": "Clock",
@@ -62,6 +64,12 @@ const CURSOR_STYLES = { 'Off': 'off', 'Invert': 'invert', 'Label': 'label' };
 
 // Hero background animation.
 const HERO_BG = { 'None': 'none', 'Constellation': 'constellation' };
+
+// Hero name type treatment.
+const HERO_TYPE = { 'Classic': 'classic', 'Duotone': 'duotone', 'Offset': 'offset', 'Bleed': 'bleed' };
+
+// Footer "thanks for visiting" ticket micrographic.
+const TICKETS = { 'Sunset': 'sunset', 'Cobalt': 'cobalt', 'Forest': 'forest', 'Noir': 'noir', 'None': 'none' };
 
 // Case-study section menu shell (overall launcher form).
 const NAV_SHELLS = { 'Pill': 'pill', 'FAB': 'fab', 'Top bar': 'topbar', 'Rail': 'rail' };
@@ -135,6 +143,8 @@ function TweaksUI() {
     document.documentElement.setAttribute('data-csnav', NAV_STYLES[t.navStyle] || 'panel');
     document.documentElement.setAttribute('data-cursor', CURSOR_STYLES[t.cursorStyle] || 'off');
     document.documentElement.setAttribute('data-herobg', HERO_BG[t.heroBg] || 'none');
+    document.documentElement.setAttribute('data-herotype', HERO_TYPE[t.heroType] || 'classic');
+    document.documentElement.setAttribute('data-ticket', TICKETS[t.ticket] || 'sunset');
     document.documentElement.setAttribute('data-csnavshell', NAV_SHELLS[t.navShell] || 'pill');
     document.documentElement.setAttribute('data-marquee', MARQUEE[t.marquee] || 'chips');
     document.documentElement.setAttribute('data-artifact', ARTIFACT_STYLES[t.artifact] || 'sticky');
@@ -153,6 +163,12 @@ function TweaksUI() {
       <TweakSelect label="Name font" value={t.heroFont}
         options={Object.keys(HERO_FONTS)}
         onChange={(v) => setTweak('heroFont', v)} />
+      <TweakSelect label="Name treatment" value={t.heroType}
+        options={Object.keys(HERO_TYPE)}
+        onChange={(v) => setTweak('heroType', v)} />
+      <TweakSelect label="Footer ticket" value={t.ticket}
+        options={Object.keys(TICKETS)}
+        onChange={(v) => setTweak('ticket', v)} />
       <TweakSection label="Photo hover" />
       <TweakSelect label="Avatar effect" value={t.avatarHover}
         options={Object.keys(AVATAR_HOVER)}

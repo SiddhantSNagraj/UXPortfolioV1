@@ -127,6 +127,20 @@ html[data-marquee="chips"] .hmq-tool.is-ai .hmq-tool__ai { display: none; }
 .hero__namerow { position: relative; display: block; margin-top: clamp(20px, 4vw, 50px); }
 .hero__namerow .hero__name { margin-top: 0; }
 
+/* ---- hero type treatments (data-herotype: classic | duotone | offset | bleed) ---- */
+/* duotone: both lines solid, tighter tracking; NAGRAJ in amber fill */
+html[data-herotype="duotone"] .hero__pix { letter-spacing: -0.05em; }
+html[data-herotype="duotone"] .hero__name { line-height: 0.84; }
+html[data-herotype="duotone"] .hero__pix--out { color: var(--yellow-ink); -webkit-text-stroke: 0; }
+
+/* offset: editorial stagger — outlined NAGRAJ steps right */
+html[data-herotype="offset"] .hero__pix--out { margin-left: clamp(28px, 7vw, 150px); }
+html[data-herotype="offset"] .hero__name { line-height: 0.84; }
+
+/* bleed: oversized, ultra-tight, confident */
+html[data-herotype="bleed"] .hero__pix { font-size: clamp(50px, 14.5vw, 218px); letter-spacing: -0.055em; }
+html[data-herotype="bleed"] .hero__name { line-height: 0.8; }
+
 .hero__avatar {
   position: absolute;
   right: clamp(0px, 3vw, 56px);

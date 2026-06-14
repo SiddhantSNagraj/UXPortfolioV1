@@ -1,0 +1,91 @@
+/* ticket.css — bold retro "ADMIT ONE" footer ticket (NYC / Sunset Groove style),
+   with a vintage printed-paper feel. */
+
+.footticket { width: 366px; max-width: 100%; flex: none; display: flex; flex-direction: column;
+  align-items: center; gap: 16px; align-self: center; }
+html[data-ticket="none"] .footticket { display: none; }
+@media (max-width: 860px) { .footticket { align-self: flex-start; align-items: flex-start; margin-top: 40px; } }
+
+.tkn {
+  --tkbg: #c8472a; --tkink: #f7ecd2;
+  position: relative; display: flex; width: 100%; min-height: 198px;
+  background: var(--tkbg); color: var(--tkink); border-radius: 10px;
+  transform: rotate(-2.5deg); transition: transform .4s var(--ease);
+  filter: drop-shadow(0 20px 32px rgba(0,0,0,.34));
+  /* scalloped (wavy) edge — semicircles cut from BOTH sides */
+  -webkit-mask:
+    radial-gradient(circle 7px at left, transparent 7px, #000 7.5px) 0 0 / 100% 26px repeat-y,
+    radial-gradient(circle 7px at right, transparent 7px, #000 7.5px) 0 0 / 100% 26px repeat-y;
+          mask:
+    radial-gradient(circle 7px at left, transparent 7px, #000 7.5px) 0 0 / 100% 26px repeat-y,
+    radial-gradient(circle 7px at right, transparent 7px, #000 7.5px) 0 0 / 100% 26px repeat-y;
+  -webkit-mask-composite: source-in;
+          mask-composite: intersect;
+}
+.tkn:hover { transform: rotate(0deg) translateY(-3px); }
+html[data-ticket="cobalt"] .tkn { --tkbg: #2f55e0; --tkink: #eee7d6; }
+html[data-ticket="forest"] .tkn { --tkbg: #246b48; --tkink: #eee7d6; }
+html[data-ticket="noir"]   .tkn { --tkbg: #1a1a1a; --tkink: #f7c14a; }
+
+/* vintage grain + uneven-ink + soft vignette, layered over the ticket */
+.tkn::after {
+  content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 3; mix-blend-mode: multiply;
+  opacity: .5; border-radius: 12px;
+  background:
+    radial-gradient(120% 140% at 78% -10%, transparent 55%, rgba(0,0,0,.22) 100%),
+    radial-gradient(circle at 50% 50%, rgba(0,0,0,0) 0, rgba(0,0,0,.05) 100%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+  background-size: 100% 100%, 100% 100%, 150px 150px;
+}
+
+.tkn .mono { font-family: var(--mono); }
+
+.tkn__main { flex: 1; min-width: 0; padding: 17px 20px 16px 34px; display: flex; flex-direction: column; position: relative; z-index: 1; }
+/* decorative gradient wavy lines along the left margin */
+.tkn__main::before {
+  content: ''; position: absolute; left: 12px; top: 16px; bottom: 16px; width: 16px; z-index: 0; opacity: .55;
+  background: repeating-linear-gradient(transparent 0, transparent 0) 0 0;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='22'%3E%3Cpath d='M3 0 C-1 5 7 6 3 11 C-1 16 7 17 3 22' fill='none' stroke='%23000' stroke-width='2'/%3E%3Cpath d='M11 0 C7 5 15 6 11 11 C7 16 15 17 11 22' fill='none' stroke='%23000' stroke-width='2'/%3E%3C/svg%3E") 0 0 / 16px 22px repeat-y;
+          mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='22'%3E%3Cpath d='M3 0 C-1 5 7 6 3 11 C-1 16 7 17 3 22' fill='none' stroke='%23000' stroke-width='2'/%3E%3Cpath d='M11 0 C7 5 15 6 11 11 C7 16 15 17 11 22' fill='none' stroke='%23000' stroke-width='2'/%3E%3C/svg%3E") 0 0 / 16px 22px repeat-y;
+  background-color: var(--tkink);
+}
+.tkn__top { font-size: 10px; letter-spacing: .2em; opacity: .9; }
+.tkn__sun { display: inline-block; }
+.tkn__title { font-family: var(--display); font-weight: 900; font-size: 47px; line-height: .9;
+  letter-spacing: -.03em; transform: scaleX(.84); transform-origin: left; margin: 5px 0 13px; }
+.tkn__name { display: block; margin-bottom: auto; }
+.tkn__namelabel { display: block; font-size: 8.5px; letter-spacing: .16em; text-transform: uppercase; opacity: .78; margin-bottom: 4px; }
+.tkn__nameinput {
+  width: 100%; background: none; border: none; outline: none;
+  border-bottom: 1.5px solid color-mix(in srgb, var(--tkink) 42%, transparent);
+  color: var(--tkink); font-family: var(--display); font-weight: 700; font-size: 25px;
+  letter-spacing: -.01em; padding: 0 0 4px; text-transform: uppercase;
+}
+.tkn__nameinput::placeholder { color: color-mix(in srgb, var(--tkink) 50%, transparent); text-transform: none; font-weight: 500; font-size: 17px; }
+.tkn__meta { display: flex; justify-content: space-between; gap: 10px; font-size: 9px; letter-spacing: .05em; margin: 14px 0 9px; opacity: .9; }
+.tkn__barrow { margin-top: auto; }
+.tkn-bars { display: flex; align-items: flex-end; gap: 2px; height: 18px; }
+.tkn-bars i { display: block; height: 100%; background: var(--tkink); }
+
+/* perforation seam — dashed line + die-cut half-circle notches top & bottom */
+.tkn__stub { width: 100px; flex: none; position: relative;
+  display: flex; align-items: center; justify-content: center;
+  border-left: 1.5px dashed color-mix(in srgb, var(--tkink) 55%, transparent); }
+/* round notches punched out of the seam (page-bg colored = die-cut look) */
+.tkn__stub::before, .tkn__stub::after {
+  content: ''; position: absolute; left: -10px; width: 20px; height: 20px; border-radius: 50%;
+  background: var(--bg); z-index: 4;
+}
+.tkn__stub::before { top: -10px; }
+.tkn__stub::after { bottom: -10px; }
+.tkn__stub > span { position: absolute; white-space: nowrap; }
+.tkn__stubtitle { font-family: var(--display); font-weight: 900; font-size: 25px; letter-spacing: -.02em; transform: rotate(-90deg) scaleX(.84); }
+.tkn__stubmeta { font-size: 8.5px; letter-spacing: .12em; transform: rotate(-90deg); left: -36px; opacity: .85; }
+
+/* download button */
+.tkn__dl {
+  font-size: 11px; letter-spacing: .04em;
+  background: var(--surface); color: var(--ink); border: 1px solid var(--line-2);
+  border-radius: 999px; padding: 9px 16px; cursor: pointer; transition: border-color .25s var(--ease), transform .25s var(--ease);
+}
+.tkn__dl:hover { border-color: var(--accent); transform: translateY(-1px); }

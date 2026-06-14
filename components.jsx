@@ -69,19 +69,25 @@ function Contact({ profile }) {
     <section className="contact" id="contact">
       <div className="wrap">
         <div className="mono mono--accent" style={{ marginBottom: 28 }}>( CONTACT ), OPEN TO PRODUCT DESIGN ROLES</div>
-        <a
-          href={`mailto:${profile.email}`}
-          className="contact__big"
-          style={{ display: 'block', color: hover ? 'var(--yellow)' : 'var(--ink)', transition: 'color .4s var(--ease)' }}
-          onMouseEnter={() => setHover(true)}
-          onMouseLeave={() => setHover(false)}
-        >
-          Let’s<br />talk.
-        </a>
-        <div style={{ marginTop: 36, display: 'flex', flexWrap: 'wrap', gap: 16 }}>
-          <a className="btn btn--yellow" href={`mailto:${profile.email}`}>{profile.email} <span className="arr">→</span></a>
-          <a className="btn" href={profile.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn <span className="arr">↗</span></a>
-          {profile.resume ? <a className="btn" href={profile.resume} target="_blank" rel="noopener noreferrer">Resume <span className="arr">↓</span></a> : null}
+        <div className="contact__split">
+          <div className="contact__left">
+            <a
+              href={`mailto:${profile.email}`}
+              className="contact__big"
+              style={{ display: 'block', color: hover ? 'var(--yellow)' : 'var(--ink)', transition: 'color .4s var(--ease)' }}
+              onMouseEnter={() => setHover(true)}
+              onMouseLeave={() => setHover(false)}
+            >
+              Let’s<br />talk.
+            </a>
+            <p className="contact__signoff">…and build something <em>people like</em>.</p>
+            <div style={{ marginTop: 36, display: 'flex', flexWrap: 'wrap', gap: 16 }}>
+              <a className="btn btn--yellow" href={`mailto:${profile.email}`}>{profile.email} <span className="arr">→</span></a>
+              <a className="btn" href={profile.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn <span className="arr">↗</span></a>
+              {profile.resume ? <a className="btn" href={profile.resume} target="_blank" rel="noopener noreferrer">Resume <span className="arr">↓</span></a> : null}
+            </div>
+          </div>
+          <FooterTicket />
         </div>
 
         <hr className="hr" style={{ marginTop: 64 }} />

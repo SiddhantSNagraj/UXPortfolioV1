@@ -103,4 +103,59 @@
   }
   window.addEventListener('hashchange', function () { routeChanged(false); });
   routeChanged(true);
+
+  /* ---- 4. role cycler: hover the hero role to cycle playful titles ---- */
+  (function () {
+    var roles = ['Product Designer', 'Problem Untangler', 'Pixel Diplomat', 'Flow Architect', 'Systems Thinker', 'Coffee → UI Converter'];
+    var i = 0, el, hoverLock = false;
+    var gi = setInterval(function () {
+      el = document.getElementById('hero-role');
+      if (el) {
+        clearInterval(gi);
+        var orig = el.textContent;
+        el.style.transition = 'opacity .18s ease';
+        el.addEventListener('mouseenter', function () {
+          if (hoverLock) return; hoverLock = true;
+          i = (i + 1) % roles.length;
+          el.style.opacity = '0';
+          setTimeout(function () {
+            el.textContent = roles[i];
+            el.style.opacity = '1';
+            setTimeout(function () { hoverLock = false; }, 200);
+          }, 180);
+        });
+        // restore the real title when the cursor leaves entirely
+        el.addEventListener('mouseleave', function () {
+          if (i === 0) return;
+          setTimeout(function () {
+            if (el.matches(':hover')) return;
+            i = 0; el.style.opacity = '0';
+            setTimeout(function () { el.textContent = orig; el.style.opacity = '1'; }, 180);
+          }, 1400);
+        });
+      }
+    }, 120);
+  })();
+
+  /* ---- 5. grid overlay: press G to toggle a layout grid (design-tool nod) ---- */
+  (function () {
+    var on = false, ov = null;
+    function build() {
+      ov = document.createElement('div');
+      ov.className = 'gridov';
+      var cols = '';
+      for (var c = 0; c < 12; c++) cols += '<i></i>';
+      ov.innerHTML = '<div class="gridov__cols">' + cols + '</div><div class="gridov__hint mono">Layout grid · press G to hide</div>';
+      document.body.appendChild(ov);
+    }
+    window.addEventListener('keydown', function (e) {
+      if (e.key !== 'g' && e.key !== 'G') return;
+      var t = e.target;
+      if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.isContentEditable)) return;
+      if (e.metaKey || e.ctrlKey || e.altKey) return;
+      on = !on;
+      if (on && !ov) build();
+      if (ov) ov.classList.toggle('is-on', on);
+    });
+  })();
 })();
