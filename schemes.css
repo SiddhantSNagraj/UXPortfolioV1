@@ -75,3 +75,49 @@ html[data-scheme="rosewood"][data-theme="light"] {
   --ink: #1f0f15; --ink-2: #563a42; --ink-3: #8a6c74; --ink-4: #b89aa2;
   --slot-stripe: rgba(58,18,33,0.05); --scrim: 244,236,238;
 }
+
+/* ---------- NEWSPRINT · aged sepia paper, both modes lean warm ---------- */
+html[data-scheme="newsprint"] {
+  --bg: #161009; --bg-2: #1d150c; --surface: #241a0f; --surface-2: #2f2315;
+  --line: rgba(247,236,210,0.11); --line-2: rgba(247,236,210,0.20);
+  --ink: #f3e7cf; --ink-2: #cdb893; --ink-3: #9a8867; --ink-4: #685a40;
+  --slot-stripe: rgba(247,236,210,0.045); --scrim: 22,16,9;
+}
+html[data-scheme="newsprint"][data-theme="light"] {
+  --bg: #e8dcc1; --bg-2: #ded0b0; --surface: #f3ead3; --surface-2: #e4d6b8;
+  --line: rgba(60,44,20,0.16); --line-2: rgba(60,44,20,0.30);
+  --ink: #2a2012; --ink-2: #5c4a2c; --ink-3: #897556; --ink-4: #b3a079;
+  --slot-stripe: rgba(60,44,20,0.06); --scrim: 232,220,193;
+}
+
+/* =========================================================================
+   RETRO VIBE — warm cream paper + ink, golden/tomato accents.
+   Driven by data-vibe="retro"; overrides whatever data-scheme is set.
+   Higher specificity + later source order so it wins over the scheme block.
+   ========================================================================= */
+html[data-vibe="retro"]:not([data-theme="light"]) {
+  --bg: #1c1408; --bg-2: #241a0c; --surface: #2c2010; --surface-2: #382915;
+  --line: rgba(244,206,128,0.13); --line-2: rgba(244,206,128,0.24);
+  --ink: #f7ecd2; --ink-2: #d8be90; --ink-3: #a3895e; --ink-4: #6e5a38;
+  --slot-stripe: rgba(244,206,128,0.05); --scrim: 28,20,8;
+}
+html[data-vibe="retro"][data-theme="light"] {
+  --bg: #f1e3c6; --bg-2: #e8d6b2; --surface: #faf0d8; --surface-2: #eaddbe;
+  --line: rgba(74,48,16,0.18); --line-2: rgba(74,48,16,0.32);
+  --ink: #2a1c0c; --ink-2: #5e4422; --ink-3: #8c6e44; --ink-4: #b89a6a;
+  --slot-stripe: rgba(74,48,16,0.06); --scrim: 241,227,198;
+}
+
+/* ---------- RETRO SLATE — crumpled dark-grey poster ---------- */
+html[data-vibe="retroslate"]:not([data-theme="light"]) {
+  --bg: #101012; --bg-2: #0b0b0d; --surface: #18181b; --surface-2: #212126;
+  --line: rgba(238,232,218,0.12); --line-2: rgba(238,232,218,0.22);
+  --ink: #f1ead8; --ink-2: #b7b0a2; --ink-3: #807a6e; --ink-4: #514c46;
+  --slot-stripe: rgba(238,232,218,0.045); --scrim: 16,16,18;
+}
+html[data-vibe="retroslate"][data-theme="light"] {
+  --bg: #e4e1d8; --bg-2: #dad7cd; --surface: #efece3; --surface-2: #ddd9cf;
+  --line: rgba(40,38,32,0.16); --line-2: rgba(40,38,32,0.30);
+  --ink: #23211b; --ink-2: #514e44; --ink-3: #827e72; --ink-4: #b0ab9d;
+  --slot-stripe: rgba(40,38,32,0.06); --scrim: 228,225,216;
+}

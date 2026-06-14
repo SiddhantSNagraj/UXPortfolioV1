@@ -394,3 +394,101 @@ html[data-theme="light"] .cc-iter, html[data-theme="light"] .gsk, html[data-them
    ========================================================================= */
 .view-enter { animation: viewfade .5s var(--ease) both; }
 @keyframes viewfade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+/* =========================================================================
+   VINTAGE LAYER — paper grain, letterpress numerals, wax seal
+   ========================================================================= */
+/* 1 · paper grain over the whole site */
+body::after {
+  content: ''; position: fixed; inset: 0; z-index: 2000; pointer-events: none;
+  opacity: 0.05; mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23g)'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+}
+@media print { body::after { display: none; } }
+
+/* 2 · letterpress vintage section numerals */
+.gs-sec__label .pixel, .am-sec__label .pixel, .cc-sec__label .pixel, .sl-sec__label .pixel,
+.case__no, .worklist .workrow__no {
+  text-shadow: 0 1px 0 color-mix(in srgb, var(--ink) 22%, transparent), 0 -1px 0 rgba(0,0,0,.28);
+  font-variant-numeric: oldstyle-nums;
+}
+
+/* 7 · spinning wax/laurel seal in the footer */
+.seal { position: relative; width: 116px; height: 116px; display: inline-flex;
+  align-items: center; justify-content: center; margin-bottom: 16px; }
+.seal__svg { position: absolute; inset: 0; width: 100%; height: 100%;
+  animation: sealSpin 22s linear infinite; }
+@media (prefers-reduced-motion: reduce) { .seal__svg { animation: none; } }
+.seal__text { font-family: var(--mono); font-size: 9.2px; letter-spacing: 1.5px; fill: var(--ink-2);
+  text-transform: uppercase; }
+.seal__core { position: relative; z-index: 1; width: 58px; height: 58px; border-radius: 50%;
+  border: 1.5px solid var(--accent); display: flex; flex-direction: column; align-items: center;
+  justify-content: center; text-align: center; font-size: 11px; line-height: 1; letter-spacing: .1em;
+  color: var(--ink); }
+.seal__core b { font-family: var(--display); font-weight: 800; font-size: 19px; letter-spacing: -.01em; color: var(--accent); }
+@keyframes sealSpin { to { transform: rotate(360deg); } }
+@media (max-width: 860px) { .seal { align-self: flex-start; } }
+
+.colophon { display: block; margin-top: 12px; color: var(--ink-3); font-size: 10.5px; letter-spacing: .04em; max-width: 42ch; line-height: 1.6; }
+
+/* =========================================================================
+   COMMAND PALETTE (⌘K)
+   ========================================================================= */
+.cmdk { position: fixed; inset: 0; z-index: 10000; display: none; }
+.cmdk.is-open { display: block; }
+.cmdk__scrim { position: absolute; inset: 0; background: rgba(0,0,0,.5); backdrop-filter: blur(3px); }
+.cmdk__panel { position: relative; width: min(560px, 92vw); margin: 12vh auto 0;
+  background: var(--surface); border: 1px solid var(--line-2); border-radius: 16px; overflow: hidden;
+  box-shadow: 0 40px 90px rgba(0,0,0,.55); animation: cmdkPop .2s var(--ease); }
+@keyframes cmdkPop { from { opacity: 0; transform: translateY(-10px) scale(.98); } to { opacity: 1; transform: none; } }
+.cmdk__inbox { display: flex; align-items: center; gap: 12px; padding: 16px 18px; border-bottom: 1px solid var(--line); }
+.cmdk__prompt { font-size: 12px; color: var(--accent); border: 1px solid var(--line-2); border-radius: 7px; padding: 4px 8px; flex: none; }
+.cmdk__input { flex: 1; background: none; border: none; outline: none; color: var(--ink);
+  font-family: var(--display); font-size: 17px; font-weight: 500; }
+.cmdk__input::placeholder { color: var(--ink-3); }
+.cmdk__list { max-height: 320px; overflow-y: auto; padding: 8px; scrollbar-width: thin; }
+.cmdk__row { width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 14px;
+  background: none; border: none; border-radius: 9px; padding: 12px 14px; cursor: pointer; text-align: left; }
+.cmdk__row.is-active { background: var(--bg-2); }
+.cmdk__lbl { font-family: var(--display); font-size: 14.5px; color: var(--ink); }
+.cmdk__kind { font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); flex: none; }
+.cmdk__empty { padding: 24px 14px; text-align: center; color: var(--ink-3); font-size: 12px; }
+.cmdk__hint { display: flex; gap: 18px; justify-content: center; padding: 11px; border-top: 1px solid var(--line);
+  font-size: 10px; letter-spacing: .06em; color: var(--ink-3); }
+@media (max-width: 560px) { .cmdk__hint { display: none; } }
+
+/* =========================================================================
+   RETRO VIBE — structural touches (fonts/texture set via JS + this block)
+   ========================================================================= */
+/* heavier, warmer paper grain */
+html[data-vibe^="retro"] body::after { opacity: 0.085; background-size: 150px 150px; }
+/* serif display reads better a touch tighter; mono labels stay as accents */
+html[data-vibe^="retro"] .gs-h2, html[data-vibe^="retro"] .cc-h2, html[data-vibe^="retro"] .am-h2,
+html[data-vibe^="retro"] .sl-h2, html[data-vibe^="retro"] .case__title, html[data-vibe^="retro"] .about__statement {
+  letter-spacing: -0.018em; font-weight: 700;
+}
+/* mono eyebrow labels: small-caps tracking for an editorial retro feel */
+html[data-vibe^="retro"] .mono { letter-spacing: 0.16em; }
+/* tactile underline on the contact ✱ */
+html[data-vibe^="retro"] .seal__core b { font-family: 'DM Serif Display', Georgia, serif; }
+
+/* Retro Slate — clean near-black with a fine, even film grain (no blotches) */
+html[data-vibe="retroslate"] body::after {
+  opacity: 0.07; mix-blend-mode: soft-light; background-size: 200px 200px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23g)'/%3E%3C/svg%3E");
+}
+
+/* ⌘K discoverability hint toast */
+.cmdk-hint { position: fixed; left: 50%; bottom: 26px; transform: translate(-50%, 16px); z-index: 9400;
+  display: flex; align-items: center; gap: 9px; padding: 11px 14px 11px 18px;
+  background: var(--surface); color: var(--ink); border: 1px solid var(--line-2); border-radius: 999px;
+  box-shadow: 0 16px 40px rgba(0,0,0,.45); font-family: var(--mono); font-size: 12px; letter-spacing: .02em;
+  opacity: 0; pointer-events: none; transition: opacity .4s var(--ease), transform .4s var(--ease); cursor: pointer; }
+.cmdk-hint.is-in { opacity: 1; transform: translate(-50%, 0); pointer-events: auto; }
+.cmdk-hint b { font-family: var(--mono); font-weight: 700; background: var(--bg-2); border: 1px solid var(--line);
+  border-radius: 6px; padding: 2px 7px; font-size: 11px; color: var(--accent); }
+.cmdk-hint__txt { opacity: .85; }
+.cmdk-hint__x { background: none; border: none; color: var(--ink-3); font-size: 17px; line-height: 1; cursor: pointer; padding: 0 2px 0 4px; }
+.cmdk-hint__x:hover { color: var(--ink); }
+@media (max-width: 560px) { .cmdk-hint { display: none; } }

@@ -1,6 +1,7 @@
 /* TWEAKS, accent, highlight, background tone, hero pixel style */
 
 const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "vibe": "Default",
   "accent": "#2b6fff",
   "highlight": "#f7c14a",
   "heroFont": "Grotesk",
@@ -89,10 +90,14 @@ const NOTE_COLORS = { 'Classic': 'classic', 'Warm': 'warm', 'Cool': 'cool', 'Bol
 // Work list row hover aesthetic.
 const ROW_HOVER = { 'Fill': 'fill', 'Swipe': 'swipe', 'Frame': 'frame', 'Marker': 'marker', 'Glow': 'glow', 'Brush': 'brush' };
 
+// Overall site vibe. Retro swaps palette, serif display fonts, and texture.
+const VIBES = { 'Default': 'default', 'Retro ’70s': 'retro', 'Retro Slate': 'retroslate' };
+
 // Color schemes, each a hand-tuned dark+light palette (see schemes.css).
 const SCHEMES = {
   'Ink': 'ink',           // warm charcoal & bone, editorial neutral
   'Espresso': 'espresso', // roasted brown & cream, cozy
+  'Newsprint': 'newsprint', // aged sepia paper, vintage
   'Dusk': 'dusk',         // blue-violet night & lavender morning
   'Forest': 'forest',     // deep pine & sage, organic
   'Rosewood': 'rosewood', // aubergine & blush, moody
@@ -151,10 +156,34 @@ function TweaksUI() {
     document.documentElement.setAttribute('data-rowhover', ROW_HOVER[t.rowHover] || 'fill');
     document.documentElement.setAttribute('data-notelayout', NOTE_LAYOUTS[t.noteLayout] || 'below');
     document.documentElement.setAttribute('data-notecolor', NOTE_COLORS[t.noteColor] || 'classic');
+
+    // ---- overall vibe (retro overrides accent + display fonts) ----
+    // a public visitor toggle (cmdk / logo easter egg) persists to 'sn-vibe'
+    // and takes precedence over the authoring default so it isn't stomped.
+    let vibe = VIBES[t.vibe] || 'default';
+    try { const ov = localStorage.getItem('sn-vibe'); if (ov === 'default' || ov === 'retro' || ov === 'retroslate') vibe = ov; } catch (e) {}
+    document.documentElement.setAttribute('data-vibe', vibe);
+    if (vibe === 'retro' || vibe === 'retroslate') {
+      r.setProperty('--blue', '#d6442c');
+      r.setProperty('--accent', '#d6442c');
+      r.setProperty('--yellow', '#f0a818');
+      r.setProperty('--display', "'Playfair Display', Georgia, serif");
+      r.setProperty('--pixel-blk', "'DM Serif Display', Georgia, serif");
+      r.setProperty('--hero-weight', '400');
+      r.setProperty('--hero-ls', '-0.01em');
+      r.setProperty('--hero-size', 'clamp(54px, 14.5vw, 224px)');
+      r.setProperty('--hero-lh', '0.9');
+    } else {
+      r.removeProperty('--display');
+    }
   }, [t]);
 
   return (
     <TweaksPanel>
+      <TweakSection label="Theme" />
+      <TweakSelect label="Vibe" value={t.vibe}
+        options={Object.keys(VIBES)}
+        onChange={(v) => setTweak('vibe', v)} />
       <TweakSection label="Color scheme" />
       <TweakSelect label="Palette" value={t.scheme}
         options={Object.keys(SCHEMES)}
