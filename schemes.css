@@ -110,7 +110,7 @@ html[data-vibe="retro"][data-theme="light"] {
 
 /* ---------- RETRO SLATE — crumpled dark-grey poster ---------- */
 html[data-vibe="retroslate"]:not([data-theme="light"]) {
-  --bg: #101012; --bg-2: #0b0b0d; --surface: #18181b; --surface-2: #212126;
+  --bg: #1d1d1b; --bg-2: #171715; --surface: #232321; --surface-2: #2c2c29;
   --line: rgba(238,232,218,0.12); --line-2: rgba(238,232,218,0.22);
   --ink: #f1ead8; --ink-2: #b7b0a2; --ink-3: #807a6e; --ink-4: #514c46;
   --slot-stripe: rgba(238,232,218,0.045); --scrim: 16,16,18;
