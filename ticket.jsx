@@ -20,7 +20,9 @@ function tkBars(n) {
 }
 
 function renderTicketCanvas(name, theme) {
-  var S = 2.6, W = 680, H = 300, perf = 496, pad = 34;
+  // matches the on-site ticket: scalloped edges both sides, wavy left lines,
+  // PORTFOLIO title, name line, meta row, barcode, rotated stub.
+  var S = 2.6, W = 680, H = 300, perf = 484, pad = 40, scallop = 13;
   var cv = document.createElement('canvas');
   cv.width = W * S; cv.height = H * S;
   var x = cv.getContext('2d');
@@ -36,48 +38,59 @@ function renderTicketCanvas(name, theme) {
     x.closePath();
   }
   // body
-  rr(0, 0, W, H, 18); x.fillStyle = bg; x.fill();
-  // notches at the perforation
+  rr(0, 0, W, H, 14); x.fillStyle = bg; x.fill();
+  // scalloped semicircle cut-outs along BOTH side edges
   x.globalCompositeOperation = 'destination-out';
-  x.beginPath(); x.arc(perf, 0, 15, 0, 7); x.fill();
-  x.beginPath(); x.arc(perf, H, 15, 0, 7); x.fill();
+  for (var sy = scallop; sy < H; sy += 26) {
+    x.beginPath(); x.arc(0, sy, scallop, 0, 7); x.fill();
+    x.beginPath(); x.arc(W, sy, scallop, 0, 7); x.fill();
+  }
   x.globalCompositeOperation = 'source-over';
-  // inner hairline frame
-  x.strokeStyle = ink; x.lineWidth = 1.5; x.globalAlpha = 0.45;
-  rr(8, 8, W - 16, H - 16, 12); x.stroke(); x.globalAlpha = 1;
-  // perforation dashes
-  x.setLineDash([2, 5]); x.globalAlpha = 0.55;
-  x.beginPath(); x.moveTo(perf, 22); x.lineTo(perf, H - 22); x.stroke();
+  // perforation dashes before the stub
+  x.strokeStyle = ink; x.setLineDash([2, 5]); x.globalAlpha = 0.5; x.lineWidth = 1.5;
+  x.beginPath(); x.moveTo(perf, 20); x.lineTo(perf, H - 20); x.stroke();
   x.setLineDash([]); x.globalAlpha = 1;
+  // decorative wavy double-lines down the left margin
+  x.strokeStyle = ink; x.globalAlpha = 0.5; x.lineWidth = 2;
+  [22, 30].forEach(function (wx) {
+    x.beginPath();
+    for (var wy = 28; wy <= H - 28; wy += 2) {
+      var dx = wx + Math.sin(wy / 5.5) * 3.4;
+      if (wy === 28) x.moveTo(dx, wy); else x.lineTo(dx, wy);
+    }
+    x.stroke();
+  });
+  x.globalAlpha = 1;
   x.fillStyle = ink;
+  var lx = pad + 18;
   // top label
   x.textBaseline = 'alphabetic';
-  x.font = '700 13px "Space Mono", monospace';
-  x.fillText('✸  ADMIT  ONE', pad, 50);
-  // big condensed title
-  x.save(); x.translate(pad, 150); x.scale(0.82, 1);
-  x.font = '900 90px Archivo, sans-serif'; x.fillText('PORTFOLIO', 0, 0); x.restore();
+  x.font = '700 12px "Space Mono", monospace';
+  x.fillText('✸  ADMIT  ONE', lx, 48);
+  // big title
+  x.save(); x.translate(lx, 138); x.scale(0.86, 1);
+  x.font = '900 84px Archivo, sans-serif'; x.fillText('PORTFOLIO', 0, 0); x.restore();
   // name
-  x.font = '700 11px "Space Mono", monospace'; x.globalAlpha = 0.8;
-  x.fillText('THIS  TICKET  ADMITS', pad, 186); x.globalAlpha = 1;
-  x.font = '700 32px Archivo, sans-serif';
-  x.fillText(name, pad, 220);
+  x.font = '700 10px "Space Mono", monospace'; x.globalAlpha = 0.8;
+  x.fillText('THIS  TICKET  ADMITS', lx, 176); x.globalAlpha = 1;
+  x.font = '700 30px Archivo, sans-serif';
+  x.fillText(name, lx, 210);
   x.globalAlpha = 0.45; x.lineWidth = 1.5;
-  x.beginPath(); x.moveTo(pad, 230); x.lineTo(perf - 28, 230); x.stroke(); x.globalAlpha = 1;
+  x.beginPath(); x.moveTo(lx, 220); x.lineTo(perf - 26, 220); x.stroke(); x.globalAlpha = 1;
   // meta row
-  x.font = '400 12px "Space Mono", monospace';
-  x.fillText('13 JUNE 2026', pad, 258);
-  x.textAlign = 'right'; x.fillText('SIDDHANTNAGRAJ.COM', perf - 28, 258); x.textAlign = 'left';
+  x.font = '400 11px "Space Mono", monospace';
+  x.fillText('13 JUNE 2026', lx, 250);
+  x.textAlign = 'right'; x.fillText('SIDDHANTNAGRAJ.COM', perf - 26, 250); x.textAlign = 'left';
   // barcode
-  var bars = tkBars(46), cx = pad;
-  for (var i = 0; i < bars.length && cx < perf - 28; i++) { x.fillRect(cx, 270, bars[i], 16); cx += bars[i] + 2; }
-  // stub (rotated)
+  var bars = tkBars(44), cx = lx;
+  for (var i = 0; i < bars.length && cx < perf - 26; i++) { x.fillRect(cx, 264, bars[i], 16); cx += bars[i] + 2; }
+  // rotated stub
   x.save();
   x.translate(perf + (W - perf) / 2, H / 2);
   x.rotate(-Math.PI / 2);
   x.textAlign = 'center';
-  x.save(); x.scale(0.86, 1); x.font = '900 30px Archivo, sans-serif'; x.fillText('PORTFOLIO', 0, -10); x.restore();
-  x.font = '400 11px "Space Mono", monospace'; x.fillText('ADMIT ONE · MMXXVI', 0, 14);
+  x.save(); x.scale(0.86, 1); x.font = '900 28px Archivo, sans-serif'; x.fillText('PORTFOLIO', 0, -8); x.restore();
+  x.font = '400 10px "Space Mono", monospace'; x.fillText('ADMIT ONE · MMXXVI', 0, 14);
   x.restore();
   return cv;
 }

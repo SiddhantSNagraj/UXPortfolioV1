@@ -57,6 +57,10 @@ function TopNav({ onNav, active, solid, theme, onToggleTheme, resumeUrl }) {
           </span>
           <span className="themetog__knob" aria-hidden="true" />
         </button>
+        <button className="retrotog" onClick={() => window.__toggleVibe && window.__toggleVibe()} title="Try the retro theme" aria-label="Toggle retro theme">
+          <span className="retrotog__star" aria-hidden="true">✦</span>
+          <span className="retrotog__txt">Retro</span>
+        </button>
       </div>
     </nav>
   );

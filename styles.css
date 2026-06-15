@@ -294,7 +294,7 @@ html[data-theme="light"] .cc-iter, html[data-theme="light"] .gsk, html[data-them
 .btn--solid { background: var(--accent); border-color: var(--accent); color: #fff; }
 .btn--solid:hover { background: #fff; color: #000; border-color: #fff; }
 .btn--yellow { background: var(--yellow); border-color: var(--yellow); color: #000; }
-.btn--yellow:hover { background: #fff; border-color: #fff; }
+.btn--yellow:hover { background: var(--ink); border-color: var(--ink); color: var(--bg); }
 .btn .arr { transition: transform .35s var(--ease); }
 .btn:hover .arr { transform: translateX(3px); }
 
@@ -375,6 +375,28 @@ html[data-theme="light"] .cc-iter, html[data-theme="light"] .gsk, html[data-them
 @media (max-width: 720px) {
   .themetog { width: 56px; height: 28px; }
   .themetog.is-light .themetog__knob { transform: translateY(-50%) translateX(25px) rotate(360deg); }
+}
+
+/* retro vibe toggle — secondary pill next to the theme switch */
+.retrotog {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px; flex: none;
+  height: 30px; padding: 0 14px; border-radius: 999px; margin-left: -16px; line-height: 1;
+  background: none; border: 1px solid var(--line-2); color: var(--ink-3);
+  font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase;
+  cursor: pointer; transition: color .25s var(--ease), border-color .25s var(--ease), background .25s var(--ease);
+}
+.retrotog:hover { color: var(--ink); border-color: var(--ink-3); }
+.retrotog__star { font-size: 11px; line-height: 1; display: inline-block; transition: transform .4s var(--ease); }
+.retrotog__txt { line-height: 1; }
+.retrotog:hover .retrotog__star { transform: rotate(90deg); }
+/* active state when retro vibe is on */
+html[data-vibe="retro"] .retrotog, html[data-vibe="retroslate"] .retrotog {
+  background: var(--accent); border-color: var(--accent); color: #fff;
+}
+html[data-vibe="retro"] .retrotog__star, html[data-vibe="retroslate"] .retrotog__star { transform: rotate(180deg); }
+@media (max-width: 720px) {
+  .retrotog { height: 28px; width: 28px; padding: 0; margin-left: -18px; font-size: 9.5px; gap: 0; }
+  .retrotog__txt { display: none; }
 }
 
 /* =========================================================================
