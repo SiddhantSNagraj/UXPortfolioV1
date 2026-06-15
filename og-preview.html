@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 909px; height: 475px; overflow: hidden; background: #0b0b0c; }
+  .scaler { width: 1200px; height: 627px; transform: scale(0.7575); transform-origin: top left; }
+  .card {
+    position: relative; width: 1200px; height: 627px; overflow: hidden;
+    background: #0b0b0c; color: #f4ecdd;
+    font-family: 'Archivo', system-ui, sans-serif;
+    padding: 64px 72px;
+    display: flex; flex-direction: column; justify-content: space-between;
+  }
+  /* dot grid */
+  .card::before {
+    content: ''; position: absolute; inset: 0;
+    background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,.05) 1px, transparent 0);
+    background-size: 26px 26px; z-index: 0;
+  }
+  /* amber corner glow */
+  .glow {
+    position: absolute; width: 760px; height: 760px; right: -160px; top: -260px; z-index: 0;
+    background: radial-gradient(circle, rgba(247,193,74,.20), rgba(247,193,74,0) 62%);
+    pointer-events: none;
+  }
+  /* film grain */
+  .grain {
+    position: absolute; inset: 0; z-index: 3; opacity: .05; mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23g)'/%3E%3C/svg%3E");
+  }
+  .row { position: relative; z-index: 2; display: flex; align-items: center; justify-content: space-between; }
+  .eyebrow { font-family: 'Space Mono', monospace; font-size: 18px; font-weight: 700; letter-spacing: .18em; color: #9a948a; }
+  .pill { display: inline-flex; align-items: center; gap: 11px; font-family: 'Space Mono', monospace; font-size: 16px; font-weight: 700; letter-spacing: .12em; color: #cfcabf; border: 1px solid rgba(31,138,91,.55); background: rgba(31,138,91,.12); padding: 9px 17px; border-radius: 999px; }
+  .pill .dot { width: 9px; height: 9px; border-radius: 50%; background: #1f8a5b; box-shadow: 0 0 0 4px rgba(31,138,91,.18); }
+  .mid { position: relative; z-index: 2; }
+  .name { font-weight: 900; font-size: 150px; line-height: .82; letter-spacing: -.04em; white-space: nowrap; }
+  .name .a { display: block; color: #f4ecdd; }
+  .name .b { display: block; color: transparent; -webkit-text-stroke: 2.5px #f7c14a; }
+  .foot { position: relative; z-index: 2; display: flex; align-items: flex-end; justify-content: space-between; }
+  .role { font-weight: 700; font-size: 40px; letter-spacing: -.01em; }
+  .tagline { font-family: 'Space Mono', monospace; font-size: 19px; color: #9a948a; margin-top: 12px; letter-spacing: .01em; }
+  .rule { width: 130px; height: 5px; background: #f7c14a; margin-top: 22px; }
+  .url { font-family: 'Space Mono', monospace; font-size: 18px; font-weight: 700; letter-spacing: .06em; color: #cfcabf; text-align: right; }
+  .url .small { display: block; color: #75716a; font-weight: 400; font-size: 14px; letter-spacing: .14em; margin-bottom: 7px; }
+</style>
+</head>
+<body>
+  <div class="scaler">
+  <div class="card">
+    <span class="glow"></span>
+    <div class="row">
+      <span class="eyebrow">( PORTFOLIO · 2026 )</span>
+      <span class="pill"><span class="dot"></span>OPEN TO OPPORTUNITIES</span>
+    </div>
+    <div class="mid">
+      <div class="name"><span class="a">SIDDHANT</span><span class="b">NAGRAJ</span></div>
+    </div>
+    <div class="foot">
+      <div>
+        <div class="role">Product Designer</div>
+        <div class="tagline">Design systems · web · mobile — building things people like.</div>
+        <div class="rule"></div>
+      </div>
+      <div class="url"><span class="small">VIEW THE WORK</span>siddhantnagraj.com</div>
+    </div>
+    <span class="grain"></span>
+  </div>
+  </div>
+</body>
+</html>

@@ -17,6 +17,7 @@ const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
   "slHero": "Trio",
   "navStyle": "Panel",
   "cursorStyle": "Label",
+  "retroCursor": "Diamond",
   "heroBg": "None",
   "navShell": "Pill",
   "marquee": "Chips",
@@ -62,6 +63,9 @@ const NAV_STYLES = { 'Panel': 'panel', 'Numbered': 'numbered', 'Filled': 'filled
 
 // Custom cursor style.
 const CURSOR_STYLES = { 'Off': 'off', 'Invert': 'invert', 'Label': 'label' };
+
+// Retro-mode cursor shape (only applies when Vibe is Retro + cursor = Label).
+const RETRO_CURSORS = { 'Diamond': 'diamond', 'Crosshair': 'crosshair', 'Target': 'target', 'Asterisk': 'asterisk', 'Stamp': 'stamp', 'Dot': 'dot', 'Ring': 'ring', 'Square': 'square', 'Plus': 'plus' };
 
 // Hero background animation.
 const HERO_BG = { 'None': 'none', 'Constellation': 'constellation' };
@@ -147,6 +151,7 @@ function TweaksUI() {
     document.documentElement.setAttribute('data-slhero', SL_HERO[t.slHero] || 'trio');
     document.documentElement.setAttribute('data-csnav', NAV_STYLES[t.navStyle] || 'panel');
     document.documentElement.setAttribute('data-cursor', CURSOR_STYLES[t.cursorStyle] || 'off');
+    document.documentElement.setAttribute('data-retrocursor', RETRO_CURSORS[t.retroCursor] || 'diamond');
     document.documentElement.setAttribute('data-herobg', HERO_BG[t.heroBg] || 'none');
     document.documentElement.setAttribute('data-herotype', HERO_TYPE[t.heroType] || 'classic');
     document.documentElement.setAttribute('data-ticket', TICKETS[t.ticket] || 'sunset');
@@ -221,6 +226,9 @@ function TweaksUI() {
       <TweakSelect label="Custom cursor" value={t.cursorStyle}
         options={Object.keys(CURSOR_STYLES)}
         onChange={(v) => setTweak('cursorStyle', v)} />
+      <TweakSelect label="Retro cursor" value={t.retroCursor}
+        options={Object.keys(RETRO_CURSORS)}
+        onChange={(v) => setTweak('retroCursor', v)} />
       <TweakSelect label="Hero background" value={t.heroBg}
         options={Object.keys(HERO_BG)}
         onChange={(v) => setTweak('heroBg', v)} />

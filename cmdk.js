@@ -116,22 +116,42 @@
   window.__openCmdK = open;
 })();
 
-/* one-time discoverability hint for the command palette */
+/* smart discoverability hint — re-tries across visits until they actually use ⌘K */
 (function () {
-  try { if (localStorage.getItem('sn-cmdk-hint')) return; } catch (e) {}
   var isTouch = window.matchMedia && window.matchMedia('(hover: none)').matches;
+  if (isTouch) return; // desktop only
+
+  var USED = 'sn-cmdk-used';     // set once they open the palette
+  var SEEN = 'sn-cmdk-hint-seen'; // how many times we've shown the hint
+  function used() { try { return !!localStorage.getItem(USED); } catch (e) { return false; } }
+  function seenCount() { try { return parseInt(localStorage.getItem(SEEN) || '0', 10); } catch (e) { return 0; } }
+  function bumpSeen() { try { localStorage.setItem(SEEN, String(seenCount() + 1)); } catch (e) {} }
+  function markUsed() { try { localStorage.setItem(USED, '1'); } catch (e) {} }
+
+  // once the palette is opened anywhere, remember it (and kill any visible hint)
+  var realOpen = window.__openCmdK;
+  window.__openCmdK = function () { markUsed(); var t = document.querySelector('.cmdk-hint'); if (t) t.classList.remove('is-in'); return realOpen && realOpen(); };
+  window.addEventListener('keydown', function (e) {
+    if ((e.metaKey || e.ctrlKey) && (e.key === 'k' || e.key === 'K')) markUsed();
+  });
+
   function show() {
+    if (used() || document.querySelector('.cmdk-hint')) return;
     var t = document.createElement('div');
     t.className = 'cmdk-hint';
-    var keys = isTouch ? '<b>Menu</b>' : '<b>\u2318</b><b>K</b>';
-    t.innerHTML = '<span class="cmdk-hint__txt">' + (isTouch ? 'Tap to jump around' : 'Press') + '</span>' + (isTouch ? '' : keys) + '<span class="cmdk-hint__txt">to jump around</span><button class="cmdk-hint__x" aria-label="Dismiss">\u00d7</button>';
+    t.innerHTML = '<span class="cmdk-hint__txt">Tip \u2014 press</span><b>\u2318</b><b>K</b><span class="cmdk-hint__txt">to jump anywhere on this site</span><button class="cmdk-hint__x" aria-label="Dismiss">\u00d7</button>';
     document.body.appendChild(t);
-    requestAnimationFrame(function(){ t.classList.add('is-in'); });
-    function bye(){ t.classList.remove('is-in'); setTimeout(function(){ t.remove(); }, 400); try { localStorage.setItem('sn-cmdk-hint','1'); } catch(e){} }
-    t.querySelector('.cmdk-hint__x').addEventListener('click', bye);
-    t.addEventListener('click', function(e){ if (e.target.classList.contains('cmdk-hint__x')) return; if (window.__openCmdK) window.__openCmdK(); bye(); });
-    setTimeout(bye, 9000);
+    requestAnimationFrame(function () { t.classList.add('is-in'); });
+    function bye() { t.classList.remove('is-in'); setTimeout(function () { t.remove(); }, 400); }
+    t.querySelector('.cmdk-hint__x').addEventListener('click', function (e) { e.stopPropagation(); markUsed(); bye(); });
+    t.addEventListener('click', function (e) { if (e.target.classList.contains('cmdk-hint__x')) return; window.__openCmdK && window.__openCmdK(); bye(); });
+    bumpSeen();
+    setTimeout(function () { if (!used()) bye(); }, 14000);
   }
-  if (isTouch) return; // keep it desktop-only; mobile has no ⌘K
-  window.addEventListener('load', function(){ setTimeout(show, 2600); });
+
+  // show on this visit only if they've never used it and we've shown it < 4 times
+  window.addEventListener('load', function () {
+    if (used() || seenCount() >= 4) return;
+    setTimeout(show, 2400);
+  });
 })();
