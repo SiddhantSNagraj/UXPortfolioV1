@@ -66,7 +66,7 @@ function SlackCase({ project, projects, onOpen, onHome }) {
           </div>
           <h1 className="case__title display">Slack</h1>
           <p className="case__subtitle">Reimagined, a self-initiated mobile redesign for clearer navigation &amp; calmer UI</p>
-          <p className="case__blurb">No brief, no client, no metrics, just a designer scratching an itch. I’ve always found Slack <strong>confusing to navigate</strong>, so I redesigned the mobile app end to end: from problem framing and lo-fi wireframes to a full hi-fi system built on one idea, make the things that matter easy to reach.</p>
+          <p className="case__blurb">Honestly, I started this mobile redesign because Slack’s sidebar made me irrationally angry. What began as a personal frustration turned into a rigorous UX exercise spanning problem framing, lo-fi wireframes, and a full hi-fi system built around a single goal: making the things that actually matter easy to reach.</p>
           <div className="case__meta">
             {[['Type', 'Concept · Playground'], ['Focus', 'Mobile navigation & UI'], ['Platform', 'iOS · dark mode'], ['Tools', 'Figma']].map(([k, v]) => (
               <div className="case__metacell" key={k}>

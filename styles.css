@@ -497,8 +497,14 @@ html[data-vibe^="retro"] .seal__core b { font-family: 'DM Serif Display', Georgi
 
 /* Retro Slate — clean near-black with a fine, even film grain (no blotches) */
 html[data-vibe="retroslate"] body::after {
-  opacity: 0.07; mix-blend-mode: soft-light; background-size: 200px 200px;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23g)'/%3E%3C/svg%3E");
+  opacity: 0.11; mix-blend-mode: soft-light; background-size: 260px 260px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.6' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='260' height='260' filter='url(%23g)'/%3E%3C/svg%3E");
+}
+/* soft suede vignette: centre lifts slightly, edges fall to near-black (like the reference) */
+html[data-vibe="retroslate"]:not([data-theme="light"]) body {
+  background-color: #0c0c0e;
+  background-image: radial-gradient(118% 80% at 50% 30%, #1c1c1f 0%, #131316 42%, #0b0b0d 100%);
+  background-attachment: fixed;
 }
 
 /* ⌘K discoverability hint toast */
@@ -514,3 +520,63 @@ html[data-vibe="retroslate"] body::after {
 .cmdk-hint__x { background: none; border: none; color: var(--ink-3); font-size: 17px; line-height: 1; cursor: pointer; padding: 0 2px 0 4px; }
 .cmdk-hint__x:hover { color: var(--ink); }
 @media (max-width: 560px) { .cmdk-hint { display: none; } }
+
+/* =========================================================================
+   RETRO EXTRAS — sunburst seal, certified badge, stamps, cursor, poster
+   (only visible when data-vibe starts "retro")
+   ========================================================================= */
+
+
+/* #3 rubber stamps near section labels */
+.rstamp { display: inline-block; margin-left: 14px; transform: rotate(var(--rot, -6deg));
+  font-family: var(--mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--accent); border: 2px solid var(--accent); border-radius: 5px; padding: 3px 8px;
+  opacity: .62; mix-blend-mode: var(--rstamp-blend, normal); vertical-align: middle; }
+html[data-vibe^="retro"] .block-head { position: relative; }
+
+/* #12 retro cursor — registration starburst replaces the dot */
+html[data-vibe^="retro"][data-cursor="label"] .curx__dot {
+  background: none; width: 22px; height: 22px; margin: -9px 0 0 -9px;
+  background-image:
+    linear-gradient(var(--accent), var(--accent)), linear-gradient(var(--accent), var(--accent));
+  background-size: 100% 1.5px, 1.5px 100%; background-position: center, center; background-repeat: no-repeat;
+  border: 1.5px solid var(--accent); border-radius: 50%;
+}
+html[data-vibe^="retro"][data-cursor="label"].curx-hot .curx__dot { transform: scale(1.35) rotate(45deg); }
+
+/* #5 poster download button (sits under the footer ticket) */
+.retro-poster-btn { display: inline-flex; align-items: center; justify-content: center; margin-top: 4px;
+  font-size: 11px; letter-spacing: .04em; background: none; color: var(--accent);
+  border: 1px solid var(--accent); border-radius: 999px; padding: 9px 16px; cursor: pointer;
+  transition: background .25s var(--ease), color .25s var(--ease); }
+.retro-poster-btn:hover { background: var(--accent); color: var(--bg); }
+
+/* #7 letterpress emboss on headings (retro only) */
+html[data-vibe^="retro"] .gs-h2, html[data-vibe^="retro"] .cc-h2, html[data-vibe^="retro"] .am-h2,
+html[data-vibe^="retro"] .sl-h2, html[data-vibe^="retro"] .case__title, html[data-vibe^="retro"] .block-head__title,
+html[data-vibe^="retro"] .hero__name, html[data-vibe^="retro"] .reviews__title, html[data-vibe^="retro"] .about__statement {
+  text-shadow: 0 1px 0 color-mix(in srgb, var(--ink) 30%, transparent), 0 -1px 0 rgba(0,0,0,.4);
+}
+
+/* #11 ticket-stub corner notches on cards (retro only) */
+html[data-vibe^="retro"] .tldr__cell, html[data-vibe^="retro"] .gs-card,
+html[data-vibe^="retro"] .sl-povcard, html[data-vibe^="retro"] .gs-princ__card {
+  -webkit-mask:
+    radial-gradient(7px at 0 0, transparent 98%, #000) ,
+    radial-gradient(7px at 100% 0, transparent 98%, #000),
+    radial-gradient(7px at 0 100%, transparent 98%, #000),
+    radial-gradient(7px at 100% 100%, transparent 98%, #000);
+  -webkit-mask-composite: source-in;
+          mask:
+    radial-gradient(7px at 0 0, transparent 98%, #000),
+    radial-gradient(7px at 100% 0, transparent 98%, #000),
+    radial-gradient(7px at 0 100%, transparent 98%, #000),
+    radial-gradient(7px at 100% 100%, transparent 98%, #000);
+          mask-composite: intersect;
+}
+
+/* #15 inked hover — swipe fill spreads with an irregular ink edge (retro only) */
+html[data-vibe^="retro"][data-rowhover="swipe"] .workrow__fill {
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 100' preserveAspectRatio='none'%3E%3Cfilter id='i'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.012 0.16' numOctaves='3' seed='4' result='n'/%3E%3CfeDisplacementMap in='SourceGraphic' in2='n' scale='22'/%3E%3C/filter%3E%3Crect x='-12' y='0' width='312' height='100' fill='%23fff' filter='url(%23i)'/%3E%3C/svg%3E") center/100% 100% no-repeat;
+          mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 100' preserveAspectRatio='none'%3E%3Cfilter id='i'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.012 0.16' numOctaves='3' seed='4' result='n'/%3E%3CfeDisplacementMap in='SourceGraphic' in2='n' scale='22'/%3E%3C/filter%3E%3Crect x='-12' y='0' width='312' height='100' fill='%23fff' filter='url(%23i)'/%3E%3C/svg%3E") center/100% 100% no-repeat;
+}

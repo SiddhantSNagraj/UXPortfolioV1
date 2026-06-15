@@ -178,7 +178,7 @@ function GreenstandCase({ project, projects, onOpen, onHome }) {
           </div>
           <h1 className="case__title display">Greenstand</h1>
           <p className="case__subtitle">Roots, a design system for global tree-tracking</p>
-          <p className="case__blurb">I joined a climate nonprofit to unify two siloed apps into one accessible, scalable design language. I built <strong>Roots</strong> from scratch as the only designer, and it grew into a formal program with a team of four that I led to ship it into production.</p>
+          <p className="case__blurb">I built a design system from scratch to rescue a global tree-planting nonprofit from two completely siloed apps. Once the scalable, accessible design language was ready, I stepped up to lead the team and shipped the entire thing into production.</p>
           <div className="case__meta">
             {[['Role', 'Lead UX Designer'], ['Ownership', 'Solo build → led team of 4'], ['Scope', '150+ components · tokens · a11y'], ['Tools', 'Figma · Storybook · WCAG']].map(([k, v]) => (
               <div className="case__metacell" key={k}>

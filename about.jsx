@@ -33,7 +33,7 @@ function About({ profile, reviews }) {
             </p>
             <p className="about__body">
               My north star is simple, and it’s on the wall:
-              <span className="pixel about__pix"> Creating experiences people&nbsp;like.</span>
+              <span className="pixel about__pix"> Building things that make people’s days a little&nbsp;better.</span>
             </p>
 
             <figure className="about__mantra">
