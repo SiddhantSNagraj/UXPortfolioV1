@@ -395,7 +395,7 @@ html[data-vibe="retro"] .retrotog, html[data-vibe="retroslate"] .retrotog {
 }
 html[data-vibe="retro"] .retrotog__star, html[data-vibe="retroslate"] .retrotog__star { transform: rotate(180deg); }
 @media (max-width: 720px) {
-  .retrotog { height: 28px; width: 28px; padding: 0; margin-left: -18px; font-size: 9.5px; gap: 0; }
+  .retrotog { height: 28px; width: 28px; padding: 0; margin-left: 8px; font-size: 9.5px; gap: 0; }
   .retrotog__txt { display: none; }
 }
 
