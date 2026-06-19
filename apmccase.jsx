@@ -1,6 +1,6 @@
 /* APMC, Northeastern Protothon 5.0 website redesign case study */
 
-const { useEffect: useEffectAM } = React;
+const { useEffect: useEffectAM, useState: useStateAM } = React;
 
 const AM = {
   phases: [
@@ -100,15 +100,17 @@ const AM = {
 
 function ApmcCase({ project, projects, onOpen, onHome }) {
   useEffectAM(() => { window.scrollTo(0, 0); }, []);
+  const [rec, setRec] = useStateAM(false);
   const idx = projects.findIndex((x) => x.id === 'apmc');
   const next = projects[(idx + 1) % projects.length];
 
   return (
-    <article className="case am">
+    <article className={`case am ${rec ? 'is-rec' : ''}`}>
       <CaseSectionNav sectionSelector=".am-sec, .am-band" />
       {/* HERO */}
       <section className="case__hero am-hero" style={{ position: 'relative', overflow: 'hidden' }}>
         <div className="wrap am-hero__wrap">
+          <img className="am-hero__husky" src="assets/apmc/husky-hero.png" alt="Northeastern Huskies logo" />
           <div className="am-hero__left">
             <button className="case__back mono" onClick={onHome}>← Back to home</button>
             <div className="case__metatop">
@@ -156,11 +158,43 @@ function ApmcCase({ project, projects, onOpen, onHome }) {
               </div>
             ))}
           </div>
+          <button className={`recbtn ${rec ? 'is-on' : ''}`} onClick={() => setRec((r) => !r)} aria-pressed={rec}>
+            {rec ? 'Read the full story →' : 'In a hurry? Recruiter mode · 90-sec version'}
+          </button>
+        </div>
+      </section>
+
+      {/* RECRUITER SUMMARY */}
+      <section className="wrap recsum">
+        <h2 className="recsum__h">Three decisions that mattered</h2>
+        <div className="recsum__grid">
+          {[
+            ['Led the redesign end to end', 'As lead designer with two club designers and three engineers, I drove research, IA and UI from kickoff to a launched site in three months.'],
+            ['Cut the clutter, surfaced the path', 'Stripped buried schedules and vague CTAs into a clear hierarchy, so a visitor instantly gets what Protothon is and how to join.'],
+            ['Built it to last', 'Designed and shipped on Wix so the club could maintain it, it’s still their live, functioning site two years after I left.'],
+          ].map(([t, d], i) => (
+            <div className="recsum__item" key={i}>
+              <span className="recsum__n">0{i + 1}</span>
+              <div><b>{t}</b><p>{d}</p></div>
+            </div>
+          ))}
+        </div>
+
+        <h3 className="recsum__seeit">See it, shipped</h3>
+        <p className="recsum__sub" style={{ margin: '8px 0 0' }}>The redesigned homepage and Protothon page, live at apmcneu.com.</p>
+        <div className="recsum__figrow">
+          <div className="recsum__fig"><img src="assets/apmc/final-home-web.jpg" alt="Redesigned APMC homepage" loading="lazy" /></div>
+          <div className="recsum__fig"><img src="assets/apmc/final-protothon-web.jpg" alt="Redesigned APMC Protothon page" loading="lazy" /></div>
+        </div>
+
+        <div className="recsum__cta">
+          <a className="btn btn--yellow" href="https://www.apmcneu.com/" target="_blank" rel="noreferrer">Visit the live site <span className="arr">↗</span></a>
+          <button className="btn" onClick={() => setRec(false)}>Read the full story <span className="arr">↓</span></button>
         </div>
       </section>
 
       {/* STATS BAND */}
-      <section className="am-band" data-navskip="true" style={{ marginTop: 'clamp(40px,6vw,80px)' }}>
+      <section className="am-band" data-navskip="true" style={{ marginTop: 'clamp(20px,3vw,42px)' }}>
         <div className="wrap am-band__inner">
           {[['450+', 'Sessions from launch'], ['700+', 'Daily active users'], ['2 yrs+', 'Still live &amp; in use today']].map(([n, l], i) => (
             <Reveal key={i} className="am-stat" delay={`d${i + 1}`}>
@@ -179,7 +213,8 @@ function ApmcCase({ project, projects, onOpen, onHome }) {
       ]} />
 
       {/* CONTEXT */}
-      <section className="wrap am-sec">
+      <section className="wrap am-sec" style={{ position: 'relative', overflow: 'hidden' }}>
+        <img className="am-husky am-husky--ctx" src="assets/apmc/husky-mark.png" alt="" aria-hidden="true" />
         <div className="am-sec__label"><span className="pixel">00</span><span className="mono">Context</span></div>
         <div className="am-sec__body">
           <h2 className="am-h2">A student club, a real event, a tight deadline</h2>
@@ -284,7 +319,8 @@ function ApmcCase({ project, projects, onOpen, onHome }) {
       </section>
 
       {/* UNDERSTAND */}
-      <section className="wrap am-sec">
+      <section className="wrap am-sec" style={{ position: 'relative', overflow: 'hidden' }}>
+        <img className="am-husky am-husky--und" src="assets/apmc/husky-mark.png" alt="" aria-hidden="true" />
         <div className="am-sec__label"><span className="pixel">03</span><span className="mono">Understand</span></div>
         <div className="am-sec__body">
           <h2 className="am-h2">Two weeks of listening before a single pixel</h2>
@@ -425,7 +461,8 @@ function ApmcCase({ project, projects, onOpen, onHome }) {
       </section>
 
       {/* FINAL DESIGN */}
-      <section className="wrap am-sec">
+      <section className="wrap am-sec" style={{ position: 'relative', overflow: 'hidden' }}>
+        <img className="am-husky am-husky--final" src="assets/apmc/husky-mark.png" alt="" aria-hidden="true" />
         <div className="am-sec__label"><span className="pixel" style={{ color: 'var(--yellow-ink)' }}>06</span><span className="mono">Final design</span></div>
         <div className="am-sec__body">
           <h2 className="am-h2">The shipped site, built on Wix, live today</h2>

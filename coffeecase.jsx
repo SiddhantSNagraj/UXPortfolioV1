@@ -2,7 +2,7 @@
    Source: Siddhant's CoffeeHouse deck. Reimagined as an editorial scroll page
    in the portfolio's dark system (blue + yellow accents). */
 
-const { useEffect: useEffectCC } = React;
+const { useEffect: useEffectCC, useState: useStateCC } = React;
 
 const CC = {
   problems: [
@@ -74,11 +74,12 @@ function CCStep({ items }) {
 
 function CoffeeCase({ project, projects, onOpen, onHome }) {
   useEffectCC(() => { window.scrollTo(0, 0); }, []);
+  const [rec, setRec] = useStateCC(false);
   const idx = projects.findIndex((x) => x.id === 'coffeehouse');
   const next = projects[(idx + 1) % projects.length];
 
   return (
-    <article className="case cc">
+    <article className={`case cc ${rec ? 'is-rec' : ''}`}>
       <CaseSectionNav sectionSelector=".cc-sec, .cc-band" />
       {/* ---------- HERO ---------- */}
       <section className="case__hero">
@@ -103,6 +104,35 @@ function CoffeeCase({ project, projects, onOpen, onHome }) {
               </div>
             ))}
           </div>
+          <button className={`recbtn ${rec ? 'is-on' : ''}`} onClick={() => setRec((r) => !r)} aria-pressed={rec}>
+            {rec ? 'Read the full story →' : 'In a hurry? Recruiter mode · 90-sec version'}
+          </button>
+        </div>
+      </section>
+
+      {/* RECRUITER SUMMARY */}
+      <section className="wrap recsum">
+        <h2 className="recsum__h">Three decisions that mattered</h2>
+        <div className="recsum__grid">
+          {[
+            ['Led a team of three, end to end', 'As design lead I ran the whole arc, research, IA, a design system, and usability testing, over a focused four-month project.'],
+            ['Designed for the morning rush', 'Cut wait times and made customization effortless, the flows are built around speed and one-handed use, not feature-stuffing.'],
+            ['Validated, not assumed', 'Usability-tested the core flows: 68% gave it five stars and the average rating landed at 4.0 across testers.'],
+          ].map(([t, d], i) => (
+            <div className="recsum__item" key={i}>
+              <span className="recsum__n">0{i + 1}</span>
+              <div><b>{t}</b><p>{d}</p></div>
+            </div>
+          ))}
+        </div>
+
+        <h3 className="recsum__seeit">See it</h3>
+        <p className="recsum__sub" style={{ margin: '8px 0 0' }}>Key screens from the high-fidelity ordering app.</p>
+        <div className="recsum__fig"><img src="assets/coffee/screens.png" alt="Key high-fidelity screens from the CoffeeHouse ordering app" loading="lazy" /></div>
+
+        <div className="recsum__cta">
+          <a className="btn btn--yellow" href="mailto:siddhantsnagraj@outlook.com">Let’s talk <span className="arr">→</span></a>
+          <button className="btn" onClick={() => setRec(false)}>Read the full story <span className="arr">↓</span></button>
         </div>
       </section>
 

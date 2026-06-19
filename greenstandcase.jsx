@@ -2,7 +2,7 @@
    Source: Siddhant's Greenstand / Roots deck. Editorial scroll in the
    portfolio's dark system, emerald accent. Centerpiece: live GSKit gallery. */
 
-const { useEffect: useEffectGS } = React;
+const { useEffect: useEffectGS, useState: useStateGS } = React;
 
 const GS = {
   problems: [
@@ -155,11 +155,12 @@ function FlowStrip({ steps }) {
 
 function GreenstandCase({ project, projects, onOpen, onHome }) {
   useEffectGS(() => { window.scrollTo(0, 0); }, []);
+  const [rec, setRec] = useStateGS(false);
   const idx = projects.findIndex((x) => x.id === 'greenstand');
   const next = projects[(idx + 1) % projects.length];
 
   return (
-    <article className="case gs">
+    <article className={`case gs ${rec ? 'is-rec' : ''}`}>
       <CaseSectionNav sectionSelector=".gs-sec, .gs-band" />
       {/* ---------- HERO ---------- */}
       <section className="case__hero">
@@ -187,6 +188,43 @@ function GreenstandCase({ project, projects, onOpen, onHome }) {
               </div>
             ))}
           </div>
+          <button className={`gs-recbtn mono ${rec ? 'is-on' : ''}`} onClick={() => setRec((r) => !r)} aria-pressed={rec}>
+            <span className="gs-recbtn__dot" aria-hidden="true" />
+            {rec ? 'Read the full story →' : 'In a hurry? Recruiter mode · 90-sec version'}
+          </button>
+        </div>
+      </section>
+
+      {/* ---------- RECRUITER SUMMARY (only in recruiter mode) ---------- */}
+      <section className="wrap gs-recsum">
+        <h2 className="gs-h2">Three decisions that mattered</h2>
+        <div className="gs-recsum__grid">
+          {[
+            ['Proved it before pitching it', 'Built a few core components, dropped them into the live apps, and showed leadership the before/after. That earned the mandate to build Roots properly.'],
+            ['One green, ten steps', 'Consolidated 7+ undocumented greens (several failing contrast) into a single AA-compliant scale, the system’s backbone.'],
+            ['Made it a living, coded reference', 'Paired the Figma library with a Storybook of coded components so remote, rotating volunteers always pulled from one source of truth.'],
+          ].map(([t, d], i) => (
+            <div className="gs-recsum__item" key={i}>
+              <span className="gs-recsum__n mono">0{i + 1}</span>
+              <div><b>{t}</b><p>{d}</p></div>
+            </div>
+          ))}
+        </div>
+
+        <h3 className="gs-h3 gs-recsum__seeit">See it, live</h3>
+        <p className="gs-lead gs-lead--sm">The real Roots components, rendered in code, not screenshots. Switch tabs.</p>
+        <GSKit />
+
+        <figure className="gs-quote gs-recsum__quote">
+          <p className="gs-quote__text">Siddhant played a big role in building a design system that works today and scales with us. He doesn't just make things look good, he researches trends and truly understands our products.</p>
+          <figcaption className="gs-quote__by">
+            <span className="gs-quote__name">Karthikeyan Dhanasekaran</span>
+            <span className="gs-quote__role">Principal UX Leader · managed me at Greenstand</span>
+          </figcaption>
+        </figure>
+        <div className="gs-recsum__cta">
+          <a className="btn btn--yellow" href="mailto:siddhantsnagraj@outlook.com">Let’s talk <span className="arr">→</span></a>
+          <button className="btn" onClick={() => setRec(false)}>Read the full story <span className="arr">↓</span></button>
         </div>
       </section>
 
@@ -198,7 +236,7 @@ function GreenstandCase({ project, projects, onOpen, onHome }) {
       ]} />
 
       {/* ---------- HERO SHOWCASE: live system at a glance ---------- */}
-      <section className="wrap">
+      <section className="wrap" style={{ marginTop: 'clamp(40px,6vw,88px)' }}>
         <GSKit />
         <span className="gs-shotcap">Roots, rendered live, switch tabs to explore foundations, components and states. Every element here is a real system component.</span>
       </section>
@@ -477,7 +515,7 @@ function GreenstandCase({ project, projects, onOpen, onHome }) {
       </section>
 
       {/* ---------- OUTCOMES ---------- */}
-      <section className="gs-band">
+      <section className="gs-band gs-keep">
         <span className="gs-leaf" style={{ width: 150, height: 150, top: '8%', right: '5%', transform: 'rotate(20deg)', opacity: .2 }} aria-hidden="true" />
         <div className="wrap">
           <span className="mono mono--green">( Outcomes )</span>

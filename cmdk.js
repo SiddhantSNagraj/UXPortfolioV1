@@ -36,15 +36,21 @@
   window.__toggleVibe = function () {
     var d = document.documentElement, s = d.style;
     var on = d.getAttribute('data-vibe') !== 'default';
-    if (on) {
-      d.setAttribute('data-vibe', 'default');
-      Object.keys(INK).forEach(function (k) { s.setProperty(k, INK[k]); });
-      s.removeProperty('--display');
-      try { localStorage.setItem('sn-vibe', 'default'); } catch (e) {}
+    var next = on ? 'default' : 'retroslate';
+    d.setAttribute('data-vibe', next);
+    try { localStorage.setItem('sn-vibe', next); } catch (e) {}
+    if (typeof window.__applyTweaks === 'function') {
+      // let the tweaks layer re-apply everything (respects the user's chosen
+      // hero font, palette, etc. rather than snapping back to a hardcoded default)
+      window.__applyTweaks();
     } else {
-      d.setAttribute('data-vibe', 'retroslate');
-      Object.keys(RETRO).forEach(function (k) { s.setProperty(k, RETRO[k]); });
-      try { localStorage.setItem('sn-vibe', 'retroslate'); } catch (e) {}
+      // fallback for before the React tweaks layer has mounted
+      if (next === 'default') {
+        Object.keys(INK).forEach(function (k) { s.setProperty(k, INK[k]); });
+        s.removeProperty('--display');
+      } else {
+        Object.keys(RETRO).forEach(function (k) { s.setProperty(k, RETRO[k]); });
+      }
     }
   };
   // secret: triple-click the SN logo to flip the vibe

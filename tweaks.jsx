@@ -4,7 +4,7 @@ const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
   "vibe": "Default",
   "accent": "#2b6fff",
   "highlight": "#f7c14a",
-  "heroFont": "Grotesk",
+  "heroFont": "Serif",
   "heroType": "Classic",
   "ticket": "Sunset",
   "scheme": "Ink",
@@ -16,6 +16,7 @@ const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
   "gsFlow": "Solid",
   "slHero": "Trio",
   "navStyle": "Panel",
+  "recBtn": "Stamp Double",
   "cursorStyle": "Label",
   "retroCursor": "Diamond",
   "heroBg": "None",
@@ -51,6 +52,9 @@ const APMC_HOVER = { 'Display': 'display' };
 
 // Greenstand work-row hover: which Roots treatment pops up.
 const GS_HOVER = { 'Board': 'board', 'Scatter': 'scatter', 'Grid': 'grid', 'Tokens': 'tokens' };
+
+// Recruiter-mode toggle button style (case studies).
+const REC_BTN = { 'Stamp': 'stamp', 'Stamp Box': 'stampbox', 'Stamp Round': 'stampround', 'Stamp Double': 'stampdouble', 'Bracket': 'bracket', 'Underline': 'underline', 'Ticket': 'ticket', 'Pill': 'pill' };
 
 // Greenstand user-flow diagram style.
 const GS_FLOW = { 'Solid': 'solid', 'Blueprint': 'blueprint' };
@@ -117,20 +121,22 @@ const BG_TONES = {
 // big headline stays balanced (tracking / line-height / optical size).
 const HERO_FONTS = {
   'Grotesk':   { stack: "'Archivo',system-ui,sans-serif",                    weight: 900, ls: '-0.035em', size: 'clamp(46px, 12.5vw, 186px)',lh: 0.88 },
+  'Familjen':  { stack: "'Familjen Grotesk',system-ui,sans-serif",           weight: 700, ls: '-0.025em', size: 'clamp(48px, 13vw, 196px)',  lh: 0.9 },
+  'Geometric': { stack: "'Space Grotesk',system-ui,sans-serif",             weight: 700, ls: '-0.03em',  size: 'clamp(48px, 13vw, 196px)',  lh: 0.9 },
+  'Editorial': { stack: "'Syne',system-ui,sans-serif",                       weight: 800, ls: '-0.02em',  size: 'clamp(50px, 14vw, 208px)',  lh: 0.9 },
+  'Condensed': { stack: "'Oswald',system-ui,sans-serif",                     weight: 700, ls: '-0.005em', size: 'clamp(56px, 15.5vw, 236px)', lh: 0.86 },
   'Poster':    { stack: "'Anton',system-ui,sans-serif",                      weight: 400, ls: '-0.01em',  size: 'clamp(54px, 16vw, 240px)',  lh: 0.84 },
   'Tall':      { stack: "'Big Shoulders Display',system-ui,sans-serif",      weight: 800, ls: '-0.01em',  size: 'clamp(60px, 17vw, 252px)',  lh: 0.82 },
-  'Editorial': { stack: "'Syne',system-ui,sans-serif",                       weight: 800, ls: '-0.02em',  size: 'clamp(50px, 14vw, 208px)',  lh: 0.9 },
   'Bebas':     { stack: "'Bebas Neue',system-ui,sans-serif",                 weight: 400, ls: '0.005em', size: 'clamp(62px, 17.5vw, 264px)', lh: 0.82 },
-  'Condensed': { stack: "'Oswald',system-ui,sans-serif",                     weight: 700, ls: '-0.005em', size: 'clamp(56px, 15.5vw, 236px)', lh: 0.86 },
-  'Serif':     { stack: "'Playfair Display',Georgia,serif",                  weight: 900, ls: '-0.01em',  size: 'clamp(48px, 13.5vw, 202px)', lh: 0.9 },
-  'Geometric': { stack: "'Space Grotesk',system-ui,sans-serif",             weight: 700, ls: '-0.03em',  size: 'clamp(48px, 13vw, 196px)',  lh: 0.9 },
   'Round':     { stack: "'Unbounded',system-ui,sans-serif",                  weight: 800, ls: '-0.02em',  size: 'clamp(44px, 11.5vw, 176px)',lh: 0.94 },
+  'Serif':     { stack: "'Fraunces',Georgia,serif",                          weight: 900, ls: '-0.015em', size: 'clamp(48px, 13.5vw, 202px)', lh: 0.9 },
 };
 
 function TweaksUI() {
   const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
 
   React.useEffect(() => {
+    const apply = () => {
     const r = document.documentElement.style;
     r.setProperty('--blue', t.accent);
     r.setProperty('--accent', t.accent);
@@ -147,6 +153,7 @@ function TweaksUI() {
     document.documentElement.setAttribute('data-fan', FAN_STYLES[t.fanStyle] || 'bloom');
     document.documentElement.setAttribute('data-apmchover', APMC_HOVER[t.apmcHover] || 'display');
     document.documentElement.setAttribute('data-gshover', GS_HOVER[t.gsHover] || 'board');
+    document.documentElement.setAttribute('data-recbtn', REC_BTN[t.recBtn] || 'stampdouble');
     document.documentElement.setAttribute('data-flowstyle', GS_FLOW[t.gsFlow] || 'solid');
     document.documentElement.setAttribute('data-slhero', SL_HERO[t.slHero] || 'trio');
     document.documentElement.setAttribute('data-csnav', NAV_STYLES[t.navStyle] || 'panel');
@@ -181,6 +188,12 @@ function TweaksUI() {
     } else {
       r.removeProperty('--display');
     }
+    };
+    apply();
+    // expose so the public retro toggle (cmdk / logo easter egg) can re-run the
+    // full tweak apply — restoring the user's configured hero font etc. instead
+    // of hardcoding a default when leaving retro.
+    window.__applyTweaks = apply;
   }, [t]);
 
   return (
@@ -214,6 +227,9 @@ function TweaksUI() {
       <TweakSelect label="Greenstand hover" value={t.gsHover}
         options={Object.keys(GS_HOVER)}
         onChange={(v) => setTweak('gsHover', v)} />
+      <TweakSelect label="Recruiter button" value={t.recBtn}
+        options={Object.keys(REC_BTN)}
+        onChange={(v) => setTweak('recBtn', v)} />
       <TweakSelect label="Greenstand flow" value={t.gsFlow}
         options={Object.keys(GS_FLOW)}
         onChange={(v) => setTweak('gsFlow', v)} />

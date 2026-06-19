@@ -99,9 +99,13 @@ function Contact({ profile }) {
           <div className="foot__links">
             <span className="pixel" style={{ fontSize: 22 }}>SIDDHANT NAGRAJ®</span>
             <span className="mono" style={{ marginTop: 8 }}>Product Designer, based in {profile.location}</span>
-            <span className="mono colophon">Designed &amp; built by hand · Archivo + Space Mono · No templates · ⌘K to navigate</span>
+            <span className="mono colophon">Built from scratch · Archivo + Space Mono · ⌘K to navigate</span>
           </div>
-          <div className="col" style={{ alignItems: 'flex-end', gap: 6 }}>
+          <div className="foot__right">
+            <div className="foot__meta">
+              <span className="mono">© 2026 · Made by a human, typos &amp; all</span>
+              <span className="mono mono--ink">{profile.philosophy.toUpperCase()}</span>
+            </div>
             <span className="seal" aria-hidden="true">
               <svg viewBox="0 0 120 120" className="seal__svg">
                 <defs><path id="sealpath" d="M60,60 m-42,0 a42,42 0 1,1 84,0 a42,42 0 1,1 -84,0" /></defs>
@@ -109,8 +113,6 @@ function Contact({ profile }) {
               </svg>
               <span className="seal__core mono">SN<br /><b>26</b></span>
             </span>
-            <span className="mono">© 2026, Designed &amp; built in the dark</span>
-            <span className="mono mono--ink">{profile.philosophy.toUpperCase()}</span>
           </div>
         </div>
       </div>

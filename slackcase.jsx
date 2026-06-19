@@ -2,7 +2,7 @@
    Self-initiated mobile redesign. Real wireframe → hi-fi process pulled from
    the Figma file. Honestly framed: a craft + POV piece, no client, no metrics. */
 
-const { useEffect: useEffectSL } = React;
+const { useEffect: useEffectSL, useState: useStateSL } = React;
 
 const SL = {
   problems: [
@@ -49,11 +49,12 @@ const SL = {
 
 function SlackCase({ project, projects, onOpen, onHome }) {
   useEffectSL(() => { window.scrollTo(0, 0); }, []);
+  const [rec, setRec] = useStateSL(false);
   const idx = projects.findIndex((x) => x.id === 'slack');
   const next = projects[(idx + 1) % projects.length];
 
   return (
-    <article className="case sl">
+    <article className={`case sl ${rec ? 'is-rec' : ''}`}>
       <CaseSectionNav sectionSelector=".sl-sec, .sl-band" />
       {/* ---------- HERO ---------- */}
       <section className="case__hero">
@@ -76,6 +77,38 @@ function SlackCase({ project, projects, onOpen, onHome }) {
             ))}
           </div>
           <p className="sl-disclaimer">An independent concept made for practice, not affiliated with, endorsed by, or commissioned by Slack. All trademarks belong to their owners.</p>
+          <button className={`recbtn ${rec ? 'is-on' : ''}`} onClick={() => setRec((r) => !r)} aria-pressed={rec}>
+            {rec ? 'Read the full story →' : 'In a hurry? Recruiter mode · 90-sec version'}
+          </button>
+        </div>
+      </section>
+
+      {/* RECRUITER SUMMARY */}
+      <section className="wrap recsum">
+        <h2 className="recsum__h">Three decisions that mattered</h2>
+        <div className="recsum__grid">
+          {[
+            ['A self-initiated concept', 'No brief, no client. I redesigned Slack’s mobile app for fun, because its sidebar genuinely frustrated me, then treated it with real rigor.'],
+            ['Fixed the navigation first', 'The whole redesign hangs on one idea: make the things that actually matter easy to reach, with a calmer information hierarchy.'],
+            ['Full arc, lo-fi to hi-fi', 'Problem framing → lo-fi wireframes → a complete high-fidelity system, so the concept holds together end to end, not just one pretty screen.'],
+          ].map(([t, d], i) => (
+            <div className="recsum__item" key={i}>
+              <span className="recsum__n">0{i + 1}</span>
+              <div><b>{t}</b><p>{d}</p></div>
+            </div>
+          ))}
+        </div>
+
+        <h3 className="recsum__seeit">See it</h3>
+        <p className="recsum__sub" style={{ margin: '8px 0 0' }}>A few screens from the high-fidelity redesign.</p>
+        <div className="recsum__figrow">
+          <div className="recsum__fig"><img src="assets/slack/hi-home.png" alt="Redesigned Slack home / channels screen" loading="lazy" /></div>
+          <div className="recsum__fig"><img src="assets/slack/hi-dms.png" alt="Redesigned Slack direct messages screen" loading="lazy" /></div>
+        </div>
+
+        <div className="recsum__cta">
+          <a className="btn btn--yellow" href="mailto:siddhantsnagraj@outlook.com">Let’s talk <span className="arr">→</span></a>
+          <button className="btn" onClick={() => setRec(false)}>Read the full story <span className="arr">↓</span></button>
         </div>
       </section>
 
