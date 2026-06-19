@@ -705,7 +705,7 @@ html[data-vibe^="retro"][data-rowhover="swipe"] .workrow__fill {
 .case.is-rec .recsum { display: block; animation: recFade .45s var(--ease) both; }
 @keyframes recFade { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
 /* hide every full-story section except the kept ones */
-.case.is-rec > section:not(.case__hero):not(.tldr):not(.recsum):not(.case__next) { display: none; }
+.case.is-rec > section:not(.case__hero):not(.tldr):not(.recsum):not(.gs-recsum):not(.gs-keep):not(.case__next) { display: none; }
 .case.is-rec .csnav { display: none; }
 
 .recsum__h { font-family: var(--display); font-weight: 800; font-size: clamp(28px,3.6vw,46px); line-height: 1.05; letter-spacing: -.02em; margin-bottom: 8px; }

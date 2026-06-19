@@ -679,8 +679,14 @@ html[data-recbtn="stampdouble"] .gs-recbtn:hover { opacity: 1; transform: rotate
 
 /* the recruiter summary is hidden by default; shown only in recruiter mode */
 .gs-recsum { display: none; padding-top: clamp(36px,5vw,64px); padding-bottom: clamp(8px,1vw,16px); }
-.case.gs.is-rec .gs-recsum { display: block; animation: gsRecFade .45s var(--ease) both; }
-@keyframes gsRecFade { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+.case.gs.is-rec .gs-recsum { display: block; }
+/* entrance is transform-only and never touches opacity, so the content can never
+   be stranded invisible if the animation fails to start (the display:none->block
+   quirk) or is suppressed (print, reduced-motion) */
+@media (prefers-reduced-motion: no-preference) {
+  .case.gs.is-rec .gs-recsum { animation: gsRecFade .45s var(--ease) both; }
+}
+@keyframes gsRecFade { from { transform: translateY(10px); } to { transform: none; } }
 
 /* in recruiter mode, hide every full-story section except the kept ones */
 .case.gs.is-rec > section:not(.case__hero):not(.tldr):not(.gs-recsum):not(.gs-keep):not(.case__next) { display: none; }
