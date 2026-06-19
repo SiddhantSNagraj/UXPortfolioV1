@@ -137,25 +137,92 @@
     }, 120);
   })();
 
-  /* ---- 5. grid overlay: press G to toggle a layout grid (design-tool nod) ---- */
+  /* ---- 5. inspect mode: press G for a Figma-style component inspector ---- */
   (function () {
-    var on = false, ov = null;
-    function build() {
-      ov = document.createElement('div');
-      ov.className = 'gridov';
-      var cols = '';
-      for (var c = 0; c < 12; c++) cols += '<i></i>';
-      ov.innerHTML = '<div class="gridov__cols">' + cols + '</div><div class="gridov__hint mono">Layout grid · press G to hide</div>';
-      document.body.appendChild(ov);
+    var on = false, root = null, box = null, cur = null;
+    // overlay chrome + layout wrappers that aren't "components" worth inspecting
+    // (typography utilities like mono/pixel ride along on real components, so
+    // they must NOT be in here)
+    var SKIP = /^(wrap|sr-only|inspect|gridov|cmdk|cmdktog|cursor|tweak)$/;
+
+    function px(v) { var n = parseFloat(v); return n > 0 ? n : 0; }
+
+    // climb to the nearest meaningful component: a classed, non-inline element
+    // of real size (skips raw text spans, utility wrappers and overlay chrome)
+    function meaningful(el) {
+      while (el && el.nodeType === 1 && el !== document.body && el !== document.documentElement) {
+        if (el.classList.length) {
+          var skip = false;
+          el.classList.forEach(function (c) { if (SKIP.test(c)) skip = true; });
+          if (!skip) {
+            var cs = getComputedStyle(el);
+            var tag = el.tagName;
+            var inlineOk = (tag === 'IMG' || tag === 'BUTTON' || tag === 'A' || tag === 'SVG');
+            if (cs.display !== 'none' && (cs.display !== 'inline' || inlineOk)) {
+              var r = el.getBoundingClientRect();
+              if (r.width >= 28 && r.height >= 16) return el;
+            }
+          }
+        }
+        el = el.parentElement;
+      }
+      return null;
     }
+
+    function build() {
+      root = document.createElement('div');
+      root.className = 'inspect';
+      root.innerHTML =
+        '<div class="inspect__box">' +
+          '<i class="inspect__pad inspect__pad--t"></i>' +
+          '<i class="inspect__pad inspect__pad--b"></i>' +
+          '<i class="inspect__pad inspect__pad--l"></i>' +
+          '<i class="inspect__pad inspect__pad--r"></i>' +
+          '<span class="inspect__dim"></span>' +
+        '</div>' +
+        '<div class="inspect__hint">Inspect · press G to hide</div>';
+      document.body.appendChild(root);
+      box = root.querySelector('.inspect__box');
+    }
+
+    function paint(el) {
+      if (!el) { root.classList.remove('has-target'); return; }
+      var r = el.getBoundingClientRect();
+      var cs = getComputedStyle(el);
+      box.style.transform = 'translate(' + r.left + 'px,' + r.top + 'px)';
+      box.style.width = r.width + 'px';
+      box.style.height = r.height + 'px';
+      var pt = px(cs.paddingTop), pr = px(cs.paddingRight), pb = px(cs.paddingBottom), pl = px(cs.paddingLeft);
+      var t = box.children[0], b = box.children[1], l = box.children[2], rr = box.children[3];
+      t.style.height = pt + 'px';
+      b.style.height = pb + 'px';
+      l.style.width = pl + 'px'; l.style.top = pt + 'px'; l.style.bottom = pb + 'px';
+      rr.style.width = pr + 'px'; rr.style.top = pt + 'px'; rr.style.bottom = pb + 'px';
+      box.children[4].textContent = Math.round(r.width) + '  ×  ' + Math.round(r.height);
+      box.classList.toggle('inspect__box--below', r.top < 30);
+      root.classList.add('has-target');
+    }
+
+    function onMove(e) { if (on) { cur = meaningful(e.target); paint(cur); } }
+    function onScroll() { if (on && cur) paint(cur); }
+
     window.addEventListener('keydown', function (e) {
       if (e.key !== 'g' && e.key !== 'G') return;
       var t = e.target;
       if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.isContentEditable)) return;
       if (e.metaKey || e.ctrlKey || e.altKey) return;
       on = !on;
-      if (on && !ov) build();
-      if (ov) ov.classList.toggle('is-on', on);
+      if (on && !root) build();
+      document.body.classList.toggle('is-inspecting', on);
+      root.classList.toggle('is-on', on);
+      if (!on) { root.classList.remove('has-target'); cur = null; }
+      if (on) {
+        document.addEventListener('mousemove', onMove);
+        window.addEventListener('scroll', onScroll, true);
+      } else {
+        document.removeEventListener('mousemove', onMove);
+        window.removeEventListener('scroll', onScroll, true);
+      }
     });
   })();
 })();

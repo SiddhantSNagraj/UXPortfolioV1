@@ -14,7 +14,7 @@
     { label: 'Email Siddhant', kind: 'Action', act: function () { location.href = 'mailto:siddhantsnagraj@outlook.com'; } },
     { label: 'Open LinkedIn', kind: 'Action', act: function () { window.open('https://www.linkedin.com/in/siddhantnagraj/', '_blank'); } },
     { label: 'Toggle light / dark', kind: 'Action', act: function () { var b = document.querySelector('.themetog'); if (b) b.click(); } },
-    { label: 'Toggle layout grid (G)', kind: 'Action', act: function () { window.dispatchEvent(new KeyboardEvent('keydown', { key: 'g' })); } },
+    { label: 'Toggle inspect mode (G)', kind: 'Action', act: function () { window.dispatchEvent(new KeyboardEvent('keydown', { key: 'g' })); } },
     { label: 'Toggle Retro Slate theme ✦', kind: 'Secret', act: function () { window.__toggleVibe(); } },
   ];
 

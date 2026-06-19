@@ -173,19 +173,44 @@ html[data-theme="light"] .cc-iter, html[data-theme="light"] .gsk, html[data-them
 @media (max-width: 860px) { .contact__split { flex-direction: column; align-items: flex-start; } }
 
 /* =========================================================================
-   GRID OVERLAY (press G) — design-tool layout grid
+   INSPECT MODE (press G) — Figma-style component inspector
    ========================================================================= */
-.gridov { position: fixed; inset: 0; z-index: 9500; pointer-events: none; opacity: 0; transition: opacity .25s var(--ease); }
-.gridov.is-on { opacity: 1; }
-.gridov__cols { position: absolute; inset: 0; max-width: 1320px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 80px);
-  display: grid; grid-template-columns: repeat(12, 1fr); gap: clamp(12px, 1.6vw, 24px); height: 100%; }
-.gridov__cols i { display: block; height: 100%; background: color-mix(in srgb, var(--accent) 12%, transparent);
-  border-left: 1px solid color-mix(in srgb, var(--accent) 32%, transparent);
-  border-right: 1px solid color-mix(in srgb, var(--accent) 32%, transparent); }
-.gridov__hint { position: fixed; bottom: 18px; left: 50%; transform: translateX(-50%);
-  background: var(--ink); color: var(--bg); padding: 7px 14px; border-radius: 999px;
-  font-size: 11px; letter-spacing: .08em; }
-@media (max-width: 640px) { .gridov__cols { grid-template-columns: repeat(6, 1fr); } }
+.inspect { position: fixed; inset: 0; z-index: 9500; pointer-events: none; opacity: 0; transition: opacity .15s var(--ease); }
+.inspect.is-on { opacity: 1; }
+body.is-inspecting { cursor: crosshair; }
+body.is-inspecting, body.is-inspecting * { user-select: none !important; }
+
+/* the highlight box tracks the hovered element (border-box) with a Figma-blue outline */
+.inspect__box {
+  position: fixed; top: 0; left: 0; will-change: transform;
+  box-shadow: 0 0 0 1px #18a0fb, inset 0 0 0 1px #18a0fb;
+  opacity: 0; transition: opacity .1s linear;
+}
+.inspect.has-target .inspect__box { opacity: 1; }
+
+/* padding visualised as translucent green bands (devtools convention) */
+.inspect__pad { position: absolute; background: rgba(46, 204, 113, .26); }
+.inspect__pad--t { top: 0; left: 0; right: 0; }
+.inspect__pad--b { bottom: 0; left: 0; right: 0; }
+.inspect__pad--l { left: 0; }
+.inspect__pad--r { right: 0; }
+
+/* dimension badge — Figma-blue pill, mono numerals */
+.inspect__dim {
+  position: absolute; left: 0; bottom: 100%; margin-bottom: 4px;
+  background: #18a0fb; color: #fff;
+  font-family: var(--mono); font-size: 10.5px; font-weight: 600; letter-spacing: .02em;
+  line-height: 1; padding: 4px 7px; border-radius: 3px; white-space: nowrap;
+  box-shadow: 0 2px 6px rgba(0,0,0,.28);
+}
+.inspect__box--below .inspect__dim { bottom: auto; top: 100%; margin-bottom: 0; margin-top: 4px; }
+
+.inspect__hint {
+  position: fixed; bottom: 18px; left: 50%; transform: translateX(-50%);
+  background: #18a0fb; color: #fff; padding: 7px 14px; border-radius: 999px;
+  font-family: var(--mono); font-size: 11px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase;
+  box-shadow: 0 4px 14px rgba(0,0,0,.3);
+}
 
 .mono {
   font-family: var(--mono);
