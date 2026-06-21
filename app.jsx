@@ -6,6 +6,7 @@ function App() {
   const data = window.PORTFOLIO;
   const [route, setRoute] = useStateA({ view: 'home', id: null });
   const [activeSec, setActiveSec] = useStateA(null);
+  const [hasNavigated, setHasNavigated] = useStateA(false);
   const [theme, setTheme] = useStateA(
     () => (typeof document !== 'undefined' && document.documentElement.getAttribute('data-theme') === 'light') ? 'light' : 'dark'
   );
@@ -32,19 +33,31 @@ function App() {
     return () => window.removeEventListener('hashchange', apply);
   }, []);
 
-  // track active section on home for nav underline
+  // track active section on home for nav underline — scroll-position based so it
+  // reflects the current section reliably (incl. jumps/fast scroll), unlike a
+  // thin-band IntersectionObserver which can skip the trigger zone.
   useEffectA(() => {
     if (route.view !== 'home') return;
     const ids = ['work', 'about', 'contact'];
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach((e) => { if (e.isIntersecting) setActiveSec(e.target.id); });
-    }, { rootMargin: '-40% 0px -55% 0px' });
-    ids.forEach((id) => { const el = document.getElementById(id); if (el) io.observe(el); });
-    return () => io.disconnect();
+    let raf = 0;
+    const compute = () => {
+      const line = window.innerHeight * 0.4;
+      let current = null;
+      for (const id of ids) {
+        const el = document.getElementById(id);
+        if (el && el.getBoundingClientRect().top <= line) current = id;
+      }
+      setActiveSec(current);
+    };
+    const onScroll = () => { cancelAnimationFrame(raf); raf = requestAnimationFrame(compute); };
+    compute();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    return () => { window.removeEventListener('scroll', onScroll); window.removeEventListener('resize', onScroll); cancelAnimationFrame(raf); };
   }, [route.view]);
 
-  const openProject = (id) => { window.location.hash = `project/${id}`; };
-  const goHome = () => { window.location.hash = ''; };
+  const openProject = (id) => { setHasNavigated(true); window.location.hash = `project/${id}`; };
+  const goHome = () => { setHasNavigated(true); window.location.hash = ''; };
   const onNav = (view, section) => {
     if (view === 'home') {
       if (route.view !== 'home') { window.location.hash = ''; if (section) setTimeout(() => scrollTo(section), 60); return; }
@@ -60,14 +73,14 @@ function App() {
       <TopNav onNav={onNav} active={activeSec} solid={route.view === 'case'} theme={theme} onToggleTheme={toggleTheme} resumeUrl={data.profile.resume} />
       <TweaksUI />
       {route.view === 'home' ? (
-        <main>
+        <main className={`route-view ${hasNavigated ? 'route-anim' : ''}`} key="home">
           <Hero projects={data.projects} onOpen={openProject} />
           <WorkIndex projects={data.projects} onOpen={openProject} />
           <About profile={data.profile} reviews={data.reviews} />
           <Contact profile={data.profile} />
         </main>
       ) : (
-        <main>
+        <main className={`route-view ${hasNavigated ? 'route-anim' : ''}`} key={`case-${project ? project.id : 'x'}`}>
           {project && project.id === 'coffeehouse'
             ? <CoffeeCase project={project} projects={data.projects} onOpen={openProject} onHome={goHome} />
             : project && project.id === 'apmc'

@@ -6,7 +6,7 @@ window.PORTFOLIO = {
     name: 'Siddhant Nagraj',
     role: 'Product Designer',
     years: 5,
-    philosophy: 'Creating experiences people like',
+    philosophy: 'Designs it, then builds it',
     email: 'siddhantsnagraj@outlook.com',
     linkedin: 'https://www.linkedin.com/in/siddhantnagraj/',
     resume: 'assets/Siddhant-Nagraj-Resume.pdf',

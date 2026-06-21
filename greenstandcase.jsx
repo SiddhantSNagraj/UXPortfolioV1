@@ -232,7 +232,7 @@ function GreenstandCase({ project, projects, onOpen, onHome }) {
         ['The problem', 'Two apps built in silos: 7+ greens, duplicated components, missing states and broken accessibility.'],
         ['My role', 'Started as the only designer, built Roots from scratch, then led a team of four to ship it.'],
         ['What shipped', '150+ token-driven components in Figma and Storybook, adopted by every engineering team.'],
-        ['The outcome', '25% less developer rework, WCAG AA across key flows, new designers onboarding in days.'],
+        ['The outcome', 'Adopted by every engineering team, and proven the day a new designer onboarded straight from the system in days, not weeks.'],
       ]} />
 
       {/* ---------- HERO SHOWCASE: live system at a glance ---------- */}
@@ -246,17 +246,7 @@ function GreenstandCase({ project, projects, onOpen, onHome }) {
         <div className="gs-sec__label"><span className="pixel" style={{ color: 'var(--gs-400)' }}>00</span><span className="mono">The context</span></div>
         <div className="gs-sec__body">
           <h2 className="gs-h2">Tech that fights climate change, held back by its own UI</h2>
-          <p className="gs-lead">Greenstand is a nonprofit building technology to fight climate change through verified tree planting. Its two flagship apps, <strong>TreeTracker</strong> for field mappers and <strong>TreeTrader</strong> for the tree-credit marketplace, serve a primary user base across Africa and Europe. I was brought in to lead a design-system initiative to unify the apps and set them up for global scale.</p>
-          <div className="gs-role">
-            <div className="gs-role__cell">
-              <span className="gs-role__k mono">What I led</span>
-              <p className="gs-role__v">I launched <strong>Roots as a solo initiative</strong>, defined every token, built 150+ components, and wrote the system documentation in Figma. As it proved out, leadership scaled it into a formal program and I <strong>managed and mentored a team of four designers</strong>.</p>
-            </div>
-            <div className="gs-role__cell">
-              <span className="gs-role__k mono">Who I worked with</span>
-              <p className="gs-role__v">Leadership on priorities and adoption, <strong>global volunteer teams</strong> across Africa and Europe, and developers, to integrate the system directly into the production apps.</p>
-            </div>
-          </div>
+          <p className="gs-lead">Greenstand is a nonprofit building technology to fight climate change through verified tree planting. Its two flagship apps, <strong>TreeTracker</strong> for field mappers and <strong>TreeTrader</strong> for the tree-credit marketplace, serve a primary user base across Africa and Europe. I was brought in to lead a design-system initiative to unify the apps and set them up for global scale, working with leadership on priorities and adoption, global volunteer teams across both continents, and developers to integrate the system into the live apps.</p>
           <p className="gs-lead gs-lead--sm" style={{ marginTop: 'clamp(20px,2.4vw,30px)' }}>I designed around real constraints: a <strong>volunteer-driven org</strong> where the system had to earn adoption rather than mandate it, <strong>remote async collaboration</strong> across three continents, and <strong>live codebases</strong> I had to design around, for a <strong>non-technical user base</strong> that needed radical simplicity.</p>
         </div>
       </section>

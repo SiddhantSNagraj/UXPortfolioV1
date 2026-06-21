@@ -46,7 +46,7 @@ function TopNav({ onNav, active, solid, theme, onToggleTheme, resumeUrl }) {
       <div className="nav__links">
         <a className={`nav__link hide-sm ${active === 'work' ? 'is-active' : ''}`} onClick={() => onNav('home', 'work')}>Work</a>
         <a className={`nav__link hide-sm ${active === 'about' ? 'is-active' : ''}`} onClick={() => onNav('home', 'about')}>About</a>
-        <a className="nav__link hide-sm" onClick={() => onNav('home', 'contact')}>Contact</a>
+        <a className={`nav__link hide-sm ${active === 'contact' ? 'is-active' : ''}`} onClick={() => onNav('home', 'contact')}>Contact</a>
         {resumeUrl ? <a className="nav__link" href={resumeUrl} target="_blank" rel="noopener noreferrer">Resume ↓</a> : null}
         <button className={`themetog ${theme === 'light' ? 'is-light' : ''}`} onClick={onToggleTheme} aria-label="Toggle light or dark mode" title="Toggle theme" role="switch" aria-checked={theme === 'light'}>
           <span className="themetog__ico themetog__ico--moon" aria-hidden="true">

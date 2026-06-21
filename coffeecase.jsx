@@ -140,7 +140,7 @@ function CoffeeCase({ project, projects, onOpen, onHome }) {
         ['The problem', 'Ordering coffee still means waiting in line, fiddly customization and zero discovery.'],
         ['My role', 'Design lead on a team of three: research, IA, the design system and usability testing.'],
         ['What shipped', 'An end-to-end ordering app with five tested flows and a foundational design system.'],
-        ['The outcome', '+38% checkout completion, customization cut from 6 taps to 1, a 4.0 average test rating.'],
+        ['The outcome', 'Testing validated the experience and exposed the friction worth fixing, three targeted changes between the tested prototype and the final design.'],
       ]} />
 
       {/* ---------- HERO SHOWCASE: real screens in phone mockups ---------- */}
@@ -153,21 +153,7 @@ function CoffeeCase({ project, projects, onOpen, onHome }) {
         <div className="cc-sec__label"><span className="pixel" style={{ color: 'var(--blue)' }}>00</span><span className="mono">The context</span></div>
         <div className="cc-sec__body">
           <h2 className="cc-h2">A daily ritual that still feels like friction</h2>
-          <p className="cc-lead">The brief: rethink a common digital experience. I chose coffee ordering, something millions do on autopilot every morning, yet one that’s still full of waiting, fiddly choices, and zero discovery. The goal was to reduce waiting, simplify customization, and add a reason to explore.</p>
-          <div className="cc-role">
-            <div className="cc-role__cell">
-              <span className="cc-role__k mono">What I led</span>
-              <p className="cc-role__v">As <strong>design lead</strong> on a team of three, I owned research, IA, the design system and usability testing, and set the direction the team built against.</p>
-            </div>
-            <div className="cc-role__cell">
-              <span className="cc-role__k mono">Collaborated on</span>
-              <p className="cc-role__v">High-fidelity screens and prototyping, splitting flows across the team while I kept the system and interactions consistent.</p>
-            </div>
-            <div className="cc-role__cell">
-              <span className="cc-role__k mono">Drove</span>
-              <p className="cc-role__v">Card sorting, the <strong>MoSCoW</strong> scope call, and the test plan, then turned findings into the iterations that shipped.</p>
-            </div>
-          </div>
+          <p className="cc-lead">The brief: rethink a common digital experience. I chose coffee ordering, something millions do on autopilot every morning, yet one that’s still full of waiting, fiddly choices, and zero discovery. The goal was to reduce waiting, simplify customization, and add a reason to explore. I set the direction and owned the design system while the team and I split the hi-fi flows between us, so the experience stayed consistent end to end.</p>
         </div>
       </section>
 

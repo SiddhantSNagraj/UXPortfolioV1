@@ -86,8 +86,8 @@ function Hero({ projects, onOpen }) {
         <div className="hero__sub">
           <div className="hero__role display" id="hero-role" title="Hover me">Product&nbsp;Designer</div>
           <p className="hero__phil">
-            <span className="mono mono--yellow">✳</span> Creating experiences <em>people like</em>, systems,
-            sites &amp; products built with clarity, taste, and a little obsession.
+            <span className="mono mono--yellow">✳</span> I design it, build it in code, and lose sleep over the parts people scroll past.
+            <em>This site is the evidence.</em>
           </p>
         </div>
       </div>

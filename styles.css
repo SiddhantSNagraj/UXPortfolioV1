@@ -90,49 +90,102 @@ img { display: block; max-width: 100%; }
    ========================================================================= */
 
 /* =========================================================================
-   CUSTOM CURSOR (data-cursor: off | invert | label)
+   CUSTOM CURSOR (data-cursor: off | hover | precise | crosshair | invert | label)
+   precise layer (.curx) tracks 1:1; only 'invert' uses the trailing .curx-trail
    ========================================================================= */
-html[data-cursor="invert"] .curx, html[data-cursor="label"] .curx {
-  position: fixed; top: 0; left: 0; z-index: 9999; pointer-events: none;
-  margin: -9px 0 0 -9px; transition: opacity .25s var(--ease);
-}
+.curx, .curx-trail { position: fixed; top: 0; left: 0; z-index: 9999; pointer-events: none; transition: opacity .25s var(--ease); }
 .curx { display: none; }
-html[data-cursor="invert"].curx-on, html[data-cursor="label"].curx-on { cursor: none; }
-html[data-cursor="invert"].curx-on a, html[data-cursor="invert"].curx-on button,
-html[data-cursor="label"].curx-on a, html[data-cursor="label"].curx-on button,
-html[data-cursor="invert"].curx-on .workrow, html[data-cursor="label"].curx-on .workrow { cursor: none; }
+.curx-trail { display: none; }
+.curx > * { position: absolute; top: 0; left: 0; display: none; }
+.curx-trail__blob { position: absolute; top: 0; left: 0; }
 
-.curx__dot { display: block; width: 32px; height: 32px; border-radius: 50%; margin: -7px 0 0 -7px; }
-.curx__label { display: none; }
+/* variants that replace the native cursor hide it across the whole page,
+   including elements with their own cursor (images, grab handles, etc.) */
+html:is([data-cursor="precise"],[data-cursor="crosshair"],[data-cursor="invert"],[data-cursor="label"],[data-cursor="arrow"]).curx-on,
+html:is([data-cursor="precise"],[data-cursor="crosshair"],[data-cursor="invert"],[data-cursor="label"],[data-cursor="arrow"]).curx-on * { cursor: none; }
 
-/* -- invert variant -- */
-html[data-cursor="invert"] .curx { display: block; }
-html[data-cursor="invert"] .curx__dot {
+/* precise layer shows for every non-native variant */
+html:is([data-cursor="hover"],[data-cursor="precise"],[data-cursor="crosshair"],[data-cursor="label"],[data-cursor="arrow"]) .curx { display: block; }
+html[data-cursor="invert"] .curx-trail { display: block; }
+
+/* -- 1. hover variant: native arrow stays, accent ring appears over interactives -- */
+html[data-cursor="hover"] .curx__ring { display: block; }
+.curx__ring {
+  width: 34px; height: 34px; margin: -17px 0 0 -17px; border-radius: 50%;
+  border: 1.5px solid var(--accent); opacity: 0; transform: scale(.45);
+  transition: opacity .18s var(--ease), transform .18s var(--ease), border-color .18s var(--ease);
+}
+html[data-cursor="hover"].curx-hot .curx__ring { opacity: 1; transform: scale(1); }
+html[data-cursor="hover"].curx-hot.curx-down .curx__ring { transform: scale(.8); background: color-mix(in srgb, var(--accent) 16%, transparent); }
+
+/* -- 2. precise variant: exact centre dot + reactive ring -- */
+html[data-cursor="precise"] .curx__dot,
+html[data-cursor="precise"] .curx__ring { display: block; }
+html[data-cursor="precise"] .curx__dot { width: 4px; height: 4px; margin: -2px 0 0 -2px; border-radius: 50%; background: var(--accent); }
+html[data-cursor="precise"] .curx__ring {
+  width: 18px; height: 18px; margin: -9px 0 0 -9px; border: 1.5px solid var(--ink-2); opacity: .65;
+  transition: width .18s var(--ease), height .18s var(--ease), margin .18s var(--ease), border-color .18s var(--ease), opacity .18s var(--ease);
+}
+html[data-cursor="precise"].curx-hot .curx__ring { width: 30px; height: 30px; margin: -15px 0 0 -15px; border-color: var(--accent); opacity: 1; }
+html[data-cursor="precise"].curx-down .curx__ring { width: 13px; height: 13px; margin: -6.5px 0 0 -6.5px; }
+
+/* -- 3. crosshair variant: full-bleed hairlines through the pointer (designer/measure look) -- */
+html[data-cursor="crosshair"] .curx__cross--x,
+html[data-cursor="crosshair"] .curx__cross--y { display: block; background: color-mix(in srgb, var(--accent) 50%, transparent); transition: background .18s var(--ease); }
+.curx__cross--x { width: 100vw; height: 1px; margin: 0 0 0 -50vw; }
+.curx__cross--y { width: 1px; height: 100vh; margin: -50vh 0 0 0; }
+html[data-cursor="crosshair"].curx-hot .curx__cross--x,
+html[data-cursor="crosshair"].curx-hot .curx__cross--y { background: var(--accent); }
+
+/* -- invert variant: blend-mode blob on the trailing layer -- */
+.curx-trail__blob {
+  display: block; width: 30px; height: 30px; border-radius: 50%; margin: -15px 0 0 -15px;
   background: #fff; mix-blend-mode: difference;
   transition: width .25s var(--ease), height .25s var(--ease), margin .25s var(--ease);
 }
-html[data-cursor="invert"].curx-hot .curx__dot { width: 60px; height: 60px; margin: -21px 0 0 -21px; }
-html[data-cursor="invert"].curx-down .curx__dot { width: 24px; height: 24px; margin: -3px 0 0 -3px; }
+html[data-cursor="invert"].curx-hot .curx-trail__blob { width: 56px; height: 56px; margin: -28px 0 0 -28px; }
+html[data-cursor="invert"].curx-down .curx-trail__blob { width: 22px; height: 22px; margin: -11px 0 0 -11px; }
 
-/* -- label variant -- */
-html[data-cursor="label"] .curx { display: block; }
+/* -- label variant: precise centre dot (always visible) + "View case" pill on rows -- */
+html[data-cursor="label"] .curx__dot { display: block; }
 html[data-cursor="label"] .curx__dot {
-  background: var(--ink); width: 14px; height: 14px; margin: -5px 0 0 -5px; transition: transform .2s var(--ease), opacity .2s var(--ease);
+  width: 10px; height: 10px; margin: -5px 0 0 -5px; border-radius: 50%; background: var(--ink);
+  transition: transform .18s var(--ease);
 }
-html[data-cursor="label"].curx-hot .curx__dot { transform: scale(1.7); }
-html[data-cursor="label"].curx-row .curx__dot { opacity: 0; }
+html[data-cursor="label"].curx-hot .curx__dot { transform: scale(1.5); }
 html[data-cursor="label"] .curx__label {
-  position: absolute; top: -2px; left: -2px; transform: translateY(8px) scale(.9);
   display: inline-flex; align-items: center; gap: 6px; white-space: nowrap;
+  transform: translate(15px, 9px) scale(.92);
   background: var(--ink); color: var(--bg); font-family: var(--mono); font-size: 11px;
   letter-spacing: .06em; text-transform: uppercase; padding: 8px 14px; border-radius: 999px;
   opacity: 0; transition: opacity .22s var(--ease), transform .22s var(--ease);
   box-shadow: 0 10px 30px rgba(0,0,0,.4);
 }
 html[data-cursor="label"] .curx__label em { font-style: normal; }
-html[data-cursor="label"].curx-row .curx__label { opacity: 1; transform: translateY(8px) scale(1); }
+html[data-cursor="label"].curx-row .curx__label { display: inline-flex; opacity: 1; transform: translate(15px, 9px) scale(1); }
 
-@media (hover: none) { .curx { display: none !important; } html[data-cursor] { cursor: auto; } }
+/* -- arrow variant: white navigation arrow (hotspot at the rounded back corner) + "View case" pill on rows -- */
+html[data-cursor="arrow"] .curx__arrow { display: block; }
+.curx__arrow { width: 28px; height: 28px; margin: -3px 0 0 -3px; transform-origin: 3.4px 3.4px; transition: transform .16s var(--ease); }
+.curx__arrow svg { width: 100%; height: 100%; display: block; overflow: visible; }
+/* hollow, rounded-outline arrow (thick rounded stroke, no fill) */
+.curx__arrow svg path { fill: none; stroke: #fff; stroke-width: 2.3; stroke-linejoin: round; stroke-linecap: round; }
+/* light mode: dark outline (#271a0d) */
+html[data-theme="light"] .curx__arrow svg path { stroke: #271a0d; }
+html[data-cursor="arrow"].curx-hot .curx__arrow { transform: scale(.86); }
+html[data-cursor="arrow"].curx-down .curx__arrow { transform: scale(.74); }
+html[data-cursor="arrow"] .curx__label {
+  display: inline-flex; align-items: center; gap: 6px; white-space: nowrap;
+  transform: translate(22px, 16px) scale(.92);
+  background: var(--ink); color: var(--bg); font-family: var(--mono); font-size: 11px;
+  letter-spacing: .06em; text-transform: uppercase; padding: 8px 14px; border-radius: 999px;
+  opacity: 0; transition: opacity .22s var(--ease), transform .22s var(--ease);
+  box-shadow: 0 10px 30px rgba(0,0,0,.4);
+}
+html[data-cursor="arrow"] .curx__label em { font-style: normal; }
+html[data-cursor="arrow"].curx-row .curx__label { display: inline-flex; opacity: 1; transform: translate(22px, 16px) scale(1); }
+
+@media (hover: none) { .curx, .curx-trail { display: none !important; } html[data-cursor] { cursor: auto; } }
 
 /* =========================================================================
    CASE STUDY SCROLL PROGRESS BAR
@@ -331,10 +384,45 @@ body.is-inspecting, body.is-inspecting * { user-select: none !important; }
 .reveal.d3 { transition-delay: .24s; }
 .reveal.d4 { transition-delay: .32s; }
 
+/* Option 2 — Editorial clip-reveal, case studies only.
+   A magazine wipe: content reveals behind a clip edge. Opacity fades faster
+   than the clip so clipped card shadows never pop. Uses transition longhands
+   (no shorthand) so the .d1–.d4 stagger delays survive. Gated on
+   no-preference so reduced-motion never strands content clipped. */
+@media (prefers-reduced-motion: no-preference) {
+  html[data-reveal="clip"] .case .reveal {
+    opacity: 0;
+    clip-path: inset(0 0 100% 0);
+    transform: translateY(14px);
+    transition-property: clip-path, opacity, transform;
+    transition-duration: .95s, .55s, .95s;
+    transition-timing-function: var(--ease);
+  }
+  html[data-reveal="clip"] .case .reveal.in {
+    opacity: 1;
+    clip-path: inset(0 0 0 0);
+    transform: none;
+  }
+}
+/* Off — case-study content is fully static */
+html[data-reveal="off"] .case .reveal {
+  opacity: 1 !important; transform: none !important; clip-path: none !important; transition: none !important;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .reveal { opacity: 1; transform: none; transition: none; }
+  .reveal { opacity: 1; transform: none; clip-path: none; transition: none; }
   * { scroll-behavior: auto !important; }
 }
+
+/* route transition — a quiet cross-page fade when swapping home <-> case study.
+   Opacity-only (no transform) so it never creates a containing block that would
+   disturb the fixed .csnav. No `both` fill, so the RESTING state is the base
+   opacity:1 — a focused tab always completes the fade; the only frozen-clock
+   blank happens in an unfocused/throttled tab and clears on refocus. */
+@media (prefers-reduced-motion: no-preference) {
+  .route-view.route-anim { animation: routeFade .4s var(--ease); }
+}
+@keyframes routeFade { from { opacity: 0; } to { opacity: 1; } }
 
 /* =========================================================================
    TOP NAV
@@ -565,6 +653,23 @@ html[data-vibe="retroslate"]:not([data-theme="light"]) body {
   color: var(--accent); border: 2px solid var(--accent); border-radius: 5px; padding: 3px 8px;
   opacity: .62; mix-blend-mode: var(--rstamp-blend, normal); vertical-align: middle; }
 html[data-vibe^="retro"] .block-head { position: relative; }
+
+/* Retro vibe keeps the diamond cursor even when a default-theme cursor (arrow,
+   hover, precise…) is selected — so the default cursor change doesn't leak into
+   retro. (When cursor=label, the variant system below still governs.) */
+html[data-vibe^="retro"]:not([data-cursor="label"]):not([data-cursor="off"]) .curx { display: block; }
+html[data-vibe^="retro"]:not([data-cursor="label"]) .curx__arrow,
+html[data-vibe^="retro"]:not([data-cursor="label"]) .curx__ring,
+html[data-vibe^="retro"]:not([data-cursor="label"]) .curx__cross,
+html[data-vibe^="retro"]:not([data-cursor="label"]) .curx__label { display: none !important; }
+html[data-vibe^="retro"]:not([data-cursor="label"]):not([data-cursor="off"]) .curx__dot {
+  display: block; background: none; background-image: none; width: 18px; height: 18px; margin: -9px 0 0 -9px;
+  border: 2px solid var(--accent); border-radius: 2px; transform: rotate(45deg);
+  transition: transform .18s var(--ease), background .18s var(--ease);
+}
+html[data-vibe^="retro"]:not([data-cursor="label"]):not([data-cursor="off"]).curx-hot .curx__dot {
+  transform: rotate(45deg) scale(1.4); background: color-mix(in srgb, var(--accent) 25%, transparent);
+}
 
 /* #12 retro cursor — variants via data-retrocursor (retro vibe + label cursor) */
 /* default / crosshair: registration starburst */

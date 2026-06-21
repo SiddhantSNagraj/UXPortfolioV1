@@ -96,6 +96,32 @@ const AM = {
       ['Consistent photo-led system', 'Same visual language across every deep page: judges, prizes, resources, feels like one product.'],
     ],
   ],
+  decisions: [
+    {
+      q: 'Build it custom, or on a platform the club could run without me?',
+      chosen: 'Build on Wix',
+      chosenWhy: 'The non-technical exec team could update content, swap sponsors and run the next Protothon entirely on their own.',
+      rejected: 'A custom-coded site',
+      rejectedWhy: 'More design control and polish, but it would quietly rot the moment I graduated and stopped maintaining it.',
+      tradeoff: 'I gave up pixel-level control for longevity. The bet held, it\u2019s still their live site two years and another Protothon later.',
+    },
+    {
+      q: 'One homepage for everything, or a dedicated page for the flagship event?',
+      chosen: 'A dedicated Protothon page',
+      chosenWhy: 'First-timers get one focused path, what it is, when it runs, how to enter, without wading through general club info.',
+      rejected: 'A single scrolling homepage',
+      rejectedWhy: 'One URL and less to maintain, but it forced event and club content to fight for the same scroll.',
+      tradeoff: 'More surface to maintain, in exchange for the clear conversion path the old site never had.',
+    },
+    {
+      q: 'Ship the full member-portal wishlist, or cut to what wins signups by the deadline?',
+      chosen: 'A conversion-focused MVP',
+      chosenWhy: 'Locked scope to the homepage and Protothon flow, the screens that actually drive registration, to hit a hard 3-month date.',
+      rejected: 'The full feature set',
+      rejectedWhy: 'Member dashboards, a resource library, an event archive, all valuable, but none of it moved the launch metric.',
+      tradeoff: 'I deferred the nice-to-haves and shipped on time. The priority matrix made every cut defensible to the team.',
+    },
+  ],
 };
 
 function ApmcCase({ project, projects, onOpen, onHome }) {
@@ -209,7 +235,7 @@ function ApmcCase({ project, projects, onOpen, onHome }) {
         ['The problem', 'The club\u2019s event site buried schedules and CTAs, so visitors couldn\u2019t tell what Protothon was or how to join.'],
         ['My role', 'Lead Product Designer, research through launch in 3 months, with 2 club designers and 3 engineers.'],
         ['What shipped', 'A conversion-driven redesign built on Wix, validated with usability tests and heatmaps.'],
-        ['The outcome', '450+ sessions at launch, 700+ daily active users, still the club\u2019s live site 2 years on.'],
+        ['The outcome', 'Shipped on a 3-month deadline and adopted wholesale by the club, the redesign is still their live site two years and another Protothon later.'],
       ]} />
 
       {/* CONTEXT */}
@@ -219,20 +245,6 @@ function ApmcCase({ project, projects, onOpen, onHome }) {
         <div className="am-sec__body">
           <h2 className="am-h2">A student club, a real event, a tight deadline</h2>
           <p className="am-lead">Sept 2023. The Aspiring Product Managers Club at Northeastern University needed a full redesign of their event website for Protothon 5.0, a hackathon bringing together students, judges, sponsors and faculty. The old site wasn't keeping up with the event's ambition. The redesign I shipped is <strong>still the club's live site two years on</strong>, now running Protothon 6.0.</p>
-          <div className="am-role">
-            <div className="am-role__cell">
-              <span className="am-role__k">What I led</span>
-              <p className="am-role__v"><strong>End-to-end UX</strong>, research, IA, wireframes, usability testing, and the shipped build on Wix.</p>
-            </div>
-            <div className="am-role__cell">
-              <span className="am-role__k">Collaborated on</span>
-              <p className="am-role__v">Visual direction with <strong>2 club designers</strong>; content and event logic with the Protothon organizing team.</p>
-            </div>
-            <div className="am-role__cell">
-              <span className="am-role__k">Worked with</span>
-              <p className="am-role__v">Club leadership, faculty advisors, and <strong>11+ interview participants</strong> across students and staff.</p>
-            </div>
-          </div>
         </div>
       </section>
 
@@ -547,6 +559,53 @@ function ApmcCase({ project, projects, onOpen, onHome }) {
                   <span className="am-metric__arrow">{arr}</span>
                 </div>
                 <p className="am-metric__d">{d}</p>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* KEY DECISIONS */}
+      <section className="wrap am-sec am-sec--dlog" style={{ position: 'relative', overflow: 'hidden' }}>
+        <div className="am-sec__label"><span className="mono mono--accent">( Key decisions )</span></div>
+        <div className="am-sec__body">
+          <h2 className="am-h2">Three forks, and the roads I didn't take</h2>
+          <p className="am-lead">Every project is really a stack of bets. These three shaped APMC most, what I chose, what I turned down, and the tradeoff I accepted each time.</p>
+          <div className="dlog">
+            {AM.decisions.map((d, i) => (
+              <Reveal className="dfork" key={i} delay={`d${i + 1}`}>
+                <div className="dfork__head">
+                  <span className="dfork__n mono">{`0${i + 1}`}</span>
+                  <h3 className="dfork__q">{d.q}</h3>
+                </div>
+                <div className="dfork__body">
+                  <div className="dfork__rail" aria-hidden="true">
+                    <svg viewBox="0 0 40 100" preserveAspectRatio="none">
+                      <path className="dfork__spine" d="M8,25 L8,75" vectorEffect="non-scaling-stroke" />
+                      <path className="dfork__limb dfork__limb--rej" d="M8,25 L40,25" vectorEffect="non-scaling-stroke" />
+                      <path className="dfork__limb dfork__limb--cho" d="M8,75 L40,75" vectorEffect="non-scaling-stroke" />
+                    </svg>
+                  </div>
+                  <div className="dfork__opts">
+                    <div className="dopt dopt--rejected">
+                      <span className="dopt__mark" aria-hidden="true">✕</span>
+                      <div className="dopt__txt">
+                        <span className="dopt__tag mono">Didn't pursue</span>
+                        <b className="dopt__label">{d.rejected}</b>
+                        <p className="dopt__why">{d.rejectedWhy}</p>
+                      </div>
+                    </div>
+                    <div className="dopt dopt--chosen">
+                      <span className="dopt__mark" aria-hidden="true">✓</span>
+                      <div className="dopt__txt">
+                        <span className="dopt__tag mono">Chose</span>
+                        <b className="dopt__label">{d.chosen}</b>
+                        <p className="dopt__why">{d.chosenWhy}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <p className="dfork__tradeoff"><span className="mono">Tradeoff accepted →</span> {d.tradeoff}</p>
               </Reveal>
             ))}
           </div>

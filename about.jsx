@@ -41,7 +41,7 @@ function About({ profile, reviews }) {
               <blockquote className="about__mantra-quote">
                 It ain’t about how hard you hit. It’s about how hard you can get hit and keep moving forward; how much you can take and keep moving forward. That’s how winning is done!
               </blockquote>
-              <figcaption className="about__mantra-cite">, Rocky Balboa</figcaption>
+              <figcaption className="about__mantra-cite">— Rocky Balboa</figcaption>
             </figure>
           </Reveal>
 

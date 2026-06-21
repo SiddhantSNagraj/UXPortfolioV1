@@ -17,7 +17,7 @@ const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
   "slHero": "Trio",
   "navStyle": "Panel",
   "recBtn": "Stamp Double",
-  "cursorStyle": "Label",
+  "cursorStyle": "Arrow",
   "retroCursor": "Diamond",
   "heroBg": "None",
   "navShell": "Pill",
@@ -25,8 +25,27 @@ const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
   "artifact": "Sticky",
   "rowHover": "Swipe",
   "noteLayout": "Below",
-  "noteColor": "Classic"
+  "noteColor": "Classic",
+  "caseReveal": "Editorial",
+  "heroStatus": "Pulse"
 }/*EDITMODE-END*/;
+
+// Scroll-reveal treatment for case studies (Option 2 = editorial clip wipe)
+const REVEAL_STYLES = {
+  'Editorial': 'clip',   // magazine clip-path wipe
+  'Fade up': 'fade',     // the original opacity + rise
+  'Off': 'off',          // no entrance motion
+};
+
+// "Open to opportunities" hero status treatment
+const HERO_STATUS = {
+  'Pulse': 'pulse',       // original pill + pulsing green dot
+  'Steady dot': 'steady', // same pill, solid dot, no flashing
+  'Stamp': 'stamp',       // outlined uppercase label, no dot
+  'Brackets': 'bracket',  // ( Open to opportunities ), no pill/dot
+  'Asterisk': 'asterisk', // ✳ marker, no pill/dot
+  'Underline': 'underline', // accent underline, no pill/dot
+};
 
 const AVATAR_HOVER = {
   'Fusion': 'fusion',           // color + spinning rings + orbit text
@@ -66,7 +85,7 @@ const SL_HERO = { 'Trio': 'trio', 'Fan': 'fan', 'Stagger': 'stagger' };
 const NAV_STYLES = { 'Panel': 'panel', 'Numbered': 'numbered', 'Filled': 'filled', 'Ticks': 'ticks' };
 
 // Custom cursor style.
-const CURSOR_STYLES = { 'Off': 'off', 'Invert': 'invert', 'Label': 'label' };
+const CURSOR_STYLES = { 'Arrow': 'arrow', 'Hover ring': 'hover', 'Precise': 'precise', 'Crosshair': 'crosshair', 'Invert': 'invert', 'Label': 'label', 'Off': 'off' };
 
 // Retro-mode cursor shape (only applies when Vibe is Retro + cursor = Label).
 const RETRO_CURSORS = { 'Diamond': 'diamond', 'Crosshair': 'crosshair', 'Target': 'target', 'Asterisk': 'asterisk', 'Stamp': 'stamp', 'Dot': 'dot', 'Ring': 'ring', 'Square': 'square', 'Plus': 'plus' };
@@ -168,6 +187,8 @@ function TweaksUI() {
     document.documentElement.setAttribute('data-rowhover', ROW_HOVER[t.rowHover] || 'fill');
     document.documentElement.setAttribute('data-notelayout', NOTE_LAYOUTS[t.noteLayout] || 'below');
     document.documentElement.setAttribute('data-notecolor', NOTE_COLORS[t.noteColor] || 'classic');
+    document.documentElement.setAttribute('data-reveal', REVEAL_STYLES[t.caseReveal] || 'clip');
+    document.documentElement.setAttribute('data-herostatus', HERO_STATUS[t.heroStatus] || 'pulse');
 
     // ---- overall vibe (retro overrides accent + display fonts) ----
     // a public visitor toggle (cmdk / logo easter egg) persists to 'sn-vibe'
@@ -220,6 +241,13 @@ function TweaksUI() {
       <TweakSelect label="Avatar effect" value={t.avatarHover}
         options={Object.keys(AVATAR_HOVER)}
         onChange={(v) => setTweak('avatarHover', v)} />
+      <TweakSection label="Motion" />
+      <TweakSelect label="Hero status" value={t.heroStatus}
+        options={Object.keys(HERO_STATUS)}
+        onChange={(v) => setTweak('heroStatus', v)} />
+      <TweakSelect label="Case study reveal" value={t.caseReveal}
+        options={Object.keys(REVEAL_STYLES)}
+        onChange={(v) => setTweak('caseReveal', v)} />
       <TweakSection label="Work hover" />
       <TweakSelect label="Row hover" value={t.rowHover}
         options={Object.keys(ROW_HOVER)}
