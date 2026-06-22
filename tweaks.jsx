@@ -16,6 +16,7 @@ const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
   "gsFlow": "Solid",
   "slHero": "Trio",
   "navStyle": "Panel",
+  "topNav": "Island",
   "recBtn": "Stamp Double",
   "cursorStyle": "Arrow",
   "retroCursor": "Diamond",
@@ -83,6 +84,9 @@ const SL_HERO = { 'Trio': 'trio', 'Fan': 'fan', 'Stagger': 'stagger' };
 
 // Case-study section menu design.
 const NAV_STYLES = { 'Panel': 'panel', 'Numbered': 'numbered', 'Filled': 'filled', 'Ticks': 'ticks' };
+
+// Top navigation-bar layout.
+const TOP_NAV = { 'Blend': 'blend', 'Floating': 'floating', 'Island': 'island', 'Bar': 'bar', 'Tabs': 'tabs', 'Outline': 'outline', 'Masthead': 'masthead', 'Index': 'index', 'Rule': 'rule', 'Wordmark': 'wordmark', 'Bracket': 'bracket' };
 
 // Custom cursor style.
 const CURSOR_STYLES = { 'Arrow': 'arrow', 'Hover ring': 'hover', 'Precise': 'precise', 'Crosshair': 'crosshair', 'Invert': 'invert', 'Label': 'label', 'Off': 'off' };
@@ -177,6 +181,7 @@ function TweaksUI() {
     document.documentElement.setAttribute('data-flowstyle', GS_FLOW[t.gsFlow] || 'solid');
     document.documentElement.setAttribute('data-slhero', SL_HERO[t.slHero] || 'trio');
     document.documentElement.setAttribute('data-csnav', NAV_STYLES[t.navStyle] || 'panel');
+    document.documentElement.setAttribute('data-nav', TOP_NAV[t.topNav] || 'blend');
     document.documentElement.setAttribute('data-cursor', CURSOR_STYLES[t.cursorStyle] || 'off');
     document.documentElement.setAttribute('data-retrocursor', RETRO_CURSORS[t.retroCursor] || 'diamond');
     document.documentElement.setAttribute('data-herobg', HERO_BG[t.heroBg] || 'none');
@@ -235,6 +240,10 @@ function TweaksUI() {
       <TweakSelect label="Name treatment" value={t.heroType}
         options={Object.keys(HERO_TYPE)}
         onChange={(v) => setTweak('heroType', v)} />
+      <TweakSection label="Navigation" />
+      <TweakSelect label="Top nav layout" value={t.topNav}
+        options={Object.keys(TOP_NAV)}
+        onChange={(v) => setTweak('topNav', v)} />
       <TweakSelect label="Footer ticket" value={t.ticket}
         options={Object.keys(TICKETS)}
         onChange={(v) => setTweak('ticket', v)} />

@@ -460,6 +460,117 @@ html[data-reveal="off"] .case .reveal {
 /* nav scrim (non blend) variant used on case study */
 .nav--solid { mix-blend-mode: normal; color: var(--ink); background: linear-gradient(180deg, rgba(var(--scrim),0.9), rgba(var(--scrim),0)); backdrop-filter: blur(6px); }
 
+/* =========================================================================
+   TOP-NAV LAYOUTS (data-nav: blend(default) | floating | island | bar | tabs | outline)
+   ========================================================================= */
+/* --- FLOATING: one centred glass capsule inset from the top --- */
+html[data-nav="floating"] .nav {
+  mix-blend-mode: normal; color: var(--ink);
+  top: 14px; left: 50%; transform: translateX(-50%); right: auto;
+  width: min(980px, calc(100% - 28px)); padding: 10px 14px 10px 22px;
+  background: color-mix(in srgb, var(--surface) 80%, transparent);
+  -webkit-backdrop-filter: blur(16px) saturate(1.3); backdrop-filter: blur(16px) saturate(1.3);
+  border: 1px solid var(--line-2); border-radius: 999px;
+  box-shadow: 0 10px 34px -14px rgba(0,0,0,.45);
+}
+
+/* --- ISLAND: brand + controls as two separate floating pills --- */
+html[data-nav="island"] .nav { mix-blend-mode: normal; color: var(--ink); top: 14px; background: none; }
+html[data-nav="island"] .nav__brand,
+html[data-nav="island"] .nav__links {
+  background: color-mix(in srgb, var(--surface) 80%, transparent);
+  -webkit-backdrop-filter: blur(16px) saturate(1.3); backdrop-filter: blur(16px) saturate(1.3);
+  border: 1px solid var(--line-2); border-radius: 999px;
+  box-shadow: 0 10px 34px -14px rgba(0,0,0,.45);
+}
+html[data-nav="island"] .nav__brand { padding: 11px 20px; }
+html[data-nav="island"] .nav__links { padding: 8px 16px; }
+
+/* --- BAR: solid top bar with a bottom hairline (clean, SaaS) --- */
+html[data-nav="bar"] .nav {
+  mix-blend-mode: normal; color: var(--ink);
+  background: color-mix(in srgb, var(--surface) 88%, transparent);
+  -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--line); padding: 13px var(--pad);
+}
+
+/* --- TABS: links become pill tabs with a filled active/hover state --- */
+html[data-nav="tabs"] .nav { mix-blend-mode: normal; color: var(--ink); }
+html[data-nav="tabs"] .nav__link { padding: 7px 14px; border-radius: 999px; transition: background .25s var(--ease), color .25s var(--ease); }
+html[data-nav="tabs"] .nav__link::after { display: none; }
+html[data-nav="tabs"] .nav__link:hover { background: color-mix(in srgb, var(--ink) 9%, transparent); }
+html[data-nav="tabs"] .nav__link.is-active { background: color-mix(in srgb, var(--accent) 15%, transparent); color: var(--accent); }
+
+/* --- OUTLINE: a centred framed pill with a bold border, inset --- */
+html[data-nav="outline"] .nav {
+  mix-blend-mode: normal; color: var(--ink);
+  top: 14px; left: 50%; transform: translateX(-50%); right: auto;
+  width: min(1120px, calc(100% - 26px)); padding: 11px 22px;
+  border: 1.5px solid var(--ink); border-radius: 14px;
+  background: color-mix(in srgb, var(--surface) 32%, transparent);
+  -webkit-backdrop-filter: blur(7px); backdrop-filter: blur(7px);
+}
+
+/* these layouts carry their own surface, so the case-study scrim shouldn't double up */
+html[data-nav="floating"] .nav--solid, html[data-nav="island"] .nav--solid,
+html[data-nav="bar"] .nav--solid, html[data-nav="outline"] .nav--solid { background-image: none; }
+
+/* =========================================================================
+   EDITORIAL TOP-NAV LAYOUTS — typographic, rule-driven, hand-set
+   (masthead | index | rule | wordmark | bracket)
+   ========================================================================= */
+/* --- MASTHEAD: newspaper nameplate — serif brand, bottom rule --- */
+html[data-nav="masthead"] .nav {
+  mix-blend-mode: normal; color: var(--ink);
+  border-bottom: 1px solid var(--ink); padding-top: 16px; padding-bottom: 13px;
+  background: color-mix(in srgb, var(--surface) 86%, transparent);
+  -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+}
+html[data-nav="masthead"] .nav__brand { font-family: 'Fraunces', Georgia, serif; font-size: 25px; font-weight: 600; letter-spacing: 0; text-transform: none; }
+html[data-nav="masthead"] .nav__brand .reg { font-size: 10px; }
+
+/* --- INDEX: table-of-contents — links numbered 01–04 --- */
+html[data-nav="index"] .nav { mix-blend-mode: normal; color: var(--ink); counter-reset: navi; }
+html[data-nav="index"] .nav__link::before {
+  counter-increment: navi; content: "0" counter(navi) "\00a0\00a0";
+  font-family: var(--mono); font-size: 9px; letter-spacing: .05em; opacity: .45; vertical-align: super;
+}
+
+/* --- RULE: letterpress row — links split by thin vertical dividers --- */
+html[data-nav="rule"] .nav { mix-blend-mode: normal; color: var(--ink); }
+html[data-nav="rule"] .nav__links { gap: 0; }
+html[data-nav="rule"] .nav__link { padding: 2px 18px; }
+html[data-nav="rule"] .nav__link::after { display: none; }
+html[data-nav="rule"] .nav__link + .nav__link { border-left: 1px solid var(--line-2); }
+html[data-nav="rule"] .nav__link:hover { color: var(--accent); }
+html[data-nav="rule"] .nav__link.is-active { color: var(--accent); }
+html[data-nav="rule"] .nav__links > .themetog { margin-left: 18px; }
+
+/* --- WORDMARK: brand becomes a lowercase serif full name --- */
+html[data-nav="wordmark"] .nav { mix-blend-mode: normal; color: var(--ink); }
+html[data-nav="wordmark"] .nav__brand { font-size: 0; gap: 0; }
+html[data-nav="wordmark"] .nav__brand .reg { display: none; }
+html[data-nav="wordmark"] .nav__brand::after {
+  content: "siddhant nagraj"; font-family: 'Fraunces', Georgia, serif;
+  font-size: 21px; font-weight: 600; letter-spacing: -0.01em; text-transform: none; white-space: nowrap;
+}
+
+/* --- BRACKET: mono links gain [brackets] on hover/active (hand-coded feel) --- */
+html[data-nav="bracket"] .nav { mix-blend-mode: normal; color: var(--ink); }
+html[data-nav="bracket"] .nav__link { padding: 4px 6px; }
+html[data-nav="bracket"] .nav__link::before {
+  content: "["; margin-right: 3px; opacity: 0; transition: opacity .2s var(--ease);
+}
+html[data-nav="bracket"] .nav__link::after {
+  content: "]"; position: static; width: auto; height: auto; background: none;
+  margin-left: 3px; opacity: 0; transition: opacity .2s var(--ease);
+}
+html[data-nav="bracket"] .nav__link:hover::before, html[data-nav="bracket"] .nav__link:hover::after,
+html[data-nav="bracket"] .nav__link.is-active::before, html[data-nav="bracket"] .nav__link.is-active::after { opacity: .6; }
+html[data-nav="bracket"] .nav__link.is-active { color: var(--accent); }
+
+html[data-nav="masthead"] .nav--solid { background-image: none; }
+
 /* theme toggle — rolling sun/moon, outline style */
 .themetog {
   position: relative; flex: none;
