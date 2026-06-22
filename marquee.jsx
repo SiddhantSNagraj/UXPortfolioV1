@@ -70,11 +70,14 @@ const TL = {
   Notion: (
     <img src="assets/tools/notion.png" className="hmq-logo" alt="" aria-hidden="true" />
   ),
+  WisprFlow: (
+    <img src="assets/tools/wisprflow.png" className="hmq-logo" alt="" aria-hidden="true" />
+  ),
 };
 
 /* AI tools lead the line, reinforces the AI-first positioning */
 const HMQ_TOOLS = [
-  ['Claude', true], ['Cursor', true], ['Google Antigravity', true],
+  ['Claude', true], ['Cursor', true], ['Google Antigravity', true], ['WisprFlow', true],
   ['Figma', false], ['FigJam', false], ['Framer', false],
   ['Storybook', false], ['Adobe XD', false], ['Miro', false], ['Notion', false],
 ];

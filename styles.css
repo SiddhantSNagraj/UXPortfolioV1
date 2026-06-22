@@ -104,6 +104,13 @@ img { display: block; max-width: 100%; }
 html:is([data-cursor="precise"],[data-cursor="crosshair"],[data-cursor="invert"],[data-cursor="label"],[data-cursor="arrow"]).curx-on,
 html:is([data-cursor="precise"],[data-cursor="crosshair"],[data-cursor="invert"],[data-cursor="label"],[data-cursor="arrow"]).curx-on * { cursor: none; }
 
+/* but the Tweaks panel (and any host chrome) sits above the custom-cursor layer,
+   so restore the real cursor over it — otherwise it vanishes there */
+html.curx-on [data-omelette-chrome],
+html.curx-on [data-omelette-chrome] * { cursor: auto !important; }
+html.curx-on [data-omelette-chrome] :is(button, select, a, label, [role="button"], input[type="range"], input[type="checkbox"], input[type="radio"]) { cursor: pointer !important; }
+html.curx-on [data-omelette-chrome] :is(input[type="text"], input[type="number"], textarea) { cursor: text !important; }
+
 /* precise layer shows for every non-native variant */
 html:is([data-cursor="hover"],[data-cursor="precise"],[data-cursor="crosshair"],[data-cursor="label"],[data-cursor="arrow"]) .curx { display: block; }
 html[data-cursor="invert"] .curx-trail { display: block; }
@@ -778,7 +785,49 @@ html[data-vibe^="retro"][data-rowhover="swipe"] .workrow__fill {
           mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 100' preserveAspectRatio='none'%3E%3Cfilter id='i'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.012 0.16' numOctaves='3' seed='4' result='n'/%3E%3CfeDisplacementMap in='SourceGraphic' in2='n' scale='22'/%3E%3C/filter%3E%3Crect x='-12' y='0' width='312' height='100' fill='%23fff' filter='url(%23i)'/%3E%3C/svg%3E") center/100% 100% no-repeat;
 }
 
-/* persistent ⌘K nav button (always-discoverable quick nav) */
+/* Retro keeps its inked-brush hover regardless of which 2026 default-mode style
+   is selected — every new variant falls back to the inked swipe in retro. */
+html[data-vibe^="retro"]:is(
+  [data-rowhover="aurora"],[data-rowhover="sheen"],[data-rowhover="beam"],
+  [data-rowhover="slide"],[data-rowhover="curtain"],[data-rowhover="diagonal"],[data-rowhover="ripple"],
+  [data-rowhover="lift"],[data-rowhover="halo"],[data-rowhover="split"],[data-rowhover="reveal"],
+  [data-rowhover="zoom"],[data-rowhover="stripe"],[data-rowhover="dots"],[data-rowhover="glass"],
+  [data-rowhover="pop"],[data-rowhover="spring"],[data-rowhover="glowflood"],[data-rowhover="duotone"],
+  [data-rowhover="sticker"],[data-rowhover="burst"]) .workrow__fill {
+  opacity: 1; width: auto; height: auto; inset: 0; top: 0; bottom: 0;
+  background: var(--rowbg, var(--accent)) !important;
+  clip-path: none !important;
+  transform: scaleX(0); transform-origin: left center;
+  transition: transform .5s var(--ease) !important;
+  border-radius: 0 !important;
+  animation: none !important;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 100' preserveAspectRatio='none'%3E%3Cfilter id='i'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.012 0.16' numOctaves='3' seed='4' result='n'/%3E%3CfeDisplacementMap in='SourceGraphic' in2='n' scale='22'/%3E%3C/filter%3E%3Crect x='-12' y='0' width='312' height='100' fill='%23fff' filter='url(%23i)'/%3E%3C/svg%3E") center/100% 100% no-repeat;
+          mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 100' preserveAspectRatio='none'%3E%3Cfilter id='i'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.012 0.16' numOctaves='3' seed='4' result='n'/%3E%3CfeDisplacementMap in='SourceGraphic' in2='n' scale='22'/%3E%3C/filter%3E%3Crect x='-12' y='0' width='312' height='100' fill='%23fff' filter='url(%23i)'/%3E%3C/svg%3E") center/100% 100% no-repeat;
+}
+html[data-vibe^="retro"]:is(
+  [data-rowhover="aurora"],[data-rowhover="sheen"],[data-rowhover="beam"],
+  [data-rowhover="slide"],[data-rowhover="curtain"],[data-rowhover="diagonal"],[data-rowhover="ripple"],
+  [data-rowhover="lift"],[data-rowhover="halo"],[data-rowhover="split"],[data-rowhover="reveal"],
+  [data-rowhover="zoom"],[data-rowhover="stripe"],[data-rowhover="dots"],[data-rowhover="glass"],
+  [data-rowhover="pop"],[data-rowhover="spring"],[data-rowhover="glowflood"],[data-rowhover="duotone"],
+  [data-rowhover="sticker"],[data-rowhover="burst"]) .workrow:hover .workrow__fill { transform: scaleX(1); }
+/* keep text legible over the inked fill + neutralise any default-mode text fx */
+html[data-vibe^="retro"]:is(
+  [data-rowhover="aurora"],[data-rowhover="sheen"],[data-rowhover="beam"],
+  [data-rowhover="slide"],[data-rowhover="curtain"],[data-rowhover="diagonal"],[data-rowhover="ripple"],
+  [data-rowhover="lift"],[data-rowhover="halo"],[data-rowhover="split"],[data-rowhover="reveal"],
+  [data-rowhover="zoom"],[data-rowhover="stripe"],[data-rowhover="dots"],[data-rowhover="glass"],
+  [data-rowhover="pop"],[data-rowhover="spring"],[data-rowhover="glowflood"],[data-rowhover="duotone"],
+  [data-rowhover="sticker"],[data-rowhover="burst"]) .workrow:hover :is(.workrow__no,.workrow__cta) { color: var(--rowtext, #fff) !important; }
+html[data-vibe^="retro"]:is(
+  [data-rowhover="aurora"],[data-rowhover="sheen"],[data-rowhover="beam"],
+  [data-rowhover="slide"],[data-rowhover="curtain"],[data-rowhover="diagonal"],[data-rowhover="ripple"],
+  [data-rowhover="lift"],[data-rowhover="halo"],[data-rowhover="split"],[data-rowhover="reveal"],
+  [data-rowhover="zoom"],[data-rowhover="stripe"],[data-rowhover="dots"],[data-rowhover="glass"],
+  [data-rowhover="pop"],[data-rowhover="spring"],[data-rowhover="glowflood"],[data-rowhover="duotone"],
+  [data-rowhover="sticker"],[data-rowhover="burst"]) .workrow:hover .workrow__name {
+  color: var(--rowtext, #fff) !important; background: none !important; -webkit-text-fill-color: currentColor !important; background-size: 0 0 !important;
+}
 .cmdktog { display: inline-flex; align-items: center; justify-content: center; flex: none;
   height: 30px; padding: 0 11px; border-radius: 999px; margin-left: -4px;
   background: none; border: 1px solid var(--line-2); color: var(--ink-3); cursor: pointer;

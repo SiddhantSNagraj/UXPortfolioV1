@@ -225,4 +225,16 @@
       }
     });
   })();
+
+  /* ---- 6. spotlight row-hover: feed cursor x/y into --mx/--my on the row ---- */
+  (function () {
+    document.addEventListener('pointermove', function (e) {
+      if (document.documentElement.getAttribute('data-rowhover') !== 'spotlight') return;
+      var row = e.target.closest && e.target.closest('.workrow');
+      if (!row) return;
+      var r = row.getBoundingClientRect();
+      row.style.setProperty('--mx', ((e.clientX - r.left) / r.width * 100) + '%');
+      row.style.setProperty('--my', ((e.clientY - r.top) / r.height * 100) + '%');
+    }, { passive: true });
+  })();
 })();

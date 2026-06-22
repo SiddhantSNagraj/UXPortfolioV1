@@ -23,7 +23,7 @@ const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
   "navShell": "Pill",
   "marquee": "Chips",
   "artifact": "Sticky",
-  "rowHover": "Swipe",
+  "rowHover": "Duotone",
   "noteLayout": "Below",
   "noteColor": "Classic",
   "caseReveal": "Editorial",
@@ -115,7 +115,7 @@ const NOTE_LAYOUTS = { 'Below': 'below', 'Scattered': 'scattered', 'Side': 'side
 const NOTE_COLORS = { 'Classic': 'classic', 'Warm': 'warm', 'Cool': 'cool', 'Bold': 'bold', 'Mono': 'mono' };
 
 // Work list row hover aesthetic.
-const ROW_HOVER = { 'Fill': 'fill', 'Swipe': 'swipe', 'Frame': 'frame', 'Marker': 'marker', 'Glow': 'glow', 'Brush': 'brush' };
+const ROW_HOVER = { 'Fill': 'fill', 'Swipe': 'swipe', 'Frame': 'frame', 'Marker': 'marker', 'Brush': 'brush', 'Aurora': 'aurora', 'Sheen': 'sheen', 'Beam': 'beam', 'Slide': 'slide', 'Curtain': 'curtain', 'Diagonal': 'diagonal', 'Ripple': 'ripple', 'Lift': 'lift', 'Halo': 'halo', 'Split': 'split', 'Reveal': 'reveal', 'Zoom': 'zoom', 'Stripe': 'stripe', 'Dots': 'dots', 'Glass': 'glass', 'Pop': 'pop', 'Spring': 'spring', 'Glow flood': 'glowflood', 'Duotone': 'duotone', 'Sticker': 'sticker', 'Burst': 'burst' };
 
 // Overall site vibe. Retro swaps palette, serif display fonts, and texture.
 const VIBES = { 'Default': 'default', 'Retro ’70s': 'retro', 'Retro Slate': 'retroslate' };
@@ -149,6 +149,7 @@ const HERO_FONTS = {
   'Bebas':     { stack: "'Bebas Neue',system-ui,sans-serif",                 weight: 400, ls: '0.005em', size: 'clamp(62px, 17.5vw, 264px)', lh: 0.82 },
   'Round':     { stack: "'Unbounded',system-ui,sans-serif",                  weight: 800, ls: '-0.02em',  size: 'clamp(44px, 11.5vw, 176px)',lh: 0.94 },
   'Serif':     { stack: "'Fraunces',Georgia,serif",                          weight: 900, ls: '-0.015em', size: 'clamp(48px, 13.5vw, 202px)', lh: 0.9 },
+  'Garamond':  { stack: "'EB Garamond',Georgia,serif",                       weight: 500, ls: '-0.005em', size: 'clamp(54px, 14.8vw, 224px)', lh: 0.86 },
 };
 
 function TweaksUI() {
