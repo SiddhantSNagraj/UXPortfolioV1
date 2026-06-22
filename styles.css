@@ -447,7 +447,10 @@ html[data-reveal="off"] .case .reveal {
 .nav__link { font-family: var(--mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; position: relative; padding: 4px 0; }
 .nav__link::after { content:''; position:absolute; left:0; bottom:0; height:1px; width:0; background: currentColor; transition: width .35s var(--ease); }
 .nav__link:hover::after { width: 100%; }
-.nav__link.is-active::after { width: 100%; }
+/* active section gets a subtle pill (neutral background) instead of an underline.
+   padding is offset by equal negative margin so neighbouring links don't shift. */
+/* active section: no pill, no underline (kept minimal) */
+.nav__link.is-active::after { display: none; }
 @media (max-width: 760px) {
   .nav { padding: 12px 16px; }
   /* declutter: text links are reachable by scrolling, keep just brand + theme toggle */
@@ -484,7 +487,7 @@ html[data-nav="island"] .nav__links {
   box-shadow: 0 10px 34px -14px rgba(0,0,0,.45);
 }
 html[data-nav="island"] .nav__brand { padding: 11px 20px; }
-html[data-nav="island"] .nav__links { padding: 8px 16px; }
+html[data-nav="island"] .nav__links { padding: 8px 16px 8px 24px; }
 
 /* --- BAR: solid top bar with a bottom hairline (clean, SaaS) --- */
 html[data-nav="bar"] .nav {
@@ -575,7 +578,7 @@ html[data-nav="masthead"] .nav--solid { background-image: none; }
 .themetog {
   position: relative; flex: none;
   width: 60px; height: 30px; border-radius: 999px;
-  border: 1.5px solid var(--ink-3); background: transparent;
+  border: 1px solid var(--line-2); background: transparent;
   cursor: pointer; padding: 0; transition: border-color .4s var(--ease);
   display: inline-flex; align-items: center;
 }
@@ -588,10 +591,11 @@ html[data-nav="masthead"] .nav--solid { background-image: none; }
 }
 .themetog__ico svg { display: block; width: 13px; height: 13px; }
 .themetog__ico--moon { left: 6px; color: var(--ink-3); }
+.themetog.is-light .themetog__ico--sun { right: 7px; }
 .themetog__ico--sun  { right: 6px; color: var(--ink-3); }
 /* the active side's icon brightens */
 .themetog:not(.is-light) .themetog__ico--moon { color: var(--ink); }
-.themetog.is-light .themetog__ico--sun { color: var(--yellow-ink); }
+.themetog.is-light .themetog__ico--sun { color: #2b6fff; }
 
 .themetog__knob {
   position: absolute; top: 50%; left: 3px; z-index: 2;
@@ -603,9 +607,9 @@ html[data-nav="masthead"] .nav--solid { background-image: none; }
 .themetog.is-light .themetog__knob {
   transform: translateY(-50%) translateX(29px) rotate(360deg);
 }
-/* ring color tracks the active icon: amber over the sun (light), blue over the moon (dark) */
+/* ring color tracks the active icon: amber over the moon (dark), blue over the sun (light) */
 .themetog:not(.is-light) .themetog__knob { border-color: #e89a4c; }
-.themetog.is-light .themetog__knob { border-color: #e89a4c; }
+.themetog.is-light .themetog__knob { border-color: #2b6fff; }
 @media (max-width: 720px) {
   .themetog { width: 56px; height: 28px; }
   .themetog.is-light .themetog__knob { transform: translateY(-50%) translateX(25px) rotate(360deg); }
