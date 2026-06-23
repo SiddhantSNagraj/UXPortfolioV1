@@ -454,7 +454,7 @@ html[data-theme="light"] .gs-anat__legend .n { color: var(--gs-700); }
 .gstog.is-on { background: var(--gs-600); }
 .gstog.is-on::after { transform: translateX(18px); }
 .gstog.is-disabled { opacity: .4; cursor: not-allowed; }
-.gscheck { width: 22px; height: 22px; border-radius: 6px; border: 1.5px solid var(--gs-n400); display: inline-flex; align-items: center; justify-content: center; cursor: pointer; transition: all .2s; flex: none; }
+.gscheck { width: 22px; height: 22px; border-radius: 6px; border: 1.5px solid var(--gs-n400); display: inline-flex; align-items: center; justify-content: center; cursor: pointer; transition: background .2s var(--ease), border-color .2s var(--ease), color .2s var(--ease); flex: none; }
 .gscheck.is-on { background: var(--gs-600); border-color: var(--gs-600); color: #fff; }
 .gscheck.is-disabled { opacity: .4; }
 .gsradio { width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid var(--gs-n400); display: inline-flex; align-items: center; justify-content: center; cursor: pointer; flex: none; }

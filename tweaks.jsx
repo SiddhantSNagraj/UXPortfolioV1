@@ -4,7 +4,8 @@ const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
   "vibe": "Default",
   "accent": "#2b6fff",
   "highlight": "#f7c14a",
-  "heroFont": "Serif",
+  "heroFont": "Gambetta",
+  "monoFont": "General Sans",
   "heroType": "Classic",
   "ticket": "Sunset",
   "scheme": "Ink",
@@ -24,7 +25,8 @@ const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
   "navShell": "Pill",
   "marquee": "Chips",
   "artifact": "Sticky",
-  "rowHover": "Duotone",
+  "rowHover": "Diagonal",
+  "retroRowHover": "Ink",
   "noteLayout": "Below",
   "noteColor": "Classic",
   "caseReveal": "Editorial",
@@ -119,7 +121,10 @@ const NOTE_LAYOUTS = { 'Below': 'below', 'Scattered': 'scattered', 'Side': 'side
 const NOTE_COLORS = { 'Classic': 'classic', 'Warm': 'warm', 'Cool': 'cool', 'Bold': 'bold', 'Mono': 'mono' };
 
 // Work list row hover aesthetic.
-const ROW_HOVER = { 'Fill': 'fill', 'Swipe': 'swipe', 'Frame': 'frame', 'Marker': 'marker', 'Brush': 'brush', 'Aurora': 'aurora', 'Sheen': 'sheen', 'Beam': 'beam', 'Slide': 'slide', 'Curtain': 'curtain', 'Diagonal': 'diagonal', 'Ripple': 'ripple', 'Lift': 'lift', 'Halo': 'halo', 'Split': 'split', 'Reveal': 'reveal', 'Zoom': 'zoom', 'Stripe': 'stripe', 'Dots': 'dots', 'Glass': 'glass', 'Pop': 'pop', 'Spring': 'spring', 'Glow flood': 'glowflood', 'Duotone': 'duotone', 'Sticker': 'sticker', 'Burst': 'burst' };
+const ROW_HOVER = { 'Fill': 'fill', 'Swipe': 'swipe', 'Frame': 'frame', 'Marker': 'marker', 'Aurora': 'aurora', 'Beam': 'beam', 'Curtain': 'curtain', 'Diagonal': 'diagonal', 'Ripple': 'ripple', 'Lift': 'lift', 'Split': 'split', 'Zoom': 'zoom', 'Glass': 'glass', 'Pop': 'pop', 'Duotone': 'duotone', 'Sticker': 'sticker', 'Burst': 'burst', 'Ink': 'ink', 'Wash': 'wash', 'Drip': 'drip', 'Tint': 'tint', 'Cushion': 'cushion', 'Glint': 'glint', 'Drape': 'drape' };
+
+// Retro-mode row hover (only applies when Vibe is Retro). Vintage-inspired.
+const RETRO_ROW_HOVER = { 'Ink': 'ink', 'Scanlines': 'scanlines', 'VHS': 'vhs', 'Marquee': 'marquee', 'Risograph': 'riso', 'Sunburst': 'sunburst', 'Lava': 'lava', 'Sunset': 'sunset', 'Bevel': 'bevel', 'Pinstripe': 'pinstripe' };
 
 // Overall site vibe. Retro swaps palette, serif display fonts, and texture.
 const VIBES = { 'Default': 'default', 'Retro ’70s': 'retro', 'Retro Slate': 'retroslate' };
@@ -143,6 +148,12 @@ const BG_TONES = {
 // Hero-name typeface options. Each carries the font stack + tuning so the
 // big headline stays balanced (tracking / line-height / optical size).
 const HERO_FONTS = {
+  'General Sans':{ stack: "'General Sans',system-ui,sans-serif",                weight: 600, ls: '-0.025em', size: 'clamp(46px, 12.5vw, 186px)',lh: 0.9 },
+  'Clash':     { stack: "'Clash Display',system-ui,sans-serif",              weight: 700, ls: '-0.02em',  size: 'clamp(48px, 13vw, 200px)',  lh: 0.9 },
+  'Cabinet':   { stack: "'Cabinet Grotesk',system-ui,sans-serif",           weight: 800, ls: '-0.03em',  size: 'clamp(48px, 13vw, 200px)',  lh: 0.9 },
+  'Sentient':  { stack: "'Sentient',Georgia,serif",                          weight: 700, ls: '-0.012em', size: 'clamp(50px, 13.5vw, 210px)', lh: 0.92 },
+  'Zodiak':    { stack: "'Zodiak',Georgia,serif",                            weight: 900, ls: '-0.005em', size: 'clamp(50px, 13.5vw, 210px)', lh: 0.92 },
+  'Gambetta':  { stack: "'Gambetta',Georgia,serif",                          weight: 700, ls: '-0.01em',  size: 'clamp(52px, 14vw, 216px)',  lh: 0.9 },
   'Grotesk':   { stack: "'Archivo',system-ui,sans-serif",                    weight: 900, ls: '-0.035em', size: 'clamp(46px, 12.5vw, 186px)',lh: 0.88 },
   'Familjen':  { stack: "'Familjen Grotesk',system-ui,sans-serif",           weight: 700, ls: '-0.025em', size: 'clamp(48px, 13vw, 196px)',  lh: 0.9 },
   'Geometric': { stack: "'Space Grotesk',system-ui,sans-serif",             weight: 700, ls: '-0.03em',  size: 'clamp(48px, 13vw, 196px)',  lh: 0.9 },
@@ -155,6 +166,42 @@ const HERO_FONTS = {
   'Serif':     { stack: "'Fraunces',Georgia,serif",                          weight: 900, ls: '-0.015em', size: 'clamp(48px, 13.5vw, 202px)', lh: 0.9 },
   'Garamond':  { stack: "'EB Garamond',Georgia,serif",                       weight: 500, ls: '-0.005em', size: 'clamp(54px, 14.8vw, 224px)', lh: 0.86 },
 };
+
+// Label / mono typeface — drives the --mono token used by every eyebrow, chip,
+// pill, caption and technical label. Curated to read as an intentional design
+// choice (not the vibe-coded Space Mono default). Mix of refined monospaces and
+// a few editorial label-sans that pair with Archivo. `g` = Google Fonts query
+// (null = already loaded in index.html).
+const MONO_FONTS = {
+  'General Sans':     { stack: "'General Sans',system-ui,sans-serif",       g: null },
+  'IBM Plex Mono':    { stack: "'IBM Plex Mono',ui-monospace,monospace",    g: 'IBM+Plex+Mono:wght@400;500;600;700' },
+  'DM Mono':          { stack: "'DM Mono',ui-monospace,monospace",          g: 'DM+Mono:wght@300;400;500' },
+  'Spline Sans Mono': { stack: "'Spline Sans Mono',ui-monospace,monospace", g: 'Spline+Sans+Mono:wght@400;500;600;700' },
+  'JetBrains Mono':   { stack: "'JetBrains Mono',ui-monospace,monospace",   g: 'JetBrains+Mono:wght@400;500;700' },
+  'Geist Mono':       { stack: "'Geist Mono',ui-monospace,monospace",       g: 'Geist+Mono:wght@400;500;700' },
+  'Martian Mono':     { stack: "'Martian Mono',ui-monospace,monospace",     g: 'Martian+Mono:wght@400;500;700' },
+  'Overpass Mono':    { stack: "'Overpass Mono',ui-monospace,monospace",    g: 'Overpass+Mono:wght@400;500;600;700' },
+  'Red Hat Mono':     { stack: "'Red Hat Mono',ui-monospace,monospace",     g: 'Red+Hat+Mono:wght@400;500;700' },
+  'Anonymous Pro':    { stack: "'Anonymous Pro',ui-monospace,monospace",    g: 'Anonymous+Pro:wght@400;700' },
+  'Azeret Mono':      { stack: "'Azeret Mono',ui-monospace,monospace",      g: 'Azeret+Mono:wght@400;500;700' },
+  'Sometype Mono':    { stack: "'Sometype Mono',ui-monospace,monospace",    g: 'Sometype+Mono:wght@400;500;700' },
+  'Fragment Mono':    { stack: "'Fragment Mono',ui-monospace,monospace",    g: 'Fragment+Mono' },
+  'Archivo Caps':     { stack: "'Archivo',system-ui,sans-serif",            g: null },
+  'Space Grotesk':    { stack: "'Space Grotesk',system-ui,sans-serif",      g: null },
+  'Syne':             { stack: "'Syne',system-ui,sans-serif",              g: null },
+};
+
+// Inject a Google Fonts <link> for the chosen mono font on demand (only loads
+// what's selected). No-op for fonts already in the static <head> link.
+function ensureMonoFont(spec) {
+  if (!spec || !spec.g) return;
+  const id = 'mfont-' + spec.g.split(':')[0];
+  if (document.getElementById(id)) return;
+  const l = document.createElement('link');
+  l.id = id; l.rel = 'stylesheet';
+  l.href = 'https://fonts.googleapis.com/css2?family=' + spec.g + '&display=swap';
+  document.head.appendChild(l);
+}
 
 function TweaksUI() {
   const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
@@ -172,6 +219,9 @@ function TweaksUI() {
     r.setProperty('--hero-ls', hf.ls);
     r.setProperty('--hero-size', hf.size);
     r.setProperty('--hero-lh', String(hf.lh));
+    const mf = MONO_FONTS[t.monoFont] || MONO_FONTS['IBM Plex Mono'];
+    ensureMonoFont(mf);
+    r.setProperty('--mono', mf.stack);
     document.documentElement.setAttribute('data-avhover', AVATAR_HOVER[t.avatarHover] || 'reveal');
     document.documentElement.setAttribute('data-taglayout', TAG_LAYOUTS[t.tagLayout] || 'crown');
     document.documentElement.setAttribute('data-fan', FAN_STYLES[t.fanStyle] || 'bloom');
@@ -191,6 +241,7 @@ function TweaksUI() {
     document.documentElement.setAttribute('data-marquee', MARQUEE[t.marquee] || 'chips');
     document.documentElement.setAttribute('data-artifact', ARTIFACT_STYLES[t.artifact] || 'sticky');
     document.documentElement.setAttribute('data-rowhover', ROW_HOVER[t.rowHover] || 'fill');
+    document.documentElement.setAttribute('data-retrorow', RETRO_ROW_HOVER[t.retroRowHover] || 'ink');
     document.documentElement.setAttribute('data-notelayout', NOTE_LAYOUTS[t.noteLayout] || 'below');
     document.documentElement.setAttribute('data-notecolor', NOTE_COLORS[t.noteColor] || 'classic');
     document.documentElement.setAttribute('data-reveal', REVEAL_STYLES[t.caseReveal] || 'clip');
@@ -237,6 +288,9 @@ function TweaksUI() {
       <TweakSelect label="Name font" value={t.heroFont}
         options={Object.keys(HERO_FONTS)}
         onChange={(v) => setTweak('heroFont', v)} />
+      <TweakSelect label="Label font" value={t.monoFont}
+        options={Object.keys(MONO_FONTS)}
+        onChange={(v) => setTweak('monoFont', v)} />
       <TweakSelect label="Name treatment" value={t.heroType}
         options={Object.keys(HERO_TYPE)}
         onChange={(v) => setTweak('heroType', v)} />
@@ -262,6 +316,9 @@ function TweaksUI() {
       <TweakSelect label="Row hover" value={t.rowHover}
         options={Object.keys(ROW_HOVER)}
         onChange={(v) => setTweak('rowHover', v)} />
+      <TweakSelect label="Row hover (retro)" value={t.retroRowHover}
+        options={Object.keys(RETRO_ROW_HOVER)}
+        onChange={(v) => setTweak('retroRowHover', v)} />
       <TweakSelect label="Greenstand hover" value={t.gsHover}
         options={Object.keys(GS_HOVER)}
         onChange={(v) => setTweak('gsHover', v)} />

@@ -1,6 +1,6 @@
 /* =========================================================================
    SIDDHANT NAGRAJ, PORTFOLIO
-   Dark editorial system · Archivo / Space Mono / Pixelify Sans
+   Dark editorial system · General Sans / Gambetta
    Accents: electric blue + signal yellow
    ========================================================================= */
 
@@ -27,11 +27,12 @@
   --available: #1f8a5b;   /* available-for-work status, fixed green, independent of accent */
 
   /* ----- type ----- */
-  --display: 'Archivo', system-ui, sans-serif;
-  --mono:    'Space Mono', ui-monospace, monospace;
-  /* 'pixel' tokens retired, now point at the grotesk so all legacy usages render as Archivo */
-  --pixel:   'Archivo', system-ui, sans-serif;
-  --pixel-blk: 'Archivo', system-ui, sans-serif;
+  --display: 'General Sans', system-ui, sans-serif;   /* headings, work names, hero, UI */
+  --body:    'Gambetta', Georgia, serif;              /* long-form reading prose */
+  --mono:    'General Sans', system-ui, sans-serif;
+  /* 'pixel' tokens retired, now point at the grotesk so all legacy usages render as the display sans */
+  --pixel:   'General Sans', system-ui, sans-serif;
+  --pixel-blk: 'Gambetta', Georgia, serif;
 
   /* ----- layout ----- */
   --pad: clamp(20px, 4.5vw, 80px);
@@ -65,8 +66,8 @@ html { -webkit-text-size-adjust: 100%; }
 body {
   background-color: var(--bg);
   color: var(--ink);
-  font-family: var(--display);
-  font-weight: 500;
+  font-family: var(--body);
+  font-weight: 400;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
@@ -894,54 +895,152 @@ html[data-vibe^="retro"] .sl-povcard, html[data-vibe^="retro"] .gs-princ__card {
           mask-composite: intersect;
 }
 
-/* #15 inked hover — swipe fill spreads with an irregular ink edge (retro only) */
-html[data-vibe^="retro"][data-rowhover="swipe"] .workrow__fill {
-  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 100' preserveAspectRatio='none'%3E%3Cfilter id='i'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.012 0.16' numOctaves='3' seed='4' result='n'/%3E%3CfeDisplacementMap in='SourceGraphic' in2='n' scale='22'/%3E%3C/filter%3E%3Crect x='-12' y='0' width='312' height='100' fill='%23fff' filter='url(%23i)'/%3E%3C/svg%3E") center/100% 100% no-repeat;
-          mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 100' preserveAspectRatio='none'%3E%3Cfilter id='i'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.012 0.16' numOctaves='3' seed='4' result='n'/%3E%3CfeDisplacementMap in='SourceGraphic' in2='n' scale='22'/%3E%3C/filter%3E%3Crect x='-12' y='0' width='312' height='100' fill='%23fff' filter='url(%23i)'/%3E%3C/svg%3E") center/100% 100% no-repeat;
+/* =========================================================================
+   RETRO ROW-HOVER — its own system, governed by data-retrorow, independent of
+   the default-mode data-rowhover. 10 vintage variants; "ink" is the default.
+   A neutraliser wipes any default-mode fill styling so each variant starts clean.
+   ========================================================================= */
+/* neutraliser: in retro, reset the fill to a plain hue flood (hidden) */
+html[data-vibe^="retro"] .workrow__fill {
+  inset: 0 !important; top: 0 !important; left: 0 !important; right: 0 !important; bottom: 0 !important;
+  width: auto !important; height: auto !important;
+  opacity: 0 !important; transform: none !important; transform-origin: center !important;
+  clip-path: none !important; -webkit-mask: none !important; mask: none !important;
+  border-radius: 0 !important; animation: none !important; filter: none !important;
+  -webkit-backdrop-filter: none !important; backdrop-filter: none !important; box-shadow: none !important;
+  background: var(--rowbg, var(--accent)) !important;
+  background-size: auto !important; background-position: 0 0 !important; background-repeat: repeat !important;
+  transition: opacity .4s var(--ease), transform .5s var(--ease) !important;
+}
+html[data-vibe^="retro"] .workrow:hover .workrow__fill { opacity: 1 !important; }
+/* legible text over the flood (variants with pale fills override below) */
+html[data-vibe^="retro"] .workrow:hover :is(.workrow__no,.workrow__cta) { color: var(--rowtext, #fff) !important; }
+html[data-vibe^="retro"] .workrow:hover .workrow__name {
+  color: var(--rowtext, #fff) !important; background: none !important; -webkit-text-fill-color: currentColor !important; background-size: 0 0 !important;
 }
 
-/* Retro keeps its inked-brush hover regardless of which 2026 default-mode style
-   is selected — every new variant falls back to the inked swipe in retro. */
-html[data-vibe^="retro"]:is(
-  [data-rowhover="aurora"],[data-rowhover="sheen"],[data-rowhover="beam"],
-  [data-rowhover="slide"],[data-rowhover="curtain"],[data-rowhover="diagonal"],[data-rowhover="ripple"],
-  [data-rowhover="lift"],[data-rowhover="halo"],[data-rowhover="split"],[data-rowhover="reveal"],
-  [data-rowhover="zoom"],[data-rowhover="stripe"],[data-rowhover="dots"],[data-rowhover="glass"],
-  [data-rowhover="pop"],[data-rowhover="spring"],[data-rowhover="glowflood"],[data-rowhover="duotone"],
-  [data-rowhover="sticker"],[data-rowhover="burst"]) .workrow__fill {
-  opacity: 1; width: auto; height: auto; inset: 0; top: 0; bottom: 0;
-  background: var(--rowbg, var(--accent)) !important;
-  clip-path: none !important;
-  transform: scaleX(0); transform-origin: left center;
+/* 1 — INK (default): irregular ink-brush edge spreads from the left */
+html[data-vibe^="retro"][data-retrorow="ink"] .workrow__fill {
+  opacity: 1 !important; transform: scaleX(0) !important; transform-origin: left center !important;
   transition: transform .5s var(--ease) !important;
-  border-radius: 0 !important;
-  animation: none !important;
-  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 100' preserveAspectRatio='none'%3E%3Cfilter id='i'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.012 0.16' numOctaves='3' seed='4' result='n'/%3E%3CfeDisplacementMap in='SourceGraphic' in2='n' scale='22'/%3E%3C/filter%3E%3Crect x='-12' y='0' width='312' height='100' fill='%23fff' filter='url(%23i)'/%3E%3C/svg%3E") center/100% 100% no-repeat;
-          mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 100' preserveAspectRatio='none'%3E%3Cfilter id='i'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.012 0.16' numOctaves='3' seed='4' result='n'/%3E%3CfeDisplacementMap in='SourceGraphic' in2='n' scale='22'/%3E%3C/filter%3E%3Crect x='-12' y='0' width='312' height='100' fill='%23fff' filter='url(%23i)'/%3E%3C/svg%3E") center/100% 100% no-repeat;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 100' preserveAspectRatio='none'%3E%3Cfilter id='i'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.012 0.16' numOctaves='3' seed='4' result='n'/%3E%3CfeDisplacementMap in='SourceGraphic' in2='n' scale='22'/%3E%3C/filter%3E%3Crect x='-12' y='0' width='312' height='100' fill='%23fff' filter='url(%23i)'/%3E%3C/svg%3E") center/100% 100% no-repeat !important;
+          mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 100' preserveAspectRatio='none'%3E%3Cfilter id='i'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.012 0.16' numOctaves='3' seed='4' result='n'/%3E%3CfeDisplacementMap in='SourceGraphic' in2='n' scale='22'/%3E%3C/filter%3E%3Crect x='-12' y='0' width='312' height='100' fill='%23fff' filter='url(%23i)'/%3E%3C/svg%3E") center/100% 100% no-repeat !important;
 }
-html[data-vibe^="retro"]:is(
-  [data-rowhover="aurora"],[data-rowhover="sheen"],[data-rowhover="beam"],
-  [data-rowhover="slide"],[data-rowhover="curtain"],[data-rowhover="diagonal"],[data-rowhover="ripple"],
-  [data-rowhover="lift"],[data-rowhover="halo"],[data-rowhover="split"],[data-rowhover="reveal"],
-  [data-rowhover="zoom"],[data-rowhover="stripe"],[data-rowhover="dots"],[data-rowhover="glass"],
-  [data-rowhover="pop"],[data-rowhover="spring"],[data-rowhover="glowflood"],[data-rowhover="duotone"],
-  [data-rowhover="sticker"],[data-rowhover="burst"]) .workrow:hover .workrow__fill { transform: scaleX(1); }
-/* keep text legible over the inked fill + neutralise any default-mode text fx */
-html[data-vibe^="retro"]:is(
-  [data-rowhover="aurora"],[data-rowhover="sheen"],[data-rowhover="beam"],
-  [data-rowhover="slide"],[data-rowhover="curtain"],[data-rowhover="diagonal"],[data-rowhover="ripple"],
-  [data-rowhover="lift"],[data-rowhover="halo"],[data-rowhover="split"],[data-rowhover="reveal"],
-  [data-rowhover="zoom"],[data-rowhover="stripe"],[data-rowhover="dots"],[data-rowhover="glass"],
-  [data-rowhover="pop"],[data-rowhover="spring"],[data-rowhover="glowflood"],[data-rowhover="duotone"],
-  [data-rowhover="sticker"],[data-rowhover="burst"]) .workrow:hover :is(.workrow__no,.workrow__cta) { color: var(--rowtext, #fff) !important; }
-html[data-vibe^="retro"]:is(
-  [data-rowhover="aurora"],[data-rowhover="sheen"],[data-rowhover="beam"],
-  [data-rowhover="slide"],[data-rowhover="curtain"],[data-rowhover="diagonal"],[data-rowhover="ripple"],
-  [data-rowhover="lift"],[data-rowhover="halo"],[data-rowhover="split"],[data-rowhover="reveal"],
-  [data-rowhover="zoom"],[data-rowhover="stripe"],[data-rowhover="dots"],[data-rowhover="glass"],
-  [data-rowhover="pop"],[data-rowhover="spring"],[data-rowhover="glowflood"],[data-rowhover="duotone"],
-  [data-rowhover="sticker"],[data-rowhover="burst"]) .workrow:hover .workrow__name {
-  color: var(--rowtext, #fff) !important; background: none !important; -webkit-text-fill-color: currentColor !important; background-size: 0 0 !important;
+html[data-vibe^="retro"][data-retrorow="ink"] .workrow:hover .workrow__fill { transform: scaleX(1) !important; opacity: 1 !important; }
+
+/* 2 — LAVA: lava-lamp blobs drift over a solid hue (text stays legible) */
+html[data-vibe^="retro"][data-retrorow="lava"] .workrow__fill {
+  background-color: var(--rowbg, var(--accent)) !important;
+  background-image:
+    radial-gradient(42% 62% at 24% 80%, color-mix(in srgb, var(--rowbg, var(--accent)) 58%, #ffce6e) 0%, transparent 60%),
+    radial-gradient(38% 58% at 64% 30%, color-mix(in srgb, var(--rowbg, var(--accent)) 60%, #ff7a3c) 0%, transparent 60%),
+    radial-gradient(46% 66% at 86% 78%, color-mix(in srgb, var(--rowbg, var(--accent)) 66%, #000) 0%, transparent 62%) !important;
+  background-size: 160% 160% !important; background-position: 20% 80% !important;
+  filter: blur(.4px) saturate(1.05) !important; border-radius: 8px !important;
+}
+@media (prefers-reduced-motion: no-preference) {
+  html[data-vibe^="retro"][data-retrorow="lava"] .workrow:hover .workrow__fill { animation: retroLava 7s ease-in-out infinite !important; }
+}
+@keyframes retroLava { 0%,100% { background-position: 20% 80%; } 50% { background-position: 34% 24%; } }
+
+/* 3 — SCANLINES: CRT horizontal lines + phosphor glow (subtle flicker) */
+html[data-vibe^="retro"][data-retrorow="scanlines"] .workrow__fill {
+  background-color: var(--rowbg, var(--accent)) !important;
+  background-image: repeating-linear-gradient(0deg, transparent 0 2px, rgba(0,0,0,.30) 2px 4px) !important;
+  box-shadow: inset 0 0 26px color-mix(in srgb, var(--rowbg, var(--accent)) 50%, #fff) !important;
+  border-radius: 4px !important;
+}
+@media (prefers-reduced-motion: no-preference) {
+  html[data-vibe^="retro"][data-retrorow="scanlines"] .workrow:hover .workrow__fill { animation: retroFlicker 2.6s steps(30) infinite !important; }
+}
+@keyframes retroFlicker { 0%,100% { filter: brightness(1); } 47% { filter: brightness(1); } 48% { filter: brightness(1.18); } 49% { filter: brightness(.92); } 50% { filter: brightness(1); } }
+
+/* 4 — VHS: tracking bands + a glitch bar scrolling down */
+html[data-vibe^="retro"][data-retrorow="vhs"] .workrow__fill {
+  background-color: var(--rowbg, var(--accent)) !important;
+  background-image:
+    linear-gradient(90deg, color-mix(in srgb, var(--rowbg, var(--accent)) 80%, #f0f) 0%, transparent 8%, transparent 92%, color-mix(in srgb, var(--rowbg, var(--accent)) 80%, #0ff) 100%),
+    repeating-linear-gradient(0deg, transparent 0 6px, rgba(255,255,255,.08) 6px 7px),
+    linear-gradient(0deg, rgba(255,255,255,.22) 0 3%, transparent 3%) !important;
+  background-size: 100% 100%, 100% 100%, 100% 100% !important;
+  background-position: 0 0, 0 0, 0 -10% !important; border-radius: 3px !important;
+}
+@media (prefers-reduced-motion: no-preference) {
+  html[data-vibe^="retro"][data-retrorow="vhs"] .workrow:hover .workrow__fill { animation: retroTrack 2.2s linear infinite !important; }
+}
+@keyframes retroTrack { from { background-position: 0 0, 0 0, 0 -10%; } to { background-position: 0 0, 0 0, 0 110%; } }
+
+/* 5 — MARQUEE: cinema bulb border with chasing lights */
+html[data-vibe^="retro"][data-retrorow="marquee"] .workrow__fill {
+  background-color: color-mix(in srgb, var(--rowbg, var(--accent)) 88%, #000) !important;
+  background-image:
+    radial-gradient(circle, #ffe9a8 42%, transparent 46%),
+    radial-gradient(circle, #ffe9a8 42%, transparent 46%),
+    radial-gradient(circle, #ffe9a8 42%, transparent 46%),
+    radial-gradient(circle, #ffe9a8 42%, transparent 46%) !important;
+  background-repeat: repeat-x, repeat-x, repeat-y, repeat-y !important;
+  background-size: 17px 9px, 17px 9px, 9px 17px, 9px 17px !important;
+  background-position: 4px top, 12px bottom, left 4px, right 12px !important;
+  border-radius: 4px !important; box-shadow: inset 0 0 18px rgba(255,233,168,.35) !important;
+}
+@media (prefers-reduced-motion: no-preference) {
+  html[data-vibe^="retro"][data-retrorow="marquee"] .workrow:hover .workrow__fill { animation: retroChase .6s linear infinite !important; }
+}
+@keyframes retroChase {
+  to { background-position: 21px top, -5px bottom, left -13px, right 30px; }
+}
+
+/* 6 — RISOGRAPH: two-tone offset misregistration + grain */
+html[data-vibe^="retro"][data-retrorow="riso"] .workrow__fill {
+  background-color: var(--rowbg, var(--accent)) !important;
+  background-image:
+    radial-gradient(60% 140% at 30% 40%, color-mix(in srgb, var(--rowbg, var(--accent)) 55%, #ff5ea8) 0%, transparent 60%),
+    radial-gradient(60% 140% at 72% 64%, color-mix(in srgb, var(--rowbg, var(--accent)) 55%, #2b6fff) 0%, transparent 60%),
+    radial-gradient(rgba(0,0,0,.18) 18%, transparent 20%) !important;
+  background-size: 100% 100%, 100% 100%, 4px 4px !important;
+  filter: contrast(1.08) saturate(1.1) !important; border-radius: 3px !important;
+}
+
+/* 7 — SUNSET: 70s horizontal sunset gradient with thin bands */
+html[data-vibe^="retro"][data-retrorow="sunset"] .workrow__fill {
+  background:
+    repeating-linear-gradient(0deg, transparent 0 9px, rgba(0,0,0,.10) 9px 11px),
+    linear-gradient(0deg,
+      color-mix(in srgb, var(--rowbg, var(--accent)) 70%, #000) 0%,
+      var(--rowbg, var(--accent)) 32%,
+      color-mix(in srgb, var(--rowbg, var(--accent)) 72%, #ff6a3d) 64%,
+      color-mix(in srgb, var(--rowbg, var(--accent)) 60%, #ff3d7f) 100%) !important;
+  box-shadow: inset 0 0 30px color-mix(in srgb, var(--rowbg, var(--accent)) 55%, #000) !important;
+  border-radius: 5px !important;
+}
+
+/* 8 — SUNBURST: 70s rotating sun rays */
+html[data-vibe^="retro"][data-retrorow="sunburst"] .workrow__fill {
+  background: repeating-conic-gradient(from 0deg at 50% 50%,
+    var(--rowbg, var(--accent)) 0deg 7deg,
+    color-mix(in srgb, var(--rowbg, var(--accent)) 64%, #000) 7deg 14deg) !important;
+  border-radius: 4px !important;
+}
+@media (prefers-reduced-motion: no-preference) {
+  html[data-vibe^="retro"][data-retrorow="sunburst"] .workrow:hover .workrow__fill { animation: retroSpin 18s linear infinite !important; }
+}
+@keyframes retroSpin { to { transform: rotate(1turn) !important; } }
+
+/* 9 — BEVEL: embossed retro-plastic panel (solid hue, very legible) */
+html[data-vibe^="retro"][data-retrorow="bevel"] .workrow__fill {
+  background: var(--rowbg, var(--accent)) !important; border-radius: 4px !important;
+  box-shadow:
+    inset 2px 2px 0 color-mix(in srgb, var(--rowbg, var(--accent)) 55%, #fff),
+    inset -2px -2px 0 color-mix(in srgb, var(--rowbg, var(--accent)) 55%, #000),
+    inset 6px 6px 10px color-mix(in srgb, var(--rowbg, var(--accent)) 72%, #fff),
+    inset -6px -6px 10px color-mix(in srgb, var(--rowbg, var(--accent)) 72%, #000) !important;
+}
+
+/* 10 — PINSTRIPE: subtle tonal vertical pinstripes on the hue */
+html[data-vibe^="retro"][data-retrorow="pinstripe"] .workrow__fill {
+  background-color: var(--rowbg, var(--accent)) !important;
+  background-image: repeating-linear-gradient(90deg, transparent 0 15px, color-mix(in srgb, var(--rowbg, var(--accent)) 72%, #000) 15px 17px) !important;
+  border-radius: 3px !important;
 }
 .cmdktog { display: inline-flex; align-items: center; justify-content: center; flex: none;
   height: 30px; padding: 0 11px; border-radius: 999px; margin-left: -4px;

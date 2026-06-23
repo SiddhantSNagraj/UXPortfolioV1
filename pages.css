@@ -708,19 +708,28 @@ html:not([data-avhover="comic"]) .hero__avatar-comic { display: none; }
 [data-rowhover="glowflood"] .workrow:hover :is(.workrow__no,.workrow__name,.workrow__cta),
 [data-rowhover="duotone"] .workrow:hover :is(.workrow__no,.workrow__name,.workrow__cta),
 [data-rowhover="sticker"] .workrow:hover :is(.workrow__no,.workrow__name,.workrow__cta),
-[data-rowhover="burst"] .workrow:hover :is(.workrow__no,.workrow__name,.workrow__cta) { color: var(--rowtext, #fff); }
+[data-rowhover="burst"] .workrow:hover :is(.workrow__no,.workrow__name,.workrow__cta),
+[data-rowhover="ink"] .workrow:hover :is(.workrow__no,.workrow__name,.workrow__cta),
+[data-rowhover="wash"] .workrow:hover :is(.workrow__no,.workrow__name,.workrow__cta),
+[data-rowhover="drip"] .workrow:hover :is(.workrow__no,.workrow__name,.workrow__cta) { color: var(--rowtext, #fff); }
 [data-rowhover="pop"] .workrow:hover :is(.workrow__sub,.workrow__tags .mono),
 [data-rowhover="spring"] .workrow:hover :is(.workrow__sub,.workrow__tags .mono),
 [data-rowhover="glowflood"] .workrow:hover :is(.workrow__sub,.workrow__tags .mono),
 [data-rowhover="duotone"] .workrow:hover :is(.workrow__sub,.workrow__tags .mono),
 [data-rowhover="sticker"] .workrow:hover :is(.workrow__sub,.workrow__tags .mono),
 [data-rowhover="burst"] .workrow:hover :is(.workrow__sub,.workrow__tags .mono) { color: var(--rowtext, #fff); opacity: .76; }
+[data-rowhover="ink"] .workrow:hover :is(.workrow__sub,.workrow__tags .mono),
+[data-rowhover="wash"] .workrow:hover :is(.workrow__sub,.workrow__tags .mono),
+[data-rowhover="drip"] .workrow:hover :is(.workrow__sub,.workrow__tags .mono) { color: var(--rowtext, #fff); opacity: .76; }
 [data-rowhover="pop"] .workrow:hover .chip,
 [data-rowhover="spring"] .workrow:hover .chip,
 [data-rowhover="glowflood"] .workrow:hover .chip,
 [data-rowhover="duotone"] .workrow:hover .chip,
 [data-rowhover="sticker"] .workrow:hover .chip,
 [data-rowhover="burst"] .workrow:hover .chip { border-color: var(--rowtext, rgba(255,255,255,.8)); color: var(--rowtext, #fff); }
+[data-rowhover="ink"] .workrow:hover .chip,
+[data-rowhover="wash"] .workrow:hover .chip,
+[data-rowhover="drip"] .workrow:hover .chip { border-color: var(--rowtext, rgba(255,255,255,.8)); color: var(--rowtext, #fff); }
 
 /* --- POP: solid flood + the whole row scales up with a coloured drop shadow --- */
 [data-rowhover="pop"] .workrow { transition: transform .3s var(--ease), box-shadow .3s var(--ease), border-radius .3s var(--ease); }
@@ -769,6 +778,116 @@ html:not([data-avhover="comic"]) .hero__avatar-comic { display: none; }
 [data-rowhover="burst"] .workrow__fill { opacity: 1; background: var(--rowbg, var(--accent)); border-radius: 6px; clip-path: circle(0% at 50% 50%); transition: clip-path .5s cubic-bezier(.5,.05,.2,1); }
 [data-rowhover="burst"] .workrow:hover .workrow__fill { clip-path: circle(140% at 50% 50%); }
 [data-rowhover="burst"] .workrow:hover .workrow__title { transition: transform .4s var(--ease); transform: scale(1.03); }
+
+/* =========================================================================
+   ROW-HOVER set: Ink · Wash · Drip (textural) + Tint · Cushion · Glint · Drape
+   (the latter four are minimal, material, Apple-restrained)
+   ========================================================================= */
+
+/* --- INK: an irregular ink edge bleeds across from the left --- */
+[data-rowhover="ink"] .workrow__fill {
+  opacity: 1; background: var(--rowbg, var(--accent)); border-radius: 4px;
+  transform: scaleX(0); transform-origin: left center;
+  transition: transform .55s cubic-bezier(.6,.02,.2,1);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 100' preserveAspectRatio='none'%3E%3Cfilter id='k'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.008 0.15' numOctaves='4' seed='7' result='n'/%3E%3CfeDisplacementMap in='SourceGraphic' in2='n' scale='34'/%3E%3C/filter%3E%3Crect x='-18' y='0' width='324' height='100' fill='%23fff' filter='url(%23k)'/%3E%3C/svg%3E") center/100% 100% no-repeat;
+          mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 100' preserveAspectRatio='none'%3E%3Cfilter id='k'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.008 0.15' numOctaves='4' seed='7' result='n'/%3E%3CfeDisplacementMap in='SourceGraphic' in2='n' scale='34'/%3E%3C/filter%3E%3Crect x='-18' y='0' width='324' height='100' fill='%23fff' filter='url(%23k)'/%3E%3C/svg%3E") center/100% 100% no-repeat;
+}
+[data-rowhover="ink"] .workrow:hover .workrow__fill { transform: scaleX(1); }
+
+/* --- WASH: overlapping translucent watercolour pools bloom and drift --- */
+[data-rowhover="wash"] .workrow__fill {
+  opacity: 0; border-radius: 8px; filter: saturate(1.1);
+  background:
+    radial-gradient(38% 120% at 18% 30%, color-mix(in srgb, var(--rowbg, var(--accent)) 80%, #fff) 0%, transparent 60%),
+    radial-gradient(42% 130% at 52% 78%, color-mix(in srgb, var(--rowbg, var(--accent)) 90%, #000) 0%, transparent 62%),
+    radial-gradient(46% 140% at 82% 36%, color-mix(in srgb, var(--rowbg, var(--accent)) 70%, #fff) 0%, transparent 64%),
+    color-mix(in srgb, var(--rowbg, var(--accent)) 88%, transparent);
+  background-size: 180% 180%, 200% 200%, 190% 190%, 100% 100%;
+  background-position: 0 50%, 100% 50%, 50% 0%, 0 0;
+  transition: opacity .5s var(--ease);
+}
+[data-rowhover="wash"] .workrow:hover .workrow__fill { opacity: 1; }
+@media (prefers-reduced-motion: no-preference) {
+  [data-rowhover="wash"] .workrow:hover .workrow__fill { animation: rowWash 6s ease-in-out infinite; }
+}
+@keyframes rowWash { 50% { background-position: 60% 40%, 30% 70%, 70% 30%, 0 0; } }
+
+/* --- DRIP: a top bar floods, then paint drips down in streaks --- */
+[data-rowhover="drip"] .workrow__fill {
+  opacity: 1; background: var(--rowbg, var(--accent)); border-radius: 4px 4px 7px 7px;
+  -webkit-mask:
+    linear-gradient(#000 0 0) top/100% 0% no-repeat,
+    radial-gradient(7px 18px at 14% 0, #000 60%, transparent 62%) top/100% 0% no-repeat,
+    radial-gradient(6px 26px at 40% 0, #000 60%, transparent 62%) top/100% 0% no-repeat,
+    radial-gradient(8px 14px at 63% 0, #000 60%, transparent 62%) top/100% 0% no-repeat,
+    radial-gradient(6px 30px at 85% 0, #000 60%, transparent 62%) top/100% 0% no-repeat;
+          mask:
+    linear-gradient(#000 0 0) top/100% 0% no-repeat,
+    radial-gradient(7px 18px at 14% 0, #000 60%, transparent 62%) top/100% 0% no-repeat,
+    radial-gradient(6px 26px at 40% 0, #000 60%, transparent 62%) top/100% 0% no-repeat,
+    radial-gradient(8px 14px at 63% 0, #000 60%, transparent 62%) top/100% 0% no-repeat,
+    radial-gradient(6px 30px at 85% 0, #000 60%, transparent 62%) top/100% 0% no-repeat;
+  transition: -webkit-mask-size .5s var(--ease), mask-size .5s var(--ease);
+}
+[data-rowhover="drip"] .workrow:hover .workrow__fill {
+  -webkit-mask-size: 100% 64%, 100% 100%, 100% 100%, 100% 100%, 100% 100%;
+          mask-size: 100% 64%, 100% 100%, 100% 100%, 100% 100%, 100% 100%;
+}
+
+/* --- TINT: a quiet hue wash fades in with a hairline accent bar; title eases right (Apple list-row) --- */
+[data-rowhover="tint"] .workrow__fill {
+  opacity: 0; border-radius: 9px;
+  background: color-mix(in srgb, var(--rowbg, var(--accent)) 11%, transparent);
+  box-shadow: inset 2.5px 0 0 var(--rowbg, var(--accent));
+  transition: opacity .4s var(--ease);
+}
+[data-rowhover="tint"] .workrow:hover .workrow__fill { opacity: 1; }
+[data-rowhover="tint"] .workrow__title { transition: transform .45s cubic-bezier(.32,.72,0,1); }
+[data-rowhover="tint"] .workrow:hover .workrow__title { transform: translateX(10px); }
+[data-rowhover="tint"] .workrow__name, [data-rowhover="tint"] .workrow__no { transition: color .4s var(--ease); }
+[data-rowhover="tint"] .workrow:hover .workrow__name { color: var(--rowbg, var(--accent)); }
+
+/* --- CUSHION: a soft radial bloom of the hue + a barely-there lift (pillowy depth) --- */
+[data-rowhover="cushion"] .workrow__fill {
+  opacity: 0; border-radius: 14px;
+  background: radial-gradient(72% 200% at 50% 50%, color-mix(in srgb, var(--rowbg, var(--accent)) 17%, transparent) 0%, transparent 72%);
+  transition: opacity .45s var(--ease);
+}
+[data-rowhover="cushion"] .workrow:hover .workrow__fill { opacity: 1; }
+[data-rowhover="cushion"] .workrow { transition: transform .45s cubic-bezier(.32,1.18,.4,1); }
+[data-rowhover="cushion"] .workrow:hover { transform: scale(1.012); }
+[data-rowhover="cushion"] .workrow:hover .workrow__name { transition: color .4s var(--ease); color: var(--rowbg, var(--accent)); }
+
+/* --- GLINT: a single soft specular highlight passes once over a faint tint --- */
+[data-rowhover="glint"] .workrow__fill {
+  opacity: 0; border-radius: 9px;
+  background:
+    linear-gradient(100deg, transparent 40%, color-mix(in srgb, #fff 45%, transparent) 50%, transparent 60%),
+    color-mix(in srgb, var(--rowbg, var(--accent)) 9%, transparent);
+  background-size: 230% 100%, 100% 100%; background-repeat: no-repeat;
+  background-position: 135% 0, 0 0;
+  transition: opacity .35s var(--ease);
+}
+[data-rowhover="glint"] .workrow:hover .workrow__fill { opacity: 1; }
+@media (prefers-reduced-motion: no-preference) {
+  [data-rowhover="glint"] .workrow:hover .workrow__fill { animation: rowGlint 1.15s var(--ease) forwards; }
+}
+@keyframes rowGlint { from { background-position: 135% 0, 0 0; } to { background-position: -55% 0, 0 0; } }
+[data-rowhover="glint"] .workrow:hover .workrow__name { transition: color .4s var(--ease); color: var(--rowbg, var(--accent)); }
+
+/* --- DRAPE: a frosted veil of the hue lowers from the top edge (soft material) --- */
+[data-rowhover="drape"] .workrow__fill {
+  opacity: 1; border-radius: 10px;
+  background: linear-gradient(180deg,
+    color-mix(in srgb, var(--rowbg, var(--accent)) 20%, transparent) 0%,
+    color-mix(in srgb, var(--rowbg, var(--accent)) 9%, transparent) 100%);
+  -webkit-backdrop-filter: blur(0px); backdrop-filter: blur(0px);
+  transform: scaleY(0); transform-origin: top center;
+  transition: transform .5s cubic-bezier(.32,.72,0,1), -webkit-backdrop-filter .5s var(--ease), backdrop-filter .5s var(--ease);
+}
+[data-rowhover="drape"] .workrow:hover .workrow__fill { transform: scaleY(1); -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px); }
+[data-rowhover="drape"] .workrow:hover { box-shadow: inset 0 1px 0 color-mix(in srgb, var(--rowbg, var(--accent)) 45%, transparent); border-radius: 10px; }
+[data-rowhover="drape"] .workrow:hover .workrow__name { transition: color .4s var(--ease); color: var(--rowbg, var(--accent)); }
 
 /* floating image peek follows hover via opacity */
 .workrow__peek {
@@ -1035,3 +1154,19 @@ html[data-csnavshell="topbar"] .csnav__toggle { width: 100%; max-width: none; bo
 html[data-csnavshell="topbar"] .csnav__count { margin-left: auto; }
 html[data-csnavshell="topbar"] .csnav__panel { bottom: auto; top: calc(100% + 1px); left: clamp(16px,4vw,40px); transform-origin: top left; transform: translateY(-10px) scale(.98); }
 html[data-csnavshell="topbar"].is-open .csnav__panel, html[data-csnavshell="topbar"] .csnav.is-open .csnav__panel { transform: none; }
+
+/* =========================================================================
+   MOTION SMOOTHNESS — promote scroll-driven & continuously-looping elements
+   to their own GPU layer so their motion is compositor-only (no per-frame
+   repaint of the page). Guarded by no-preference so reduced-motion is untouched.
+   ========================================================================= */
+@media (prefers-reduced-motion: no-preference) {
+  /* hero parallax: transformed every scroll frame — keep it on its own layer */
+  .hero__head { will-change: transform, opacity; }
+  /* tools marquee: continuous translateX — GPU + no subpixel jitter */
+  .hmq__row { will-change: transform; backface-visibility: hidden; }
+  /* contact seal: continuous rotation */
+  .seal__svg { will-change: transform; }
+  /* work rows lift/fill on hover — pre-promote so the transition can't hitch */
+  .workrow { transform: translateZ(0); }
+}

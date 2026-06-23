@@ -99,7 +99,7 @@ function Contact({ profile }) {
           <div className="foot__links">
             <span className="pixel" style={{ fontSize: 22 }}>SIDDHANT NAGRAJ®</span>
             <span className="mono" style={{ marginTop: 8 }}>Product Designer, based in {profile.location}</span>
-            <span className="mono colophon">Built from scratch · Archivo + Space Mono · ⌘K to navigate</span>
+            <span className="mono colophon">Built from scratch · General Sans + Gambetta · ⌘K to navigate</span>
           </div>
           <div className="foot__right">
             <div className="foot__meta">
