@@ -11,3 +11,4 @@ A static site — no build step, no dependencies. Just open `index.html`.
 
 ## Deploy
 Static hosting. On Vercel, deploy as a static project (Framework Preset: **Other**) — `index.html` is served automatically.
+   
