@@ -354,7 +354,7 @@ function ApmcCase({ project, projects, onOpen, onHome }) {
           <div className="am-pulse">
             {AM.pulse.map((p, i) => (
               <Reveal key={i} className="am-pulse__item" delay={`d${i + 1}`}>
-                <span className="am-pulse__dot">✳</span>
+                <span className="am-pulse__dot">✳︎</span>
                 <span>{p}</span>
               </Reveal>
             ))}

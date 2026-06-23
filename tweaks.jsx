@@ -30,7 +30,8 @@ const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
   "noteLayout": "Below",
   "noteColor": "Classic",
   "caseReveal": "Editorial",
-  "heroStatus": "Pulse"
+  "heroStatus": "Pulse",
+  "footerBadge": "Hidden"
 }/*EDITMODE-END*/;
 
 // Scroll-reveal treatment for case studies (Option 2 = editorial clip wipe)
@@ -49,6 +50,9 @@ const HERO_STATUS = {
   'Asterisk': 'asterisk', // ✳ marker, no pill/dot
   'Underline': 'underline', // accent underline, no pill/dot
 };
+
+// Footer rotating seal badge — show it or remove it entirely.
+const FOOTER_BADGE = { 'Show': 'show', 'Hidden': 'hidden' };
 
 const AVATAR_HOVER = {
   'Fusion': 'fusion',           // color + spinning rings + orbit text
@@ -246,6 +250,7 @@ function TweaksUI() {
     document.documentElement.setAttribute('data-notecolor', NOTE_COLORS[t.noteColor] || 'classic');
     document.documentElement.setAttribute('data-reveal', REVEAL_STYLES[t.caseReveal] || 'clip');
     document.documentElement.setAttribute('data-herostatus', HERO_STATUS[t.heroStatus] || 'pulse');
+    document.documentElement.setAttribute('data-footerbadge', FOOTER_BADGE[t.footerBadge] || 'show');
 
     // ---- overall vibe (retro overrides accent + display fonts) ----
     // a public visitor toggle (cmdk / logo easter egg) persists to 'sn-vibe'
@@ -309,6 +314,9 @@ function TweaksUI() {
       <TweakSelect label="Hero status" value={t.heroStatus}
         options={Object.keys(HERO_STATUS)}
         onChange={(v) => setTweak('heroStatus', v)} />
+      <TweakSelect label="Footer badge" value={t.footerBadge}
+        options={Object.keys(FOOTER_BADGE)}
+        onChange={(v) => setTweak('footerBadge', v)} />
       <TweakSelect label="Case study reveal" value={t.caseReveal}
         options={Object.keys(REVEAL_STYLES)}
         onChange={(v) => setTweak('caseReveal', v)} />

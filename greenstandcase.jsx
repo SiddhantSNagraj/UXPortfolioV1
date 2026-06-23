@@ -299,7 +299,7 @@ function GreenstandCase({ project, projects, onOpen, onHome }) {
           <div className="gs-objs">
             {GS.objectives.map(([t, d], i) => (
               <div className="gs-obj" key={i}>
-                <span className="gs-obj__tick">✳</span>
+                <span className="gs-obj__tick">✳︎</span>
                 <span className="gs-obj__t"><strong>{t}</strong>, {d}</span>
               </div>
             ))}

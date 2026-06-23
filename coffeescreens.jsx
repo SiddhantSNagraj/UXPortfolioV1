@@ -31,7 +31,7 @@ function CoffeeScreens() {
   return (
     <div className="cc-screens cph-stage" data-variant="strip">
       <div className="cc-screens__bar">
-        <span className="mono mono--accent">✳ High-fidelity screens, real CoffeeHouse design exports</span>
+        <span className="mono mono--accent">✳︎ High-fidelity screens, real CoffeeHouse design exports</span>
       </div>
 
       <div className="cc-screens__strip">

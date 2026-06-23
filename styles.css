@@ -384,6 +384,21 @@ body.is-inspecting, body.is-inspecting * { user-select: none !important; }
 .btn .arr { transition: transform .35s var(--ease); }
 .btn:hover .arr { transform: translateX(3px); }
 
+/* circular icon buttons (contact actions) */
+.btn--icon { position: relative; padding: 0; width: 52px; height: 52px; justify-content: center; gap: 0; }
+.btn--icon svg { display: block; transition: transform .35s var(--ease); }
+.btn--icon:hover svg { transform: scale(1.08); }
+.btn--icon::after {
+  content: attr(title); position: absolute; bottom: calc(100% + 9px); left: 50%; transform: translateX(-50%) translateY(4px);
+  font-family: var(--mono); font-size: 10px; letter-spacing: 0.07em; text-transform: uppercase; white-space: nowrap;
+  background: var(--ink); color: var(--bg); padding: 5px 9px; border-radius: 6px;
+  opacity: 0; pointer-events: none; transition: opacity .25s var(--ease), transform .25s var(--ease);
+}
+.btn--icon:hover::after { opacity: 1; transform: translateX(-50%) translateY(0); }
+/* keep the tooltip pinned while showing copy confirmation */
+.btn--icon[data-copied="true"]::after { opacity: 1; transform: translateX(-50%) translateY(0); background: var(--yellow); color: #000; }
+.btn--icon[data-copied="true"] { background: var(--yellow); border-color: var(--yellow); color: #000; }
+
 /* reveal-on-scroll */
 .reveal { opacity: 0; transform: translateY(26px); transition: opacity .9s var(--ease), transform .9s var(--ease); }
 .reveal.in { opacity: 1; transform: none; }
@@ -685,6 +700,7 @@ body::after {
 .seal__svg { position: absolute; inset: 0; width: 100%; height: 100%;
   animation: sealSpin 22s linear infinite; }
 @media (prefers-reduced-motion: reduce) { .seal__svg { animation: none; } }
+html[data-footerbadge="hidden"] .seal { display: none; }
 .seal__text { font-family: var(--mono); font-size: 9.2px; letter-spacing: 1.5px; fill: var(--ink-2);
   text-transform: uppercase; }
 .seal__core { position: relative; z-index: 1; width: 58px; height: 58px; border-radius: 50%;

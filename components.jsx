@@ -69,6 +69,20 @@ function TopNav({ onNav, active, solid, theme, onToggleTheme, resumeUrl }) {
 /* contact + footer --------------------------------------------------------- */
 function Contact({ profile }) {
   const [hover, setHover] = useState(false);
+  const [copied, setCopied] = useState(false);
+  const copyEmail = (e) => {
+    e.preventDefault();
+    const done = () => { setCopied(true); setTimeout(() => setCopied(false), 1800); };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(profile.email).then(done).catch(() => { window.location.href = `mailto:${profile.email}`; });
+    } else {
+      const ta = document.createElement('textarea');
+      ta.value = profile.email; ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.select();
+      try { document.execCommand('copy'); done(); } catch (err) { window.location.href = `mailto:${profile.email}`; }
+      document.body.removeChild(ta);
+    }
+  };
   return (
     <section className="contact" id="contact">
       <div className="wrap">
@@ -85,10 +99,25 @@ function Contact({ profile }) {
               Let’s<br />talk.
             </a>
             <p className="contact__signoff">…and build something <em>people like</em>.</p>
-            <div style={{ marginTop: 36, display: 'flex', flexWrap: 'wrap', gap: 16 }}>
-              <a className="btn btn--yellow" href={`mailto:${profile.email}`}>{profile.email} <span className="arr">→</span></a>
-              <a className="btn" href={profile.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn <span className="arr">↗</span></a>
-              {profile.resume ? <a className="btn" href={profile.resume} target="_blank" rel="noopener noreferrer">Resume <span className="arr">↓</span></a> : null}
+            <div className="contact__icons" style={{ marginTop: 36, display: 'flex', flexWrap: 'wrap', gap: 14 }}>
+              <a className="btn btn--icon btn--yellow" href="https://cal.com/siddhantnagraj" target="_blank" rel="noopener noreferrer" aria-label="Book a call on Cal.com" title="Book a call">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="4.5" width="18" height="16" rx="2.5" /><path d="M3 9h18M8 2.5v4M16 2.5v4" /><circle cx="12" cy="14.5" r="1.4" fill="currentColor" stroke="none" /></svg>
+              </a>
+              <a className="btn btn--icon" href={`mailto:${profile.email}`} onClick={copyEmail} aria-label={`Copy email address ${profile.email}`} title={copied ? 'Copied!' : 'Copy email'} data-copied={copied ? 'true' : null}>
+                {copied ? (
+                  <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7" /></svg>
+                ) : (
+                  <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5" /><path d="m4 7 8 6 8-6" /></svg>
+                )}
+              </a>
+              <a className="btn btn--icon" href={profile.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile" title="LinkedIn">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9h4v12H3V9Zm6 0h3.8v1.7h.05c.53-.95 1.83-1.95 3.77-1.95C20.4 8.75 21 11 21 14v7h-4v-6.2c0-1.48-.03-3.38-2.06-3.38-2.06 0-2.38 1.6-2.38 3.27V21H9V9Z" /></svg>
+              </a>
+              {profile.resume ? (
+                <a className="btn btn--icon" href={profile.resume} target="_blank" rel="noopener noreferrer" aria-label="Download resume" title="Resume">
+                  <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 3v11m0 0 4-4m-4 4-4-4M5 19.5h14" /></svg>
+                </a>
+              ) : null}
             </div>
           </div>
           <FooterTicket />
@@ -128,7 +157,7 @@ function Marquee({ items, speed = 36 }) {
         {[...items, ...items].map((t, i) => (
           <span key={i} className="marquee__item">
             <span className="display" style={{ fontSize: 'clamp(34px,6vw,84px)', fontWeight: 800 }}>{t}</span>
-            <span className="marquee__star">✳</span>
+            <span className="marquee__star">✳︎</span>
           </span>
         ))}
       </div>

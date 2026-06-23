@@ -87,7 +87,7 @@ function HmqCapSeq() {
   return (
     <div className="hmq__seq" aria-hidden="true">
       {HMQ_CAPS.map((c, i) => (
-        <span className="hmq-cap" key={i}><span className="hmq-cap__star">✳</span>{c}</span>
+        <span className="hmq-cap" key={i}><span className="hmq-cap__star">✳︎</span>{c}</span>
       ))}
     </div>
   );

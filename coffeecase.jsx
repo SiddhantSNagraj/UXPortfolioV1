@@ -234,7 +234,7 @@ function CoffeeCase({ project, projects, onOpen, onHome }) {
 
           <h3 className="cc-h3">What users really needed</h3>
           <ul className="cc-needs">
-            {CC.needs.map((n, i) => (<li key={i}><span className="cc-needs__tick">✳</span>{n}</li>))}
+            {CC.needs.map((n, i) => (<li key={i}><span className="cc-needs__tick">✳︎</span>{n}</li>))}
           </ul>
 
           <h3 className="cc-h3">Mapping mental models, card sorting</h3>
@@ -278,7 +278,7 @@ function CoffeeCase({ project, projects, onOpen, onHome }) {
           <h3 className="cc-h3">What usability testing set out to learn</h3>
           <div className="cc-twocol">
             <ul className="cc-needs">
-              {['Overall satisfaction with the app', 'Usability bottlenecks & friction points', 'Suggestions to improve navigation & flow', 'Ease of completing core tasks'].map((n, i) => (<li key={i}><span className="cc-needs__tick">✳</span>{n}</li>))}
+              {['Overall satisfaction with the app', 'Usability bottlenecks & friction points', 'Suggestions to improve navigation & flow', 'Ease of completing core tasks'].map((n, i) => (<li key={i}><span className="cc-needs__tick">✳︎</span>{n}</li>))}
             </ul>
             <div className="cc-tested">
               <span className="mono mono--ink">Tasks I tested,</span>

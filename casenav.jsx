@@ -22,7 +22,7 @@ function CaseSectionNav({ sectionSelector }) {
         const mono = el.querySelector('.mono');
         label = mono ? mono.textContent : 'Section ' + (i + 1);
       }
-      label = label.replace(/[()✳·]/g, ' ').replace(/\s+/g, ' ').trim();
+      label = label.replace(/[()✳︎·]/g, ' ').replace(/\s+/g, ' ').trim();
       return { id: el.id, label, el };
     });
     secRef.current = secs;
