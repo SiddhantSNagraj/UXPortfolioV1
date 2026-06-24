@@ -77,6 +77,7 @@ function App() {
           <Hero projects={data.projects} onOpen={openProject} />
           <WorkIndex projects={data.projects} onOpen={openProject} />
           <About profile={data.profile} reviews={data.reviews} />
+          <Guestbook />
           <Contact profile={data.profile} />
         </main>
       ) : (

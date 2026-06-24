@@ -67,6 +67,99 @@ function TopNav({ onNav, active, solid, theme, onToggleTheme, resumeUrl }) {
 }
 
 /* contact + footer --------------------------------------------------------- */
+
+/* Guestbook — visitors press a personal monogram seal onto the wall.
+   Persists to localStorage so a returning visitor still sees their mark and
+   the wall fills over time. Seeded with a few "others" the first time. */
+const GB_COLORS = ['#f7c14a', '#e0503a', '#f2f1ec', '#9fb8d8'];
+const GB_SEEDS = [
+  { ini: 'AK', loc: 'Berlin', x: 9, y: 30, c: '#e0503a', r: -7 },
+  { ini: 'M.R', loc: 'Tokyo', x: 84, y: 26, c: '#9fb8d8', r: 6 },
+  { ini: 'JL', loc: 'NYC', x: 26, y: 70, c: '#f2f1ec', r: -3 },
+  { ini: 'PD', loc: 'London', x: 67, y: 74, c: '#f7c14a', r: 9 },
+  { ini: 'SV', loc: 'Bangalore', x: 47, y: 44, c: '#f7c14a', r: -5 },
+];
+
+function GuestSeal({ s, idx }) {
+  const tp = `gbtp${idx}`, bp = `gbbp${idx}`;
+  return (
+    <span className={`gbseal${s.isNew ? ' gbseal--new' : ''}`} style={{ left: `${s.x}%`, top: `${s.y}%`, '--c': s.c, '--r': `${s.r}deg` }}>
+      <svg viewBox="0 0 74 74" aria-hidden="true">
+        <defs>
+          <path id={tp} d="M11,37 A26,26 0 0 1 63,37" />
+          <path id={bp} d="M63,37 A26,26 0 0 1 11,37" />
+        </defs>
+        <circle className="gbseal__ring" cx="37" cy="37" r="33" />
+        <circle className="gbseal__ringthin" cx="37" cy="37" r="28" />
+        <text className="gbseal__ini" x="37" y="38">{s.ini}</text>
+        <text className="gbseal__curve"><textPath href={`#${tp}`} startOffset="50%" textAnchor="middle">{(s.loc || '').toUpperCase()}</textPath></text>
+        <text className="gbseal__curve"><textPath href={`#${bp}`} startOffset="50%" textAnchor="middle">· MMXXVI ·</textPath></text>
+      </svg>
+    </span>
+  );
+}
+
+function Guestbook() {
+  const KEY = 'sn-guestbook-v1';
+  const [seals, setSeals] = useState(() => {
+    try {
+      const saved = JSON.parse(localStorage.getItem(KEY) || 'null');
+      if (saved && Array.isArray(saved) && saved.length) return saved;
+    } catch (e) {}
+    return GB_SEEDS.slice();
+  });
+  const [ini, setIni] = useState('');
+  const [loc, setLoc] = useState('');
+  const wallRef = useRef(null);
+
+  useEffect(() => {
+    try { localStorage.setItem(KEY, JSON.stringify(seals.slice(-60).map(({ isNew, ...r }) => r))); } catch (e) {}
+  }, [seals]);
+
+  const makeSeal = (x, y) => ({
+    ini: (ini.trim() || 'SN').toUpperCase().slice(0, 3),
+    loc: loc.trim().slice(0, 14),
+    x, y,
+    c: GB_COLORS[Math.floor(Math.random() * GB_COLORS.length)],
+    r: +(Math.random() * 22 - 11).toFixed(1),
+    mine: true, isNew: true,
+  });
+
+  const pressAt = (e) => {
+    if (e.target.closest('.gb__form') || e.target.closest('.gb__clear')) return;
+    const r = wallRef.current.getBoundingClientRect();
+    const x = ((e.clientX - r.left) / r.width) * 100;
+    const y = ((e.clientY - r.top) / r.height) * 100;
+    setSeals((s) => [...s, makeSeal(Math.max(6, Math.min(94, x)), Math.max(10, Math.min(90, y)))]);
+  };
+  const pressRandom = () => setSeals((s) => [...s, makeSeal(18 + Math.random() * 64, 22 + Math.random() * 36)]);
+  const clearMine = () => setSeals((s) => s.filter((x) => !x.mine));
+
+  return (
+    <section className="gb-sec" id="guestbook">
+      <div className="wrap">
+        <div className="gb">
+          <div className="gb__head">
+            <span className="mono mono--accent">( GUESTBOOK )</span>
+            <span className="gb__count mono">{seals.length} have signed</span>
+          </div>
+          <p className="gb__lead">Leave your mark. Type your initials, pick where you’re from, and press your seal anywhere on the wall.</p>
+          <div className="gb__wall" ref={wallRef} onPointerDown={pressAt}>
+            {seals.map((s, i) => <GuestSeal key={i} s={s} idx={i} />)}
+            <span className="gb__ghost mono">Click anywhere to press your seal</span>
+            <button className="gb__clear mono" onClick={clearMine} type="button">Clear mine</button>
+            <div className="gb__form" onPointerDown={(e) => e.stopPropagation()}>
+              <input className="gb__ini" maxLength={3} value={ini} onChange={(e) => setIni(e.target.value)} placeholder="SN" aria-label="Your initials" />
+              <input className="gb__loc" maxLength={14} value={loc} onChange={(e) => setLoc(e.target.value)} placeholder="where from?" aria-label="Where you're from" />
+              <button className="gb__go mono" onClick={pressRandom} type="button">Press ✦</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function Contact({ profile }) {
   const [hover, setHover] = useState(false);
   const [copied, setCopied] = useState(false);

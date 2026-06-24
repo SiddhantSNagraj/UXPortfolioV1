@@ -502,26 +502,59 @@ html[data-worklayout="outcome"] .workrow--fan:hover .workrow__outcome-txt { colo
 html[data-worklayout="outcome"] .workrow--fan:hover .workrow__outcome::before { background: #000000bf; }
 
 /* ════════ LAYOUT: CARDS (2-up tile grid) ════════ */
-html[data-worklayout="cards"] .worklist { display: grid; grid-template-columns: repeat(2, 1fr); gap: clamp(18px, 2vw, 26px); }
+html[data-worklayout="cards"] .worklist { display: grid; grid-template-columns: repeat(2, 1fr); gap: clamp(26px, 3vw, 44px); padding-top: 8px; }
 html[data-worklayout="cards"] .workrow {
   display: flex; flex-direction: column; gap: 0; padding: 0 !important;
-  border: 1px solid var(--line); border-radius: 16px; overflow: hidden;
+  border: 1px solid var(--line); border-radius: 18px; overflow: hidden;
   background: var(--surface); align-items: stretch;
 }
-html[data-worklayout="cards"] .workrow:hover { padding: 0 !important; transform: translateY(-4px); box-shadow: 0 22px 44px -24px rgba(0,0,0,.6); }
-html[data-worklayout="cards"] .workrow { transition: transform .4s var(--ease), box-shadow .4s var(--ease), opacity .4s var(--ease); }
-/* colored cover panel */
+html[data-worklayout="cards"] .workrow:hover { padding: 0 !important; transform: translateY(-6px); box-shadow: 0 30px 60px -28px rgba(0,0,0,.7); border-color: var(--line-2); }
+html[data-worklayout="cards"] .workrow { transition: transform .45s var(--ease), box-shadow .45s var(--ease), opacity .4s var(--ease), border-color .45s var(--ease); }
+
+/* cover = real-screenshot viewport (project colour shows behind / as scrim) */
 html[data-worklayout="cards"] .workrow__cover {
-  display: flex; align-items: flex-end; padding: 16px; height: clamp(140px, 15vw, 184px);
-  position: relative; z-index: 1;
+  display: block; padding: 0; height: clamp(210px, 23vw, 288px);
+  position: relative; z-index: 1; overflow: hidden;
 }
-html[data-worklayout="cards"] .workrow__cover-label { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; opacity: .92; }
-html[data-worklayout="cards"] .workrow__no { position: absolute; top: 16px; right: 18px; z-index: 2; font-size: 13px; color: inherit; opacity: .65; }
+html[data-worklayout="cards"] .workrow__cover::before {
+  content: ''; position: absolute; inset: 0; z-index: 3; pointer-events: none;
+  box-shadow: inset 0 3px 0 0 var(--rowbg);
+}
+html[data-worklayout="cards"] .workrow__shots { position: absolute; inset: 0; display: block; }
+html[data-worklayout="cards"] .workrow__shot {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; object-position: top center; opacity: 0;
+}
+html[data-worklayout="cards"] .workrow__shot:first-child { opacity: 1; }
+/* cycle the screens only while hovering the card */
+@media (prefers-reduced-motion: no-preference) {
+  html[data-worklayout="cards"] .workrow:hover .workrow__shot {
+    animation: cardCycle var(--cyc, 8s) var(--ease) infinite;
+  }
+}
+@keyframes cardCycle {
+  0%   { opacity: 1; }
+  28%  { opacity: 1; }
+  34%  { opacity: 0; }
+  94%  { opacity: 0; }
+  100% { opacity: 1; }
+}
+/* legibility scrim + label over the imagery */
+html[data-worklayout="cards"] .workrow__cover-scrim {
+  position: absolute; left: 0; right: 0; bottom: 0; height: 56%; z-index: 2; pointer-events: none;
+  background: linear-gradient(to top, color-mix(in srgb, var(--rowbg) 92%, #000) 0%, color-mix(in srgb, var(--rowbg) 30%, transparent) 55%, transparent 100%);
+}
+html[data-worklayout="cards"] .workrow__cover-label {
+  position: absolute; left: 18px; bottom: 15px; z-index: 4;
+  font-family: var(--mono); font-size: 11px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--rowtext); opacity: .95;
+}
+html[data-worklayout="cards"] .workrow__no { position: absolute; top: 15px; right: 18px; z-index: 4; font-size: 13px; color: var(--rowtext); opacity: .7; }
 /* body */
-html[data-worklayout="cards"] .workrow__title { padding: 20px 20px 0; gap: 8px; }
+html[data-worklayout="cards"] .workrow__title { padding: 22px 22px 0; gap: 8px; }
 html[data-worklayout="cards"] .workrow__name { font-size: clamp(24px, 2.4vw, 34px); }
-html[data-worklayout="cards"] .workrow__outcome { display: inline-flex; margin-top: 4px; }
-html[data-worklayout="cards"] .workrow__tags { padding: 16px 20px; margin-top: auto; justify-content: space-between; border-top: 1px solid var(--line); }
+html[data-worklayout="cards"] .workrow__outcome { display: inline-flex; margin-top: 6px; }
+html[data-worklayout="cards"] .workrow__tags { padding: 18px 22px; margin-top: auto; justify-content: space-between; border-top: 1px solid var(--line); }
 html[data-worklayout="cards"] .workrow__cta { display: none; }
 /* in card mode the per-project hover peeks + fill don't apply */
 html[data-worklayout="cards"] .workrow__fan,

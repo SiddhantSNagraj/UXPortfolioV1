@@ -2,6 +2,16 @@
 
 const { useState: useStateH, useEffect: useEffectH, useRef: useRefH } = React;
 
+/* Real product screens shown in the Cards work-layout — cycle on hover.
+   Clean bare screens per project (no annotations); APMC shows its design
+   evolution (wireframe → v1 → final). */
+const CARD_SHOTS = {
+  coffeehouse: ['assets/coffee/flow2/menu.png', 'assets/coffee/flow2/details.png', 'assets/coffee/flow2/cart.png', 'assets/coffee/flow2/success.png'],
+  slack: ['assets/slack/hi-home.png', 'assets/slack/hi-search.png', 'assets/slack/hi-dms.png', 'assets/slack/hi-you.png'],
+  greenstand: ['assets/greenstand/app-wallet.png', 'assets/greenstand/app-notifications.png', 'assets/greenstand/app-settings.png', 'assets/greenstand/flow-10-welcome.png'],
+  apmc: ['assets/apmc/final-home-web.jpg', 'assets/apmc/final-protothon-web.jpg', 'assets/apmc/wf-home.png'],
+};
+
 /* ---- HERO --------------------------------------------------------------- */
 function Hero({ projects, onOpen }) {
   const stripRef = useRefH(null);
@@ -308,6 +318,19 @@ function WorkIndex({ projects, onOpen }) {
               >
                 <span className="workrow__fill" aria-hidden="true" />
                 <span className="workrow__cover" aria-hidden="true" style={{ background: p.rowbg, color: p.rowtext }}>
+                  <span className="workrow__shots" style={{ '--cyc': `${(CARD_SHOTS[p.id] ? CARD_SHOTS[p.id].length : 3) * 1.9}s` }}>
+                    {(CARD_SHOTS[p.id] || []).map((src, i, arr) => (
+                      <img
+                        key={i}
+                        className="workrow__shot"
+                        src={src}
+                        alt=""
+                        loading="lazy"
+                        style={{ animationDelay: `calc(${-((arr.length - i) % arr.length)} * var(--cyc) / ${arr.length})` }}
+                      />
+                    ))}
+                  </span>
+                  <span className="workrow__cover-scrim" />
                   <span className="workrow__cover-label">{p.title}</span>
                 </span>
                 <span className="workrow__no pixel">{p.no}</span>

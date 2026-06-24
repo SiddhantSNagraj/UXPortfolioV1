@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Interactive concepts — 5 mockups</title>
+<link rel="preconnect" href="https://api.fontshare.com" />
+<link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=general-sans@500,600,700&f[]=gambetta@400,500,600,700&display=swap" />
+<style>
+  :root{
+    --bg:#0b0b0c; --surface:#161618; --surface-2:#1d1d20;
+    --line:rgba(255,255,255,.10); --line-2:rgba(255,255,255,.20);
+    --ink:#f2f1ec; --ink-2:#b9b8b2; --ink-3:#75746f; --ink-4:#4a4a47;
+    --amber:#f7c14a; --amber-deep:#e8a94c;  --red:#e0503a;
+    --display:'General Sans',system-ui,sans-serif;
+    --body:'Gambetta',Georgia,serif;
+    --mono:'General Sans',system-ui,sans-serif;
+    --ease:cubic-bezier(.4,0,.2,1);
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--display);
+    padding:48px clamp(18px,5vw,70px) 120px;}
+  .page-h{font-family:var(--body);font-weight:500;font-size:clamp(26px,4vw,40px);letter-spacing:-.01em;margin:0 0 4px;}
+  .page-h em{font-style:italic;color:var(--amber);}
+  .page-sub{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-bottom:46px;}
+
+  .station{position:relative;border:1px solid var(--line);border-radius:18px;overflow:hidden;
+    background:var(--surface);margin-bottom:30px;min-height:340px;display:flex;flex-direction:column;}
+  .station__bar{display:flex;align-items:baseline;gap:14px;padding:16px 22px;border-bottom:1px solid var(--line);
+    background:var(--surface-2);position:relative;z-index:5;}
+  .station__n{font-family:var(--mono);font-size:12px;color:var(--amber);letter-spacing:.12em;}
+  .station__name{font-size:17px;font-weight:600;}
+  .station__hint{font-family:var(--body);font-size:14px;color:var(--ink-2);margin-left:auto;font-style:italic;}
+  .stage{position:relative;flex:1;overflow:hidden;}
+
+  /* ---------- 1. sticky notes ---------- */
+  .sticky{position:absolute;width:150px;min-height:150px;padding:18px 16px;cursor:grab;touch-action:none;
+    font-family:var(--body);font-size:18px;line-height:1.3;color:#1a1407;
+    box-shadow:0 12px 26px -10px rgba(0,0,0,.6);user-select:none;transition:box-shadow .2s var(--ease);}
+  .sticky:active{cursor:grabbing;box-shadow:0 22px 40px -12px rgba(0,0,0,.7);}
+  .sticky--a{background:#f7c14a;top:34px;left:40px;transform:rotate(-5deg);}
+  .sticky--b{background:#ffe08a;top:60px;left:230px;transform:rotate(4deg);}
+  .sticky--c{background:#f1d4a0;top:150px;left:130px;transform:rotate(-2deg);}
+  .sticky small{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#7a5e16;margin-top:10px;}
+
+  /* ---------- 2. rubber stamp ---------- */
+  .stamp-zone{position:absolute;inset:0;cursor:crosshair;}
+  .stamp-zone .ghost{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+    font-family:var(--mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-4);pointer-events:none;}
+  .stamp{position:absolute;transform:translate(-50%,-50%) rotate(var(--r,-8deg)) scale(0);
+    border:3px solid var(--red);color:var(--red);border-radius:7px;padding:8px 16px;
+    font-family:var(--mono);font-weight:700;font-size:18px;letter-spacing:.08em;text-transform:uppercase;
+    pointer-events:none;opacity:.86;mix-blend-mode:screen;
+    animation:stampIn .28s cubic-bezier(.2,1.5,.4,1) forwards;}
+  @keyframes stampIn{to{transform:translate(-50%,-50%) rotate(var(--r,-8deg)) scale(1);}}
+
+  /* ---------- 3. tear-off ticket ---------- */
+  .ticket{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:min(440px,80%);
+    background:#f4efe4;color:#1a1407;border-radius:12px;overflow:hidden;
+    box-shadow:0 18px 40px -16px rgba(0,0,0,.6);font-family:var(--display);}
+  .ticket__main{padding:22px 26px;}
+  .ticket__k{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#9a7c2e;}
+  .ticket__big{font-family:var(--body);font-size:30px;font-weight:600;margin:6px 0 2px;}
+  .ticket__sub{font-size:13px;color:#5a4a26;}
+  .ticket__perf{height:0;border-top:2px dashed #c7b48a;position:relative;}
+  .ticket__perf::before,.ticket__perf::after{content:'';position:absolute;top:-11px;width:22px;height:22px;
+    border-radius:50%;background:var(--surface);}
+  .ticket__perf::before{left:-11px;}.ticket__perf::after{right:-11px;}
+  .ticket__stub{padding:14px 26px;display:flex;align-items:center;justify-content:space-between;cursor:grab;
+    touch-action:none;background:#efe7d6;}
+  .ticket__stub:active{cursor:grabbing;}
+  .ticket__stub-label{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#9a7c2e;}
+  .ticket__stub-arrow{font-size:18px;color:#c08a2e;}
+  .ticket__reveal{position:absolute;left:50%;bottom:46px;transform:translateX(-50%);text-align:center;
+    font-family:var(--body);font-style:italic;font-size:20px;color:var(--amber);opacity:0;transition:opacity .5s var(--ease) .2s;width:90%;}
+  .ticket.torn .ticket__reveal{opacity:1;}
+
+  /* ---------- 4. magnetic poetry ---------- */
+  .word{position:absolute;background:#ece6d8;color:#1a1407;font-family:var(--body);font-size:18px;
+    padding:5px 11px;border-radius:3px;cursor:grab;touch-action:none;user-select:none;
+    box-shadow:0 3px 8px -2px rgba(0,0,0,.5),inset 0 1px 0 #fff8;}
+  .word:active{cursor:grabbing;}
+  .word--accent{background:var(--amber);}
+
+  /* ---------- 7. guestbook — personal monogram seal ---------- */
+  .wall{position:absolute;inset:0;cursor:crosshair;background:
+    repeating-linear-gradient(0deg,transparent 0 31px,rgba(255,255,255,.04) 31px 32px);}
+  .wall .ghost{position:absolute;top:22px;left:50%;transform:translateX(-50%);
+    font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-4);pointer-events:none;}
+  .gbform{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);display:flex;gap:8px;z-index:6;align-items:center;
+    background:var(--surface-2);border:1px solid var(--line);border-radius:999px;padding:7px 9px;}
+  .gbform input{font-family:var(--mono);background:transparent;border:none;color:var(--ink);font-size:12px;
+    letter-spacing:.12em;text-transform:uppercase;outline:none;}
+  .gbform .ini{width:54px;text-align:center;border:1px solid var(--line-2);border-radius:999px;padding:7px 0;}
+  .gbform .ini::placeholder{color:var(--ink-4);}
+  .gbform .loc{width:108px;border-left:1px solid var(--line);padding-left:11px;}
+  .gbform .loc::placeholder{color:var(--ink-4);text-transform:none;letter-spacing:.04em;}
+  .gbform .go{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;
+    background:var(--amber);color:#1a1407;border:none;border-radius:999px;padding:8px 13px;cursor:pointer;}
+  /* the seal */
+  .seal-mark{position:absolute;width:74px;height:74px;transform:translate(-50%,-50%) scale(0) rotate(var(--r,0deg));
+    pointer-events:none;animation:sealIn .34s cubic-bezier(.2,1.45,.4,1) forwards;opacity:.9;}
+  .seal-mark svg{width:100%;height:100%;overflow:visible;}
+  .seal-mark .ring{fill:none;stroke:var(--c);stroke-width:1.4;}
+  .seal-mark .ringthin{fill:none;stroke:var(--c);stroke-width:.7;opacity:.7;}
+  .seal-mark .ini{fill:var(--c);font-family:'Gambetta',serif;font-weight:700;font-size:25px;text-anchor:middle;dominant-baseline:central;}
+  .seal-mark .curve{fill:var(--c);font-family:var(--mono);font-size:6.3px;letter-spacing:1.6px;text-transform:uppercase;}
+  @keyframes sealIn{to{transform:translate(-50%,-50%) scale(1) rotate(var(--r,0deg));}}
+  .reset{position:absolute;top:13px;right:18px;z-index:7;font-family:var(--mono);font-size:10px;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--ink-3);background:transparent;border:1px solid var(--line);border-radius:999px;
+    padding:5px 11px;cursor:pointer;}
+</style>
+</head>
+<body>
+  <h1 class="page-h">Interactive <em>concepts</em></h1>
+  <div class="page-sub">Five live mockups · play with each · pick your favourite</div>
+  <div id="root"></div>
+
+<script>
+const root = document.getElementById('root');
+
+function station(n, name, hint, stageHTML){
+  const el = document.createElement('div');
+  el.className = 'station';
+  el.innerHTML = `<div class="station__bar"><span class="station__n">${n}</span>
+    <span class="station__name">${name}</span><span class="station__hint">${hint}</span></div>
+    <div class="stage">${stageHTML}</div>`;
+  root.appendChild(el);
+  return el.querySelector('.stage');
+}
+
+/* generic drag (pointer events, within stage bounds) */
+function makeDraggable(elSelectorOrEl, stage){
+  const items = typeof elSelectorOrEl === 'string' ? stage.querySelectorAll(elSelectorOrEl) : [elSelectorOrEl];
+  items.forEach(el=>{
+    let sx,sy,ox,oy,drag=false;
+    el.addEventListener('pointerdown',e=>{
+      drag=true; el.setPointerCapture(e.pointerId);
+      const r=el.getBoundingClientRect(), pr=stage.getBoundingClientRect();
+      ox=r.left-pr.left; oy=r.top-pr.top; sx=e.clientX; sy=e.clientY;
+      el.style.zIndex=++makeDraggable._z; el.style.transition='none';
+    });
+    el.addEventListener('pointermove',e=>{
+      if(!drag) return;
+      const nx=ox+(e.clientX-sx), ny=oy+(e.clientY-sy);
+      el.style.left=nx+'px'; el.style.top=ny+'px';
+      el.style.right='auto'; el.style.bottom='auto';
+    });
+    el.addEventListener('pointerup',e=>{drag=false; el.releasePointerCapture(e.pointerId);});
+  });
+}
+makeDraggable._z = 10;
+
+/* ---- 1. sticky notes ---- */
+const s1 = station('01','Draggable sticky notes','Drag them anywhere',
+  `<div class="sticky sticky--a">hire me?<small>— drag me</small></div>
+   <div class="sticky sticky--b">let's build<br>something<small>— say hi 👋</small></div>
+   <div class="sticky sticky--c">ship it ✦<small>— note to self</small></div>`);
+makeDraggable('.sticky', s1);
+
+/* ---- 2. rubber stamp ---- */
+const s2 = station('02','Rubber-stamp','Click anywhere to stamp',
+  `<div class="stamp-zone"><span class="ghost">Click to stamp · APPROVED</span></div>`);
+const words2 = ['APPROVED','SHIPPED','HIRED','CRAFTED','SEEN'];
+s2.querySelector('.stamp-zone').addEventListener('pointerdown',e=>{
+  const z=e.currentTarget, pr=z.getBoundingClientRect();
+  const s=document.createElement('div'); s.className='stamp';
+  s.textContent=words2[Math.floor(Math.random()*words2.length)];
+  s.style.left=(e.clientX-pr.left)+'px'; s.style.top=(e.clientY-pr.top)+'px';
+  s.style.setProperty('--r',(Math.random()*20-10).toFixed(1)+'deg');
+  z.appendChild(s);
+});
+
+/* ---- 3. tear-off ticket ---- */
+const s3 = station('03','Tear-off ticket','Drag the stub down to tear',
+  `<div class="ticket" id="tkt">
+     <div class="ticket__main">
+       <div class="ticket__k">Admit one · MMXXVI</div>
+       <div class="ticket__big">Siddhant Nagraj</div>
+       <div class="ticket__sub">Product Designer · open to opportunities</div>
+     </div>
+     <div class="ticket__perf"></div>
+     <div class="ticket__stub" id="stub">
+       <span class="ticket__stub-label">Tear here</span>
+       <span class="ticket__stub-arrow">↓</span>
+     </div>
+     <div class="ticket__reveal">Let's talk → hello@siddhant</div>
+   </div>`);
+(function(){
+  const tkt=s3.querySelector('#tkt'), stub=s3.querySelector('#stub');
+  let sy,drag=false,torn=false;
+  stub.addEventListener('pointerdown',e=>{ if(torn)return; drag=true; sy=e.clientY; stub.setPointerCapture(e.pointerId);});
+  stub.addEventListener('pointermove',e=>{
+    if(!drag)return; const dy=Math.max(0,e.clientY-sy);
+    stub.style.transform=`translateY(${dy}px) rotate(${dy*0.05}deg)`;
+    stub.style.opacity=String(Math.max(0,1-dy/120));
+    if(dy>70){ drag=false; torn=true; tkt.classList.add('torn');
+      stub.style.transition='transform .5s var(--ease),opacity .5s'; stub.style.transform='translateY(160px) rotate(14deg)'; stub.style.opacity='0';}
+  });
+  stub.addEventListener('pointerup',e=>{ if(torn)return; drag=false;
+    stub.style.transition='transform .4s var(--ease),opacity .4s'; stub.style.transform=''; stub.style.opacity='1';
+    setTimeout(()=>stub.style.transition='',400);});
+})();
+
+/* ---- 4. magnetic poetry ---- */
+const s4 = station('04','Magnetic poetry','Drag words to compose',
+  `<div id="poetry"></div>`);
+const POETRY=[['design',1],['systems',0],['I',0],['obsess',0],['over',0],['the',0],['pixels',1],['you',0],['scroll',0],['past',0],['ship',1],['fast',0],['craft',1],['always',0]];
+const pStage=s4.querySelector('#poetry');
+let px=24,py=30,roww=0;
+POETRY.forEach(([w,acc])=>{
+  const t=document.createElement('div'); t.className='word'+(acc?' word--accent':''); t.textContent=w;
+  pStage.appendChild(t);
+  const ww=t.offsetWidth+10;
+  if(px+ww>s4.clientWidth-24){px=24;py+=44;}
+  t.style.left=px+'px'; t.style.top=py+'px'; px+=ww;
+});
+makeDraggable('.word', s4);
+
+/* ---- 7. guestbook — personal monogram seal ---- */
+const s7 = station('07','Guestbook · your monogram','Type your initials, then click the wall to press your seal',
+  `<div class="wall"><span class="ghost">Set your monogram below · click anywhere to press it</span>
+     <button class="reset" id="wreset">Clear mine</button>
+   </div>
+   <div class="gbform" id="gbform">
+     <input class="ini" id="gbini" maxlength="3" placeholder="SN" />
+     <input class="loc" id="gbloc" maxlength="14" placeholder="where from?" />
+     <button class="go" id="gbgo">Press ✦</button>
+   </div>`);
+(function(){
+  const wall=s7.querySelector('.wall');
+  const iniEl=s7.querySelector('#gbini'), locEl=s7.querySelector('#gbloc');
+  const COLS=['#f7c14a','#e0503a','#f2f1ec','#9fb8d8'];
+  let armed=false;
+
+  function sealSVG(ini, loc, col){
+    ini=(ini||'SN').toUpperCase().slice(0,3);
+    const topTxt=(loc||'').toUpperCase().slice(0,14);
+    const botTxt='· MMXXVI ·';
+    return `<svg viewBox="0 0 74 74" style="--c:${col}">
+      <defs>
+        <path id="tp${seedId}" d="M11,37 A26,26 0 0 1 63,37" />
+        <path id="bp${seedId}" d="M63,37 A26,26 0 0 1 11,37" />
+      </defs>
+      <circle class="ring" cx="37" cy="37" r="33"/>
+      <circle class="ringthin" cx="37" cy="37" r="28"/>
+      <text class="ini" x="37" y="38">${ini}</text>
+      <text class="curve"><textPath href="#tp${seedId}" startOffset="50%" text-anchor="middle">${topTxt}</textPath></text>
+      <text class="curve"><textPath href="#bp${seedId}" startOffset="50%" text-anchor="middle">${botTxt}</textPath></text>
+    </svg>`;
+  }
+  let seedId=0;
+  function press(x,y,ini,loc,col){
+    seedId++;
+    const m=document.createElement('span'); m.className='seal-mark';
+    m.style.left=x+'%'; m.style.top=y+'%';
+    m.style.setProperty('--r',(Math.random()*22-11).toFixed(1)+'deg');
+    m.innerHTML=sealSVG(ini,loc,col);
+    wall.appendChild(m);
+  }
+
+  // seed a few "others" so it feels like a real guestbook
+  [['AK','Berlin',6.5,28,'%'],['M.R','Tokyo',82,34,'%'],['JL','NYC',23,72,'%'],['PD','London',64,76,'%']]
+    .forEach(([i,l,x,y])=>press(x,y,i,l,COLS[Math.floor(Math.random()*COLS.length)]));
+
+  function placeAtEvent(e){
+    if(e.target.closest('#gbform')||e.target.id==='wreset')return;
+    const pr=wall.getBoundingClientRect();
+    const col=COLS[Math.floor(Math.random()*COLS.length)];
+    press(((e.clientX-pr.left)/pr.width*100), ((e.clientY-pr.top)/pr.height*100), iniEl.value, locEl.value, col);
+  }
+  wall.addEventListener('pointerdown',placeAtEvent);
+  // "Press" button drops one in a random open spot
+  s7.querySelector('#gbgo').addEventListener('click',()=>{
+    const col=COLS[Math.floor(Math.random()*COLS.length)];
+    press(18+Math.random()*64, 22+Math.random()*36, iniEl.value, locEl.value, col);
+  });
+  s7.querySelector('#wreset').addEventListener('click',()=>wall.querySelectorAll('.seal-mark').forEach(x=>x.remove()));
+})();
+</script>
+</body>
+</html>

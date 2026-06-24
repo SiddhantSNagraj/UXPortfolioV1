@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Interactive concepts — batch 2</title>
+<link rel="preconnect" href="https://api.fontshare.com" />
+<link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=general-sans@500,600,700&f[]=gambetta@400,500,600,700&display=swap" />
+<style>
+  :root{
+    --bg:#0b0b0c; --surface:#161618; --surface-2:#1d1d20;
+    --line:rgba(255,255,255,.10); --line-2:rgba(255,255,255,.20);
+    --ink:#f2f1ec; --ink-2:#b9b8b2; --ink-3:#75746f; --ink-4:#4a4a47;
+    --amber:#f7c14a; --red:#c0392b;
+    --display:'General Sans',system-ui,sans-serif;
+    --body:'Gambetta',Georgia,serif;
+    --mono:'General Sans',system-ui,sans-serif;
+    --ease:cubic-bezier(.4,0,.2,1);
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--display);
+    padding:48px clamp(18px,5vw,70px) 120px;}
+  .page-h{font-family:var(--body);font-weight:500;font-size:clamp(26px,4vw,40px);letter-spacing:-.01em;margin:0 0 4px;}
+  .page-h em{font-style:italic;color:var(--amber);}
+  .page-sub{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-bottom:46px;}
+  .station{position:relative;border:1px solid var(--line);border-radius:18px;overflow:hidden;
+    background:var(--surface);margin-bottom:30px;min-height:360px;display:flex;flex-direction:column;}
+  .station__bar{display:flex;align-items:baseline;gap:14px;padding:16px 22px;border-bottom:1px solid var(--line);
+    background:var(--surface-2);position:relative;z-index:5;}
+  .station__n{font-family:var(--mono);font-size:12px;color:var(--amber);letter-spacing:.12em;}
+  .station__name{font-size:17px;font-weight:600;}
+  .station__hint{font-family:var(--body);font-size:14px;color:var(--ink-2);margin-left:auto;font-style:italic;}
+  .stage{position:relative;flex:1;overflow:hidden;display:grid;place-items:center;}
+
+  /* ---- 11. wax seal ---- */
+  .wax-wrap{display:grid;place-items:center;text-align:center;}
+  .wax-instr{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-4);margin-bottom:22px;}
+  .wax{position:relative;width:128px;height:128px;border-radius:50%;cursor:pointer;display:grid;place-items:center;
+    background:radial-gradient(circle at 38% 32%,#e35d4a,#a5281a 70%);
+    box-shadow:inset -8px -10px 20px rgba(0,0,0,.45),inset 6px 6px 14px rgba(255,255,255,.18),0 14px 30px -10px rgba(0,0,0,.6);
+    transform:scale(.6);opacity:.4;transition:transform .25s var(--ease),opacity .25s;}
+  .wax::before{content:'';position:absolute;inset:-6px;border-radius:50%;
+    background:radial-gradient(circle at 50% 45%,transparent 60%,#8e2316 72%,transparent 78%);filter:blur(2px);opacity:.8;}
+  .wax.pressed{transform:scale(1);opacity:1;}
+  .wax.squish{animation:waxSquish .4s var(--ease);}
+  @keyframes waxSquish{0%{transform:scale(1.05,.92);}40%{transform:scale(.97,1.04);}100%{transform:scale(1);}}
+  .wax__seal{font-family:var(--body);font-weight:700;font-size:38px;color:#3d0f08;opacity:0;letter-spacing:-.04em;
+    text-shadow:0 1px 0 rgba(255,255,255,.18),0 -1px 1px rgba(0,0,0,.4);transition:opacity .3s .1s;}
+  .wax.pressed .wax__seal{opacity:.62;}
+  .wax__hint{margin-top:18px;font-family:var(--body);font-style:italic;font-size:18px;color:var(--amber);opacity:0;transition:opacity .4s .2s;}
+  .wax.pressed ~ .wax__hint{opacity:1;}
+
+  /* ---- 12. newspaper assembles ---- */
+  .paper{width:min(520px,92%);background:#f4efe4;color:#15110a;border-radius:6px;padding:26px 30px;
+    box-shadow:0 18px 40px -16px rgba(0,0,0,.6);}
+  .paper__masthead{text-align:center;border-bottom:3px double #15110a;padding-bottom:12px;}
+  .paper__k{font-family:var(--mono);font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:#7a6a3e;}
+  .paper__ttl{font-family:var(--body);font-weight:700;font-size:clamp(30px,5vw,52px);line-height:.95;margin:5px 0;}
+  .paper__cols{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-top:16px;}
+  .paper__col{font-size:0;}
+  .paper__line{height:6px;border-radius:2px;background:#cdc3aa;margin-bottom:7px;}
+  .paper__line.dk{background:#9c917680;}
+  .pa{opacity:0;transform:translateY(-22px) rotate(-6deg);}
+  .pa.in{opacity:1;transform:none;transition:opacity .5s var(--ease),transform .55s cubic-bezier(.2,.9,.3,1.2);}
+  .drag-note{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:10px;
+    letter-spacing:.12em;text-transform:uppercase;color:var(--ink-4);}
+  .paper__col{cursor:grab;}.paper__col:active{cursor:grabbing;}
+
+  /* ---- 21. visitor approval stamp ---- */
+  .appr{display:grid;place-items:center;gap:18px;text-align:center;width:100%;}
+  .appr__row{display:flex;gap:10px;align-items:center;}
+  .appr input{font-family:var(--mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;
+    background:var(--surface-2);border:1px solid var(--line-2);color:var(--ink);border-radius:8px;padding:11px 14px;width:200px;}
+  .appr input::placeholder{color:var(--ink-4);}
+  .appr__btn{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;
+    background:var(--amber);color:#1a1407;border:none;border-radius:8px;padding:12px 18px;font-weight:600;}
+  .appr__zone{position:relative;width:100%;flex:1;min-height:150px;}
+  .vstamp{position:absolute;transform:translate(-50%,-50%) rotate(var(--r)) scale(0);
+    border:3px double var(--red);color:var(--red);border-radius:9px;padding:9px 15px;text-align:center;
+    pointer-events:none;opacity:.85;mix-blend-mode:screen;animation:vsIn .3s cubic-bezier(.2,1.5,.4,1) forwards;}
+  .vstamp b{display:block;font-family:var(--mono);font-weight:700;font-size:11px;letter-spacing:.18em;}
+  .vstamp span{display:block;font-family:var(--body);font-style:italic;font-size:19px;margin-top:2px;}
+  .vstamp small{display:block;font-family:var(--mono);font-size:8px;letter-spacing:.14em;margin-top:3px;opacity:.8;}
+  @keyframes vsIn{to{transform:translate(-50%,-50%) rotate(var(--r)) scale(1);}}
+
+  /* ---- 22. magnetic husky mascot ---- */
+  .husky-stage{position:relative;width:100%;height:100%;cursor:crosshair;}
+  .husky{position:absolute;width:84px;height:84px;top:50%;left:50%;transform:translate(-50%,-50%);
+    background-size:contain;background-repeat:no-repeat;background-position:center;
+    filter:drop-shadow(0 10px 16px rgba(0,0,0,.5));pointer-events:none;will-change:transform;}
+  .husky-note{position:absolute;top:18px;left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:11px;
+    letter-spacing:.12em;text-transform:uppercase;color:var(--ink-4);pointer-events:none;}
+</style>
+</head>
+<body>
+  <h1 class="page-h">Interactive <em>concepts</em> · batch 2</h1>
+  <div class="page-sub">11 wax seal · 12 newspaper · 21 visitor stamp · 22 husky mascot</div>
+  <div id="root"></div>
+
+<script>
+const root=document.getElementById('root');
+function station(n,name,hint,html){const el=document.createElement('div');el.className='station';
+  el.innerHTML=`<div class="station__bar"><span class="station__n">${n}</span><span class="station__name">${name}</span><span class="station__hint">${hint}</span></div><div class="stage">${html}</div>`;
+  root.appendChild(el);return el.querySelector('.stage');}
+
+/* 11 wax seal */
+const w=station('11','Wax seal press','Press and hold the wax',
+  `<div class="wax-wrap"><div class="wax-instr">Press to seal</div>
+   <div class="wax" id="wax"><span class="wax__seal">SN</span></div>
+   <div class="wax__hint">Sealed · sincerely yours</div></div>`);
+(function(){const wax=w.querySelector('#wax');
+  function press(){wax.classList.add('pressed');wax.classList.remove('squish');void wax.offsetWidth;wax.classList.add('squish');}
+  wax.addEventListener('pointerdown',press);
+})();
+
+/* 12 newspaper assembles */
+const np=station('12','Newspaper assembles','Click to typeset · drag a column',
+  `<div class="paper" id="paper">
+     <div class="paper__masthead">
+       <div class="paper__k pa">Vol. MMXXVI · The Design Times</div>
+       <div class="paper__ttl pa">Selected Work</div>
+     </div>
+     <div class="paper__cols" id="cols"></div>
+   </div>
+   <div class="drag-note">Click anywhere to assemble</div>`);
+(function(){
+  const cols=np.querySelector('#cols');
+  for(let c=0;c<3;c++){const col=document.createElement('div');col.className='paper__col';
+    for(let i=0;i<7;i++){const l=document.createElement('div');l.className='paper__line pa'+((i===0)?' dk':'');
+      l.style.width=(60+Math.random()*40)+'%';col.appendChild(l);}
+    cols.appendChild(col);}
+  const pieces=[...np.querySelectorAll('.pa')];
+  function assemble(){pieces.forEach((p,i)=>setTimeout(()=>p.classList.add('in'),i*45));}
+  np.addEventListener('click',assemble,{once:false});
+  setTimeout(assemble,400);
+  // draggable columns (horizontal reorder feel)
+  np.querySelectorAll('.paper__col').forEach(col=>{let sx,ox,drag=false;
+    col.addEventListener('pointerdown',e=>{drag=true;sx=e.clientX;ox=parseFloat(col.style.transform.replace(/[^-0-9.]/g,''))||0;col.setPointerCapture(e.pointerId);col.style.transition='none';});
+    col.addEventListener('pointermove',e=>{if(!drag)return;col.style.transform=`translateX(${ox+(e.clientX-sx)}px)`;});
+    col.addEventListener('pointerup',e=>{drag=false;col.style.transition='transform .4s var(--ease)';col.style.transform='';});
+  });
+})();
+
+/* 21 visitor approval stamp */
+const ap=station('21','Visitor approval stamp','Type your name, then stamp the page',
+  `<div class="appr">
+     <div class="appr__row">
+       <input id="vname" maxlength="18" placeholder="your name" />
+       <button class="appr__btn" id="vgo">Stamp it ✓</button>
+     </div>
+     <div class="appr__zone" id="vzone"></div>
+   </div>`);
+(function(){
+  const inp=ap.querySelector('#vname'),go=ap.querySelector('#vgo'),zone=ap.querySelector('#vzone');
+  function stamp(){const name=(inp.value.trim()||'A Visitor');
+    const s=document.createElement('div');s.className='vstamp';
+    s.style.setProperty('--r',(Math.random()*16-8).toFixed(1)+'deg');
+    s.style.left=(15+Math.random()*70)+'%';s.style.top=(20+Math.random()*60)+'%';
+    s.innerHTML=`<b>Reviewed by</b><span>${name}</span><small>· MMXXVI ·</small>`;
+    zone.appendChild(s);inp.value='';}
+  go.addEventListener('click',stamp);
+  inp.addEventListener('keydown',e=>{if(e.key==='Enter')stamp();});
+})();
+
+/* 22 husky mascot */
+const hs=station('22','Magnetic husky mascot','Move your cursor — it follows',
+  `<div class="husky-stage" id="hstage"><span class="husky-note">Move around · the husky chases</span>
+   <div class="husky" id="husky"></div></div>`);
+(function(){
+  const stage=hs.querySelector('#hstage'),husky=hs.querySelector('#husky');
+  husky.style.backgroundImage="url('assets/apmc/husky-mark.png')";
+  let tx=0,ty=0,cx=0,cy=0,has=false;
+  stage.addEventListener('pointermove',e=>{const r=stage.getBoundingClientRect();
+    tx=e.clientX-r.left-r.width/2;ty=e.clientY-r.top-r.height/2;has=true;});
+  stage.addEventListener('pointerleave',()=>{tx=0;ty=0;});
+  function loop(){cx+=(tx-cx)*0.08;cy+=(ty-cy)*0.08;
+    const tilt=Math.max(-14,Math.min(14,(tx-cx)*0.3));
+    husky.style.transform=`translate(calc(-50% + ${cx}px),calc(-50% + ${cy}px)) rotate(${tilt}deg)`;
+    requestAnimationFrame(loop);}
+  loop();
+})();
+</script>
+</body>
+</html>

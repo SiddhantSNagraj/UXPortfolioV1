@@ -233,6 +233,56 @@ html[data-theme="light"] .cc-iter, html[data-theme="light"] .gsk, html[data-them
 .contact__left { flex: 1; min-width: 0; }
 @media (max-width: 860px) { .contact__split { flex-direction: column; align-items: flex-start; } }
 
+/* ── Guestbook · personal monogram seal wall ── */
+.gb-sec { padding: clamp(60px, 9vw, 120px) 0; border-top: 1px solid var(--line); }
+.gb { margin-top: 0; }
+.gb__head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; }
+.gb__count { color: var(--ink-3); font-size: 11px; letter-spacing: .12em; }
+.gb__lead { font-family: var(--body); font-size: clamp(15px, 1.4vw, 18px); color: var(--ink-2); max-width: 48ch; margin: 14px 0 22px; line-height: 1.45; }
+.gb__wall {
+  position: relative; height: clamp(280px, 34vw, 380px); border: 1px solid var(--line); border-radius: 16px;
+  overflow: hidden; cursor: crosshair; touch-action: none;
+  background:
+    repeating-linear-gradient(0deg, transparent 0 33px, color-mix(in srgb, var(--ink) 4%, transparent) 33px 34px),
+    var(--surface);
+}
+.gb__ghost {
+  position: absolute; top: 22px; left: 50%; transform: translateX(-50%); pointer-events: none;
+  font-size: 11px; letter-spacing: .14em; color: var(--ink-4);
+}
+.gb__clear {
+  position: absolute; top: 14px; right: 16px; z-index: 7; cursor: pointer;
+  font-size: 10px; letter-spacing: .12em; color: var(--ink-3);
+  background: transparent; border: 1px solid var(--line); border-radius: 999px; padding: 6px 12px;
+  transition: color .2s var(--ease), border-color .2s var(--ease);
+}
+.gb__clear:hover { color: var(--ink); border-color: var(--line-2); }
+.gb__form {
+  position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%); z-index: 6;
+  display: flex; align-items: center; gap: 8px; cursor: default;
+  background: var(--surface-2); border: 1px solid var(--line); border-radius: 999px; padding: 7px 9px;
+  box-shadow: 0 12px 30px -12px rgba(0,0,0,.5);
+}
+.gb__form input { font-family: var(--mono); background: transparent; border: none; color: var(--ink); font-size: 12px; outline: none; }
+.gb__ini { width: 56px; text-align: center; text-transform: uppercase; letter-spacing: .12em; border: 1px solid var(--line-2); border-radius: 999px; padding: 8px 0; }
+.gb__ini::placeholder { color: var(--ink-4); }
+.gb__loc { width: 112px; border-left: 1px solid var(--line); padding-left: 12px; }
+.gb__loc::placeholder { color: var(--ink-4); }
+.gb__go.mono { font-weight: 600; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; cursor: pointer; background: var(--yellow); color: #000; border: none; border-radius: 999px; padding: 9px 14px; }
+.gbseal { position: absolute; width: 74px; height: 74px; transform: translate(-50%,-50%) scale(1) rotate(var(--r,0deg)); pointer-events: none; opacity: .92; }
+.gbseal--new { animation: gbSealIn .34s cubic-bezier(.2,1.45,.4,1); }
+.gbseal svg { width: 100%; height: 100%; overflow: visible; }
+.gbseal__ring { fill: none; stroke: var(--c); stroke-width: 1.4; }
+.gbseal__ringthin { fill: none; stroke: var(--c); stroke-width: .7; opacity: .7; }
+.gbseal__ini { fill: var(--c); font-family: var(--body); font-weight: 700; font-size: 25px; text-anchor: middle; dominant-baseline: central; }
+.gbseal__curve { fill: var(--c); font-family: var(--mono); font-size: 6.3px; letter-spacing: 1.6px; text-transform: uppercase; }
+@keyframes gbSealIn { from { transform: translate(-50%,-50%) scale(0) rotate(var(--r,0deg)); } to { transform: translate(-50%,-50%) scale(1) rotate(var(--r,0deg)); } }
+@media (prefers-reduced-motion: reduce) { .gbseal--new { animation: none; } }
+@media (max-width: 560px) {
+  .gb__form { flex-wrap: nowrap; }
+  .gb__loc { width: 84px; }
+}
+
 /* =========================================================================
    INSPECT MODE (press G) — Figma-style component inspector
    ========================================================================= */
