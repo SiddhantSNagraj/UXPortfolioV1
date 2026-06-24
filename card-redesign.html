@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Card layout — redesign v2</title>
+<link rel="preconnect" href="https://api.fontshare.com" />
+<link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=general-sans@500,600,700&f[]=gambetta@400,500,600&display=swap" />
+<style>
+  :root{
+    --bg:#0b0b0c; --surface:#161618;
+    --line:rgba(255,255,255,.10); --line-2:rgba(255,255,255,.20);
+    --ink:#f2f1ec; --ink-2:#b9b8b2; --ink-3:#75746f; --ink-4:#4a4a47;
+    --amber:#f7c14a;
+    --display:'General Sans',system-ui,sans-serif; --body:'Gambetta',Georgia,serif; --mono:'General Sans',system-ui,sans-serif;
+    --ease:cubic-bezier(.4,0,.2,1);
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--display);padding:46px clamp(20px,5vw,72px) 110px;}
+  h1{font-family:var(--body);font-weight:500;font-size:32px;margin:0 0 4px;}
+  h1 em{font-style:italic;color:var(--amber);}
+  .sub{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-bottom:46px;}
+
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,3vw,40px);}
+  .card{border:1px solid var(--line);border-radius:22px;overflow:hidden;background:var(--surface);
+    display:flex;flex-direction:column;transition:transform .5s var(--ease),box-shadow .5s var(--ease),border-color .5s var(--ease);}
+  .card:hover{transform:translateY(-6px);box-shadow:0 36px 70px -34px rgba(0,0,0,.75);border-color:var(--line-2);}
+  .stage{position:relative;height:clamp(320px,30vw,400px);overflow:hidden;display:grid;place-items:center;background:#202023;transition:background-color .6s var(--ease);}
+  /* grey by default, the project colour fills in on hover for cohesion */
+  .card:hover .gs{background:#15301d;}
+  .card:hover .apmc{background:#201310;}
+  .card:hover .coffee{background:#16233f;}
+  .card:hover .slack{background:#2a0e2e;}
+  .card__no{position:absolute;top:20px;right:24px;z-index:8;font-family:var(--mono);font-size:13px;color:#fff;opacity:.65;}
+  .card__body{padding:28px clamp(24px,2.4vw,34px) 26px;display:flex;flex-direction:column;}
+  .card__name{font-size:clamp(28px,2.6vw,38px);font-weight:600;letter-spacing:-.02em;line-height:1;}
+  .card__sub{font-family:var(--body);font-size:16px;color:var(--ink-2);margin-top:11px;line-height:1.4;}
+  .card__outcome{display:inline-flex;align-items:center;gap:8px;margin-top:18px;font-family:var(--mono);font-size:12.5px;letter-spacing:.01em;}
+  .card__outcome svg{flex:none;}
+  .card__outcome b{font-weight:700;}
+  .card__foot{display:flex;align-items:center;justify-content:space-between;margin-top:20px;padding-top:18px;border-top:1px solid var(--line);}
+  .chip{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;border:1px solid currentColor;border-radius:999px;padding:5px 11px;}
+  .card__year{font-family:var(--mono);font-size:12px;color:var(--ink-3);letter-spacing:.08em;}
+
+  /* ============ GREENSTAND, real Roots components ============ */
+  .gs__board{position:relative;width:84%;background:#FFF8EB;border-radius:16px;padding:22px;transform:rotate(-1.5deg);
+    box-shadow:0 34px 64px -22px rgba(0,0,0,.6),inset 0 1px 0 rgba(255,255,255,.7);transition:transform .55s var(--ease);}
+  .card:hover .gs__board{transform:rotate(-0.5deg) translateY(-6px);}
+  .gs__board-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+  .gs__board-ttl{font-family:var(--mono);font-size:12px;font-weight:700;letter-spacing:.05em;color:#1f3d24;}
+  .gs__board-tag{font-family:var(--mono);font-size:8.5px;letter-spacing:.12em;text-transform:uppercase;color:#86a06a;}
+  /* real component specimens */
+  .gsbtn{font-family:var(--mono);font-size:12px;font-weight:600;padding:11px 18px;border-radius:9px;letter-spacing:.02em;border:1.5px solid transparent;}
+  .gsbtn--primary{background:#86C232;color:#16340f;box-shadow:0 6px 14px -6px rgba(134,194,50,.6);}
+  .gsbtn--secondary{background:transparent;color:#3B541D;border-color:#3B541D;}
+  .gs__btnrow{display:flex;gap:10px;margin-bottom:14px;}
+  .gs__input{display:flex;flex-direction:column;gap:5px;margin-bottom:16px;}
+  .gs__input label{font-family:var(--mono);font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;color:#86a06a;}
+  .gs__input div{border:1.5px solid #d8cdb0;border-radius:9px;padding:11px 13px;font-family:var(--body);font-size:14px;color:#9a906f;background:#fff;}
+  .gs__chips{display:flex;gap:7px;}
+  .gs__chips i{flex:1;height:14px;border-radius:5px;}
+
+  /* ============ APMC, straight MacBook ============ */
+  .mac{position:absolute;bottom:-9%;width:80%;transition:transform .6s var(--ease);}
+  .card:hover .mac{transform:translateY(-8px);}
+  .mac__lid{position:relative;background:#1b1b1d;border:2px solid #2c2c30;border-radius:15px 15px 5px 5px;padding:10px 10px 12px;
+    box-shadow:0 28px 56px -20px rgba(0,0,0,.7);}
+  .mac__cam{position:absolute;top:5px;left:50%;transform:translateX(-50%);width:5px;height:5px;border-radius:50%;background:#3a3a3e;}
+  .mac__screen{border-radius:5px;overflow:hidden;aspect-ratio:16/10.2;background:#000;}
+  .mac__screen img{width:100%;height:100%;object-fit:cover;object-position:top center;}
+  .mac__base{height:12px;background:linear-gradient(#d2d2d7,#9a9aa0);border-radius:0 0 8px 8px;margin:0 -4%;box-shadow:0 8px 14px -6px rgba(0,0,0,.6);}
+  .mac__notch{width:16%;height:5px;background:#7d7d83;border-radius:0 0 6px 6px;margin:0 auto;}
+
+  /* ============ PHONES, three that bob (left down / middle up / right down) ============ */
+  .phones{position:relative;display:flex;align-items:center;justify-content:center;gap:clamp(12px,1.6vw,24px);width:100%;}
+  .phone{position:relative;width:clamp(116px,12.5vw,164px);aspect-ratio:9/19.5;background:#0a0a0b;border-radius:24px;padding:6px;
+    box-shadow:0 0 0 1.5px #26262a,0 26px 50px -20px rgba(0,0,0,.7);transition:transform .6s var(--ease);}
+  .phone__screen{position:relative;width:100%;height:100%;border-radius:18px;overflow:hidden;background:#111;}
+  .phone__screen img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top center;}
+  .phone__island{position:absolute;top:12px;left:50%;transform:translateX(-50%);width:34%;height:11px;background:#000;border-radius:999px;z-index:3;}
+  .phone--l{z-index:1;transform:translateY(16px) rotate(-6deg) scale(.94);}
+  .phone--m{z-index:3;transform:translateY(-10px) scale(1.06);}
+  .phone--r{z-index:1;transform:translateY(16px) rotate(6deg) scale(.94);}
+  @media(prefers-reduced-motion:no-preference){
+    .card:hover .phone--l{animation:bobA 2.6s var(--ease) infinite;}
+    .card:hover .phone--m{animation:bobB 2.6s var(--ease) infinite;}
+    .card:hover .phone--r{animation:bobC 2.6s var(--ease) infinite;}
+  }
+  @keyframes bobA{0%,100%{transform:translateY(16px) rotate(-6deg) scale(.94);}50%{transform:translateY(32px) rotate(-8deg) scale(.94);}}
+  @keyframes bobB{0%,100%{transform:translateY(-10px) scale(1.06);}50%{transform:translateY(-26px) scale(1.08);}}
+  @keyframes bobC{0%,100%{transform:translateY(16px) rotate(6deg) scale(.94);}50%{transform:translateY(32px) rotate(8deg) scale(.94);}}
+</style>
+</head>
+<body>
+  <h1>Card layout, <em>redesign v2</em></h1>
+  <div class="sub">Aesthetic specimen · straight MacBook · three bobbing phones · outcomes · solid backgrounds</div>
+
+  <div class="grid">
+    <!-- GREENSTAND -->
+    <div class="card">
+      <div class="stage gs">
+        <span class="card__no">01</span>
+        <div class="gs__board">
+          <div class="gs__board-top"><span class="gs__board-ttl">Roots</span><span class="gs__board-tag">Components</span></div>
+          <div class="gs__btnrow">
+            <span class="gsbtn gsbtn--primary">Plant a tree</span>
+            <span class="gsbtn gsbtn--secondary">View map</span>
+          </div>
+          <div class="gs__input"><label>Search</label><div>Find a grower…</div></div>
+          <div class="gs__chips">
+            <i style="background:#86C232"></i><i style="background:#3B541D"></i><i style="background:#0153BF"></i><i style="background:#FFA500"></i><i style="background:#550000"></i>
+          </div>
+        </div>
+      </div>
+      <div class="card__body">
+        <div class="card__name">Greenstand</div>
+        <div class="card__sub">Roots, a design system unifying two climate-tech apps across three continents.</div>
+        <div class="card__outcome" style="color:#7fd6a0"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17.5 9.5 11l4 4L21 7.5"/><path d="M15.5 7.5H21V13"/></svg><span><b>25%</b> less dev rework · <b>150+</b> components</span></div>
+        <div class="card__foot"><span class="chip" style="color:#7fd6a0">Design System</span><span class="card__year">2025</span></div>
+      </div>
+    </div>
+
+    <!-- APMC -->
+    <div class="card">
+      <div class="stage apmc">
+        <span class="card__no">02</span>
+        <div class="mac">
+          <div class="mac__lid"><span class="mac__cam"></span>
+            <div class="mac__screen"><img src="assets/apmc/final-home-web.jpg" alt="APMC site" /></div>
+          </div>
+          <div class="mac__base"><div class="mac__notch"></div></div>
+        </div>
+      </div>
+      <div class="card__body">
+        <div class="card__name">APMC</div>
+        <div class="card__sub">A full website redesign for Northeastern’s product club, shipped on a 3-month deadline.</div>
+        <div class="card__outcome" style="color:#ff9a8a"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17.5 9.5 11l4 4L21 7.5"/><path d="M15.5 7.5H21V13"/></svg><span>Still live <b>2 yrs+</b> on · <b>700+</b> daily users</span></div>
+        <div class="card__foot"><span class="chip" style="color:#ff9a8a">Web · UX</span><span class="card__year">2023</span></div>
+      </div>
+    </div>
+
+    <!-- COFFEEHOUSE -->
+    <div class="card">
+      <div class="stage coffee">
+        <span class="card__no">03</span>
+        <div class="phones">
+          <div class="phone phone--l"><span class="phone__island"></span><div class="phone__screen"><img src="assets/coffee/flow2/details.png" alt="" /></div></div>
+          <div class="phone phone--m"><span class="phone__island"></span><div class="phone__screen"><img src="assets/coffee/flow2/menu.png" alt="" /></div></div>
+          <div class="phone phone--r"><span class="phone__island"></span><div class="phone__screen"><img src="assets/coffee/flow2/cart.png" alt="" /></div></div>
+        </div>
+      </div>
+      <div class="card__body">
+        <div class="card__name">CoffeeHouse</div>
+        <div class="card__sub">Rethinking the coffee-ordering experience, fewer taps and more discovery.</div>
+        <div class="card__outcome" style="color:#f7c14a"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17.5 9.5 11l4 4L21 7.5"/><path d="M15.5 7.5H21V13"/></svg><span><b>4.0</b> avg test rating · <b>68%</b> rated 5★</span></div>
+        <div class="card__foot"><span class="chip" style="color:#f7c14a">Mobile · App</span><span class="card__year">2023</span></div>
+      </div>
+    </div>
+
+    <!-- SLACK -->
+    <div class="card">
+      <div class="stage slack">
+        <span class="card__no">04</span>
+        <div class="phones">
+          <div class="phone phone--l"><span class="phone__island"></span><div class="phone__screen"><img src="assets/slack/hi-search.png" alt="" /></div></div>
+          <div class="phone phone--m"><span class="phone__island"></span><div class="phone__screen"><img src="assets/slack/hi-home.png" alt="" /></div></div>
+          <div class="phone phone--r"><span class="phone__island"></span><div class="phone__screen"><img src="assets/slack/hi-dms.png" alt="" /></div></div>
+        </div>
+      </div>
+      <div class="card__body">
+        <div class="card__name">Slack</div>
+        <div class="card__sub">A mobile UI concept, flattening navigation and calming the noise.</div>
+        <div class="card__outcome" style="color:#c98fd6"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17.5 9.5 11l4 4L21 7.5"/><path d="M15.5 7.5H21V13"/></svg><span>Self-initiated concept · <b>7</b> hi-fi screens</span></div>
+        <div class="card__foot"><span class="chip" style="color:#c98fd6">Concept</span><span class="card__year">2026</span></div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -30,7 +30,7 @@ const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
   "noteLayout": "Below",
   "noteColor": "Classic",
   "caseReveal": "Editorial",
-  "heroStatus": "Pulse",
+  "heroStatus": "Slash",
   "footerBadge": "Hidden",
   "workLayout": "Outcome"
 }/*EDITMODE-END*/;
@@ -50,6 +50,7 @@ const HERO_STATUS = {
   'Brackets': 'bracket',  // ( Open to opportunities ), no pill/dot
   'Asterisk': 'asterisk', // ✳ marker, no pill/dot
   'Underline': 'underline', // accent underline, no pill/dot
+  'Slash': 'slash',       // OPEN TO WORK / 2026, editorial year-stamp
 };
 
 // Footer rotating seal badge — show it or remove it entirely.
@@ -161,7 +162,7 @@ const HERO_FONTS = {
   'Cabinet':   { stack: "'Cabinet Grotesk',system-ui,sans-serif",           weight: 800, ls: '-0.03em',  size: 'clamp(48px, 13vw, 200px)',  lh: 0.9 },
   'Sentient':  { stack: "'Sentient',Georgia,serif",                          weight: 700, ls: '-0.012em', size: 'clamp(50px, 13.5vw, 210px)', lh: 0.92 },
   'Zodiak':    { stack: "'Zodiak',Georgia,serif",                            weight: 900, ls: '-0.005em', size: 'clamp(50px, 13.5vw, 210px)', lh: 0.92 },
-  'Gambetta':  { stack: "'Gambetta',Georgia,serif",                          weight: 700, ls: '-0.01em',  size: 'clamp(52px, 14vw, 216px)',  lh: 0.9 },
+  'Gambetta':  { stack: "'Gambetta',Georgia,serif",                          weight: 700, ls: '-0.01em',  size: 'clamp(48px, 12.6vw, 192px)',  lh: 0.9 },
   'Grotesk':   { stack: "'Archivo',system-ui,sans-serif",                    weight: 900, ls: '-0.035em', size: 'clamp(46px, 12.5vw, 186px)',lh: 0.88 },
   'Familjen':  { stack: "'Familjen Grotesk',system-ui,sans-serif",           weight: 700, ls: '-0.025em', size: 'clamp(48px, 13vw, 196px)',  lh: 0.9 },
   'Geometric': { stack: "'Space Grotesk',system-ui,sans-serif",             weight: 700, ls: '-0.03em',  size: 'clamp(48px, 13vw, 196px)',  lh: 0.9 },

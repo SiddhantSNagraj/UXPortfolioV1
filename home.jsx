@@ -55,7 +55,7 @@ function Hero({ projects, onOpen }) {
         <div className="hero__eyebrow">
           <span className="mono mono--ink" id="hero-greeting">( Hello )</span>
           <span className="mono">5 Years · Product Design</span>
-          <span className="mono mono--accent hero__status"><span className="hero__status-dot" />Open to opportunities</span>
+          <span className="mono mono--accent hero__status"><span className="hero__status-dot" /><span className="hero__status-label">Open to work</span><span className="hero__status-year">/ 2026</span></span>
         </div>
 
         <div className="hero__namerow">
