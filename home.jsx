@@ -307,10 +307,18 @@ function WorkIndex({ projects, onOpen }) {
                 onClick={() => onOpen(p.id)}
               >
                 <span className="workrow__fill" aria-hidden="true" />
+                <span className="workrow__cover" aria-hidden="true" style={{ background: p.rowbg, color: p.rowtext }}>
+                  <span className="workrow__cover-label">{p.title}</span>
+                </span>
                 <span className="workrow__no pixel">{p.no}</span>
                 <span className="workrow__title">
                   <span className="workrow__name">{p.title}</span>
                   <span className="workrow__sub">{p.subtitle}</span>
+                  {p.outcome ? (
+                    <span className="workrow__outcome" style={{ '--oc': chipColor }}>
+                      <span className="workrow__outcome-txt">{p.outcome}</span>
+                    </span>
+                  ) : null}
                 </span>
                 <span className="workrow__tags">
                   <span className="chip" style={{ borderColor: chipColor, color: chipColor }}>{p.tag}</span>

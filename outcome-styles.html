@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Outcome styles — 5 options</title>
+  <link rel="preconnect" href="https://api.fontshare.com" />
+  <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=general-sans@500,600,700&f[]=gambetta@400,500,600&display=swap" />
+  <style>
+    :root {
+      --bg:#0b0b0c; --surface:#161618;
+      --line:rgba(255,255,255,0.10); --line-2:rgba(255,255,255,0.18);
+      --ink:#f2f1ec; --ink-2:#b9b8b2; --ink-3:#75746f; --ink-4:#4a4a47;
+      --display:'General Sans',system-ui,sans-serif;
+      --body:'Gambetta',Georgia,serif;
+      --mono:'General Sans',system-ui,sans-serif;
+      --ease:cubic-bezier(.4,0,.2,1);
+    }
+    * { box-sizing:border-box; }
+    body { margin:0; background:var(--bg); color:var(--ink); font-family:var(--display);
+      padding:48px clamp(20px,5vw,80px); }
+    h1 { font-family:var(--body); font-weight:500; font-size:30px; letter-spacing:-.01em; margin:0 0 6px; }
+    .sub { font-family:var(--mono); font-size:12px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-3); margin-bottom:44px; }
+
+    .opt { margin-bottom:30px; border:1px solid var(--line); border-radius:14px; overflow:hidden; }
+    .opt__head { display:flex; align-items:baseline; gap:14px; padding:16px 22px; background:var(--surface); border-bottom:1px solid var(--line); }
+    .opt__n { font-family:var(--mono); font-size:12px; color:var(--ink-3); letter-spacing:.1em; }
+    .opt__name { font-size:17px; font-weight:600; }
+    .opt__desc { font-family:var(--body); font-size:14px; color:var(--ink-2); margin-left:auto; }
+
+    /* a compact two-row sample: one resting (dark), one hovered (flooded) */
+    .row { display:grid; grid-template-columns:46px 1fr auto; align-items:center; gap:24px;
+      padding:20px 22px; border-bottom:1px solid var(--line); position:relative; }
+    .row:last-child { border-bottom:none; }
+    .row__no { font-family:var(--mono); font-size:13px; color:var(--ink-4); position:relative; z-index:1; }
+    .row__fill { position:absolute; inset:0; z-index:0; }
+    .row.is-hover .row__title, .row.is-hover .row__no { z-index:1; }
+    .col { position:relative; z-index:1; }
+    .row__name { font-size:26px; font-weight:600; letter-spacing:-.02em; line-height:1; }
+    .row__sub { font-family:var(--body); font-size:14px; color:var(--ink-2); margin-top:6px; }
+    .row.is-hover .row__sub { color:var(--rt); opacity:.78; }
+    .row.is-hover .row__name { color:var(--rt); }
+    .row__state { position:relative; z-index:1; font-family:var(--mono); font-size:10px; letter-spacing:.12em;
+      text-transform:uppercase; color:var(--ink-4); }
+    .row.is-hover .row__state { color:var(--rt); opacity:.7; }
+
+    /* outcome wrapper, base */
+    .oc { margin-top:11px; position:relative; z-index:1; }
+
+    /* ── 1. Emphasized metric ── */
+    .oc--metric { font-family:var(--mono); font-size:13px; letter-spacing:.01em; color:var(--ink-3); }
+    .oc--metric b { color:var(--oc); font-weight:700; }
+    .is-hover .oc--metric { color:var(--rt); opacity:.72; }
+    .is-hover .oc--metric b { color:var(--rt); opacity:1; }
+
+    /* ── 2. Leading rule ── */
+    .oc--rule { display:flex; align-items:center; gap:11px; font-family:var(--mono); font-size:12.5px;
+      letter-spacing:.02em; color:var(--ink-2); }
+    .oc--rule::before { content:''; width:22px; height:2px; background:var(--oc); flex:none; border-radius:2px; }
+    .is-hover .oc--rule { color:var(--rt); }
+    .is-hover .oc--rule::before { background:var(--rt); }
+
+    /* ── 3. Label + value ── */
+    .oc--label { font-family:var(--mono); font-size:12.5px; letter-spacing:.02em; color:var(--oc); }
+    .oc--label .k { color:var(--ink-4); letter-spacing:.14em; text-transform:uppercase; font-size:10.5px; margin-right:9px; }
+    .is-hover .oc--label { color:var(--rt); }
+    .is-hover .oc--label .k { color:var(--rt); opacity:.6; }
+
+    /* ── 4. Code-comment prefix ── */
+    .oc--code { font-family:'IBM Plex Mono',ui-monospace,monospace; font-size:12.5px; color:var(--ink-2); letter-spacing:0; }
+    .oc--code .s { color:var(--oc); font-weight:600; margin-right:8px; }
+    .is-hover .oc--code { color:var(--rt); opacity:.85; }
+    .is-hover .oc--code .s { color:var(--rt); opacity:1; }
+
+    /* ── 5. Underline ── */
+    .oc--underline { font-family:var(--mono); font-size:12.5px; letter-spacing:.02em; color:var(--ink-2);
+      display:inline; background-image:linear-gradient(var(--oc),var(--oc)); background-size:100% 1.5px;
+      background-position:0 100%; background-repeat:no-repeat; padding-bottom:3px; }
+    .is-hover .oc--underline { color:var(--rt); background-image:linear-gradient(var(--rt),var(--rt)); }
+  </style>
+</head>
+<body>
+  <h1>Outcome line — five directions</h1>
+  <div class="sub">Each shown resting (dark) + on APMC red hover · pick one</div>
+  <div id="root"></div>
+
+  <script>
+    // real-ish data: resting row = Greenstand (green), hover row = APMC (red, the wash-out case)
+    const OPTS = [
+      { n:'01', name:'Emphasized metric', desc:'Numbers pop, words recede', cls:'oc--metric',
+        render:(g)=> g ? 'Adopted by every eng team · <b>150+</b> components'
+                       : '<b>25%</b> less dev rework · <b>150+</b> components',
+        renderH:'Still live <b>2 yrs</b> on · <b>700+</b> daily users' },
+      { n:'02', name:'Leading rule', desc:'A short accent line, then text', cls:'oc--rule',
+        render:()=> '25% less dev rework · 150+ components',
+        renderH:'Still live 2 yrs on · 700+ daily users' },
+      { n:'03', name:'Label + value', desc:'Tiny kicker, then the result', cls:'oc--label',
+        render:()=> '<span class="k">Impact</span>25% less dev rework · 150+ components',
+        renderH:'<span class="k">Impact</span>Still live 2 yrs on · 700+ daily users' },
+      { n:'04', name:'Code-comment prefix', desc:'Designer-who-codes signal', cls:'oc--code',
+        render:()=> '<span class="s">//</span>25% less dev rework · 150+ components',
+        renderH:'<span class="s">//</span>still live 2 yrs on · 700+ daily users' },
+      { n:'05', name:'Underline', desc:'Plain text, thin accent rule', cls:'oc--underline',
+        render:()=> '25% less dev rework · 150+ components',
+        renderH:'Still live 2 yrs on · 700+ daily users' },
+    ];
+
+    const GREEN = { oc:'#5fd39b', bg:'#1f7a4d', rt:'#ffffff' };
+    const RED   = { oc:'#ff8585', bg:'#ff6666', rt:'#ffffff' };
+
+    const root = document.getElementById('root');
+    root.innerHTML = OPTS.map(o => `
+      <div class="opt">
+        <div class="opt__head">
+          <span class="opt__n">${o.n}</span>
+          <span class="opt__name">${o.name}</span>
+          <span class="opt__desc">${o.desc}</span>
+        </div>
+        <div class="row" style="--oc:${GREEN.oc}">
+          <span class="row__no">01</span>
+          <div class="col">
+            <div class="row__name">Greenstand</div>
+            <div class="row__sub">Roots Design System</div>
+            <div class="oc ${o.cls}">${o.render(true)}</div>
+          </div>
+          <span class="row__state">Resting</span>
+        </div>
+        <div class="row is-hover" style="--oc:${RED.oc};--rt:${RED.rt}">
+          <span class="row__fill" style="background:${RED.bg}"></span>
+          <span class="row__no">02</span>
+          <div class="col">
+            <div class="row__name">APMC</div>
+            <div class="row__sub">Northeastern product club, website redesign</div>
+            <div class="oc ${o.cls}">${o.renderH}</div>
+          </div>
+          <span class="row__state">Hover</span>
+        </div>
+      </div>
+    `).join('');
+  </script>
+</body>
+</html>

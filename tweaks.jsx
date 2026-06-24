@@ -31,7 +31,8 @@ const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
   "noteColor": "Classic",
   "caseReveal": "Editorial",
   "heroStatus": "Pulse",
-  "footerBadge": "Hidden"
+  "footerBadge": "Hidden",
+  "workLayout": "Outcome"
 }/*EDITMODE-END*/;
 
 // Scroll-reveal treatment for case studies (Option 2 = editorial clip wipe)
@@ -53,6 +54,9 @@ const HERO_STATUS = {
 
 // Footer rotating seal badge — show it or remove it entirely.
 const FOOTER_BADGE = { 'Show': 'show', 'Hidden': 'hidden' };
+
+// Home work-list layout: editorial index, index + at-a-glance outcome, or card grid.
+const WORK_LAYOUT = { 'Index': 'index', 'Outcome': 'outcome', 'Cards': 'cards' };
 
 const AVATAR_HOVER = {
   'Fusion': 'fusion',           // color + spinning rings + orbit text
@@ -251,6 +255,7 @@ function TweaksUI() {
     document.documentElement.setAttribute('data-reveal', REVEAL_STYLES[t.caseReveal] || 'clip');
     document.documentElement.setAttribute('data-herostatus', HERO_STATUS[t.heroStatus] || 'pulse');
     document.documentElement.setAttribute('data-footerbadge', FOOTER_BADGE[t.footerBadge] || 'show');
+    document.documentElement.setAttribute('data-worklayout', WORK_LAYOUT[t.workLayout] || 'index');
 
     // ---- overall vibe (retro overrides accent + display fonts) ----
     // a public visitor toggle (cmdk / logo easter egg) persists to 'sn-vibe'
@@ -321,6 +326,9 @@ function TweaksUI() {
         options={Object.keys(REVEAL_STYLES)}
         onChange={(v) => setTweak('caseReveal', v)} />
       <TweakSection label="Work hover" />
+      <TweakSelect label="Work layout" value={t.workLayout}
+        options={Object.keys(WORK_LAYOUT)}
+        onChange={(v) => setTweak('workLayout', v)} />
       <TweakSelect label="Row hover" value={t.rowHover}
         options={Object.keys(ROW_HOVER)}
         onChange={(v) => setTweak('rowHover', v)} />

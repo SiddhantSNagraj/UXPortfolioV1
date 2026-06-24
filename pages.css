@@ -465,6 +465,75 @@ html:not([data-avhover="comic"]) .hero__avatar-comic { display: none; }
 .workrow__tags { display: flex; align-items: center; gap: 14px; position: relative; z-index: 1; }
 .workrow__cta { white-space: nowrap; color: var(--ink-2); position: relative; z-index: 1; transition: color .4s var(--ease); }
 
+/* ── new: outcome line + card cover (hidden by default / index layout) ── */
+.workrow__cover { display: none; }
+.workrow__outcome {
+  display: none; align-items: center; gap: 11px; margin-top: 8px; width: fit-content;
+  position: relative; z-index: 1;
+}
+.workrow__outcome::before {
+  content: ''; width: 22px; height: 2px; flex: none; border-radius: 2px;
+  background: var(--oc, var(--accent)); transition: background-color .4s var(--ease);
+}
+.workrow__outcome-txt {
+  font-family: var(--mono); font-size: clamp(12px, .95vw, 13.5px); font-weight: 500;
+  letter-spacing: .02em; color: var(--ink-2); white-space: nowrap;
+  transition: color .4s var(--ease);
+}
+
+/* ════════ LAYOUT: OUTCOME (editorial rows + at-a-glance result) ════════ */
+html[data-worklayout="outcome"] .workrow__outcome { display: inline-flex; }
+/* on hover the row floods with its colour — invert to the row's solid text
+   colour (same system as the title/sub) so it's always crisply legible.
+   NB: data-worklayout and data-rowhover both live on <html>, so they must be
+   on the SAME compound selector — no descendant space between them. */
+html[data-worklayout="outcome"] .workrow:hover .workrow__outcome-txt { color: var(--rowtext, #fff); }
+html[data-worklayout="outcome"] .workrow:hover .workrow__outcome::before { background: var(--rowtext, #fff); }
+
+/* explicit per-project hover colours for the outcome text + leading rule
+   (fixes the APMC rule washing out on its red flood). Mode-agnostic. */
+html[data-worklayout="outcome"] .workrow--gs:hover .workrow__outcome-txt,
+html[data-worklayout="outcome"] .workrow--apmc:hover .workrow__outcome-txt,
+html[data-worklayout="outcome"] .workrow--sl:hover .workrow__outcome-txt { color: #ffffff; }
+html[data-worklayout="outcome"] .workrow--gs:hover .workrow__outcome::before,
+html[data-worklayout="outcome"] .workrow--apmc:hover .workrow__outcome::before,
+html[data-worklayout="outcome"] .workrow--sl:hover .workrow__outcome::before { background: #ffffff; }
+html[data-worklayout="outcome"] .workrow--fan:hover .workrow__outcome-txt { color: #000000bf; }
+html[data-worklayout="outcome"] .workrow--fan:hover .workrow__outcome::before { background: #000000bf; }
+
+/* ════════ LAYOUT: CARDS (2-up tile grid) ════════ */
+html[data-worklayout="cards"] .worklist { display: grid; grid-template-columns: repeat(2, 1fr); gap: clamp(18px, 2vw, 26px); }
+html[data-worklayout="cards"] .workrow {
+  display: flex; flex-direction: column; gap: 0; padding: 0 !important;
+  border: 1px solid var(--line); border-radius: 16px; overflow: hidden;
+  background: var(--surface); align-items: stretch;
+}
+html[data-worklayout="cards"] .workrow:hover { padding: 0 !important; transform: translateY(-4px); box-shadow: 0 22px 44px -24px rgba(0,0,0,.6); }
+html[data-worklayout="cards"] .workrow { transition: transform .4s var(--ease), box-shadow .4s var(--ease), opacity .4s var(--ease); }
+/* colored cover panel */
+html[data-worklayout="cards"] .workrow__cover {
+  display: flex; align-items: flex-end; padding: 16px; height: clamp(140px, 15vw, 184px);
+  position: relative; z-index: 1;
+}
+html[data-worklayout="cards"] .workrow__cover-label { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; opacity: .92; }
+html[data-worklayout="cards"] .workrow__no { position: absolute; top: 16px; right: 18px; z-index: 2; font-size: 13px; color: inherit; opacity: .65; }
+/* body */
+html[data-worklayout="cards"] .workrow__title { padding: 20px 20px 0; gap: 8px; }
+html[data-worklayout="cards"] .workrow__name { font-size: clamp(24px, 2.4vw, 34px); }
+html[data-worklayout="cards"] .workrow__outcome { display: inline-flex; margin-top: 4px; }
+html[data-worklayout="cards"] .workrow__tags { padding: 16px 20px; margin-top: auto; justify-content: space-between; border-top: 1px solid var(--line); }
+html[data-worklayout="cards"] .workrow__cta { display: none; }
+/* in card mode the per-project hover peeks + fill don't apply */
+html[data-worklayout="cards"] .workrow__fan,
+html[data-worklayout="cards"] .workrow__apmc,
+html[data-worklayout="cards"] .workrow__gs,
+html[data-worklayout="cards"] .workrow__slfan,
+html[data-worklayout="cards"] .workrow__peek,
+html[data-worklayout="cards"] .workrow__fill { display: none !important; }
+@media (max-width: 720px) {
+  html[data-worklayout="cards"] .worklist { grid-template-columns: 1fr; }
+}
+
 /* shared "text on colour" treatment, used by Fill + Swipe + Brush */
 [data-rowhover="fill"] .workrow:hover .workrow__no, [data-rowhover="swipe"] .workrow:hover .workrow__no, [data-rowhover="brush"] .workrow:hover .workrow__no,
 [data-rowhover="fill"] .workrow:hover .workrow__name, [data-rowhover="swipe"] .workrow:hover .workrow__name, [data-rowhover="brush"] .workrow:hover .workrow__name,

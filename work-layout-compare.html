@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Work layout — Option 1 vs Option 3</title>
+  <link rel="preconnect" href="https://api.fontshare.com" />
+  <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=general-sans@500,600,700&f[]=gambetta@400,500,600&f[]=ibm-plex-mono@400,500&display=swap" />
+  <style>
+    :root {
+      --bg:#0b0b0c; --surface:#161618; --surface-2:#1d1d20;
+      --line:rgba(255,255,255,0.10); --line-2:rgba(255,255,255,0.18);
+      --ink:#f2f1ec; --ink-2:#b9b8b2; --ink-3:#75746f; --ink-4:#4a4a47;
+      --blue:#2b6fff; --yellow:#f7c14a;
+      --display:'General Sans',system-ui,sans-serif;
+      --body:'Gambetta',Georgia,serif;
+      --mono:'General Sans',system-ui,sans-serif;
+      --ease:cubic-bezier(.4,0,.2,1);
+    }
+    * { box-sizing:border-box; }
+    body { margin:0; background:var(--bg); color:var(--ink); font-family:var(--display); }
+    #root { width:100vw; height:100vh; }
+
+    /* ===== shared bits ===== */
+    .mono { font-family:var(--mono); text-transform:uppercase; letter-spacing:.12em; }
+    .out { font-family:var(--mono); font-size:12px; letter-spacing:.06em; text-transform:none; }
+    .chip { display:inline-flex; align-items:center; font-family:var(--mono); font-size:10.5px;
+      letter-spacing:.1em; text-transform:uppercase; padding:4px 9px; border:1px solid currentColor;
+      border-radius:999px; }
+    .dot { width:7px; height:7px; border-radius:50%; flex:none; }
+
+    /* ===== Option 1 — editorial index ===== */
+    .ix { padding:30px 40px; }
+    .ix__head { display:flex; justify-content:space-between; align-items:baseline; margin-bottom:18px;
+      padding-bottom:14px; border-bottom:1px solid var(--line-2); }
+    .ix__kic { font-family:var(--mono); font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--ink-3); }
+    .ix__list { display:flex; flex-direction:column; }
+    .row { display:grid; grid-template-columns:54px 1fr auto; align-items:center; gap:26px;
+      padding:24px 8px; border-bottom:1px solid var(--line); position:relative; }
+    .row__no { font-family:var(--mono); font-size:13px; color:var(--ink-3); }
+    .row__name { font-size:34px; font-weight:600; letter-spacing:-.02em; line-height:1; }
+    .row__sub { font-family:var(--body); font-size:15px; color:var(--ink-2); margin-top:7px; }
+    .row__outcome { display:inline-flex; align-items:center; gap:8px; margin-top:11px; }
+    .row__right { display:flex; flex-direction:column; align-items:flex-end; gap:10px; }
+    .row__year { font-family:var(--mono); font-size:12px; color:var(--ink-3); letter-spacing:.08em; }
+    .row__cta { font-family:var(--mono); font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-2); }
+
+    /* ===== Option 3 — card grid ===== */
+    .cards { padding:30px 34px; }
+    .cards__head { display:flex; justify-content:space-between; align-items:baseline; margin-bottom:22px;
+      padding-bottom:14px; border-bottom:1px solid var(--line-2); }
+    .grid { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+    .card { border:1px solid var(--line); border-radius:16px; overflow:hidden; background:var(--surface);
+      display:flex; flex-direction:column; }
+    .card__thumb { height:150px; position:relative; display:flex; align-items:flex-end; padding:14px;
+      overflow:hidden; }
+    .card__thumb-label { position:relative; font-family:var(--mono); font-size:10px; letter-spacing:.1em;
+      text-transform:uppercase; opacity:.9; }
+    .card__no { position:absolute; top:12px; right:14px; font-family:var(--mono); font-size:12px; opacity:.7; }
+    .card__body { padding:18px 18px 20px; display:flex; flex-direction:column; gap:0; }
+    .card__name { font-size:24px; font-weight:600; letter-spacing:-.015em; line-height:1; }
+    .card__sub { font-family:var(--body); font-size:14px; color:var(--ink-2); margin-top:8px; line-height:1.35; }
+    .card__foot { display:flex; align-items:center; justify-content:space-between; margin-top:16px;
+      padding-top:14px; border-top:1px solid var(--line); }
+    .card__outcome { display:inline-flex; align-items:center; gap:7px; }
+    .card__year { font-family:var(--mono); font-size:11px; color:var(--ink-3); letter-spacing:.08em; }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+  <script type="text/babel" src="design-canvas.jsx"></script>
+
+  <script type="text/babel">
+    const PROJECTS = [
+      { no:'01', title:'Greenstand', sub:'Roots Design System', tag:'Design System', year:'2025',
+        color:'#1f7a4d', text:'#ffffff', accent:'#5fd39b',
+        outcome:'25% less dev rework · 150+ components' },
+      { no:'02', title:'APMC', sub:'Northeastern product club, website redesign', tag:'Web · UX', year:'2023',
+        color:'#ff6666', text:'#ffffff', accent:'#ff9a9a',
+        outcome:'Still live 2 yrs on · 700+ daily users' },
+      { no:'03', title:'CoffeeHouse', sub:'Rethinking the ordering experience', tag:'Mobile · App', year:'2023',
+        color:'#f7e474', text:'rgba(0,0,0,0.78)', accent:'#d8b400',
+        outcome:'4.0 avg test rating · 68% rated 5★' },
+      { no:'04', title:'Slack', sub:'Reimagined, a mobile UI concept', tag:'Concept · Playground', year:'2026',
+        color:'#4a154b', text:'#ffffff', accent:'#c98fd6',
+        outcome:'Self-initiated concept · 7 hi-fi screens' },
+    ];
+
+    function EditorialRow({ p }) {
+      return (
+        <div className="row">
+          <span className="row__no">{p.no}</span>
+          <div>
+            <div className="row__name">{p.title}</div>
+            <div className="row__sub">{p.sub}</div>
+            <div className="row__outcome">
+              <span className="dot" style={{ background: p.accent }}></span>
+              <span className="out" style={{ color: p.accent }}>{p.outcome}</span>
+            </div>
+          </div>
+          <div className="row__right">
+            <span className="chip" style={{ color: p.accent }}>{p.tag}</span>
+            <span className="row__year">{p.year}</span>
+            <span className="row__cta">View case →</span>
+          </div>
+        </div>
+      );
+    }
+
+    function ProjectCard({ p }) {
+      return (
+        <div className="card">
+          <div className="card__thumb" style={{ background: p.color, color: p.text }}>
+            <span className="card__no" style={{ color: p.text }}>{p.no}</span>
+            <span className="card__thumb-label">{p.title} — cover</span>
+          </div>
+          <div className="card__body">
+            <div className="card__name">{p.title}</div>
+            <div className="card__sub">{p.sub}</div>
+            <div className="card__foot">
+              <span className="card__outcome">
+                <span className="dot" style={{ background: p.accent }}></span>
+                <span className="out" style={{ color: p.accent }}>{p.outcome}</span>
+              </span>
+            </div>
+            <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', marginTop:12 }}>
+              <span className="chip" style={{ color: p.accent }}>{p.tag}</span>
+              <span className="card__year">{p.year}</span>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    function App() {
+      return (
+        <DesignCanvas>
+          <DCSection id="work-layout" title="Work layout" subtitle="Two ways to show projects on the home page">
+            <DCArtboard id="opt1" label="Option 1 · Editorial index + outcome" width={1000} height={720}>
+              <div className="ix">
+                <div className="ix__head">
+                  <span className="ix__kic">Selected Work</span>
+                  <span className="ix__kic">2023 — 2026</span>
+                </div>
+                <div className="ix__list">
+                  {PROJECTS.map(p => <EditorialRow key={p.no} p={p} />)}
+                </div>
+              </div>
+            </DCArtboard>
+
+            <DCArtboard id="opt3" label="Option 3 · Card grid" width={820} height={720}>
+              <div className="cards">
+                <div className="cards__head">
+                  <span className="ix__kic">Selected Work</span>
+                  <span className="ix__kic">2023 — 2026</span>
+                </div>
+                <div className="grid">
+                  {PROJECTS.map(p => <ProjectCard key={p.no} p={p} />)}
+                </div>
+              </div>
+            </DCArtboard>
+          </DCSection>
+        </DesignCanvas>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+  </script>
+</body>
+</html>
