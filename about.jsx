@@ -21,7 +21,7 @@ function About({ profile, reviews }) {
           <Reveal className="about__lead">
             <p className="about__statement">
               I’m a product designer who believes the best work
-              <em> disappears</em>, you don’t notice the design, you just
+              <em> disappears</em> , you don’t notice the design, you just
               get what you came for.
             </p>
             <p className="about__body">
@@ -46,7 +46,20 @@ function About({ profile, reviews }) {
           </Reveal>
 
           <div className="about__side">
-            <Slot img="assets/siddhant-about.jpg" alt="Siddhant Nagraj" corner="ME" objectPosition="50% 32%" style={{ aspectRatio: '4/5' }} />
+            <div className="about__photo">
+              <Slot img="assets/siddhant-about.jpg" alt="Siddhant Nagraj" corner="ME" objectPosition="50% 32%" style={{ aspectRatio: '4/5' }} />
+              <div className="abcl" aria-label="A few photos of me — hover to spread, click one to view">
+                <div className="abcl__poster abp1"><img src="assets/about/poster-hozier.jpeg" alt="" /></div>
+                <div className="abcl__poster abp2"><img src="assets/about/poster-oldfashioned.jpeg" alt="" /></div>
+                <div className="abcl__poster abp3"><img src="assets/about/poster-porsche.jpeg" alt="" /></div>
+                <div className="abcl__poster abp4"><img src="assets/about/poster-norisk.jpeg" alt="" /></div>
+                <figure className="abcl__pol abc2"><img className="abcl__media" src="assets/about/p2-museum.jpg" alt="" /><figcaption className="abcl__cap">ink &amp; nerve</figcaption></figure>
+                <figure className="abcl__pol abc3"><img className="abcl__media" src="assets/about/p3-coffee.jpg" alt="" /><figcaption className="abcl__cap">third place</figcaption></figure>
+                <figure className="abcl__pol abc4"><img className="abcl__media" src="assets/about/p4-harley.jpg" alt="" /><figcaption className="abcl__cap">weekend</figcaption></figure>
+                <figure className="abcl__pol abc5"><video className="abcl__media" src="assets/about/clip-video-2.mp4" muted loop playsInline autoPlay></video><figcaption className="abcl__cap">in motion</figcaption></figure>
+                <figure className="abcl__pol abc1"><img className="abcl__media" src="assets/about/p1-city.jpg" alt="" /><figcaption className="abcl__cap">that’s me</figcaption></figure>
+              </div>
+            </div>
             <div className="about__facts">
               {facts.map(([n, l], i) => (
                 <Reveal key={i} className="fact" delay={`d${i + 1}`}>

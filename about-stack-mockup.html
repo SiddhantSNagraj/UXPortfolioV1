@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>About · photo stack + posters</title>
+<link rel="preconnect" href="https://api.fontshare.com" />
+<link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=general-sans@500,600,700&f[]=gambetta@400,500,600&display=swap" />
+<style>
+  :root{
+    --bg:#0b0b0c; --surface:#161618; --surface-2:#1d1d20;
+    --line:rgba(255,255,255,.10); --ink:#f2f1ec; --ink-2:#b9b8b2; --ink-3:#75746f; --ink-4:#4a4a47;
+    --yellow:#f7c14a; --paper:#f4efe3;
+    --display:'General Sans',system-ui,sans-serif;
+    --body:'Gambetta',Georgia,serif;
+    --ease:cubic-bezier(.34,1.15,.4,1);
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--display);padding:48px clamp(18px,5vw,70px) 120px;}
+  .ph{font-family:var(--body);font-weight:500;font-size:clamp(26px,4vw,40px);letter-spacing:-.01em;margin:0 0 4px;}
+  .ph em{font-style:italic;color:var(--yellow);}
+  .psub{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-bottom:30px;}
+  .panel{border:1px solid var(--line);border-radius:18px;background:var(--surface);overflow:hidden;}
+  .panel__bar{padding:15px 22px;border-bottom:1px solid var(--line);background:var(--surface-2);
+    font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);}
+  .panel__bar b{color:var(--ink);font-weight:600;}
+
+  /* ====== the cluster ====== */
+  .stage{display:flex;align-items:center;justify-content:center;padding:40px 22px;min-height:620px;}
+  .cluster{position:relative;width:440px;height:520px;cursor:pointer;}
+
+  /* polaroids */
+  .pol{position:absolute;left:50%;top:50%;width:188px;background:var(--paper);padding:9px 9px 0;border-radius:3px;
+    box-shadow:0 16px 32px -14px rgba(0,0,0,.75),0 2px 7px rgba(0,0,0,.45);
+    transition:transform .6s var(--ease),box-shadow .4s var(--ease),opacity .5s var(--ease);}
+  .pol__media{display:block;width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:1px;background:#222;}
+  .pol__cap{font-family:var(--body);font-style:italic;font-size:13px;color:#3a3024;text-align:center;padding:8px 4px 10px;line-height:1.1;}
+
+  /* resting: tidy pile, centred, gentle tilts */
+  .c1{transform:translate(-50%,-50%) rotate(-2deg);z-index:6;}
+  .c2{transform:translate(-50%,-50%) rotate(4deg);z-index:5;}
+  .c3{transform:translate(-50%,-50%) rotate(-5deg);z-index:4;}
+  .c4{transform:translate(-50%,-50%) rotate(3deg);z-index:3;}
+  .c5{transform:translate(-50%,-50%) rotate(-3deg);z-index:2;}
+
+  /* hover: one centred, two above, two below, slight overlap */
+  .cluster:hover .c1{transform:translate(-50%,-50%) scale(1.04) rotate(0deg);z-index:10;}
+  .cluster:hover .c2{transform:translate(calc(-50% - 142px),calc(-50% - 104px)) rotate(-6deg);}
+  .cluster:hover .c3{transform:translate(calc(-50% + 142px),calc(-50% - 104px)) rotate(6deg);}
+  .cluster:hover .c4{transform:translate(calc(-50% - 142px),calc(-50% + 104px)) rotate(5deg);}
+  .cluster:hover .c5{transform:translate(calc(-50% + 142px),calc(-50% + 104px)) rotate(-5deg);}
+
+  /* ====== crumpled poster stickers ====== */
+  .poster{position:absolute;width:104px;z-index:8;opacity:0;pointer-events:none;
+    transition:opacity .45s var(--ease) .12s,transform .55s var(--ease) .12s;
+    filter:drop-shadow(0 10px 18px rgba(0,0,0,.55));}
+  .poster img{display:block;width:100%;border-radius:2px;}
+  /* crumple: layered translucent creases via blend, plus a faint warp */
+  .poster::after{content:"";position:absolute;inset:0;border-radius:2px;pointer-events:none;mix-blend-mode:soft-light;
+    background:
+      linear-gradient(118deg,rgba(255,255,255,.55) 0%,transparent 16%,rgba(0,0,0,.35) 30%,transparent 44%,rgba(255,255,255,.4) 60%,transparent 74%,rgba(0,0,0,.3) 88%),
+      linear-gradient(28deg,transparent 38%,rgba(0,0,0,.22) 50%,transparent 62%);}
+  /* resting positions: tucked into the pile, flat-ish, hidden */
+  .pp1{top:8%;left:50%;transform:translate(-50%,10px) rotate(0deg) scale(.7);}
+  .pp2{top:46%;left:-2%;transform:translate(0,10px) rotate(0deg) scale(.7);}
+  .pp3{top:52%;right:-2%;transform:translate(0,10px) rotate(0deg) scale(.7);}
+  /* hover: pop out at edges, crumpled tilt, smaller than photos */
+  .cluster:hover .pp1{opacity:1;transform:translate(-50%,0) rotate(-9deg) scale(1) skewX(-3deg);}
+  .cluster:hover .pp2{opacity:1;transform:translate(0,0) rotate(7deg) scale(1) skewY(2deg);}
+  .cluster:hover .pp3{opacity:1;transform:translate(0,0) rotate(-6deg) scale(1) skewX(2deg);}
+
+  .hint{text-align:center;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-4);padding:0 0 26px;}
+
+  /* ---------- click a photo to bring it forward + enlarge ---------- */
+  .pol{cursor:pointer;}
+  .pol.is-front{transform:translate(-50%,-50%) scale(1.6)!important;z-index:40!important;
+    box-shadow:0 44px 80px -22px rgba(0,0,0,.85),0 8px 20px rgba(0,0,0,.5)!important;}
+  /* while viewing one, dim the rest (they stay where they spread) so you can click another */
+  .cluster.focus-on .pol:not(.is-front){opacity:.3!important;filter:saturate(.85);}
+  .cluster.focus-on .poster{opacity:.18!important;}
+</style>
+</head>
+<body>
+  <h1 class="ph">About · <em>photo stack + posters</em></h1>
+  <div class="psub">Hover the stack · one centres, two rise, two drop · poster stickers crumple in</div>
+
+  <div class="panel">
+    <div class="panel__bar"><b>Hover</b> the cluster — photos spread (1 centre · 2 up · 2 down), posters appear smaller &amp; crumpled</div>
+    <div class="stage">
+      <div class="cluster">
+        <!-- crumpled poster stickers -->
+        <div class="poster pp1"><img src="assets/about/poster-hozier.jpeg" alt="" /></div>
+        <div class="poster pp2"><img src="assets/about/poster-oldfashioned.jpeg" alt="" /></div>
+        <div class="poster pp3"><img src="assets/about/poster-porsche.jpeg" alt="" /></div>
+        <!-- two above -->
+        <div class="pol c2"><img class="pol__media" src="assets/about/p2-museum.jpg" alt="" /><div class="pol__cap">ink &amp; nerve</div></div>
+        <div class="pol c3"><img class="pol__media" src="assets/about/p3-coffee.jpg" alt="" /><div class="pol__cap">third place</div></div>
+        <!-- two below -->
+        <div class="pol c4"><img class="pol__media" src="assets/about/p4-harley.jpg" alt="" /><div class="pol__cap">weekend</div></div>
+        <div class="pol c5"><video class="pol__media" src="assets/about/clip-video.mp4" muted loop playsinline autoplay></video><div class="pol__cap">in motion</div></div>
+        <!-- centre / face -->
+        <div class="pol c1"><img class="pol__media" src="assets/about/p1-city.jpg" alt="" /><div class="pol__cap">that's me</div></div>
+      </div>
+    </div>
+    <div class="hint">hover the stack ↑</div>
+  </div>
+  <script>
+    var cluster = document.querySelector('.cluster');
+    cluster.addEventListener('click', function (e) {
+      var card = e.target.closest('.pol');
+      if (!card) return;
+      e.stopPropagation();
+      var wasFront = card.classList.contains('is-front');
+      cluster.querySelectorAll('.pol.is-front').forEach(function (p) { p.classList.remove('is-front'); });
+      // pause any playing video unless it's the one being focused
+      cluster.querySelectorAll('video').forEach(function (v) { if (card.contains(v)) { v.play(); } });
+      if (wasFront) { cluster.classList.remove('focus-on'); return; }
+      card.classList.add('is-front');
+      cluster.classList.add('focus-on');
+    });
+    document.addEventListener('click', function () {
+      cluster.classList.remove('focus-on');
+      cluster.querySelectorAll('.pol.is-front').forEach(function (p) { p.classList.remove('is-front'); });
+    });
+  </script>
+</body>
+</html>

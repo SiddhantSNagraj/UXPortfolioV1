@@ -238,4 +238,47 @@
       row.style.setProperty('--my', ((e.clientY - r.top) / r.height * 100) + '%');
     }, { passive: true });
   })();
+
+  /* ---- 7. About photo cluster: click a polaroid to bring it forward + enlarge ---- */
+  (function () {
+    document.addEventListener('click', function (e) {
+      var card = e.target.closest && e.target.closest('.abcl__pol');
+      var cluster = card ? card.closest('.abcl') : null;
+      // click outside any focused card clears focus everywhere
+      if (!card) {
+        document.querySelectorAll('.abcl.focus-on').forEach(function (c) {
+          c.classList.remove('focus-on');
+          c.querySelectorAll('.abcl__pol.is-front').forEach(function (p) { p.classList.remove('is-front'); });
+        });
+        return;
+      }
+      e.stopPropagation();
+      var wasFront = card.classList.contains('is-front');
+      cluster.querySelectorAll('.abcl__pol.is-front').forEach(function (p) { p.classList.remove('is-front'); });
+      if (wasFront) { cluster.classList.remove('focus-on'); return; }
+      card.classList.add('is-front');
+      cluster.classList.add('focus-on');
+      var v = card.querySelector('video'); if (v) { try { v.play(); } catch (err) {} }
+    });
+  })();
+
+  /* ---- 8. About cluster: spread as it scrolls into view (not just on hover) ---- */
+  (function () {
+    function syncSpread() {
+      var cl = document.querySelector('.abcl');
+      if (!cl) return;
+      if (document.documentElement.getAttribute('data-aboutphotos') !== 'cluster') { cl.classList.remove('spread'); return; }
+      var r = cl.getBoundingClientRect();
+      var vh = window.innerHeight || document.documentElement.clientHeight;
+      // spread once the cluster's centre enters the comfortable middle band of the viewport
+      var mid = r.top + r.height / 2;
+      var inView = mid < vh * 0.82 && mid > vh * 0.18;
+      cl.classList.toggle('spread', inView);
+    }
+    var raf = 0;
+    function onScroll() { syncSpread(); cancelAnimationFrame(raf); raf = requestAnimationFrame(syncSpread); }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    setTimeout(syncSpread, 400);
+  })();
 })();

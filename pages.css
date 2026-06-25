@@ -1089,6 +1089,75 @@ html[data-worklayout="cards"] .workrow__fill { display: none !important; }
   text-transform: uppercase; color: var(--accent);
 }
 .about__side { display: flex; flex-direction: column; gap: 22px; }
+/* About photo: single portrait (default) vs interactive polaroid cluster (tweak) */
+.about__photo { position: relative; }
+.abcl { display: none; }
+html[data-aboutphotos="cluster"] .about__photo > .slot { display: none; }
+html[data-aboutphotos="cluster"] .abcl {
+  display: block; position: relative; width: 100%; height: 580px; cursor: pointer;
+}
+.abcl__pol { position: absolute; left: 50%; top: 50%; width: 252px; margin: 0;
+  background: #f4efe3; padding: 8px 8px 0; border-radius: 3px;
+  box-shadow: 0 16px 30px -14px rgba(0,0,0,.75), 0 2px 7px rgba(0,0,0,.45);
+  transition: transform .6s var(--ease), box-shadow .4s var(--ease), opacity .5s var(--ease); }
+.abcl__media { display: block; width: 100%; aspect-ratio: 4/5; object-fit: cover; border-radius: 1px; background: #222; }
+.abcl__cap { font-family: var(--body); font-style: italic; font-size: 12px; color: #3a3024; text-align: center; padding: 7px 4px 9px; line-height: 1.1; }
+/* resting pile */
+.abc1 { transform: translate(-50%,-50%) rotate(-2deg); z-index: 6; }
+.abc2 { transform: translate(-50%,-50%) rotate(4deg); z-index: 5; }
+.abc3 { transform: translate(-50%,-50%) rotate(-5deg); z-index: 4; }
+.abc4 { transform: translate(-50%,-50%) rotate(3deg); z-index: 3; }
+.abc5 { transform: translate(-50%,-50%) rotate(-3deg); z-index: 2; }
+/* spread on hover · default = CROSS (1 centre, 2 up, 2 down) */
+.abcl:is(:hover,.spread) .abc1 { transform: translate(-50%,-50%) scale(1.04); z-index: 10; }
+.abcl:is(:hover,.spread) .abc2 { transform: translate(calc(-50% - 150px), calc(-50% - 118px)) rotate(-6deg); }
+.abcl:is(:hover,.spread) .abc3 { transform: translate(calc(-50% + 150px), calc(-50% - 118px)) rotate(6deg); }
+.abcl:is(:hover,.spread) .abc4 { transform: translate(calc(-50% - 150px), calc(-50% + 118px)) rotate(5deg); }
+.abcl:is(:hover,.spread) .abc5 { transform: translate(calc(-50% + 150px), calc(-50% + 118px)) rotate(-5deg); }
+
+/* FAN · hand-of-cards arc */
+html[data-aboutspread="fan"] .abcl:is(:hover,.spread) .abc1 { transform: translate(-50%,-58%) rotate(0deg) scale(1.04); z-index: 10; }
+html[data-aboutspread="fan"] .abcl:is(:hover,.spread) .abc2 { transform: translate(calc(-50% - 264px), -42%) rotate(-16deg); }
+html[data-aboutspread="fan"] .abcl:is(:hover,.spread) .abc3 { transform: translate(calc(-50% - 132px), -52%) rotate(-8deg); }
+html[data-aboutspread="fan"] .abcl:is(:hover,.spread) .abc4 { transform: translate(calc(-50% + 132px), -52%) rotate(8deg); }
+html[data-aboutspread="fan"] .abcl:is(:hover,.spread) .abc5 { transform: translate(calc(-50% + 264px), -42%) rotate(16deg); }
+
+/* CASCADE · vertical column stagger */
+html[data-aboutspread="cascade"] .abcl:is(:hover,.spread) .abc1 { transform: translate(-50%, calc(-50% - 196px)) rotate(-2deg); z-index: 10; }
+html[data-aboutspread="cascade"] .abcl:is(:hover,.spread) .abc2 { transform: translate(calc(-50% + 26px), calc(-50% - 98px)) rotate(3deg); }
+html[data-aboutspread="cascade"] .abcl:is(:hover,.spread) .abc3 { transform: translate(calc(-50% - 26px), -50%) rotate(-3deg); }
+html[data-aboutspread="cascade"] .abcl:is(:hover,.spread) .abc4 { transform: translate(calc(-50% + 26px), calc(-50% + 98px)) rotate(3deg); }
+html[data-aboutspread="cascade"] .abcl:is(:hover,.spread) .abc5 { transform: translate(calc(-50% - 26px), calc(-50% + 196px)) rotate(-2deg); }
+
+/* SCATTER · tossed to four corners */
+html[data-aboutspread="scatter"] .abcl:is(:hover,.spread) .abc1 { transform: translate(-50%,-50%) rotate(-3deg) scale(1.06); z-index: 10; }
+html[data-aboutspread="scatter"] .abcl:is(:hover,.spread) .abc2 { transform: translate(calc(-50% - 168px), calc(-50% - 134px)) rotate(-10deg); }
+html[data-aboutspread="scatter"] .abcl:is(:hover,.spread) .abc3 { transform: translate(calc(-50% + 176px), calc(-50% - 96px)) rotate(9deg); }
+html[data-aboutspread="scatter"] .abcl:is(:hover,.spread) .abc4 { transform: translate(calc(-50% - 152px), calc(-50% + 150px)) rotate(8deg); }
+html[data-aboutspread="scatter"] .abcl:is(:hover,.spread) .abc5 { transform: translate(calc(-50% + 170px), calc(-50% + 128px)) rotate(-9deg); }
+/* crumpled poster stickers, smaller than photos */
+.abcl__poster { position: absolute; width: 92px; z-index: 8; opacity: 0; pointer-events: none;
+  transition: opacity .45s var(--ease) .12s, transform .55s var(--ease) .12s;
+  filter: drop-shadow(0 10px 18px rgba(0,0,0,.55)); }
+.abcl__poster img { display: block; width: 100%; border-radius: 2px; }
+.abcl__poster::after { content: ""; position: absolute; inset: 0; border-radius: 2px; pointer-events: none; mix-blend-mode: soft-light;
+  background:
+    linear-gradient(118deg, rgba(255,255,255,.55) 0%, transparent 16%, rgba(0,0,0,.35) 30%, transparent 44%, rgba(255,255,255,.4) 60%, transparent 74%, rgba(0,0,0,.3) 88%),
+    linear-gradient(28deg, transparent 38%, rgba(0,0,0,.22) 50%, transparent 62%); }
+.abp1 { top: 2%; left: 50%; transform: translate(-50%,10px) rotate(0deg) scale(.7); }
+.abp2 { top: 44%; left: -4%; transform: translate(0,10px) rotate(0deg) scale(.7); }
+.abp3 { top: 50%; right: -4%; transform: translate(0,10px) rotate(0deg) scale(.7); }
+.abp4 { top: 60%; left: 4%; transform: translate(0,10px) rotate(0deg) scale(.7); }
+.abcl:is(:hover,.spread) .abp1 { opacity: 1; transform: translate(-50%,0) rotate(-9deg) scale(1) skewX(-3deg); }
+.abcl:is(:hover,.spread) .abp2 { opacity: 1; transform: translate(0,0) rotate(7deg) scale(1) skewY(2deg); }
+.abcl:is(:hover,.spread) .abp3 { opacity: 1; transform: translate(0,0) rotate(-6deg) scale(1) skewX(2deg); }
+.abcl:is(:hover,.spread) .abp4 { opacity: 1; transform: translate(0,0) rotate(-8deg) scale(1) skewY(-2deg); }
+/* click a photo to bring it forward + enlarge */
+.abcl__pol.is-front { transform: translate(-50%,-50%) scale(1.14) !important; z-index: 40 !important;
+  box-shadow: 0 44px 80px -22px rgba(0,0,0,.85), 0 8px 20px rgba(0,0,0,.5) !important; }
+.abcl.focus-on .abcl__pol:not(.is-front) { opacity: .3 !important; filter: saturate(.85); }
+.abcl.focus-on .abcl__poster { opacity: .18 !important; }
+@media (prefers-reduced-motion: reduce) { .abcl__pol, .abcl__poster { transition: none; } }
 .about__facts { display: flex; flex-direction: column; }
 .fact { display: flex; align-items: baseline; gap: 16px; padding: 16px 0; border-top: 1px solid var(--line); }
 .fact__n { font-size: 34px; color: var(--ink); min-width: 56px; }
