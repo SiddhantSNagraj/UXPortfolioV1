@@ -113,24 +113,25 @@
       if (el) {
         clearInterval(gi);
         var orig = el.textContent;
-        el.style.transition = 'opacity .18s ease';
         el.addEventListener('mouseenter', function () {
           if (hoverLock) return; hoverLock = true;
           i = (i + 1) % roles.length;
           el.style.opacity = '0';
+          el.style.transform = 'translateY(7px)';
           setTimeout(function () {
             el.textContent = roles[i];
             el.style.opacity = '1';
-            setTimeout(function () { hoverLock = false; }, 200);
-          }, 180);
+            el.style.transform = 'translateY(0)';
+            setTimeout(function () { hoverLock = false; }, 300);
+          }, 280);
         });
         // restore the real title when the cursor leaves entirely
         el.addEventListener('mouseleave', function () {
           if (i === 0) return;
           setTimeout(function () {
             if (el.matches(':hover')) return;
-            i = 0; el.style.opacity = '0';
-            setTimeout(function () { el.textContent = orig; el.style.opacity = '1'; }, 180);
+            i = 0; el.style.opacity = '0'; el.style.transform = 'translateY(7px)';
+            setTimeout(function () { el.textContent = orig; el.style.opacity = '1'; el.style.transform = 'translateY(0)'; }, 280);
           }, 1400);
         });
       }

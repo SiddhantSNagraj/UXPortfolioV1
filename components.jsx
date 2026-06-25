@@ -144,10 +144,12 @@ function Guestbook() {
             <span className="gb__count mono">{seals.length} have signed</span>
           </div>
           <p className="gb__lead">Leave your mark. Type your initials, pick where you’re from, and press your seal anywhere on the wall.</p>
-          <div className="gb__wall" ref={wallRef} onPointerDown={pressAt}>
-            {seals.map((s, i) => <GuestSeal key={i} s={s} idx={i} />)}
-            <span className="gb__ghost mono">Click anywhere to press your seal</span>
-            <button className="gb__clear mono" onClick={clearMine} type="button">Clear mine</button>
+          <div className="gb__stage">
+            <div className="gb__wall" ref={wallRef} onPointerDown={pressAt}>
+              {seals.map((s, i) => <GuestSeal key={i} s={s} idx={i} />)}
+              <span className="gb__ghost mono">Click anywhere to press your seal</span>
+              <button className="gb__clear mono" onClick={clearMine} type="button">Clear mine</button>
+            </div>
             <div className="gb__form" onPointerDown={(e) => e.stopPropagation()}>
               <input className="gb__ini" maxLength={3} value={ini} onChange={(e) => setIni(e.target.value)} placeholder="SN" aria-label="Your initials" />
               <input className="gb__loc" maxLength={14} value={loc} onChange={(e) => setLoc(e.target.value)} placeholder="where from?" aria-label="Where you're from" />

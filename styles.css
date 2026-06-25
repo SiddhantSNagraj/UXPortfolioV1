@@ -257,6 +257,7 @@ html[data-theme="light"] .cc-iter, html[data-theme="light"] .gsk, html[data-them
   transition: color .2s var(--ease), border-color .2s var(--ease);
 }
 .gb__clear:hover { color: var(--ink); border-color: var(--line-2); }
+.gb__stage { position: relative; }
 .gb__form {
   position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%); z-index: 6;
   display: flex; align-items: center; gap: 8px; cursor: default;
@@ -279,8 +280,18 @@ html[data-theme="light"] .cc-iter, html[data-theme="light"] .gsk, html[data-them
 @keyframes gbSealIn { from { transform: translate(-50%,-50%) scale(0) rotate(var(--r,0deg)); } to { transform: translate(-50%,-50%) scale(1) rotate(var(--r,0deg)); } }
 @media (prefers-reduced-motion: reduce) { .gbseal--new { animation: none; } }
 @media (max-width: 560px) {
-  .gb__form { flex-wrap: nowrap; }
-  .gb__loc { width: 84px; }
+  /* form drops below the wall as a full-width control group (it overflows
+     the narrow wall as a floating pill) */
+  .gb__wall { height: clamp(240px, 56vw, 300px); }
+  .gb__form {
+    position: static; transform: none; width: 100%; margin-top: 12px;
+    border-radius: 14px; padding: 8px; gap: 8px; box-shadow: none;
+    display: grid; grid-template-columns: 64px 1fr auto; align-items: stretch;
+  }
+  .gb__ini { width: 100%; padding: 12px 0; }
+  .gb__loc { width: auto; min-width: 0; padding: 12px 0 12px 12px; }
+  .gb__go.mono { padding: 12px 16px; white-space: nowrap; }
+  .gb__ghost { top: 16px; font-size: 10px; }
 }
 
 /* =========================================================================

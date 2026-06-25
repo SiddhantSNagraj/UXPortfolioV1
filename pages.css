@@ -98,7 +98,7 @@ html[data-herostatus="slash"] .hero__status-year { display: inline; color: var(-
 }
 
 .hero__sub { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 24px; margin-top: clamp(22px, 4vw, 46px); }
-.hero__role { font-size: clamp(20px, 2.4vw, 34px); font-weight: 700; letter-spacing: 0; text-transform: uppercase; color: var(--ink); }
+.hero__role { font-size: clamp(20px, 2.4vw, 34px); font-weight: 700; letter-spacing: 0; text-transform: uppercase; color: var(--ink); transition: opacity .28s cubic-bezier(.4,0,.2,1), transform .28s cubic-bezier(.4,0,.2,1); will-change: opacity, transform; }
 .hero__phil { max-width: 460px; font-size: clamp(14px, 1.3vw, 17px); color: var(--ink-2); line-height: 1.55; font-weight: 500; }
 .hero__phil em { font-style: italic; color: var(--ink); }
 
