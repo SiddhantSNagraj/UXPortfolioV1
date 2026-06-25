@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Colophon · Design System — mockup</title>
+<link rel="preconnect" href="https://api.fontshare.com" />
+<link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&f[]=gambetta@400,500,600&display=swap" />
+<style>
+  :root{
+    --bg:#0b0b0c;--bg-2:#111113;--surface:#161618;--surface-2:#1d1d20;
+    --line:rgba(255,255,255,.10);--line-2:rgba(255,255,255,.18);
+    --ink:#f2f1ec;--ink-2:#b9b8b2;--ink-3:#75746f;--ink-4:#4a4a47;
+    --blue:#2b6fff;--yellow:#f7c14a;--available:#1f8a5b;
+    --display:'General Sans',system-ui,sans-serif;
+    --body:'Gambetta',Georgia,serif;
+    --ease:cubic-bezier(.22,1,.36,1);
+    --pad:clamp(22px,5vw,90px);
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--display);font-weight:500;
+    -webkit-font-smoothing:antialiased;line-height:1.5;}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 var(--pad);}
+  .mono{font-family:var(--display);text-transform:uppercase;letter-spacing:.14em;font-size:11px;font-weight:600;}
+  .mono--a{color:var(--blue);}
+  .serif{font-family:var(--body);}
+
+  /* masthead */
+  .top{border-bottom:1px solid var(--line-2);}
+  .top__bar{display:flex;align-items:center;justify-content:space-between;padding:18px 0;}
+  .top__kick{font-family:var(--display);font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--ink-3);}
+  .hero{padding:clamp(50px,8vw,104px) 0 clamp(40px,6vw,72px);border-bottom:1px solid var(--line);}
+  .hero__k{font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--ink-3);margin-bottom:22px;}
+  .hero h1{font-family:var(--body);font-weight:600;font-size:clamp(42px,8vw,104px);line-height:.96;letter-spacing:-.02em;margin:0;}
+  .hero h1 em{font-style:italic;color:var(--yellow);}
+  .hero__lead{font-family:var(--body);font-size:clamp(17px,1.7vw,21px);color:var(--ink-2);max-width:56ch;margin:26px 0 0;line-height:1.5;}
+
+  /* section scaffold */
+  section.block{padding:clamp(54px,8vw,104px) 0;border-bottom:1px solid var(--line);}
+  .block__head{display:grid;grid-template-columns:200px 1fr;gap:clamp(20px,4vw,56px);margin-bottom:46px;}
+  .block__no{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3);}
+  .block__title{font-family:var(--body);font-size:clamp(26px,3.4vw,42px);font-weight:600;letter-spacing:-.01em;line-height:1.05;margin:0;}
+  .block__desc{font-family:var(--body);font-size:16px;color:var(--ink-2);margin:14px 0 0;max-width:54ch;line-height:1.5;}
+  .grid-body{display:grid;grid-template-columns:200px 1fr;gap:clamp(20px,4vw,56px);}
+  .grid-body__label{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);}
+
+  /* ---- colour ---- */
+  .swatches{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:16px;}
+  .sw{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--surface);}
+  .sw__chip{height:84px;}
+  .sw__meta{padding:11px 13px;}
+  .sw__name{font-size:12px;font-weight:600;}
+  .sw__hex{font-size:11px;letter-spacing:.08em;color:var(--ink-3);text-transform:uppercase;margin-top:3px;}
+  .swrow{margin-top:30px;}
+  .swrow h4{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3);margin:0 0 14px;font-weight:600;}
+
+  /* ---- type ---- */
+  .type-row{display:grid;grid-template-columns:200px 1fr;gap:clamp(20px,4vw,56px);padding:26px 0;border-top:1px solid var(--line);align-items:baseline;}
+  .type-row:first-of-type{border-top:none;}
+  .type-meta{font-size:11px;letter-spacing:.04em;color:var(--ink-3);text-transform:uppercase;line-height:1.7;}
+  .type-meta b{display:block;color:var(--ink-2);letter-spacing:.14em;}
+  .spec-display{font-family:var(--display);}
+  .spec-body{font-family:var(--body);}
+  .t-hero{font-family:var(--body);font-weight:600;font-size:clamp(40px,6vw,76px);line-height:.95;letter-spacing:-.02em;}
+  .t-h2{font-family:var(--body);font-weight:600;font-size:34px;letter-spacing:-.01em;}
+  .t-h3{font-family:var(--display);font-weight:600;font-size:24px;}
+  .t-body{font-family:var(--body);font-size:18px;color:var(--ink-2);line-height:1.55;max-width:60ch;}
+  .t-label{font-family:var(--display);font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2);}
+
+  /* ---- components ---- */
+  .comp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:18px;}
+  .comp{border:1px solid var(--line);border-radius:14px;background:var(--surface);padding:26px 22px;display:flex;flex-direction:column;gap:16px;min-height:150px;}
+  .comp__label{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);font-weight:600;}
+  .comp__demo{flex:1;display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;}
+  /* chip */
+  .d-chip{display:inline-flex;align-items:center;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;
+    padding:5px 11px;border:1px solid currentColor;border-radius:999px;}
+  .d-chip.blue{color:var(--blue);}.d-chip.yellow{color:var(--yellow);}.d-chip.ink{color:var(--ink-3);}
+  /* button */
+  .d-btn{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
+    padding:11px 18px;border-radius:999px;border:1px solid var(--line-2);background:transparent;color:var(--ink);cursor:pointer;}
+  .d-btn--solid{background:var(--yellow);color:#000;border-color:var(--yellow);}
+  /* toggle */
+  .d-tog{width:60px;height:30px;border-radius:999px;border:1px solid var(--line-2);position:relative;}
+  .d-tog::after{content:"";position:absolute;top:50%;left:4px;transform:translateY(-50%);width:22px;height:22px;border-radius:50%;
+    border:1.5px solid var(--yellow);background:var(--bg);}
+  /* status */
+  .d-status{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2);}
+  .d-status b{color:var(--available);font-weight:700;}
+  /* seal */
+  .d-seal{width:66px;height:66px;}
+  .d-seal svg{width:100%;height:100%;overflow:visible;}
+  .d-seal .ring{fill:none;stroke:var(--yellow);stroke-width:1.3;}
+  .d-seal .rt{fill:none;stroke:var(--yellow);stroke-width:.6;opacity:.7;}
+  .d-seal .ini{fill:var(--yellow);font-family:var(--body);font-weight:700;font-size:22px;text-anchor:middle;dominant-baseline:central;}
+  .d-seal .cv{fill:var(--yellow);font-family:var(--display);font-size:5.6px;letter-spacing:1.5px;text-transform:uppercase;font-weight:600;}
+
+  /* ---- spacing / radius ---- */
+  .scale-row{display:flex;align-items:center;gap:18px;padding:11px 0;border-top:1px solid var(--line);}
+  .scale-row:first-child{border-top:none;}
+  .scale-bar{height:18px;background:var(--yellow);border-radius:3px;}
+  .scale-name{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);width:88px;flex:none;}
+  .scale-val{font-size:11px;color:var(--ink-2);margin-left:auto;}
+  .radii{display:flex;gap:18px;flex-wrap:wrap;margin-top:8px;}
+  .radius{width:96px;text-align:center;}
+  .radius__box{height:72px;background:var(--surface-2);border:1px solid var(--line-2);}
+  .radius__l{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin-top:9px;}
+
+  /* ---- motion ---- */
+  .motion-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:18px;}
+  .motion{border:1px solid var(--line);border-radius:14px;background:var(--surface);padding:22px;}
+  .motion h4{font-family:var(--body);font-size:19px;font-weight:600;margin:0 0 8px;}
+  .motion p{font-size:14px;color:var(--ink-2);margin:0;line-height:1.5;font-family:var(--body);}
+
+  footer{padding:54px 0 90px;}
+  .foot{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-4);}
+  /* nav */
+  a.top__kick{text-decoration:none;transition:color .2s var(--ease);}
+  a.top__kick:hover{color:var(--ink);}
+  .pager{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:8px;}
+  .pager__item{display:flex;flex-direction:column;gap:7px;text-decoration:none;border:1px solid var(--line);border-radius:14px;
+    padding:24px 26px;background:var(--surface);transition:border-color .25s var(--ease),background .25s var(--ease);}
+  .pager__item:hover{border-color:var(--line-2);background:var(--surface-2);}
+  .pager__item--next{text-align:right;align-items:flex-end;}
+  .pager__k{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3);}
+  .pager__t{font-family:var(--body);font-size:clamp(19px,2.4vw,26px);font-weight:600;color:var(--ink);letter-spacing:-.01em;}
+  .pager__item--next:hover .pager__t{color:var(--yellow);}
+  @media(max-width:560px){.pager{grid-template-columns:1fr;}.pager__item--next{text-align:left;align-items:flex-start;}}
+</style>
+</head>
+<body>
+  <div class="top">
+    <div class="wrap top__bar">
+      <a class="top__kick" href="index.html">← Siddhant Nagraj</a>
+      <span class="top__kick">Colophon · MMXXVI</span>
+    </div>
+  </div>
+
+  <header class="hero">
+    <div class="wrap">
+      <div class="hero__k">( How this was made · 01 — The system )</div>
+      <h1>The <em>design system</em><br>behind the site</h1>
+      <p class="hero__lead">An editorial portfolio with one job: to prove that I design it and build it in code. This is the system that holds it together. The tokens, type, components, and motion, documented from the real source, not reconstructed.</p>
+    </div>
+  </header>
+
+  <!-- COLOUR -->
+  <section class="block">
+    <div class="wrap">
+      <div class="block__head">
+        <span class="block__no">01 / Foundations</span>
+        <div>
+          <h2 class="block__title">Colour</h2>
+          <p class="block__desc">A near-black paper, warm white ink, and a single decisive amber. Restraint by design: two accents total, so the work — not the chrome — carries the colour.</p>
+        </div>
+      </div>
+      <div class="grid-body">
+        <span class="grid-body__label">Surfaces & ink</span>
+        <div>
+          <div class="swatches">
+            <div class="sw"><div class="sw__chip" style="background:#0b0b0c"></div><div class="sw__meta"><div class="sw__name">Paper</div><div class="sw__hex">#0B0B0C</div></div></div>
+            <div class="sw"><div class="sw__chip" style="background:#161618"></div><div class="sw__meta"><div class="sw__name">Surface</div><div class="sw__hex">#161618</div></div></div>
+            <div class="sw"><div class="sw__chip" style="background:#1d1d20"></div><div class="sw__meta"><div class="sw__name">Surface 2</div><div class="sw__hex">#1D1D20</div></div></div>
+            <div class="sw"><div class="sw__chip" style="background:#f2f1ec"></div><div class="sw__meta"><div class="sw__name">Ink</div><div class="sw__hex">#F2F1EC</div></div></div>
+            <div class="sw"><div class="sw__chip" style="background:#b9b8b2"></div><div class="sw__meta"><div class="sw__name">Ink 2</div><div class="sw__hex">#B9B8B2</div></div></div>
+            <div class="sw"><div class="sw__chip" style="background:#75746f"></div><div class="sw__meta"><div class="sw__name">Ink 3</div><div class="sw__hex">#75746F</div></div></div>
+          </div>
+          <div class="swrow">
+            <h4>Accents</h4>
+            <div class="swatches">
+              <div class="sw"><div class="sw__chip" style="background:#f7c14a"></div><div class="sw__meta"><div class="sw__name">Amber (primary)</div><div class="sw__hex">#F7C14A</div></div></div>
+              <div class="sw"><div class="sw__chip" style="background:#2b6fff"></div><div class="sw__meta"><div class="sw__name">Blue (alt)</div><div class="sw__hex">#2B6FFF</div></div></div>
+              <div class="sw"><div class="sw__chip" style="background:#1f8a5b"></div><div class="sw__meta"><div class="sw__name">Available</div><div class="sw__hex">#1F8A5B</div></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TYPE -->
+  <section class="block">
+    <div class="wrap">
+      <div class="block__head">
+        <span class="block__no">02 / Foundations</span>
+        <div>
+          <h2 class="block__title">Typography</h2>
+          <p class="block__desc">Two voices. A warm serif (Gambetta) for the things you read and the name; a clean grotesk (General Sans) for everything structural — headings, labels, UI. The contrast is the personality.</p>
+        </div>
+      </div>
+
+      <div class="type-row">
+        <div class="type-meta"><b>Display</b>Gambetta · 600<br>clamp 42–104px</div>
+        <div class="t-hero spec-body">Siddhant Nagraj</div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta"><b>Heading 2</b>Gambetta · 600<br>34px / -.01em</div>
+        <div class="t-h2 spec-body">Selected work, a closer look</div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta"><b>Heading 3</b>General Sans · 600<br>24px</div>
+        <div class="t-h3 spec-display">Roots Design System</div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta"><b>Body</b>Gambetta · 400<br>18px / 1.55</div>
+        <div class="t-body spec-body">Long-form reading text is set in the serif so case studies feel like something you read, not something you scan. Measure is capped near sixty characters.</div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta"><b>Label</b>General Sans · 600<br>12px / .14em / caps</div>
+        <div class="t-label spec-display">( Guestbook ) · Open to work / 2026</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPONENTS -->
+  <section class="block">
+    <div class="wrap">
+      <div class="block__head">
+        <span class="block__no">03 / Library</span>
+        <div>
+          <h2 class="block__title">Components</h2>
+          <p class="block__desc">A small, opinionated kit. Everything is a pill, a hairline, or a stamp — the newspaper-and-ticket vocabulary repeated until it feels inevitable.</p>
+        </div>
+      </div>
+      <div class="comp-grid">
+        <div class="comp"><span class="comp__label">Tag · chip</span><div class="comp__demo">
+          <span class="d-chip blue">Design System</span><span class="d-chip yellow">Mobile</span><span class="d-chip ink">2026</span>
+        </div></div>
+        <div class="comp"><span class="comp__label">Buttons</span><div class="comp__demo">
+          <span class="d-btn d-btn--solid">Book a call</span><span class="d-btn">View case →</span>
+        </div></div>
+        <div class="comp"><span class="comp__label">Theme toggle</span><div class="comp__demo">
+          <span class="d-tog"></span>
+        </div></div>
+        <div class="comp"><span class="comp__label">Status</span><div class="comp__demo">
+          <span class="d-status">Open to work <b>/ 2026</b></span>
+        </div></div>
+        <div class="comp"><span class="comp__label">Monogram seal</span><div class="comp__demo">
+          <span class="d-seal"><svg viewBox="0 0 74 74"><defs><path id="st" d="M11,37 A26,26 0 0 1 63,37"/><path id="sb" d="M63,37 A26,26 0 0 1 11,37"/></defs>
+            <circle class="ring" cx="37" cy="37" r="33"/><circle class="rt" cx="37" cy="37" r="28"/>
+            <text class="ini" x="37" y="38">SN</text>
+            <text class="cv"><textPath href="#st" startOffset="50%" text-anchor="middle">BOSTON</textPath></text>
+            <text class="cv"><textPath href="#sb" startOffset="50%" text-anchor="middle">· MMXXVI ·</textPath></text></svg></span>
+        </div></div>
+        <div class="comp"><span class="comp__label">Outcome line</span><div class="comp__demo">
+          <span style="font-size:13px;color:var(--ink-2);font-family:var(--display)">25% less dev rework <span style="color:var(--yellow);font-weight:700">· 150+ components</span></span>
+        </div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SPACING / RADIUS -->
+  <section class="block">
+    <div class="wrap">
+      <div class="block__head">
+        <span class="block__no">04 / Foundations</span>
+        <div>
+          <h2 class="block__title">Space & radius</h2>
+          <p class="block__desc">A fluid scale built on clamp() so the layout breathes the same from phone to display. Corners are soft but not bubbly — generous on cards, pill-round on controls.</p>
+        </div>
+      </div>
+      <div class="grid-body">
+        <span class="grid-body__label">Spacing scale</span>
+        <div>
+          <div class="scale-row"><span class="scale-name">Tight</span><div class="scale-bar" style="width:8px"></div><span class="scale-val">8px</span></div>
+          <div class="scale-row"><span class="scale-name">Snug</span><div class="scale-bar" style="width:16px"></div><span class="scale-val">16px</span></div>
+          <div class="scale-row"><span class="scale-name">Base</span><div class="scale-bar" style="width:24px"></div><span class="scale-val">24px</span></div>
+          <div class="scale-row"><span class="scale-name">Loose</span><div class="scale-bar" style="width:46px"></div><span class="scale-val">clamp 22–46px</span></div>
+          <div class="scale-row"><span class="scale-name">Section</span><div class="scale-bar" style="width:104px"></div><span class="scale-val">clamp 54–104px</span></div>
+          <div class="radii">
+            <div class="radius"><div class="radius__box" style="border-radius:6px"></div><div class="radius__l">6 · inputs</div></div>
+            <div class="radius"><div class="radius__box" style="border-radius:14px"></div><div class="radius__l">14 · cards</div></div>
+            <div class="radius"><div class="radius__box" style="border-radius:999px"></div><div class="radius__l">Pill · controls</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MOTION -->
+  <section class="block">
+    <div class="wrap">
+      <div class="block__head">
+        <span class="block__no">05 / Principles</span>
+        <div>
+          <h2 class="block__title">Motion</h2>
+          <p class="block__desc">Motion is quiet and earns its place. One easing curve everywhere, entrance over decoration, and never at the cost of legibility or reduced-motion users.</p>
+        </div>
+      </div>
+      <div class="motion-grid">
+        <div class="motion"><h4>One curve</h4><p>cubic-bezier(.22, 1, .36, 1) on nearly everything, so the whole site feels like one hand.</p></div>
+        <div class="motion"><h4>Reveal, don't perform</h4><p>Content settles in on scroll; nothing loops or demands attention while you read.</p></div>
+        <div class="motion"><h4>Base state is visible</h4><p>Animations start from the end state, so a stalled clock or print never strands content invisible.</p></div>
+        <div class="motion"><h4>Respect the user</h4><p>prefers-reduced-motion collapses every animation to a clean, instant state.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <nav class="pager">
+        <a class="pager__item" href="index.html"><span class="pager__k">Return</span><span class="pager__t">Back to the site</span></a>
+        <a class="pager__item pager__item--next" href="colophon-buildlog.html"><span class="pager__k">Next · Part 02</span><span class="pager__t">The build log →</span></a>
+      </nav>
+      <p class="foot" style="margin-top:40px">Colophon · Part 01 of 02 · The system</p>
+    </div>
+  </footer>
+</body>
+</html>

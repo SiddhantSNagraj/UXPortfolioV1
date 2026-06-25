@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Colophon · The Build Log — mockup</title>
+<link rel="preconnect" href="https://api.fontshare.com" />
+<link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&f[]=gambetta@400,500,600&display=swap" />
+<style>
+  :root{
+    --bg:#0b0b0c;--bg-2:#111113;--surface:#161618;--surface-2:#1d1d20;
+    --line:rgba(255,255,255,.10);--line-2:rgba(255,255,255,.18);
+    --ink:#f2f1ec;--ink-2:#b9b8b2;--ink-3:#75746f;--ink-4:#4a4a47;
+    --blue:#2b6fff;--yellow:#f7c14a;--available:#1f8a5b;
+    --display:'General Sans',system-ui,sans-serif;
+    --body:'Gambetta',Georgia,serif;
+    --ease:cubic-bezier(.22,1,.36,1);
+    --pad:clamp(22px,5vw,90px);
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--display);font-weight:500;
+    -webkit-font-smoothing:antialiased;line-height:1.5;}
+  .wrap{max-width:760px;margin:0 auto;padding:0 var(--pad);}
+  .wide{max-width:1180px;margin:0 auto;padding:0 var(--pad);}
+
+  /* masthead */
+  .top{border-bottom:1px solid var(--line-2);}
+  .top__bar{display:flex;align-items:center;justify-content:space-between;padding:18px 0;}
+  .top__kick{font-family:var(--display);font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--ink-3);}
+
+  /* hero */
+  .hero{padding:clamp(54px,9vw,120px) 0 clamp(40px,6vw,64px);}
+  .hero__k{font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--ink-3);margin-bottom:26px;}
+  .hero h1{font-family:var(--body);font-weight:600;font-size:clamp(42px,8vw,98px);line-height:.96;letter-spacing:-.02em;margin:0;}
+  .hero h1 em{font-style:italic;color:var(--yellow);}
+  .hero__lead{font-family:var(--body);font-size:clamp(18px,1.8vw,23px);color:var(--ink-2);margin:30px 0 0;line-height:1.5;font-style:italic;}
+  .hero__byline{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-4);margin-top:34px;}
+
+  /* story prose */
+  .story{padding:clamp(30px,5vw,56px) 0 clamp(50px,8vw,90px);}
+  .chapter{margin:0 0 clamp(56px,8vw,92px);}
+  .chapter__no{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--yellow);margin-bottom:18px;}
+  .chapter__h{font-family:var(--body);font-weight:600;font-size:clamp(28px,3.6vw,40px);letter-spacing:-.01em;line-height:1.06;margin:0 0 24px;}
+  .story p{font-family:var(--body);font-size:clamp(17px,1.5vw,19px);line-height:1.62;color:var(--ink-2);margin:0 0 22px;}
+  .story p strong{color:var(--ink);font-weight:600;}
+  .story p em{font-style:italic;color:var(--ink);}
+
+  /* pull quote */
+  .pull{font-family:var(--body);font-style:italic;font-size:clamp(24px,3vw,34px);line-height:1.28;color:var(--ink);
+    margin:clamp(34px,5vw,52px) 0;padding-left:26px;border-left:2px solid var(--yellow);}
+
+  /* aside / bug card */
+  .aside{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:24px 26px;margin:clamp(30px,4vw,40px) 0;}
+  .aside__k{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3);font-weight:600;margin-bottom:12px;display:flex;align-items:center;gap:9px;}
+  .aside__k::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--yellow);flex:none;}
+  .aside__t{font-family:var(--body);font-size:19px;font-weight:600;color:var(--ink);margin:0 0 8px;}
+  .aside p{font-size:15.5px;line-height:1.55;color:var(--ink-2);margin:0;font-family:var(--body);}
+  .aside code{font-family:ui-monospace,monospace;font-size:12.5px;background:var(--surface-2);padding:2px 6px;border-radius:5px;color:var(--yellow);}
+
+  /* timeline */
+  .tl{padding:clamp(50px,8vw,90px) 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+  .tl__lab{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-3);margin-bottom:34px;}
+  .tl__row{display:grid;grid-template-columns:120px 1fr;gap:clamp(16px,3vw,40px);padding:20px 0;border-top:1px solid var(--line);}
+  .tl__row:first-of-type{border-top:none;}
+  .tl__phase{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--yellow);font-weight:600;padding-top:3px;}
+  .tl__what h4{font-family:var(--body);font-size:20px;font-weight:600;margin:0 0 6px;color:var(--ink);}
+  .tl__what p{font-family:var(--body);font-size:15.5px;color:var(--ink-2);margin:0;line-height:1.5;}
+
+  /* closing */
+  .close{padding:clamp(56px,9vw,110px) 0;}
+  .close__k{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-3);margin-bottom:22px;}
+  .close h2{font-family:var(--body);font-weight:600;font-size:clamp(30px,4.4vw,52px);letter-spacing:-.01em;line-height:1.08;margin:0 0 26px;}
+  .close h2 em{font-style:italic;color:var(--yellow);}
+  .close p{font-family:var(--body);font-size:18px;line-height:1.6;color:var(--ink-2);margin:0 0 20px;}
+
+  footer{padding:46px 0 90px;border-top:1px solid var(--line);}
+  .foot{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-4);}
+  /* nav */
+  a.top__kick{text-decoration:none;transition:color .2s var(--ease);}
+  a.top__kick:hover{color:var(--ink);}
+  .pager{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  .pager__item{display:flex;flex-direction:column;gap:7px;text-decoration:none;border:1px solid var(--line);border-radius:14px;
+    padding:24px 26px;background:var(--surface);transition:border-color .25s var(--ease),background .25s var(--ease);}
+  .pager__item:hover{border-color:var(--line-2);background:var(--surface-2);}
+  .pager__item--next{text-align:right;align-items:flex-end;}
+  .pager__k{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3);}
+  .pager__t{font-family:var(--body);font-size:clamp(19px,2.4vw,26px);font-weight:600;color:var(--ink);letter-spacing:-.01em;}
+  .pager__item--next:hover .pager__t{color:var(--yellow);}
+  @media(max-width:560px){.pager{grid-template-columns:1fr;}.pager__item--next{text-align:left;align-items:flex-start;}}
+
+  /* ===== figures (CSS-drawn, part of the story) ===== */
+  .fig{margin:clamp(34px,5vw,52px) 0;}
+  .fig__cap{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-4);margin-top:14px;display:flex;gap:9px;align-items:baseline;}
+  .fig__cap b{color:var(--ink-3);font-weight:600;flex:none;}
+
+  /* before/after redesign */
+  .ba{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  .ba__frame{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--bg-2);aspect-ratio:4/3;position:relative;}
+  .ba__tag{position:absolute;top:10px;left:10px;z-index:2;font-size:9px;letter-spacing:.14em;text-transform:uppercase;
+    background:var(--surface-2);border:1px solid var(--line);border-radius:999px;padding:4px 9px;color:var(--ink-3);}
+  .ba__tag.amber{color:var(--yellow);border-color:color-mix(in srgb,var(--yellow) 40%,transparent);}
+  /* draft: generic grid */
+  .draft{padding:34px 18px 18px;}
+  .draft__h{height:11px;width:46%;background:var(--ink-4);border-radius:3px;margin-bottom:14px;}
+  .draft__grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+  .draft__card{height:46px;background:var(--surface);border-radius:6px;}
+  /* editorial */
+  .edi{padding:30px 18px 0;}
+  .edi__mast{display:flex;justify-content:space-between;border-bottom:1px solid var(--line-2);padding-bottom:7px;margin-bottom:14px;}
+  .edi__mast span{height:5px;width:34px;background:var(--ink-3);border-radius:2px;}
+  .edi__name{font-family:var(--body);font-weight:600;font-size:30px;line-height:.9;color:var(--ink);letter-spacing:-.02em;}
+  .edi__name em{font-style:italic;color:var(--yellow);}
+  .edi__rows{margin-top:14px;display:flex;flex-direction:column;gap:7px;}
+  .edi__row{display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--line);padding-top:7px;}
+  .edi__row span:first-child{font-family:var(--body);font-size:11px;color:var(--ink-2);}
+  .edi__row span:last-child{font-size:7px;letter-spacing:.1em;color:var(--ink-4);}
+
+  /* type contrast */
+  .typ{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  .typ__cell{border:1px solid var(--line);border-radius:12px;padding:26px 22px;background:var(--surface);}
+  .typ__k{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-bottom:16px;}
+  .typ__big{font-size:46px;line-height:.95;color:var(--ink);}
+  .typ__serif{font-family:var(--body);font-weight:600;letter-spacing:-.01em;}
+  .typ__sans{font-family:var(--display);font-weight:600;letter-spacing:-.01em;}
+  .typ__role{font-size:11px;color:var(--ink-3);margin-top:14px;font-family:var(--display);letter-spacing:.04em;}
+
+  /* bug diagram: stranding */
+  .bug{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:8px;}
+  .bug__panel{border:1px solid var(--line);border-radius:12px;padding:20px;background:var(--surface);}
+  .bug__panel.bad{border-color:color-mix(in srgb,#e0503a 38%,transparent);}
+  .bug__panel.good{border-color:color-mix(in srgb,var(--available) 42%,transparent);}
+  .bug__h{font-size:10px;letter-spacing:.13em;text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:8px;}
+  .bug__h.bad{color:#e0503a;}.bug__h.good{color:var(--available);}
+  .bug__line{font-family:ui-monospace,monospace;font-size:11.5px;color:var(--ink-3);line-height:2;}
+  .bug__line b{color:var(--ink);font-weight:400;}
+  .bug__stage{margin-top:14px;height:58px;border-radius:8px;background:var(--bg-2);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;}
+  .bug__ghost{font-family:var(--body);font-size:16px;}
+  .bug__ghost.invisible{opacity:0;}
+  .bug__ghost.visible{opacity:1;color:var(--ink);}
+  .bug__note{position:absolute;bottom:6px;right:9px;font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-4);}
+
+  /* mobile overflow diagram */
+  .mob{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:center;justify-items:center;}
+  .phone{width:150px;height:200px;border:2px solid var(--line-2);border-radius:22px;padding:12px;position:relative;background:var(--bg-2);overflow:hidden;}
+  .phone__wall{height:118px;border:1px solid var(--line);border-radius:10px;position:relative;overflow:hidden;}
+  .seal-dot{position:absolute;width:30px;height:30px;border-radius:50%;border:1.4px solid var(--yellow);}
+  .pill{position:absolute;border-radius:999px;background:var(--surface-2);border:1px solid var(--line-2);height:22px;}
+  .pill.bad{bottom:64px;left:6px;right:6px;box-shadow:0 0 0 2px color-mix(in srgb,#e0503a 30%,transparent);}
+  .pill.good{position:static;margin-top:9px;height:26px;border-radius:9px;box-shadow:none;}
+  .mob__cap{font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;margin-top:11px;text-align:center;}
+  .mob__cap.bad{color:#e0503a;}.mob__cap.good{color:var(--available);}
+
+  /* cutting room floor */
+  .floor{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;margin-top:8px;}
+  .cut{border:1px dashed var(--line-2);border-radius:11px;padding:18px 16px;background:transparent;position:relative;opacity:.62;}
+  .cut__t{font-family:var(--body);font-size:16px;font-weight:600;color:var(--ink-2);}
+  .cut__s{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-4);margin-top:6px;}
+  .cut--kept{border:1px solid var(--yellow);opacity:1;background:color-mix(in srgb,var(--yellow) 7%,transparent);}
+  .cut--kept .cut__t{color:var(--ink);}
+  .cut--kept .cut__s{color:var(--yellow);}
+
+  @media(max-width:640px){
+    .ba,.typ,.bug,.mob{grid-template-columns:1fr;}
+    .typ__big{font-size:38px;}
+  }
+</style>
+</head>
+<body>
+  <div class="top">
+    <div class="wide top__bar">
+      <a class="top__kick" href="index.html">← Siddhant Nagraj</a>
+      <span class="top__kick">Colophon · MMXXVI</span>
+    </div>
+  </div>
+
+  <header class="hero">
+    <div class="wrap">
+      <div class="hero__k">( How this was made · 02 — The build log )</div>
+      <h1>I gave myself<br>the <em>brief</em></h1>
+      <p class="hero__lead">Most portfolios talk about other people's products. I wanted mine to be the product, and to build it the way I would build anything I designed.</p>
+      <div class="hero__byline">A story in five chapters · roughly a month of evenings</div>
+    </div>
+  </header>
+
+  <article class="story">
+    <div class="wrap">
+
+      <div class="chapter">
+        <div class="chapter__no">Chapter 01 — The premise</div>
+        <h2 class="chapter__h">A claim I had to back up</h2>
+        <p>Every designer says they care about craft. I wanted to stop saying it and show it. So I set a rule for myself before I drew a single frame: <strong>this site has to be evidence, not a slideshow.</strong> If I claim I design and build, the site itself should be the proof.</p>
+        <p>That one decision shaped everything. It meant no template, no page builder, no borrowed components. It meant writing the HTML, the CSS, and the JavaScript by hand, the same way I would hand work to an engineer, except this time I was the engineer too.</p>
+        <p class="pull">If the work is about craft, the thing presenting it cannot be careless.</p>
+      </div>
+
+      <div class="chapter">
+        <div class="chapter__no">Chapter 02 — Finding the voice</div>
+        <h2 class="chapter__h">Newspaper, not dashboard</h2>
+        <p>The first drafts looked like every other portfolio: a clean grid, a big sans-serif, a lot of white space. It was fine. Fine was the problem. So I tore it down and went somewhere with a point of view: <strong>an editorial system</strong>, set like a newspaper, with a masthead, a serif that felt printed, and Roman numerals on everything.</p>
+
+        <div class="fig">
+          <div class="ba">
+            <div class="ba__frame"><span class="ba__tag">Draft 01</span>
+              <div class="draft"><div class="draft__h"></div><div class="draft__grid"><div class="draft__card"></div><div class="draft__card"></div><div class="draft__card"></div><div class="draft__card"></div></div></div>
+            </div>
+            <div class="ba__frame"><span class="ba__tag amber">Shipped</span>
+              <div class="edi"><div class="edi__mast"><span></span><span></span></div>
+                <div class="edi__name">Siddhant<br><em>Nagraj</em></div>
+                <div class="edi__rows"><div class="edi__row"><span>Greenstand</span><span>2025</span></div><div class="edi__row"><span>APMC</span><span>2023</span></div><div class="edi__row"><span>CoffeeHouse</span><span>2023</span></div></div>
+              </div>
+            </div>
+          </div>
+          <div class="fig__cap"><b>Fig. 01</b> The draft that was fine, next to the direction with a point of view.</div>
+        </div>
+
+        <p>The type carries it. A warm serif, <em>Gambetta</em>, for my name and anything you actually read, and a clean grotesk, <em>General Sans</em>, for the structure. The contrast between them is the whole personality of the site. I spent an embarrassing number of evenings just on the name lockup before it felt right.</p>
+
+        <div class="fig">
+          <div class="typ">
+            <div class="typ__cell"><div class="typ__k">Serif · for reading</div><div class="typ__big typ__serif">Siddhant</div><div class="typ__role">Gambetta · the name, the prose</div></div>
+            <div class="typ__cell"><div class="typ__k">Grotesk · for structure</div><div class="typ__big typ__sans">Siddhant</div><div class="typ__role">General Sans · headings, labels, UI</div></div>
+          </div>
+          <div class="fig__cap"><b>Fig. 02</b> Same word, two voices. The tension between them is the brand.</div>
+        </div>
+      </div>
+
+      <div class="chapter">
+        <div class="chapter__no">Chapter 03 — Building in the open</div>
+        <h2 class="chapter__h">Designing by shipping</h2>
+        <p>Here is the part most case studies leave out: I did not design this and then build it. I designed it <em>by</em> building it. Ideas only became real once they were on the screen and I could feel them. A lot of them did not survive contact.</p>
+        <p>I gave the site a panel of live controls, so instead of guessing between two directions I could ship both and toggle. Row hovers, nav layouts, cursors, fonts, the status indicator. Every one of those started as an argument with myself that I settled in pixels instead of in my head.</p>
+
+        <div class="fig">
+          <div class="floor" style="grid-template-columns:repeat(auto-fill,minmax(120px,1fr))">
+            <div class="cut cut--kept"><div class="cut__t" style="font-size:14px">Row hover</div><div class="cut__s">20 options</div></div>
+            <div class="cut cut--kept"><div class="cut__t" style="font-size:14px">Nav layout</div><div class="cut__s">11 options</div></div>
+            <div class="cut cut--kept"><div class="cut__t" style="font-size:14px">Cursor</div><div class="cut__s">6 options</div></div>
+            <div class="cut cut--kept"><div class="cut__t" style="font-size:14px">Name font</div><div class="cut__s">6 options</div></div>
+            <div class="cut cut--kept"><div class="cut__t" style="font-size:14px">Status</div><div class="cut__s">7 options</div></div>
+          </div>
+          <div class="fig__cap"><b>Fig. 03</b> Every argument with myself, shipped as a toggle and settled by eye.</div>
+        </div>
+
+        <div class="aside">
+          <div class="aside__k">A decision I am glad I made</div>
+          <p class="aside__t">Two accents, and only two</p>
+          <p>It would have been easy to let the site get colourful. I held it to one amber and one blue, with a single fixed green for the "open to work" status. Restraint reads as confidence. The work brings the colour; the chrome stays quiet.</p>
+        </div>
+      </div>
+
+      <div class="chapter">
+        <div class="chapter__no">Chapter 04 — What broke</div>
+        <h2 class="chapter__h">The bugs that taught me something</h2>
+        <p>Building it myself meant I owned every problem, including the ones I caused. A few were worth the scars.</p>
+        <div class="aside">
+          <div class="aside__k">The disappearing content</div>
+          <p class="aside__t">Animations that strand</p>
+          <p>Entrance animations started from <code>opacity: 0</code> and faded in. Elegant, until a backgrounded tab froze the animation clock and left whole sections invisible. The fix became a principle: the base state is the visible state, and you animate <em>from</em> hidden, never <em>to</em> visible. Now a stalled clock, a print, or a reduced-motion setting always shows content.</p>
+        </div>
+
+        <div class="fig">
+          <div class="bug">
+            <div class="bug__panel bad"><div class="bug__h bad">Before · animate to visible</div>
+              <div class="bug__line">base: <b>opacity: 0</b><br>then: fade to 1</div>
+              <div class="bug__stage"><span class="bug__ghost invisible">Hello?</span><span class="bug__note">clock stalls = blank</span></div>
+            </div>
+            <div class="bug__panel good"><div class="bug__h good">After · animate from hidden</div>
+              <div class="bug__line">base: <b>opacity: 1</b><br>then: animate in if able</div>
+              <div class="bug__stage"><span class="bug__ghost visible">Hello?</span><span class="bug__note">always shows</span></div>
+            </div>
+          </div>
+          <div class="fig__cap"><b>Fig. 04</b> Flip the resting state and the content can never strand invisible.</div>
+        </div>
+
+        <div class="aside">
+          <div class="aside__k">The cramped guestbook</div>
+          <p class="aside__t">A form that fit the desk but not the phone</p>
+          <p>The guestbook lets visitors press a personal seal onto a wall. The input pill floated neatly over the wall on a laptop and collapsed into an overlapping mess on a phone. The lesson was an old one, relearned by hand: a thing positioned absolutely inside a fixed box has nowhere to go when the box gets small. It had to drop out and stack.</p>
+        </div>
+
+        <div class="fig">
+          <div class="mob">
+            <div><div class="phone"><div class="phone__wall"><span class="seal-dot" style="top:10px;left:14px"></span><span class="seal-dot" style="top:40px;right:18px"></span><span class="seal-dot" style="bottom:14px;left:40px"></span><span class="pill bad"></span></div></div><div class="mob__cap bad">Pill floats inside · overlaps</div></div>
+            <div><div class="phone"><div class="phone__wall" style="height:96px"><span class="seal-dot" style="top:10px;left:14px"></span><span class="seal-dot" style="top:40px;right:18px"></span><span class="seal-dot" style="bottom:14px;left:40px"></span></div><span class="pill good"></span></div><div class="mob__cap good">Drops out · stacks below</div></div>
+          </div>
+          <div class="fig__cap"><b>Fig. 05</b> The same form, pulled out of the wall so it has somewhere to go on a phone.</div>
+        </div>
+
+        <p>None of these were glamorous. All of them are the difference between a site that looks built and one that <em>is</em> built.</p>
+      </div>
+
+      <div class="chapter">
+        <div class="chapter__no">Chapter 05 — Restraint</div>
+        <h2 class="chapter__h">Knowing when to stop</h2>
+        <p>The hardest part was not adding things. Once you can build anything, every idea looks shippable. I prototyped a card layout, a film-strip of screens, a wax seal, draggable sticky notes. Most of them were good. Most of them did not make it.</p>
+        <p>The guestbook stayed because it was personal and quiet. The rest got tabled, because a portfolio that shouts is just noise. <strong>One thousand no's for every yes.</strong> The discipline of cutting your own good ideas is, it turns out, most of the job.</p>
+
+        <div class="fig">
+          <div class="floor">
+            <div class="cut"><div class="cut__t">Card layout</div><div class="cut__s">Tabled</div></div>
+            <div class="cut"><div class="cut__t">Film-strip reel</div><div class="cut__s">Tabled</div></div>
+            <div class="cut"><div class="cut__t">Wax seal press</div><div class="cut__s">Tabled</div></div>
+            <div class="cut"><div class="cut__t">Sticky notes</div><div class="cut__s">Tabled</div></div>
+            <div class="cut cut--kept"><div class="cut__t">Guestbook</div><div class="cut__s">Shipped</div></div>
+          </div>
+          <div class="fig__cap"><b>Fig. 06</b> The cutting-room floor. Four good ideas tabled so one quiet one could land.</div>
+        </div>
+      </div>
+
+    </div>
+  </article>
+
+  <section class="tl">
+    <div class="wrap">
+      <div class="tl__lab">How it actually went</div>
+      <div class="tl__row"><div class="tl__phase">Week 01</div><div class="tl__what"><h4>Strip it back</h4><p>Threw out the clean-grid draft. Committed to the editorial direction, the masthead, and the two-typeface system.</p></div></div>
+      <div class="tl__row"><div class="tl__phase">Week 02</div><div class="tl__what"><h4>The work index</h4><p>Built the case studies and the home index. Argued with myself about rows versus cards, and gave both to a tweak panel.</p></div></div>
+      <div class="tl__row"><div class="tl__phase">Week 03</div><div class="tl__what"><h4>Personality</h4><p>The cursor, the retro mode, the recruiter view, the multilingual intro. The parts that make it feel like a place, not a page.</p></div></div>
+      <div class="tl__row"><div class="tl__phase">Week 04</div><div class="tl__what"><h4>Polish and cut</h4><p>The guestbook, motion fixes, mobile passes, and the long list of good ideas I decided not to ship.</p></div></div>
+    </div>
+  </section>
+
+  <section class="close">
+    <div class="wrap">
+      <div class="close__k">( What I would do differently )</div>
+      <h2>It is never <em>finished</em>,<br>only shipped</h2>
+      <p>If I started again, I would write the design system first instead of discovering it halfway through, and I would reach for real components sooner instead of hand-rolling each one. I would also resist building a feature just because I could.</p>
+      <p>But I am glad it grew the way it did, by hand, in the open, one stubborn decision at a time. The site you are reading this on is not a description of how I work. It is the work.</p>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <nav class="pager">
+        <a class="pager__item" href="colophon-system.html"><span class="pager__k">Part 01</span><span class="pager__t">← The design system</span></a>
+        <a class="pager__item pager__item--next" href="index.html"><span class="pager__k">Return</span><span class="pager__t">Back to the site →</span></a>
+      </nav>
+      <p class="foot" style="margin-top:40px">Colophon · Part 02 of 02 · Designed and built by Siddhant Nagraj · MMXXVI</p>
+    </div>
+  </footer>
+</body>
+</html>

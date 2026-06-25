@@ -74,7 +74,7 @@ function TopNav({ onNav, active, solid, theme, onToggleTheme, resumeUrl }) {
 const GB_COLORS = ['#f7c14a', '#e0503a', '#f2f1ec', '#9fb8d8'];
 const GB_SEEDS = [
   { ini: 'AK', loc: 'Berlin', x: 9, y: 30, c: '#e0503a', r: -7 },
-  { ini: 'M.R', loc: 'Tokyo', x: 84, y: 26, c: '#9fb8d8', r: 6 },
+  { ini: 'M.R', loc: 'Tokyo', x: 82, y: 44, c: '#9fb8d8', r: 6 },
   { ini: 'JL', loc: 'NYC', x: 26, y: 70, c: '#f2f1ec', r: -3 },
   { ini: 'PD', loc: 'London', x: 67, y: 74, c: '#f7c14a', r: 9 },
   { ini: 'SV', loc: 'Bangalore', x: 47, y: 44, c: '#f7c14a', r: -5 },
@@ -223,7 +223,7 @@ function Contact({ profile }) {
           <div className="foot__links">
             <span className="pixel" style={{ fontSize: 22 }}>SIDDHANT NAGRAJ®</span>
             <span className="mono" style={{ marginTop: 8 }}>Product Designer, based in {profile.location}</span>
-            <span className="mono colophon">Built from scratch · General Sans + Gambetta · ⌘K to navigate</span>
+            <a className="mono colophon" href="colophon-system.html">Built from scratch · Read how this was made →</a>
           </div>
           <div className="foot__right">
             <div className="foot__meta">
