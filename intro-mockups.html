@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Loading screen · alternatives</title>
+<link rel="preconnect" href="https://api.fontshare.com" />
+<link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=general-sans@500,600,700&f[]=gambetta@400,500,600,700&display=swap" />
+<style>
+  :root{
+    --bg:#0b0b0c; --ink:#f2f1ec; --ink-2:#b9b8b2; --ink-3:#75746f; --ink-4:#4a4a47;
+    --amber:#f7c14a; --line:rgba(255,255,255,.12);
+    --display:'General Sans',system-ui,sans-serif; --body:'Gambetta',Georgia,serif;
+    --ease:cubic-bezier(.4,0,.2,1);
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:#000;color:var(--ink);font-family:var(--display);}
+  .lbl{position:absolute;top:16px;left:20px;z-index:5;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3);}
+  .lbl b{color:var(--amber);font-weight:600;}
+  .screen{position:relative;height:62vh;min-height:440px;border-bottom:1px solid var(--line);
+    display:flex;align-items:center;justify-content:center;overflow:hidden;background:var(--bg);}
+  .mono{font-family:var(--display);text-transform:uppercase;letter-spacing:.3em;font-size:11px;font-weight:500;color:var(--ink-3);}
+
+  /* 01 — wordmark + underline draw */
+  .s1 .wm{font-family:var(--body);font-weight:600;font-size:clamp(40px,8vw,92px);letter-spacing:-.02em;line-height:.95;text-align:center;}
+  .s1 .wm em{font-style:italic;color:var(--amber);}
+  .s1 .rule{height:2px;width:0;background:var(--amber);margin:22px auto 0;animation:draw 2.4s var(--ease) infinite;}
+  .s1 .tag{margin-top:18px;}
+  @keyframes draw{0%{width:0}55%{width:240px}100%{width:0}}
+
+  /* 02 — greeting only, big amber serif cycling */
+  .s2{flex-direction:column;gap:18px;}
+  .s2 .k{}
+  .s2 .greet{font-family:var(--body);font-style:italic;font-size:clamp(46px,9vw,110px);color:var(--amber);line-height:1;min-height:1.1em;
+    transition:opacity .34s var(--ease),transform .34s var(--ease);}
+  .s2 .nm{font-family:var(--display);font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:var(--ink-3);}
+
+  /* 03 — counter / index */
+  .s3{flex-direction:column;}
+  .s3 .num{font-family:var(--body);font-weight:600;font-size:clamp(80px,18vw,220px);line-height:.9;color:var(--ink);letter-spacing:-.02em;}
+  .s3 .num small{color:var(--amber);font-size:.32em;vertical-align:super;}
+  .s3 .row{position:absolute;bottom:30px;left:0;right:0;display:flex;justify-content:space-between;padding:0 30px;}
+
+  /* 04 — marquee band */
+  .s4{flex-direction:column;gap:0;}
+  .s4 .band{width:100%;overflow:hidden;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:14px 0;}
+  .s4 .track{display:inline-flex;white-space:nowrap;animation:slide 14s linear infinite;}
+  .s4 .track span{font-family:var(--body);font-size:clamp(30px,5vw,56px);font-style:italic;padding:0 28px;}
+  .s4 .track .a{color:var(--amber);}
+  .s4 .band--2 .track{animation-direction:reverse;animation-duration:18s;}
+  .s4 .band--2 .track span{font-style:normal;font-family:var(--display);font-weight:600;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-2);font-size:clamp(20px,3vw,34px);}
+  @keyframes slide{to{transform:translateX(-50%)}}
+
+  /* 05 — monogram seal press */
+  .s5{flex-direction:column;gap:24px;}
+  .s5 .seal{width:128px;height:128px;animation:press 3s var(--ease) infinite;}
+  .s5 .seal svg{width:100%;height:100%;overflow:visible;}
+  .s5 .seal .ring{fill:none;stroke:var(--amber);stroke-width:1.5;}
+  .s5 .seal .ini{fill:var(--amber);font-family:var(--body);font-weight:700;font-size:42px;text-anchor:middle;dominant-baseline:central;}
+  .s5 .seal .curve{fill:var(--amber);font-family:var(--display);font-size:9px;letter-spacing:2.5px;text-transform:uppercase;}
+  .s5 .nm{font-family:var(--body);font-size:clamp(22px,3vw,32px);}
+  @keyframes press{0%{transform:scale(.4) rotate(-12deg);opacity:0}18%{transform:scale(1.05) rotate(0);opacity:1}80%{transform:scale(1) rotate(0);opacity:1}100%{transform:scale(1) rotate(0);opacity:.85}}
+</style>
+</head>
+<body>
+
+  <div class="screen s1">
+    <span class="lbl"><b>01</b> &nbsp;Wordmark + underline draw</span>
+    <div>
+      <div class="wm">Siddhant <em>Nagraj</em></div>
+      <div class="rule"></div>
+      <div class="tag mono">Product Designer</div>
+    </div>
+  </div>
+
+  <div class="screen s2">
+    <span class="lbl"><b>02</b> &nbsp;Greeting only · big amber serif</span>
+    <span class="k mono">( How are you? )</span>
+    <div class="greet" id="g2">कसे आहात?</div>
+    <span class="nm">Siddhant Nagraj · Portfolio</span>
+  </div>
+
+  <div class="screen s3">
+    <span class="lbl"><b>03</b> &nbsp;Index counter</span>
+    <div class="num"><span id="ct">00</span><small>%</small></div>
+    <div class="row mono"><span>Siddhant Nagraj</span><span>MMXXVI</span></div>
+  </div>
+
+  <div class="screen s4">
+    <span class="lbl"><b>04</b> &nbsp;Marquee band</span>
+    <div class="band"><div class="track">
+      <span>Siddhant Nagraj&nbsp; <span class="a">✦</span></span><span>Product Designer&nbsp; <span class="a">✦</span></span>
+      <span>Siddhant Nagraj&nbsp; <span class="a">✦</span></span><span>Product Designer&nbsp; <span class="a">✦</span></span>
+    </div></div>
+    <div class="band band--2"><div class="track">
+      <span>Design &amp; Build&nbsp;·&nbsp;</span><span>Sweat the pixels&nbsp;·&nbsp;</span><span>Open to work&nbsp;·&nbsp;</span>
+      <span>Design &amp; Build&nbsp;·&nbsp;</span><span>Sweat the pixels&nbsp;·&nbsp;</span><span>Open to work&nbsp;·&nbsp;</span>
+    </div></div>
+  </div>
+
+  <div class="screen s5">
+    <span class="lbl"><b>05</b> &nbsp;Monogram seal press</span>
+    <div class="seal">
+      <svg viewBox="0 0 128 128">
+        <defs><path id="tp" d="M22,64 A42,42 0 0 1 106,64" /><path id="bp" d="M106,64 A42,42 0 0 1 22,64" /></defs>
+        <circle class="ring" cx="64" cy="64" r="54"/><circle class="ring" cx="64" cy="64" r="46" stroke-width="0.8"/>
+        <text class="ini" x="64" y="66">SN</text>
+        <text class="curve"><textPath href="#tp" startOffset="50%" text-anchor="middle">Siddhant Nagraj</textPath></text>
+        <text class="curve"><textPath href="#bp" startOffset="50%" text-anchor="middle">· Portfolio MMXXVI ·</textPath></text>
+      </svg>
+    </div>
+    <div class="nm">Welcome <em style="font-style:italic;color:var(--amber)">in</em></div>
+  </div>
+
+<script>
+  // 02 greeting cycle
+  var greets=['कसे आहात?','元気ですか?','¿Cómo estás?','How are you?'];
+  var gi=0,g2=document.getElementById('g2');
+  setInterval(function(){g2.style.opacity='0';g2.style.transform='translateY(8px)';
+    setTimeout(function(){gi=(gi+1)%greets.length;g2.textContent=greets[gi];g2.style.opacity='1';g2.style.transform='none';},340);},1500);
+  // 03 counter
+  var ct=document.getElementById('ct');
+  function run(){var n=0;var t=setInterval(function(){n+=Math.floor(Math.random()*9)+3;if(n>=100){n=100;clearInterval(t);setTimeout(run,900);}ct.textContent=String(n).padStart(2,'0');},120);}
+  run();
+</script>
+</body>
+</html>

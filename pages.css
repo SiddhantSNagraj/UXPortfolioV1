@@ -1158,6 +1158,27 @@ html[data-aboutspread="scatter"] .abcl:is(:hover,.spread) .abc5 { transform: tra
 .abcl.focus-on .abcl__pol:not(.is-front) { opacity: .3 !important; filter: saturate(.85); }
 .abcl.focus-on .abcl__poster { opacity: .18 !important; }
 @media (prefers-reduced-motion: reduce) { .abcl__pol, .abcl__poster { transition: none; } }
+
+/* mobile: smaller cards + tighter, fully-contained spread so nothing overflows
+   the column or bleeds into the section above */
+@media (max-width: 560px) {
+  html[data-aboutphotos="cluster"] .abcl { height: 430px; }
+  .abcl__pol { width: 150px; }
+  .abcl__cap { font-size: 11px; padding: 6px 4px 8px; }
+  /* contained cross spread (wins over any chosen spread variant) */
+  .abcl:is(:hover,.spread) .abc1 { transform: translate(-50%,-50%) scale(1.02) !important; z-index: 10; }
+  .abcl:is(:hover,.spread) .abc2 { transform: translate(calc(-50% - 70px), calc(-50% - 112px)) rotate(-6deg) !important; }
+  .abcl:is(:hover,.spread) .abc3 { transform: translate(calc(-50% + 70px), calc(-50% - 112px)) rotate(6deg) !important; }
+  .abcl:is(:hover,.spread) .abc4 { transform: translate(calc(-50% - 70px), calc(-50% + 112px)) rotate(5deg) !important; }
+  .abcl:is(:hover,.spread) .abc5 { transform: translate(calc(-50% + 70px), calc(-50% + 112px)) rotate(-5deg) !important; }
+  .abcl__pol.is-front { transform: translate(-50%,-50%) scale(1.18) !important; }
+  /* smaller posters, kept inside the frame */
+  .abcl__poster { width: 64px; }
+  .abp1 { top: 4%; }
+  .abp2 { top: 40%; left: 0; }
+  .abp3 { top: 46%; right: 0; }
+  .abp4 { top: 58%; left: 6%; }
+}
 .about__facts { display: flex; flex-direction: column; }
 .fact { display: flex; align-items: baseline; gap: 16px; padding: 16px 0; border-top: 1px solid var(--line); }
 .fact__n { font-size: 34px; color: var(--ink); min-width: 56px; }
