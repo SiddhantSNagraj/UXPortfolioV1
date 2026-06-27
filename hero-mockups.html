@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Hero · interactive concepts</title>
+<link rel="preconnect" href="https://api.fontshare.com" />
+<link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=general-sans@500,600,700&f[]=gambetta@400,500,600,700&f[]=jetbrains-mono@400,500&display=swap" />
+<style>
+  :root{
+    --bg:#0b0b0c; --surface:#161618; --surface-2:#1d1d20;
+    --line:rgba(255,255,255,.10); --line-2:rgba(255,255,255,.18);
+    --ink:#f2f1ec; --ink-2:#b9b8b2; --ink-3:#75746f; --ink-4:#4a4a47;
+    --yellow:#f7c14a; --available:#1f8a5b; --blue:#2b6fff;
+    --display:'General Sans',system-ui,sans-serif;
+    --body:'Gambetta',Georgia,serif;
+    --mono:'JetBrains Mono',ui-monospace,monospace;
+    --ease:cubic-bezier(.34,1.1,.4,1);
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:#070708;color:var(--ink);font-family:var(--display);padding:46px clamp(16px,4vw,60px) 120px;}
+  .ph{font-family:var(--body);font-weight:500;font-size:clamp(26px,4vw,40px);letter-spacing:-.01em;margin:0 0 4px;}
+  .ph em{font-style:italic;color:var(--yellow);}
+  .psub{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-bottom:40px;}
+  .opt{margin-bottom:34px;}
+  .opt__bar{display:flex;align-items:baseline;gap:14px;margin-bottom:12px;}
+  .opt__n{font-size:12px;color:var(--yellow);letter-spacing:.12em;font-weight:600;}
+  .opt__name{font-size:16px;font-weight:600;}
+  .opt__desc{font-family:var(--body);font-style:italic;font-size:14px;color:var(--ink-2);margin-left:auto;}
+  .frame{position:relative;height:580px;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--bg);}
+  .replay{position:absolute;top:14px;right:16px;z-index:20;font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--ink-3);background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:999px;padding:6px 12px;cursor:pointer;}
+  .replay:hover{color:var(--ink);}
+
+  /* ===== 01 · CODE → DESIGN MORPH ===== */
+  .f1{height:100%;position:relative;}
+  .codepane,.designpane{position:absolute;inset:0;padding:44px 50px;transition:opacity .7s var(--ease);}
+  .codepane{font-family:var(--mono);font-size:14px;line-height:1.7;color:var(--ink-2);white-space:pre;}
+  .codepane .k{color:#c98fd6;} .codepane .s{color:var(--yellow);} .codepane .c{color:var(--ink-4);} .codepane .t{color:#7fd1c4;}
+  .codepane .cursor{display:inline-block;width:8px;height:17px;background:var(--yellow);vertical-align:-3px;animation:blink 1s steps(1) infinite;}
+  @keyframes blink{50%{opacity:0;}}
+  .designpane{opacity:0;display:flex;flex-direction:column;justify-content:space-between;}
+  .f1.done .codepane{opacity:0;} .f1.done .designpane{opacity:1;}
+  .eyebrow{display:flex;gap:18px;align-items:center;font-size:11px;letter-spacing:.14em;text-transform:uppercase;}
+  .eyebrow .ink{color:var(--ink);} .eyebrow .avl{color:var(--available);font-weight:600;}
+  .nm{font-family:var(--body);font-weight:600;line-height:.86;letter-spacing:-.02em;font-size:100px;}
+  .nm .out{-webkit-text-stroke:1.5px var(--ink);color:transparent;}
+  .role{font-family:var(--display);font-weight:700;text-transform:uppercase;font-size:26px;}
+  .phil{font-family:var(--body);font-size:15px;color:var(--ink-2);max-width:44ch;line-height:1.5;}
+  .phil em{font-style:italic;color:var(--ink);}
+
+  /* ===== 02 · SPLIT-FLAP BOARD ===== */
+  .f2{height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:30px;padding:40px;}
+  .flapline{display:flex;gap:5px;}
+  .flap{width:42px;height:58px;border-radius:5px;background:linear-gradient(#26262a,#171719);
+    display:flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:700;font-size:34px;color:var(--ink);
+    position:relative;box-shadow:inset 0 0 0 1px rgba(255,255,255,.05);}
+  .flap::after{content:"";position:absolute;left:0;right:0;top:50%;height:1px;background:rgba(0,0,0,.55);}
+  .flap.amber{color:var(--yellow);}
+  .flap.sm{width:30px;height:42px;font-size:22px;}
+  .roleflap{display:flex;gap:4px;}
+  .flabel{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3);}
+
+  /* ===== 03 · CURSOR-REACTIVE KINETIC NAME ===== */
+  .f3{height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:default;}
+  .f3 .hint{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-4);margin-bottom:24px;}
+  .kname{font-family:var(--display);font-weight:700;font-size:96px;line-height:.92;letter-spacing:-.02em;text-align:center;user-select:none;}
+  .kname span{display:inline-block;transition:transform .25s var(--ease),color .25s var(--ease);will-change:transform;}
+  .ksub{font-family:var(--body);font-style:italic;color:var(--ink-2);margin-top:26px;font-size:16px;}
+</style>
+</head>
+<body>
+  <h1 class="ph">Hero · <em>interactive concepts</em></h1>
+  <div class="psub">Live — let 01 play, move your cursor over 03 · use Replay to re-run</div>
+
+  <!-- 01 -->
+  <div class="opt">
+    <div class="opt__bar"><span class="opt__n">01</span><span class="opt__name">Code → design morph</span><span class="opt__desc">the hero compiles itself from code</span></div>
+    <div class="frame"><button class="replay" data-replay="1">⟲ Replay</button><div class="f1" id="f1">
+      <div class="codepane" id="codepane"></div>
+      <div class="designpane">
+        <div class="eyebrow"><span class="ink">( Hello )</span><span class="avl">● Open to work / 2026</span></div>
+        <h2 class="nm">SIDDHANT<br><span class="out">NAGRAJ</span></h2>
+        <div><div class="role">Product Designer</div>
+          <p class="phil"><span style="color:var(--yellow)">✳︎</span> I design it, build it in code, and lose sleep over the parts people scroll past. <em>This site is the evidence.</em></p></div>
+      </div>
+    </div></div>
+  </div>
+
+  <!-- 02 -->
+  <div class="opt">
+    <div class="opt__bar"><span class="opt__n">02</span><span class="opt__name">Split-flap board</span><span class="opt__desc">name + rotating roles clatter into place</span></div>
+    <div class="frame"><button class="replay" data-replay="2">⟲ Replay</button><div class="f2">
+      <span class="flabel">Now boarding · MMXXVI</span>
+      <div class="flapline" id="flapName"></div>
+      <div class="roleflap" id="flapRole"></div>
+    </div></div>
+  </div>
+
+  <!-- 03 -->
+  <div class="opt">
+    <div class="opt__bar"><span class="opt__n">03</span><span class="opt__name">Cursor-reactive name</span><span class="opt__desc">letters lean &amp; lift toward your pointer</span></div>
+    <div class="frame"><div class="f3" id="f3">
+      <span class="hint">↓ move your cursor across the name ↓</span>
+      <div class="kname" id="kname"></div>
+      <span class="ksub">Product Designer · designs it, then builds it</span>
+    </div></div>
+  </div>
+
+<script>
+/* ---- 01 code morph ---- */
+var codeHTML =
+'<span class="c">// hero.jsx — designed &amp; built by hand</span>\n'+
+'<span class="k">const</span> Hero = () =&gt; (\n'+
+'  &lt;<span class="t">header</span> className=<span class="s">"hero"</span>&gt;\n'+
+'    &lt;<span class="t">Eyebrow</span> status=<span class="s">"Open to work / 2026"</span> /&gt;\n'+
+'    &lt;<span class="t">Name</span>&gt;Siddhant Nagraj&lt;/<span class="t">Name</span>&gt;\n'+
+'    &lt;<span class="t">Role</span>&gt;Product Designer&lt;/<span class="t">Role</span>&gt;\n'+
+'    &lt;<span class="t">Note</span>&gt;I design it, build it in code.&lt;/<span class="t">Note</span>&gt;\n'+
+'  &lt;/<span class="t">header</span>&gt;\n'+
+');';
+function runMorph(){
+  var pane=document.getElementById('codepane'), f1=document.getElementById('f1');
+  f1.classList.remove('done'); pane.innerHTML='';
+  var plain=codeHTML.replace(/<[^>]+>/g,''); // strip tags for typing length
+  var i=0;
+  // type the highlighted version progressively by revealing characters
+  var full=codeHTML;
+  // simple reveal: show substring of plain, then swap to full + caret
+  var typer=setInterval(function(){
+    i+=2;
+    pane.textContent=plain.slice(0,i);
+    var cur=document.createElement('span'); cur.className='cursor'; pane.appendChild(cur);
+    if(i>=plain.length){ clearInterval(typer); pane.innerHTML=full+'<span class="cursor"></span>';
+      setTimeout(function(){ f1.classList.add('done'); }, 650); }
+  },26);
+}
+/* ---- 02 split-flap ---- */
+var CHARS=' ABCDEFGHIJKLMNOPQRSTUVWXYZ·';
+function buildFlaps(container,text,cls){
+  container.innerHTML='';
+  [].forEach.call(text,function(ch){
+    var f=document.createElement('div'); f.className='flap '+(cls||'');
+    if(ch===' ') f.style.visibility='hidden';
+    container.appendChild(f);
+    var target=ch.toUpperCase(), idx=0, spins=6+Math.floor(Math.random()*14);
+    var iv=setInterval(function(){
+      f.textContent=CHARS[idx%CHARS.length]; idx++;
+      if(idx>=spins){ clearInterval(iv); f.textContent=target; }
+    },45);
+  });
+}
+var roles=['PRODUCT DESIGNER','PIXEL MICROMANAGER','DESIGN ENGINEER','SYSTEMS THINKER'];
+var roleIdx=0, roleTimer=null;
+function runFlap(){
+  buildFlaps(document.getElementById('flapName'),'SIDDHANT','amber');
+  setTimeout(function(){ buildFlaps(document.getElementById('flapName').nextElementSibling?document.getElementById('flapName'):document.getElementById('flapName'),'SIDDHANT','amber'); },0);
+  roleIdx=0;
+  clearInterval(roleTimer);
+  function cycleRole(){ buildFlaps(document.getElementById('flapRole'),roles[roleIdx%roles.length],'sm'); roleIdx++; }
+  cycleRole();
+  roleTimer=setInterval(cycleRole,2600);
+}
+/* second name line under SIDDHANT */
+function runFlap2(){
+  var name=document.getElementById('flapName');
+  name.innerHTML='';
+  var wrap=document.createElement('div'); wrap.style.display='flex'; wrap.style.flexDirection='column'; wrap.style.gap='6px'; wrap.style.alignItems='center';
+  var l1=document.createElement('div'); l1.className='flapline'; var l2=document.createElement('div'); l2.className='flapline';
+  wrap.appendChild(l1); wrap.appendChild(l2); name.appendChild(wrap);
+  buildFlaps(l1,'SIDDHANT','amber'); buildFlaps(l2,'NAGRAJ','');
+  roleIdx=0; clearInterval(roleTimer);
+  function cycleRole(){ buildFlaps(document.getElementById('flapRole'),roles[roleIdx%roles.length],'sm'); roleIdx++; }
+  cycleRole(); roleTimer=setInterval(cycleRole,2600);
+}
+/* ---- 03 kinetic name ---- */
+function buildKinetic(){
+  var el=document.getElementById('kname');
+  el.innerHTML='';
+  var text='SIDDHANT NAGRAJ';
+  [].forEach.call(text,function(ch){
+    var s=document.createElement('span');
+    s.textContent=ch===' '?'\u00A0':ch;
+    el.appendChild(s);
+  });
+}
+function initKinetic(){
+  var f3=document.getElementById('f3'), el=document.getElementById('kname');
+  f3.addEventListener('pointermove',function(e){
+    var spans=el.querySelectorAll('span');
+    spans.forEach(function(s){
+      var r=s.getBoundingClientRect();
+      var cx=r.left+r.width/2, cy=r.top+r.height/2;
+      var dx=e.clientX-cx, dy=e.clientY-cy;
+      var dist=Math.hypot(dx,dy);
+      var pull=Math.max(0,1-dist/260);
+      s.style.transform='translateY('+(-pull*26)+'px) scale('+(1+pull*0.32)+')';
+      s.style.color=pull>0.45?'#f7c14a':'';
+    });
+  });
+  f3.addEventListener('pointerleave',function(){
+    el.querySelectorAll('span').forEach(function(s){ s.style.transform=''; s.style.color=''; });
+  });
+}
+/* boot + replay wiring */
+function boot(){ runMorph(); runFlap2(); buildKinetic(); initKinetic(); }
+document.querySelectorAll('[data-replay]').forEach(function(b){
+  b.addEventListener('click',function(){ if(b.dataset.replay==='1') runMorph(); else runFlap2(); });
+});
+boot();
+</script>
+</body>
+</html>

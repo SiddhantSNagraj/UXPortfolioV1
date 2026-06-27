@@ -1136,7 +1136,7 @@ html[data-aboutspread="scatter"] .abcl:is(:hover,.spread) .abc3 { transform: tra
 html[data-aboutspread="scatter"] .abcl:is(:hover,.spread) .abc4 { transform: translate(calc(-50% - 152px), calc(-50% + 150px)) rotate(8deg); }
 html[data-aboutspread="scatter"] .abcl:is(:hover,.spread) .abc5 { transform: translate(calc(-50% + 170px), calc(-50% + 128px)) rotate(-9deg); }
 /* crumpled poster stickers, smaller than photos */
-.abcl__poster { position: absolute; width: 92px; z-index: 8; opacity: 0; pointer-events: none;
+.abcl__poster { position: absolute; width: 108px; z-index: 8; opacity: 0; pointer-events: none;
   transition: opacity .45s var(--ease) .12s, transform .55s var(--ease) .12s;
   filter: drop-shadow(0 10px 18px rgba(0,0,0,.55)); }
 .abcl__poster img { display: block; width: 100%; border-radius: 2px; }
@@ -1156,7 +1156,19 @@ html[data-aboutspread="scatter"] .abcl:is(:hover,.spread) .abc5 { transform: tra
 .abcl__pol.is-front { transform: translate(-50%,-50%) scale(1.14) !important; z-index: 40 !important;
   box-shadow: 0 44px 80px -22px rgba(0,0,0,.85), 0 8px 20px rgba(0,0,0,.5) !important; }
 .abcl.focus-on .abcl__pol:not(.is-front) { opacity: .3 !important; filter: saturate(.85); }
-.abcl.focus-on .abcl__poster { opacity: .18 !important; }
+.abcl.focus-on .abcl__poster:not(.is-front) { opacity: .18 !important; }
+/* posters are selectable too — clickable once spread, and focus smaller than polaroids */
+.abcl:is(:hover,.spread) .abcl__poster, .abcl.focus-on .abcl__poster { pointer-events: auto; cursor: pointer; }
+.abcl__poster.is-front { opacity: 1 !important; z-index: 41 !important;
+  transform: translate(-50%,-50%) scale(1.55) rotate(-2deg) !important; left: 50%; top: 50%;
+  filter: drop-shadow(0 30px 50px rgba(0,0,0,.7)); }
+.abcl__poster.is-front::after { opacity: .5; }
+/* poster caption (shows only when the poster is selected) */
+.abcl__pcap { position: absolute; left: 50%; bottom: -22px; transform: translateX(-50%);
+  font-family: var(--body); font-style: italic; font-size: 9px; color: var(--ink-2);
+  white-space: nowrap; opacity: 0; transition: opacity .3s var(--ease) .15s; pointer-events: none; }
+.abcl__poster.is-front .abcl__pcap { opacity: 1; font-size: 12px; bottom: -26px; color: var(--ink); }
+.abcl.focus-on .abcl__pol:not(.is-front) { opacity: .3 !important; filter: saturate(.85); }
 @media (prefers-reduced-motion: reduce) { .abcl__pol, .abcl__poster { transition: none; } }
 
 /* mobile: smaller cards + tighter, fully-contained spread so nothing overflows
@@ -1173,7 +1185,7 @@ html[data-aboutspread="scatter"] .abcl:is(:hover,.spread) .abc5 { transform: tra
   .abcl:is(:hover,.spread) .abc5 { transform: translate(calc(-50% + 70px), calc(-50% + 112px)) rotate(-5deg) !important; }
   .abcl__pol.is-front { transform: translate(-50%,-50%) scale(1.18) !important; }
   /* smaller posters, kept inside the frame */
-  .abcl__poster { width: 64px; }
+  .abcl__poster { width: 74px; }
   .abp1 { top: 4%; }
   .abp2 { top: 40%; left: 0; }
   .abp3 { top: 46%; right: 0; }

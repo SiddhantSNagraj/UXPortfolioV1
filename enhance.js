@@ -242,19 +242,19 @@
   /* ---- 7. About photo cluster: click a polaroid to bring it forward + enlarge ---- */
   (function () {
     document.addEventListener('click', function (e) {
-      var card = e.target.closest && e.target.closest('.abcl__pol');
+      var card = e.target.closest && e.target.closest('.abcl__pol, .abcl__poster');
       var cluster = card ? card.closest('.abcl') : null;
       // click outside any focused card clears focus everywhere
       if (!card) {
         document.querySelectorAll('.abcl.focus-on').forEach(function (c) {
           c.classList.remove('focus-on');
-          c.querySelectorAll('.abcl__pol.is-front').forEach(function (p) { p.classList.remove('is-front'); });
+          c.querySelectorAll('.is-front').forEach(function (p) { p.classList.remove('is-front'); });
         });
         return;
       }
       e.stopPropagation();
       var wasFront = card.classList.contains('is-front');
-      cluster.querySelectorAll('.abcl__pol.is-front').forEach(function (p) { p.classList.remove('is-front'); });
+      cluster.querySelectorAll('.is-front').forEach(function (p) { p.classList.remove('is-front'); });
       if (wasFront) { cluster.classList.remove('focus-on'); return; }
       card.classList.add('is-front');
       cluster.classList.add('focus-on');

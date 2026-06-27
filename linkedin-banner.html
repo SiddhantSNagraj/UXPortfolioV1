@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>LinkedIn banner · final</title>
+<link rel="preconnect" href="https://api.fontshare.com" />
+<link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=general-sans@500,600,700&f[]=gambetta@400,500,600,700&display=swap" />
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:#070708;}
+  /* exact LinkedIn banner size */
+  .bnr{position:relative;width:1584px;height:396px;background:#0b0b0c;overflow:hidden;
+    font-family:'General Sans',system-ui,sans-serif;color:#f2f1ec;}
+
+  /* top masthead rule */
+  .top{position:absolute;left:84px;right:84px;top:60px;display:flex;justify-content:space-between;align-items:flex-end;
+    border-bottom:1px solid rgba(255,255,255,.16);padding-bottom:14px;
+    font-family:'General Sans',system-ui,sans-serif;font-size:14px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:#75746f;}
+  .top__mid{letter-spacing:.24em;}
+  .top__right{display:inline-flex;align-items:center;gap:9px;color:#b9b8b2;white-space:nowrap;flex:none;}
+  .top__dot{width:8px;height:8px;border-radius:50%;background:#1f8a5b;box-shadow:0 0 0 4px rgba(31,138,91,.18);}
+
+  /* headline — clears the bottom-left avatar zone by starting at x=470 */
+  .head{position:absolute;left:470px;top:150px;font-family:'Gambetta',Georgia,serif;font-weight:600;
+    font-size:66px;line-height:1.0;letter-spacing:-.015em;}
+  .head em{font-style:italic;color:#f7c14a;}
+  .foot{position:absolute;left:472px;top:312px;font-family:'General Sans',system-ui,sans-serif;
+    font-size:15px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#b9b8b2;}
+  .foot .star{color:#f7c14a;margin:0 8px;}
+
+  /* faint amber arrow accent, top-right, echoing the site */
+  .arrow{position:absolute;right:96px;top:150px;color:#f7c14a;font-size:30px;transform:rotate(20deg);opacity:.9;}
+</style>
+</head>
+<body>
+  <div class="bnr" id="bnr">
+    <div class="top">
+      <span>Siddhant Nagraj</span>
+      <span class="top__mid">Vol. MMXXVI</span>
+      <span class="top__right"><span class="top__dot"></span>Open to work</span>
+    </div>
+    <h1 class="head">Designing &amp; <em>building</em> products.</h1>
+    <div class="foot">Figma <span class="star">&#10033;</span> UX/UI <span class="star">&#10033;</span> Design Systems <span class="star">&#10033;</span> Prototyping</div>
+  </div>
+</body>
+</html>

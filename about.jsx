@@ -49,10 +49,10 @@ function About({ profile, reviews }) {
             <div className="about__photo">
               <Slot img="assets/siddhant-about.jpg" alt="Siddhant Nagraj" corner="ME" objectPosition="50% 32%" style={{ aspectRatio: '4/5' }} />
               <div className="abcl" aria-label="A few photos of me — hover to spread, click one to view">
-                <div className="abcl__poster abp1"><img src="assets/about/poster-hozier.jpeg" alt="" /></div>
-                <div className="abcl__poster abp2"><img src="assets/about/poster-oldfashioned.jpeg" alt="" /></div>
-                <div className="abcl__poster abp3"><img src="assets/about/poster-porsche.jpeg" alt="" /></div>
-                <div className="abcl__poster abp4"><img src="assets/about/poster-norisk.jpeg" alt="" /></div>
+                <div className="abcl__poster abp1"><img src="assets/about/poster-hozier.jpeg" alt="" /><span className="abcl__pcap">five o’clock somewhere</span></div>
+                <div className="abcl__poster abp2"><img src="assets/about/poster-dietcoke.jpeg" alt="" /><span className="abcl__pcap">technically lunch</span></div>
+                <div className="abcl__poster abp3"><img src="assets/about/poster-porsche.jpeg" alt="" /><span className="abcl__pcap">on repeat, sorry</span></div>
+                <div className="abcl__poster abp4"><img src="assets/about/poster-norisk.jpeg" alt="" /><span className="abcl__pcap">the entire philosophy</span></div>
                 <figure className="abcl__pol abc2"><img className="abcl__media" src="assets/about/p2-museum.jpg" alt="" /><figcaption className="abcl__cap">ink &amp; nerve</figcaption></figure>
                 <figure className="abcl__pol abc3"><img className="abcl__media" src="assets/about/p3-coffee.jpg" alt="" /><figcaption className="abcl__cap">third place</figcaption></figure>
                 <figure className="abcl__pol abc4"><img className="abcl__media" src="assets/about/p4-harley.jpg" alt="" /><figcaption className="abcl__cap">weekend</figcaption></figure>
