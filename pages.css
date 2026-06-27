@@ -492,6 +492,30 @@ html:not([data-avhover="comic"]) .hero__avatar-comic { display: none; }
 
 /* ════════ LAYOUT: OUTCOME (editorial rows + at-a-glance result) ════════ */
 html[data-worklayout="outcome"] .workrow__outcome { display: inline-flex; }
+
+/* ════════ LAYOUT: DESCRIPTIVE (brand kicker + headline + summary + outcome) ════════ */
+.workrow__brand, .workrow__headline { display: none; }
+html[data-worklayout="descriptive"] .workrow__name { display: none; }
+html[data-worklayout="descriptive"] .workrow__brand {
+  display: block; font-size: 11px; letter-spacing: .16em; text-transform: uppercase;
+  color: var(--ink-3); margin-bottom: 9px;
+}
+html[data-worklayout="descriptive"] .workrow__headline {
+  display: block; font-family: var(--body); font-weight: 600;
+  font-size: clamp(21px, 2.5vw, 33px); line-height: 1.08; letter-spacing: -.01em;
+  color: var(--ink); max-width: 24ch;
+}
+html[data-worklayout="descriptive"] .workrow__sub { margin-top: 11px; max-width: 56ch; }
+html[data-worklayout="descriptive"] .workrow__outcome { display: inline-flex; margin-top: 13px; }
+html[data-worklayout="descriptive"] .workrow { align-items: start; }
+html[data-worklayout="descriptive"] .workrow:hover .workrow__headline,
+html[data-worklayout="descriptive"] .workrow:hover .workrow__brand { color: var(--rowtext, var(--ink)); }
+html[data-worklayout="descriptive"] .workrow:hover .workrow__outcome-txt { color: var(--rowtext, #fff); }
+html[data-worklayout="descriptive"] .workrow:hover .workrow__outcome::before { background: var(--rowtext, #fff); }
+html[data-worklayout="descriptive"] .workrow--gs:hover .workrow__outcome-txt,
+html[data-worklayout="descriptive"] .workrow--apmc:hover .workrow__outcome-txt,
+html[data-worklayout="descriptive"] .workrow--sl:hover .workrow__outcome-txt { color: #ffffff; }
+
 /* on hover the row floods with its colour — invert to the row's solid text
    colour (same system as the title/sub) so it's always crisply legible.
    NB: data-worklayout and data-rowhover both live on <html>, so they must be
@@ -1148,10 +1172,14 @@ html[data-aboutspread="scatter"] .abcl:is(:hover,.spread) .abc5 { transform: tra
 .abp2 { top: 44%; left: -4%; transform: translate(0,10px) rotate(0deg) scale(.7); }
 .abp3 { top: 50%; right: -4%; transform: translate(0,10px) rotate(0deg) scale(.7); }
 .abp4 { top: 60%; left: 4%; transform: translate(0,10px) rotate(0deg) scale(.7); }
+.abp5 { top: 10%; right: -2%; transform: translate(0,10px) rotate(0deg) scale(.7); }
+.abp6 { top: 70%; right: 8%; transform: translate(0,10px) rotate(0deg) scale(.7); }
 .abcl:is(:hover,.spread) .abp1 { opacity: 1; transform: translate(-50%,0) rotate(-9deg) scale(1) skewX(-3deg); }
 .abcl:is(:hover,.spread) .abp2 { opacity: 1; transform: translate(0,0) rotate(7deg) scale(1) skewY(2deg); }
 .abcl:is(:hover,.spread) .abp3 { opacity: 1; transform: translate(0,0) rotate(-6deg) scale(1) skewX(2deg); }
 .abcl:is(:hover,.spread) .abp4 { opacity: 1; transform: translate(0,0) rotate(-8deg) scale(1) skewY(-2deg); }
+.abcl:is(:hover,.spread) .abp5 { opacity: 1; transform: translate(0,0) rotate(8deg) scale(.86) skewX(-2deg); }
+.abcl:is(:hover,.spread) .abp6 { opacity: 1; transform: translate(0,0) rotate(-7deg) scale(.86) skewY(2deg); }
 /* click a photo to bring it forward + enlarge */
 .abcl__pol.is-front { transform: translate(-50%,-50%) scale(1.14) !important; z-index: 40 !important;
   box-shadow: 0 44px 80px -22px rgba(0,0,0,.85), 0 8px 20px rgba(0,0,0,.5) !important; }

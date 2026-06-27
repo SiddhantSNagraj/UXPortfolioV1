@@ -1,7 +1,10 @@
 /* TWEAKS, accent, highlight, background tone, hero pixel style */
 
+const ACCENT_SETS = { 'Custom': null, 'Modern Atelier': 'atelier', 'Avant-Garde Press': 'press', 'Mid-Century Archive': 'archive', 'Cobalt & Marigold': 'cobalt', 'Pine & Coral': 'pine', 'Indigo & Chartreuse': 'indigo', 'Slate & Apricot': 'slate', 'Teal & Rose': 'teal', 'Mimosa & Wine': 'mimosa', 'Spicy & Teal': 'spicy' };
+
 const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
   "vibe": "Default",
+  "accentSet": "Mimosa & Wine",
   "accent": "#2b6fff",
   "highlight": "#f7c14a",
   "heroFont": "Gambetta",
@@ -59,7 +62,7 @@ const HERO_STATUS = {
 const FOOTER_BADGE = { 'Show': 'show', 'Hidden': 'hidden' };
 
 // Home work-list layout: editorial index, index + at-a-glance outcome, or card grid.
-const WORK_LAYOUT = { 'Index': 'index', 'Outcome': 'outcome', 'Cards': 'cards' };
+const WORK_LAYOUT = { 'Index': 'index', 'Outcome': 'outcome', 'Descriptive': 'descriptive', 'Cards': 'cards' };
 
 // About photo treatment: single portrait, or an interactive polaroid cluster.
 const ABOUT_PHOTOS = { 'Single': 'single', 'Cluster': 'cluster' };
@@ -226,9 +229,18 @@ function TweaksUI() {
   React.useEffect(() => {
     const apply = () => {
     const r = document.documentElement.style;
-    r.setProperty('--blue', t.accent);
-    r.setProperty('--accent', t.accent);
-    r.setProperty('--yellow', t.highlight);
+    const aset = ACCENT_SETS[t.accentSet];
+    if (aset) {
+      // cohesive Pantone palette: CSS (data-accentset) owns --accent/--yellow and
+      // the light-mode ink variant, so clear any inline overrides that would win.
+      document.documentElement.setAttribute('data-accentset', aset);
+      r.removeProperty('--blue'); r.removeProperty('--accent'); r.removeProperty('--yellow');
+    } else {
+      document.documentElement.removeAttribute('data-accentset');
+      r.setProperty('--blue', t.accent);
+      r.setProperty('--accent', t.accent);
+      r.setProperty('--yellow', t.highlight);
+    }
     document.documentElement.setAttribute('data-scheme', SCHEMES[t.scheme] || 'ink');
     const hf = HERO_FONTS[t.heroFont] || HERO_FONTS['Grotesk'];
     r.setProperty('--pixel-blk', hf.stack);
@@ -393,6 +405,9 @@ function TweaksUI() {
         options={Object.keys(NOTE_COLORS)}
         onChange={(v) => setTweak('noteColor', v)} />
       <TweakSection label="Accent" />
+      <TweakSelect label="Accent palette" value={t.accentSet}
+        options={Object.keys(ACCENT_SETS)}
+        onChange={(v) => setTweak('accentSet', v)} />
       <TweakColor label="Primary pop" value={t.accent}
         options={['#c75b39', '#10897e', '#2b6fff', '#a8324a', '#6c5ce7', '#1f8a5b', '#c2410c', '#e0457b']}
         onChange={(v) => setTweak('accent', v)} />

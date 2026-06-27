@@ -51,6 +51,35 @@
 html[data-theme="light"] body { color: var(--ink); }
 /* yellow reads as a deep amber on light surfaces (fills keep the bright --yellow) */
 html[data-theme="light"] { --yellow-ink: #b8770a; }
+
+/* ── Pantone accent palettes (data-accentset) — primary + highlight as a unit;
+   the highlight's light-mode ink variant kicks in on the cream background ── */
+html[data-accentset="atelier"] { --blue: #B5812A; --accent: #B5812A; --yellow: #963821; --yellow-ink: #963821; }
+html[data-accentset="atelier"][data-theme="light"] { --yellow-ink: #4B2A1E; }
+html[data-accentset="press"] { --blue: #8A1538; --accent: #8A1538; --yellow: #979C1B; --yellow-ink: #979C1B; }
+html[data-accentset="press"][data-theme="light"] { --yellow-ink: #333E17; }
+html[data-accentset="archive"] { --blue: #002A3A; --accent: #002A3A; --yellow: #C65A11; --yellow-ink: #C65A11; }
+html[data-accentset="archive"][data-theme="light"] { --yellow-ink: #5C2806; }
+
+/* five more cohesive accents, tuned to read on both the near-black dark bg
+   and the cream light bg (primaries stay mid-tone so they never vanish) */
+html[data-accentset="cobalt"] { --blue: #3a6bd6; --accent: #3a6bd6; --yellow: #e6a020; --yellow-ink: #e6a020; }
+html[data-accentset="cobalt"][data-theme="light"] { --yellow-ink: #6b4a0e; }
+html[data-accentset="pine"] { --blue: #2f8a63; --accent: #2f8a63; --yellow: #e3674a; --yellow-ink: #e3674a; }
+html[data-accentset="pine"][data-theme="light"] { --yellow-ink: #6e2417; }
+html[data-accentset="indigo"] { --blue: #6a63d8; --accent: #6a63d8; --yellow: #aab51f; --yellow-ink: #aab51f; }
+html[data-accentset="indigo"][data-theme="light"] { --yellow-ink: #44490f; }
+html[data-accentset="slate"] { --blue: #4f78b3; --accent: #4f78b3; --yellow: #e0925b; --yellow-ink: #e0925b; }
+html[data-accentset="slate"][data-theme="light"] { --yellow-ink: #6a3411; }
+html[data-accentset="teal"] { --blue: #21948f; --accent: #21948f; --yellow: #db5d83; --yellow-ink: #db5d83; }
+html[data-accentset="teal"][data-theme="light"] { --yellow-ink: #74203f; }
+
+/* from your Pantone swatches — Mimosa + Windsor Wine, and Spicy Orange + a teal pairing.
+   Wine is lifted slightly so it still reads as an accent on the near-black dark bg. */
+html[data-accentset="mimosa"] { --blue: #9a4159; --accent: #9a4159; --yellow: #efc15a; --yellow-ink: #efc15a; }
+html[data-accentset="mimosa"][data-theme="light"] { --blue: #5c2838; --accent: #5c2838; --yellow: #f0a722; --yellow-ink: #d98a0a; }
+html[data-accentset="spicy"] { --blue: #1f867f; --accent: #1f867f; --yellow: #d93c22; --yellow-ink: #d93c22; }
+html[data-accentset="spicy"][data-theme="light"] { --yellow-ink: #8a2410; }
 /* light-mode contrast fixes */
 html[data-theme="light"] .hero__pix--out { -webkit-text-stroke-color: var(--accent); text-stroke-color: var(--accent); }
 html[data-theme="light"] ::selection { background: var(--accent); color: #fff; }

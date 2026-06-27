@@ -53,6 +53,8 @@ function About({ profile, reviews }) {
                 <div className="abcl__poster abp2"><img src="assets/about/poster-dietcoke.jpeg" alt="" /><span className="abcl__pcap">technically lunch</span></div>
                 <div className="abcl__poster abp3"><img src="assets/about/poster-porsche.jpeg" alt="" /><span className="abcl__pcap">on repeat, sorry</span></div>
                 <div className="abcl__poster abp4"><img src="assets/about/poster-norisk.jpeg" alt="" /><span className="abcl__pcap">the entire philosophy</span></div>
+                <div className="abcl__poster abp5"><img src="assets/about/poster-windsorwine.png" alt="" /><span className="abcl__pcap">my whole palette, basically</span></div>
+                <div className="abcl__poster abp6"><img src="assets/about/poster-mimosa.png" alt="" /><span className="abcl__pcap">brunch, codified</span></div>
                 <figure className="abcl__pol abc2"><img className="abcl__media" src="assets/about/p2-museum.jpg" alt="" /><figcaption className="abcl__cap">ink &amp; nerve</figcaption></figure>
                 <figure className="abcl__pol abc3"><img className="abcl__media" src="assets/about/p3-coffee.jpg" alt="" /><figcaption className="abcl__cap">third place</figcaption></figure>
                 <figure className="abcl__pol abc4"><img className="abcl__media" src="assets/about/p4-harley.jpg" alt="" /><figcaption className="abcl__cap">weekend</figcaption></figure>

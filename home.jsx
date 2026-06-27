@@ -335,7 +335,9 @@ function WorkIndex({ projects, onOpen }) {
                 </span>
                 <span className="workrow__no pixel">{p.no}</span>
                 <span className="workrow__title">
+                  <span className="workrow__brand mono">{p.title}</span>
                   <span className="workrow__name">{p.title}</span>
+                  <span className="workrow__headline">{p.headline}</span>
                   <span className="workrow__sub">{p.subtitle}</span>
                   {p.outcome ? (
                     <span className="workrow__outcome" style={{ '--oc': chipColor }}>
