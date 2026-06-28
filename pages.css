@@ -1173,13 +1173,13 @@ html[data-aboutspread="scatter"] .abcl:is(:hover,.spread) .abc5 { transform: tra
 .abp3 { top: 50%; right: -4%; transform: translate(0,10px) rotate(0deg) scale(.7); }
 .abp4 { top: 60%; left: 4%; transform: translate(0,10px) rotate(0deg) scale(.7); }
 .abp5 { top: 10%; right: -2%; transform: translate(0,10px) rotate(0deg) scale(.7); }
-.abp6 { top: 70%; right: 8%; transform: translate(0,10px) rotate(0deg) scale(.7); }
+.abp6 { top: 50%; left: 50%; transform: translate(-50%,10px) rotate(0deg) scale(.7); }
 .abcl:is(:hover,.spread) .abp1 { opacity: 1; transform: translate(-50%,0) rotate(-9deg) scale(1) skewX(-3deg); }
 .abcl:is(:hover,.spread) .abp2 { opacity: 1; transform: translate(0,0) rotate(7deg) scale(1) skewY(2deg); }
 .abcl:is(:hover,.spread) .abp3 { opacity: 1; transform: translate(0,0) rotate(-6deg) scale(1) skewX(2deg); }
 .abcl:is(:hover,.spread) .abp4 { opacity: 1; transform: translate(0,0) rotate(-8deg) scale(1) skewY(-2deg); }
 .abcl:is(:hover,.spread) .abp5 { opacity: 1; transform: translate(0,0) rotate(8deg) scale(.86) skewX(-2deg); }
-.abcl:is(:hover,.spread) .abp6 { opacity: 1; transform: translate(0,0) rotate(-7deg) scale(.86) skewY(2deg); }
+.abcl:is(:hover,.spread) .abp6 { opacity: 1; transform: translate(-50%, 104px) rotate(-7deg) scale(.86) skewY(2deg); }
 /* click a photo to bring it forward + enlarge */
 .abcl__pol.is-front { transform: translate(-50%,-50%) scale(1.14) !important; z-index: 40 !important;
   box-shadow: 0 44px 80px -22px rgba(0,0,0,.85), 0 8px 20px rgba(0,0,0,.5) !important; }

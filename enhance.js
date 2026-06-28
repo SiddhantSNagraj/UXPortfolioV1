@@ -270,6 +270,8 @@
       if (document.documentElement.getAttribute('data-aboutphotos') !== 'cluster') { cl.classList.remove('spread'); return; }
       var r = cl.getBoundingClientRect();
       var vh = window.innerHeight || document.documentElement.clientHeight;
+      // arrange mode locks the spread open — don't fight it
+      if (cl.classList.contains('arranging')) return;
       // spread once the cluster's centre enters the comfortable middle band of the viewport
       var mid = r.top + r.height / 2;
       var inView = mid < vh * 0.82 && mid > vh * 0.18;
@@ -280,5 +282,80 @@
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', onScroll);
     setTimeout(syncSpread, 400);
+  })();
+
+  /* ---- 9. ARRANGE MODE (gated): #arrange-photos lets you drag/rotate the
+     About cluster cards, then copy the resulting CSS. Never runs on a normal load. ---- */
+  (function () {
+    function start() {
+      var cl = document.querySelector('.abcl');
+      if (!cl) { setTimeout(start, 300); return; }
+      // force cluster visible + spread + locked (no auto-collapse / focus)
+      document.documentElement.setAttribute('data-aboutphotos', 'cluster');
+      cl.classList.add('spread', 'arranging');
+      cl.scrollIntoView({ block: 'center' });
+
+      var cards = [].slice.call(cl.querySelectorAll('.abcl__pol, .abcl__poster'));
+      var state = {}; // class -> {x,y,rot,scale}
+      cards.forEach(function (c) {
+        var key = [].slice.call(c.classList).find(function (n) { return /^abc\d$/.test(n) || /^abp\d$/.test(n); });
+        c.dataset.key = key;
+        state[key] = { x: 0, y: 0, rot: 0, scale: c.classList.contains('abcl__poster') ? 0.9 : 1 };
+        apply(c);
+      });
+      function apply(c) {
+        var s = state[c.dataset.key];
+        c.style.transition = 'none';
+        c.style.transform = 'translate(calc(-50% + ' + s.x + 'px), calc(-50% + ' + s.y + 'px)) rotate(' + s.rot + 'deg) scale(' + s.scale + ')';
+        c.style.zIndex = c.dataset.z || c.style.zIndex;
+      }
+      // drag
+      var drag = null, sx = 0, sy = 0, ox = 0, oy = 0;
+      cl.addEventListener('pointerdown', function (e) {
+        var c = e.target.closest('.abcl__pol, .abcl__poster'); if (!c) return;
+        e.preventDefault(); drag = c; c.setPointerCapture(e.pointerId);
+        var s = state[c.dataset.key]; sx = e.clientX; sy = e.clientY; ox = s.x; oy = s.y;
+        c.style.zIndex = 999;
+      });
+      cl.addEventListener('pointermove', function (e) {
+        if (!drag) return; var s = state[drag.dataset.key];
+        s.x = ox + (e.clientX - sx); s.y = oy + (e.clientY - sy); apply(drag);
+      });
+      cl.addEventListener('pointerup', function (e) { if (drag) { drag.releasePointerCapture(e.pointerId); drag = null; } });
+      // wheel = rotate; shift+wheel = scale
+      cl.addEventListener('wheel', function (e) {
+        var c = e.target.closest('.abcl__pol, .abcl__poster'); if (!c) return;
+        e.preventDefault(); var s = state[c.dataset.key];
+        if (e.shiftKey) { s.scale = Math.max(0.4, Math.min(2, s.scale + (e.deltaY < 0 ? 0.04 : -0.04))); }
+        else { s.rot += (e.deltaY < 0 ? 2 : -2); }
+        apply(c);
+      }, { passive: false });
+
+      // panel
+      var panel = document.createElement('div');
+      panel.style.cssText = 'position:fixed;bottom:16px;left:50%;transform:translateX(-50%);z-index:99999;background:#161618;color:#f2f1ec;border:1px solid rgba(255,255,255,.2);border-radius:12px;padding:12px 16px;font:12px/1.4 ui-monospace,monospace;box-shadow:0 16px 40px rgba(0,0,0,.6);';
+      panel.innerHTML = '<b>Arrange mode</b> · drag to move · wheel = rotate · shift+wheel = scale &nbsp; <button id="arrcopy" style="font:inherit;background:#f7c14a;color:#1a1407;border:none;border-radius:7px;padding:6px 12px;cursor:pointer;font-weight:700;">Copy CSS</button> <span id="arrmsg" style="margin-left:8px;color:#9fb;"></span>';
+      document.body.appendChild(panel);
+      document.getElementById('arrcopy').addEventListener('click', function () {
+        // emit spread-state CSS using each card's measured % offsets within the cluster
+        var W = cl.clientWidth, H = cl.clientHeight, out = [];
+        cards.forEach(function (c) {
+          var s = state[c.dataset.key];
+          out.push('.abcl:is(:hover,.spread) .' + c.dataset.key +
+            ' { transform: translate(calc(-50% + ' + Math.round(s.x) + 'px), calc(-50% + ' + Math.round(s.y) +
+            'px)) rotate(' + s.rot + 'deg) scale(' + s.scale.toFixed(2) + '); }');
+        });
+        var css = out.join('\n');
+        navigator.clipboard.writeText(css).then(function () {
+          document.getElementById('arrmsg').textContent = 'Copied! paste it back in chat';
+        }, function () {
+          document.getElementById('arrmsg').textContent = 'see console';
+        });
+        console.log('=== ARRANGE CSS ===\n' + css);
+      });
+    }
+    // expose on demand; auto-run only if URL hash requests it
+    window.__arrangePhotos = start;
+    if (location.hash === '#arrange-photos') start();
   })();
 })();
