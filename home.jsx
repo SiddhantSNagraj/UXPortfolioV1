@@ -294,7 +294,7 @@ function WorkIndex({ projects, onOpen }) {
         <div className="block-head">
           <span className="pixel block-head__no">02</span>
           <div className="block-head__main">
-            <span className="mono mono--accent">( Selected Work )</span>
+            <span className="mono mono--accent">Selected Work</span>
             <h2 className="block-head__title display">Things I’ve<br />shipped</h2>
           </div>
           <span className="mono block-head__count">{String(projects.length).padStart(2, '0')}, Projects</span>

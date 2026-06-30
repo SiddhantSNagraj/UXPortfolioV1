@@ -57,7 +57,7 @@ function CaseStudy({ project, projects, onOpen, onHome }) {
 
       {/* overview */}
       <section className="wrap case__overview">
-        <span className="mono mono--accent">( Overview )</span>
+        <span className="mono mono--accent">Overview</span>
         <p className="case__overtext">{p.overview}</p>
       </section>
 
@@ -108,7 +108,7 @@ function CaseStudy({ project, projects, onOpen, onHome }) {
       <section className="case__next" onClick={() => onOpen(next.id)}>
         <div className="wrap case__nextrow">
           <div>
-            <span className="mono mono--accent">( Next project )</span>
+            <span className="mono mono--accent">Next project</span>
             <h2 className="case__nexttitle display">{next.title}</h2>
             <span className="case__nextsub">{next.subtitle}</span>
           </div>

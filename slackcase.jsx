@@ -236,7 +236,7 @@ function SlackCase({ project, projects, onOpen, onHome }) {
       <section className="case__next" onClick={() => onOpen(next.id)}>
         <div className="wrap case__nextrow">
           <div>
-            <span className="mono mono--accent">( Next project )</span>
+            <span className="mono mono--accent">Next project</span>
             <h2 className="case__nexttitle display">{next.title}</h2>
             <span className="case__nextsub">{next.subtitle}</span>
           </div>

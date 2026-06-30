@@ -140,7 +140,7 @@ function Guestbook() {
       <div className="wrap">
         <div className="gb">
           <div className="gb__head">
-            <span className="mono mono--accent">( GUESTBOOK )</span>
+            <span className="mono mono--accent">04 · GUESTBOOK</span>
             <span className="gb__count mono">{seals.length} have signed</span>
           </div>
           <p className="gb__lead">Leave your mark. Type your initials, pick where you’re from, and press your seal anywhere on the wall.</p>
@@ -181,7 +181,7 @@ function Contact({ profile }) {
   return (
     <section className="contact" id="contact">
       <div className="wrap">
-        <div className="mono mono--accent" style={{ marginBottom: 28 }}>( CONTACT ), OPEN TO PRODUCT DESIGN ROLES</div>
+        <div className="mono mono--accent" style={{ marginBottom: 28 }}>05 · CONTACT, OPEN TO PRODUCT DESIGN ROLES</div>
         <div className="contact__split">
           <div className="contact__left">
             <a

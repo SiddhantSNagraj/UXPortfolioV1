@@ -12,7 +12,7 @@ function About({ profile, reviews }) {
         <div className="block-head">
           <span className="pixel block-head__no">03</span>
           <div className="block-head__main">
-            <span className="mono mono--accent">( About )</span>
+            <span className="mono mono--accent">About</span>
             <h2 className="block-head__title display">Five years of<br />making it click</h2>
           </div>
         </div>

@@ -306,7 +306,7 @@ function ApmcCase({ project, projects, onOpen, onHome }) {
       <section className="am-band" style={{ position: 'relative', overflow: 'hidden' }}>
         <img className="am-husky am-husky--obj" src="assets/apmc/husky-mark.png" alt="" aria-hidden="true" />
         <div className="wrap">
-          <span className="mono mono--accent">( The objective )</span>
+          <span className="mono mono--accent">The objective</span>
           <p className="am-h2" style={{ marginTop: 20, maxWidth: '26ch', fontSize: 'clamp(26px,3.4vw,48px)' }}>Redesign the site to boost engagement, drive signups, and lower bounce, in time for Protothon 5.0.</p>
         </div>
       </section>
@@ -567,7 +567,7 @@ function ApmcCase({ project, projects, onOpen, onHome }) {
 
       {/* KEY DECISIONS */}
       <section className="wrap am-sec am-sec--dlog" style={{ position: 'relative', overflow: 'hidden' }}>
-        <div className="am-sec__label"><span className="mono mono--accent">( Key decisions )</span></div>
+        <div className="am-sec__label"><span className="mono mono--accent">Key decisions</span></div>
         <div className="am-sec__body">
           <h2 className="am-h2">Three forks, and the roads I didn't take</h2>
           <p className="am-lead">Every project is really a stack of bets. These three shaped APMC most, what I chose, what I turned down, and the tradeoff I accepted each time.</p>
@@ -660,7 +660,7 @@ function ApmcCase({ project, projects, onOpen, onHome }) {
       <section className="case__next" onClick={() => onOpen(next.id)}>
         <div className="wrap case__nextrow">
           <div>
-            <span className="mono mono--accent">( Next project )</span>
+            <span className="mono mono--accent">Next project</span>
             <h2 className="case__nexttitle display">{next.title}</h2>
             <span className="case__nextsub">{next.subtitle}</span>
           </div>

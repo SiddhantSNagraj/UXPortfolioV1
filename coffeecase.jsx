@@ -179,7 +179,7 @@ function CoffeeCase({ project, projects, onOpen, onHome }) {
         <span className="cc-bean cc-bean--y" style={{ width: 150, height: 150, top: '-6%', left: '4%', transform: 'rotate(-22deg)', opacity: 0.22 }} aria-hidden="true" />
         <span className="cc-bean cc-bean--b" style={{ width: 90, height: 90, bottom: '8%', right: '8%', transform: 'rotate(34deg)', opacity: 0.4 }} aria-hidden="true" />
         <div className="wrap">
-          <span className="mono mono--accent">( The objective )</span>
+          <span className="mono mono--accent">The objective</span>
           <p className="cc-statement">Create a coffee-ordering app that <em>reduces wait times</em>, boosts <em>personalization</em>, and helps users <em>explore local cafés</em>, all in one seamless flow.</p>
         </div>
       </section>
@@ -471,7 +471,7 @@ function CoffeeCase({ project, projects, onOpen, onHome }) {
       <section className="case__next" onClick={() => onOpen(next.id)}>
         <div className="wrap case__nextrow">
           <div>
-            <span className="mono mono--accent">( Next project )</span>
+            <span className="mono mono--accent">Next project</span>
             <h2 className="case__nexttitle display">{next.title}</h2>
             <span className="case__nextsub">{next.subtitle}</span>
           </div>
