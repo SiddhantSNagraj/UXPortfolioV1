@@ -811,8 +811,11 @@ a.colophon:hover { color: var(--yellow-ink); }
    ========================================================================= */
 .cmdk { position: fixed; inset: 0; z-index: 10000; display: none; }
 .cmdk.is-open { display: block; }
-.cmdk__scrim { position: absolute; inset: 0; background: rgba(0,0,0,.5); backdrop-filter: blur(3px); }
-.cmdk__panel { position: relative; width: min(560px, 92vw); margin: 12vh auto 0;
+.cmdk__scrim { position: absolute; inset: 0; background: rgba(0,0,0,.5); backdrop-filter: blur(3px); cursor: default; }
+.cmdk, .cmdk * { cursor: auto; }
+.cmdk__row, .cmdk__cat { cursor: pointer; }
+.cmdk__input { cursor: text; }
+.cmdk__panel { position: relative; width: min(620px, 94vw); margin: 12vh auto 0;
   background: var(--surface); border: 1px solid var(--line-2); border-radius: 16px; overflow: hidden;
   box-shadow: 0 40px 90px rgba(0,0,0,.55); animation: cmdkPop .2s var(--ease); }
 @keyframes cmdkPop { from { opacity: 0; transform: translateY(-10px) scale(.98); } to { opacity: 1; transform: none; } }
@@ -828,9 +831,46 @@ a.colophon:hover { color: var(--yellow-ink); }
 .cmdk__lbl { font-family: var(--display); font-size: 14.5px; color: var(--ink); }
 .cmdk__kind { font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); flex: none; }
 .cmdk__empty { padding: 24px 14px; text-align: center; color: var(--ink-3); font-size: 12px; }
+
+/* two-pane (D) layout */
+.cmdk__twin { display: grid; grid-template-columns: 168px 1fr; min-height: 300px; max-height: 380px; }
+.cmdk__nav { border-right: 1px solid var(--line); padding: 8px; display: flex; flex-direction: column; gap: 2px; }
+.cmdk__cat { display: flex; align-items: center; gap: 9px; padding: 10px 12px; border: none; background: none;
+  border-radius: 8px; font-family: var(--display); font-size: 13px; color: var(--ink-2); cursor: pointer; text-align: left; }
+.cmdk__cat.is-active { background: var(--bg-2); color: var(--ink); }
+.cmdk__catdot { width: 7px; height: 7px; border-radius: 50%; background: var(--ink-4); flex: none; }
+.cmdk__cat.is-active .cmdk__catdot { background: var(--accent); }
+.cmdk__cat--secret { color: var(--yellow-ink); }
+.cmdk__cat--secret .cmdk__catdot { background: var(--yellow); }
+.cmdk__items { padding: 8px; overflow-y: auto; scrollbar-width: thin; }
+.cmdk__kind--secret { color: var(--yellow-ink); }
+@media (max-width: 520px) {
+  .cmdk__twin { grid-template-columns: 1fr; }
+  .cmdk__nav { flex-direction: row; flex-wrap: wrap; border-right: none; border-bottom: 1px solid var(--line); }
+}
 .cmdk__hint { display: flex; gap: 18px; justify-content: center; padding: 11px; border-top: 1px solid var(--line);
   font-size: 10px; letter-spacing: .06em; color: var(--ink-3); }
 @media (max-width: 560px) { .cmdk__hint { display: none; } }
+
+/* =========================================================================
+   SECRET DESIGNER NOTE (opened via ⌘K)
+   ========================================================================= */
+.dnote { position: fixed; inset: 0; z-index: 10001; display: flex; align-items: center; justify-content: center; padding: 24px; }
+.dnote__scrim { position: absolute; inset: 0; background: rgba(0,0,0,.62); backdrop-filter: blur(5px); opacity: 0; transition: opacity .38s var(--ease); }
+.dnote.is-in .dnote__scrim { opacity: 1; }
+.dnote__card { position: relative; width: min(620px, 94vw); max-height: 86vh; overflow-y: auto;
+  background: var(--surface); border: 1px solid var(--line-2); border-radius: 18px; padding: clamp(30px, 5vw, 54px);
+  box-shadow: 0 50px 110px rgba(0,0,0,.6);
+  opacity: 0; transform: translateY(14px) scale(.98); transition: opacity .4s var(--ease), transform .4s var(--ease); }
+.dnote.is-in .dnote__card { opacity: 1; transform: none; }
+.dnote__kicker { font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--accent); margin-bottom: 22px; }
+.dnote__body p { font-family: var(--body); font-size: clamp(16px, 1.7vw, 19px); line-height: 1.62; color: var(--ink-2); margin: 0 0 16px; }
+.dnote__body p:first-child { color: var(--ink); }
+.dnote__sign { font-family: var(--body); font-style: italic; font-size: 20px; color: var(--yellow-ink); margin-top: 22px; }
+.dnote__close { margin-top: 26px; font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-3);
+  background: transparent; border: 1px solid var(--line); border-radius: 999px; padding: 8px 15px; cursor: pointer; transition: color .2s var(--ease), border-color .2s var(--ease); }
+.dnote__close:hover { color: var(--ink); border-color: var(--line-2); }
+@media (prefers-reduced-motion: reduce) { .dnote__scrim, .dnote__card { transition: none; } }
 
 /* =========================================================================
    RETRO VIBE — structural touches (fonts/texture set via JS + this block)

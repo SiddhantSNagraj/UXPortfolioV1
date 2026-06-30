@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>⌘K · column layouts</title>
+<link rel="preconnect" href="https://api.fontshare.com" />
+<link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=general-sans@500,600,700&f[]=gambetta@400,500,600&display=swap" />
+<style>
+  :root{
+    --bg:#0b0b0c; --bg-2:#111113; --surface:#161618; --surface-2:#1d1d20;
+    --line:rgba(255,255,255,.10); --line-2:rgba(255,255,255,.18);
+    --ink:#f2f1ec; --ink-2:#b9b8b2; --ink-3:#75746f; --ink-4:#4a4a47;
+    --accent:#5c2838; --yellow:#f7c14a;
+    --display:'General Sans',system-ui,sans-serif;
+    --body:'Gambetta',Georgia,serif;
+    --ease:cubic-bezier(.4,0,.2,1);
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:#070708;color:var(--ink);font-family:var(--display);padding:46px clamp(16px,4vw,60px) 120px;}
+  .ph{font-family:var(--body);font-weight:500;font-size:clamp(26px,4vw,40px);letter-spacing:-.01em;margin:0 0 4px;}
+  .ph em{font-style:italic;color:var(--yellow);}
+  .psub{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-bottom:40px;}
+  .opt{margin-bottom:46px;}
+  .opt__bar{display:flex;align-items:baseline;gap:12px;margin-bottom:16px;}
+  .opt__n{font-size:12px;color:var(--yellow);letter-spacing:.12em;font-weight:600;}
+  .opt__name{font-size:16px;font-weight:600;}
+  .opt__desc{font-family:var(--body);font-size:14px;color:var(--ink-2);font-style:italic;margin-left:auto;}
+
+  .pal{background:var(--surface);border:1px solid var(--line-2);border-radius:16px;overflow:hidden;box-shadow:0 30px 70px rgba(0,0,0,.5);max-width:680px;}
+  .pal__in{display:flex;align-items:center;gap:12px;padding:15px 17px;border-bottom:1px solid var(--line);}
+  .pal__k{font-size:11px;color:var(--accent);border:1px solid var(--line-2);border-radius:7px;padding:4px 8px;letter-spacing:.08em;}
+  .pal__ph{color:var(--ink-3);font-size:15px;}
+  .grp{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-4);padding:12px 4px 8px;}
+  .dot{width:10px;height:10px;border-radius:50%;flex:none;}
+  .pal__hint{display:flex;gap:16px;justify-content:center;padding:11px;border-top:1px solid var(--line);font-size:10px;letter-spacing:.06em;color:var(--ink-3);}
+
+  /* ===== D · two-pane (categories left, items right) ===== */
+  .twin{display:grid;grid-template-columns:150px 1fr;min-height:340px;}
+  .twin__nav{border-right:1px solid var(--line);padding:10px;display:flex;flex-direction:column;gap:2px;}
+  .twin__cat{display:flex;align-items:center;gap:9px;padding:9px 11px;border-radius:8px;font-size:13px;color:var(--ink-2);cursor:pointer;}
+  .twin__cat.act{background:var(--bg-2);color:var(--ink);}
+  .twin__cat .c{width:7px;height:7px;border-radius:50%;background:var(--ink-4);}
+  .twin__cat.act .c{background:var(--yellow);}
+  .twin__items{padding:10px;}
+  .ci{display:flex;align-items:center;gap:12px;padding:11px 13px;border-radius:9px;cursor:pointer;}
+  .ci.act{background:var(--bg-2);}
+  .ci__t{font-size:14.5px;color:var(--ink);}
+  .ci__s{font-size:12px;color:var(--ink-3);margin-left:auto;}
+
+  /* ===== E · masonry columns (all groups visible side by side) ===== */
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:4px;padding:12px;}
+  .col{padding:8px;}
+  .ce{display:flex;align-items:center;gap:10px;padding:9px 11px;border-radius:8px;cursor:pointer;font-size:13.5px;color:var(--ink);}
+  .ce.act{background:var(--bg-2);}
+  .ce .dot{width:8px;height:8px;}
+  .ce__s{font-size:11px;color:var(--ink-3);}
+  .span2{grid-column:1 / -1;}
+
+  /* ===== F · card grid (projects as tiles, actions as a row) ===== */
+  .cg{padding:14px;}
+  .cg__tiles{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  .tile{border:1px solid var(--line);border-radius:12px;padding:14px;cursor:pointer;background:var(--surface-2);}
+  .tile.act{border-color:var(--line-2);}
+  .tile__top{display:flex;align-items:center;gap:8px;margin-bottom:24px;}
+  .tile__t{font-size:15px;color:var(--ink);font-weight:600;}
+  .tile__s{font-size:11.5px;color:var(--ink-3);}
+  .cg__row{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;padding-top:12px;border-top:1px solid var(--line);}
+  .pillbtn{font-size:12px;color:var(--ink-2);border:1px solid var(--line);border-radius:999px;padding:7px 13px;cursor:pointer;}
+</style>
+</head>
+<body>
+  <h1 class="ph">⌘K · <em>column layouts</em></h1>
+  <div class="psub">Three column-based directions · same actions as option C</div>
+
+  <!-- D -->
+  <div class="opt">
+    <div class="opt__bar"><span class="opt__n">D</span><span class="opt__name">Two-pane</span><span class="opt__desc">categories left, results right (Raycast-style)</span></div>
+    <div class="pal">
+      <div class="pal__in"><span class="pal__k">⌘K</span><span class="pal__ph">Jump to a project, section, or action…</span></div>
+      <div class="twin">
+        <div class="twin__nav">
+          <div class="twin__cat act"><span class="c"></span>Work</div>
+          <div class="twin__cat"><span class="c"></span>Navigate</div>
+          <div class="twin__cat"><span class="c"></span>Actions</div>
+          <div class="twin__cat"><span class="c" style="background:var(--yellow)"></span>Hidden ✦</div>
+        </div>
+        <div class="twin__items">
+          <div class="ci act"><span class="dot" style="background:#5fd39b"></span><span class="ci__t">Greenstand</span><span class="ci__s">Roots Design System</span></div>
+          <div class="ci"><span class="dot" style="background:#e08aa0"></span><span class="ci__t">APMC</span><span class="ci__s">Website Redesign</span></div>
+          <div class="ci"><span class="dot" style="background:#f7c14a"></span><span class="ci__t">CoffeeHouse</span><span class="ci__s">Mobile App</span></div>
+          <div class="ci"><span class="dot" style="background:#c98fd6"></span><span class="ci__t">Slack</span><span class="ci__s">Reimagined</span></div>
+        </div>
+      </div>
+      <div class="pal__hint"><span>↑↓ items</span><span>⇥ switch column</span><span>esc close</span></div>
+    </div>
+  </div>
+
+  <!-- E -->
+  <div class="opt">
+    <div class="opt__bar"><span class="opt__n">E</span><span class="opt__name">Side-by-side groups</span><span class="opt__desc">everything visible at once, two columns</span></div>
+    <div class="pal">
+      <div class="pal__in"><span class="pal__k">⌘K</span><span class="pal__ph">Search…</span></div>
+      <div class="cols">
+        <div class="col">
+          <div class="grp">Work</div>
+          <div class="ce act"><span class="dot" style="background:#5fd39b"></span>Greenstand</div>
+          <div class="ce"><span class="dot" style="background:#e08aa0"></span>APMC</div>
+          <div class="ce"><span class="dot" style="background:#f7c14a"></span>CoffeeHouse</div>
+          <div class="ce"><span class="dot" style="background:#c98fd6"></span>Slack</div>
+        </div>
+        <div class="col">
+          <div class="grp">Navigate</div>
+          <div class="ce">Home</div>
+          <div class="ce">About</div>
+          <div class="ce">Contact</div>
+          <div class="grp">Actions</div>
+          <div class="ce">Toggle light / dark</div>
+          <div class="ce">Email Siddhant</div>
+        </div>
+        <div class="col span2">
+          <div class="grp" style="color:var(--yellow)">✦ Hidden</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px">
+            <div class="ce"><span class="dot" style="background:var(--yellow)"></span>Retro Slate theme</div>
+            <div class="ce"><span class="dot" style="background:var(--yellow)"></span>A note for fellow designers</div>
+          </div>
+        </div>
+      </div>
+      <div class="pal__hint"><span>↑↓ navigate</span><span>↵ select</span><span>esc close</span></div>
+    </div>
+  </div>
+
+  <!-- F -->
+  <div class="opt">
+    <div class="opt__bar"><span class="opt__n">F</span><span class="opt__name">Project tiles + action row</span><span class="opt__desc">work as cards, everything else as pills</span></div>
+    <div class="pal">
+      <div class="pal__in"><span class="pal__k">⌘K</span><span class="pal__ph">Jump to a project, section, or action…</span></div>
+      <div class="cg">
+        <div class="grp">Work</div>
+        <div class="cg__tiles">
+          <div class="tile act"><div class="tile__top"><span class="dot" style="background:#5fd39b"></span><span class="tile__t">Greenstand</span></div><div class="tile__s">Roots Design System</div></div>
+          <div class="tile"><div class="tile__top"><span class="dot" style="background:#e08aa0"></span><span class="tile__t">APMC</span></div><div class="tile__s">Website Redesign</div></div>
+          <div class="tile"><div class="tile__top"><span class="dot" style="background:#f7c14a"></span><span class="tile__t">CoffeeHouse</span></div><div class="tile__s">Mobile App</div></div>
+          <div class="tile"><div class="tile__top"><span class="dot" style="background:#c98fd6"></span><span class="tile__t">Slack</span></div><div class="tile__s">Reimagined</div></div>
+        </div>
+        <div class="cg__row">
+          <span class="pillbtn">Home</span><span class="pillbtn">About</span><span class="pillbtn">Contact</span>
+          <span class="pillbtn">Light / dark</span><span class="pillbtn">Email</span>
+          <span class="pillbtn" style="border-color:var(--yellow);color:var(--yellow)">✦ Retro</span>
+          <span class="pillbtn" style="border-color:var(--yellow);color:var(--yellow)">✎ Note</span>
+        </div>
+      </div>
+      <div class="pal__hint"><span>↑↓←→ navigate</span><span>↵ select</span><span>esc close</span></div>
+    </div>
+  </div>
+
+</body>
+</html>

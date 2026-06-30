@@ -16,7 +16,36 @@
     { label: 'Toggle light / dark', kind: 'Action', act: function () { var b = document.querySelector('.themetog'); if (b) b.click(); } },
     { label: 'Toggle inspect mode (G)', kind: 'Action', act: function () { window.dispatchEvent(new KeyboardEvent('keydown', { key: 'g' })); } },
     { label: 'Toggle Retro Slate theme ✦', kind: 'Secret', act: function () { window.__toggleVibe(); } },
+    { label: 'A note for fellow designers', kind: 'Secret', act: function () { window.__openDesignerNote(); } },
   ];
+
+  /* secret letter — a quiet note for other designers who find this via ⌘K */
+  window.__openDesignerNote = function () {
+    if (document.querySelector('.dnote')) return;
+    var ov = document.createElement('div');
+    ov.className = 'dnote';
+    ov.innerHTML =
+      '<div class="dnote__scrim"></div>' +
+      '<div class="dnote__card" role="dialog" aria-label="A note for fellow designers">' +
+        '<div class="dnote__kicker mono">( For whoever opened this with ⌘K )</div>' +
+        '<div class="dnote__body">' +
+          '<p>If you found this, you probably build things too.</p>' +
+          '<p>A quick, honest note, designer to designer: I know what it feels like right now, trying to keep up with every new AI tool that drops and you “should” be using before you’ve even finished reading about the last one, the imposter syndrome that shows up when you open a blank Figma file, the job search that makes you feel like a spreadsheet row, and refining the same portfolio for the hundredth time because you just saw someone else’s work and quietly spiraled.</p>' +
+          '<p>I have done all of that; I’m still doing some of it. Comparison is the tax we pay for caring about the craft, and it’s loudest in the people who are actually good.</p>' +
+          '<p>So here’s the thing I keep having to relearn: your work does not have to be louder than theirs, it just has to be honestly yours. Tools come and go. Taste doesn’t.</p>' +
+          '<p>Keep going. Keep building. You’re closer than it feels.</p>' +
+        '</div>' +
+        '<div class="dnote__sign">— Siddhant</div>' +
+        '<button class="dnote__close mono" aria-label="Close">Close ✕</button>' +
+      '</div>';
+    document.body.appendChild(ov);
+    requestAnimationFrame(function () { ov.classList.add('is-in'); });
+    function bye() { ov.classList.remove('is-in'); setTimeout(function () { ov.remove(); }, 380); document.removeEventListener('keydown', onEsc); }
+    function onEsc(e) { if (e.key === 'Escape') bye(); }
+    ov.querySelector('.dnote__scrim').addEventListener('click', bye);
+    ov.querySelector('.dnote__close').addEventListener('click', bye);
+    document.addEventListener('keydown', onEsc);
+  };
 
   /* public retro-vibe toggle (easter egg) — persists to localStorage so it
      survives navigation and the React tweaks layer respects it. */
@@ -69,51 +98,93 @@
     setTimeout(function () { var el = document.querySelector(sel); if (el) el.scrollIntoView({ behavior: 'smooth' }); }, location.hash ? 300 : 0);
   }
 
-  var ov, input, list, rows = [], active = 0, filtered = ITEMS.slice();
+  var ov, input, paneNav, paneItems, rows = [], active = 0, filtered = [];
+  var CATS = ['Work', 'Navigate', 'Actions', 'Hidden'];
+  var KIND2CAT = { 'Project': 'Work', 'Go': 'Navigate', 'Section': 'Navigate', 'Action': 'Actions', 'Secret': 'Hidden' };
+  var activeCat = 0, searching = false;
+  function catOf(it) { return KIND2CAT[it.kind] || 'Actions'; }
+  function itemsInCat(c) { return ITEMS.filter(function (i) { return catOf(i) === c; }); }
+
   function build() {
     ov = document.createElement('div');
-    ov.className = 'cmdk';
+    ov.className = 'cmdk cmdk--twin';
     ov.innerHTML =
       '<div class="cmdk__scrim"></div>' +
       '<div class="cmdk__panel" role="dialog" aria-label="Command menu">' +
         '<div class="cmdk__inbox"><span class="cmdk__prompt mono">⌘K</span>' +
         '<input class="cmdk__input" placeholder="Jump to a project, section, or action…" aria-label="Search commands" /></div>' +
-        '<div class="cmdk__list" role="listbox"></div>' +
-        '<div class="cmdk__hint mono"><span>↑↓ navigate</span><span>↵ select</span><span>esc close</span></div>' +
+        '<div class="cmdk__twin">' +
+          '<div class="cmdk__nav" role="tablist"></div>' +
+          '<div class="cmdk__items" role="listbox"></div>' +
+        '</div>' +
+        '<div class="cmdk__hint mono"><span>↑↓ items</span><span>Tab switch group</span><span>↵ select</span><span>esc close</span></div>' +
       '</div>';
     document.body.appendChild(ov);
     input = ov.querySelector('.cmdk__input');
-    list = ov.querySelector('.cmdk__list');
+    paneNav = ov.querySelector('.cmdk__nav');
+    paneItems = ov.querySelector('.cmdk__items');
     ov.querySelector('.cmdk__scrim').addEventListener('click', close);
     input.addEventListener('input', function () { render(input.value); });
     input.addEventListener('keydown', onKeys);
     render('');
   }
+
   function render(q) {
     q = (q || '').trim().toLowerCase();
-    filtered = q ? ITEMS.filter(function (i) { return i.label.toLowerCase().indexOf(q) >= 0 || i.kind.toLowerCase().indexOf(q) >= 0; }) : ITEMS.slice();
+    searching = !!q;
+    // left nav (hidden while searching — results span all groups)
+    paneNav.innerHTML = '';
+    paneNav.style.display = searching ? 'none' : '';
+    if (!searching) {
+      CATS.forEach(function (c, ci) {
+        if (!itemsInCat(c).length) return;
+        var b = document.createElement('button');
+        b.className = 'cmdk__cat' + (ci === activeCat ? ' is-active' : '') + (c === 'Hidden' ? ' cmdk__cat--secret' : '');
+        b.innerHTML = '<span class="cmdk__catdot"></span>' + (c === 'Hidden' ? '✦ Hidden' : c);
+        b.addEventListener('click', function () { activeCat = ci; render(input.value); });
+        b.addEventListener('mousemove', function () { if (activeCat !== ci) { activeCat = ci; render(input.value); } });
+        paneNav.appendChild(b);
+      });
+    }
+    // right items
+    if (searching) {
+      filtered = ITEMS.filter(function (i) { return i.label.toLowerCase().indexOf(q) >= 0 || i.kind.toLowerCase().indexOf(q) >= 0; });
+    } else {
+      filtered = itemsInCat(CATS[activeCat]);
+    }
     active = 0;
-    list.innerHTML = '';
+    paneItems.innerHTML = '';
     rows = filtered.map(function (it, i) {
       var r = document.createElement('button');
       r.className = 'cmdk__row' + (i === 0 ? ' is-active' : '');
-      r.innerHTML = '<span class="cmdk__lbl">' + it.label + '</span><span class="cmdk__kind mono">' + it.kind + '</span>';
+      var secret = catOf(it) === 'Hidden';
+      r.innerHTML = '<span class="cmdk__lbl">' + it.label + '</span><span class="cmdk__kind mono' + (secret ? ' cmdk__kind--secret' : '') + '">' + it.kind + '</span>';
       r.addEventListener('click', function () { run(it); });
       r.addEventListener('mousemove', function () { setActive(i); });
-      list.appendChild(r);
+      paneItems.appendChild(r);
       return r;
     });
-    if (!filtered.length) { list.innerHTML = '<div class="cmdk__empty mono">No matches</div>'; }
+    if (!filtered.length) { paneItems.innerHTML = '<div class="cmdk__empty mono">No matches</div>'; }
   }
+
   function setActive(i) { if (rows[active]) rows[active].classList.remove('is-active'); active = i; if (rows[active]) rows[active].classList.add('is-active'); }
+  function cycleCat(dir) {
+    if (searching) return;
+    var n = CATS.length, tries = 0, ci = activeCat;
+    do { ci = (ci + dir + n) % n; tries++; } while (!itemsInCat(CATS[ci]).length && tries < n);
+    activeCat = ci; render(input.value);
+  }
   function onKeys(e) {
     if (e.key === 'ArrowDown') { e.preventDefault(); if (active < rows.length - 1) { setActive(active + 1); rows[active].scrollIntoView({ block: 'nearest' }); } }
     else if (e.key === 'ArrowUp') { e.preventDefault(); if (active > 0) { setActive(active - 1); rows[active].scrollIntoView({ block: 'nearest' }); } }
+    else if (e.key === 'Tab') { e.preventDefault(); cycleCat(e.shiftKey ? -1 : 1); }
+    else if (e.key === 'ArrowRight' && !searching) { e.preventDefault(); cycleCat(1); }
+    else if (e.key === 'ArrowLeft' && !searching) { e.preventDefault(); cycleCat(-1); }
     else if (e.key === 'Enter') { e.preventDefault(); if (filtered[active]) run(filtered[active]); }
     else if (e.key === 'Escape') { close(); }
   }
   function run(it) { close(); setTimeout(it.act, 80); }
-  function open() { if (!ov) build(); ov.classList.add('is-open'); input.value = ''; render(''); setTimeout(function () { input.focus(); }, 30); }
+  function open() { if (!ov) build(); ov.classList.add('is-open'); input.value = ''; activeCat = 0; render(''); setTimeout(function () { input.focus(); }, 30); }
   function close() { if (ov) ov.classList.remove('is-open'); }
 
   window.addEventListener('keydown', function (e) {
