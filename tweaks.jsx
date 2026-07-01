@@ -62,7 +62,7 @@ const HERO_STATUS = {
 const FOOTER_BADGE = { 'Show': 'show', 'Hidden': 'hidden' };
 
 // Home work-list layout: editorial index, index + at-a-glance outcome, or card grid.
-const WORK_LAYOUT = { 'Index': 'index', 'Outcome': 'outcome', 'Descriptive': 'descriptive', 'Cards': 'cards' };
+const WORK_LAYOUT = { 'Index': 'index', 'Outcome': 'outcome', 'Descriptive': 'descriptive', 'Editorial': 'editorial', 'Cards': 'cards' };
 
 // About photo treatment: single portrait, or an interactive polaroid cluster.
 const ABOUT_PHOTOS = { 'Single': 'single', 'Cluster': 'cluster' };

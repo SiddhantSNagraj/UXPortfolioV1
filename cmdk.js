@@ -15,9 +15,176 @@
     { label: 'Open LinkedIn', kind: 'Action', act: function () { window.open('https://www.linkedin.com/in/siddhantnagraj/', '_blank'); } },
     { label: 'Toggle light / dark', kind: 'Action', act: function () { var b = document.querySelector('.themetog'); if (b) b.click(); } },
     { label: 'Toggle inspect mode (G)', kind: 'Action', act: function () { window.dispatchEvent(new KeyboardEvent('keydown', { key: 'g' })); } },
+    { label: 'Surprise me — open a random project', kind: 'Secret', act: function () { window.__surpriseMe(); } },
+    { label: 'Now playing ♪', kind: 'Secret', act: function () { window.__nowPlaying(); } },
+    { label: 'Palette peek', kind: 'Secret', act: function () { window.__palettePeek(); } },
     { label: 'Toggle Retro Slate theme ✦', kind: 'Secret', act: function () { window.__toggleVibe(); } },
     { label: 'A note for fellow designers', kind: 'Secret', act: function () { window.__openDesignerNote(); } },
   ];
+
+  /* ---- Surprise me: jump to a project other than the one you're on ---- */
+  var PROJECTS = ['greenstand', 'apmc', 'coffeehouse', 'slack'];
+  window.__surpriseMe = function () {
+    var cur = (location.hash.match(/project\/(\w+)/) || [])[1];
+    var pool = PROJECTS.filter(function (p) { return p !== cur; });
+    var pick = pool[Math.floor(Math.random() * pool.length)];
+    location.hash = 'project/' + pick;
+    window.scrollTo({ top: 0, behavior: 'auto' });
+  };
+
+  /* ---- Now playing: my actual rotation, real audio + album art. ---- */
+  var NOW_PLAYING = [
+    { track: 'Infinity',         artist: 'The Band Camino',  src: 'assets/music/Infinity.mp3',         term: 'The Band Camino Infinity' },
+    { track: 'OK OK',            artist: 'Citimall',         src: 'assets/music/OK OK.mp3',            term: 'Citimall OK OK' },
+    { track: 'Out Of My League', artist: 'Aidan Bissett',    src: 'assets/music/Out Of My League.mp3', term: 'Aidan Bissett Out of my league' },
+    { track: 'From Eden',        artist: 'Hozier',           src: 'assets/music/From Eden.mp3',        art: 'assets/music/From Eden.jpg' },
+    { track: 'Mona Lisa, Mona Lisa', artist: 'FINNEAS',      src: 'assets/music/Mona Lisa.mp3', art: 'assets/music/Mona Lisa.jpg' }
+  ];
+
+  // resolve cover art: use the track's local `art` if given, else the iTunes
+  // Search API via JSONP (no CORS issues); cached per track
+  function fetchArt(t, cb) {
+    if (t._art !== undefined) { cb(t._art); return; }
+    if (t.art) { t._art = t.art; cb(t.art); return; }
+    var cbName = '__np_cb_' + Math.random().toString(36).slice(2);
+    var timer = setTimeout(function () { done(''); }, 4500);
+    window[cbName] = function (data) {
+      var r = (data && data.results && data.results[0]) || null;
+      done(r && r.artworkUrl100 ? r.artworkUrl100.replace('100x100', '300x300') : '');
+    };
+    function done(url) {
+      clearTimeout(timer); t._art = url; cb(url);
+      try { delete window[cbName]; } catch (e) {}
+      if (s.parentNode) s.parentNode.removeChild(s);
+    }
+    var s = document.createElement('script');
+    s.src = 'https://itunes.apple.com/search?term=' + encodeURIComponent(t.term) +
+            '&entity=song&limit=1&callback=' + cbName;
+    s.onerror = function () { done(''); };
+    document.head.appendChild(s);
+  }
+
+  var npIdx = -1, npAudio = null;
+  window.__nowPlaying = function () {
+    var old = document.querySelector('.nowp');
+    if (old) { if (npAudio) npAudio.pause(); old.remove(); }
+    npIdx = (npIdx + 1) % NOW_PLAYING.length;
+    npRender();
+  };
+
+  function npRender() {
+    var t = NOW_PLAYING[npIdx];
+    var prev = document.querySelector('.nowp'); if (prev) prev.remove();
+    if (npAudio) { npAudio.pause(); npAudio = null; }
+    var el = document.createElement('div');
+    el.className = 'nowp';
+    el.innerHTML =
+      '<button class="nowp__art" aria-label="Play / pause">' +
+        '<img class="nowp__cover" alt="" />' +
+        '<span class="nowp__eq"><i></i><i></i><i></i><i></i></span>' +
+        '<span class="nowp__play" aria-hidden="true">▶</span>' +
+      '</button>' +
+      '<div class="nowp__meta">' +
+        '<div class="nowp__kick mono">Now playing · on repeat while I design</div>' +
+        '<div class="nowp__track">' + t.track + '</div>' +
+        '<div class="nowp__artist">' + t.artist + '</div>' +
+        '<div class="nowp__ctrls">' +
+          '<div class="nowp__bar" role="slider" aria-label="Seek" tabindex="0"><span class="nowp__fill"></span><span class="nowp__knob"></span></div>' +
+          '<button class="nowp__next" aria-label="Next track">⏭</button>' +
+        '</div>' +
+      '</div>' +
+      '<button class="nowp__x" aria-label="Dismiss">✕</button>';
+    document.body.appendChild(el);
+    requestAnimationFrame(function () { el.classList.add('is-in'); });
+
+    // cover art (falls back to the gradient tile if the lookup fails)
+    var cover = el.querySelector('.nowp__cover');
+    fetchArt(t, function (url) {
+      if (url) { cover.src = url; cover.addEventListener('load', function () { el.classList.add('has-art'); }); }
+    });
+
+    npAudio = new Audio(t.src);
+    npAudio.volume = 0.85;
+    var fill = el.querySelector('.nowp__fill');
+    var knob = el.querySelector('.nowp__knob');
+    var bar = el.querySelector('.nowp__bar');
+    npAudio.addEventListener('timeupdate', function () {
+      if (npAudio.duration && !scrubbing) { var p = npAudio.currentTime / npAudio.duration * 100; fill.style.width = p + '%'; knob.style.left = p + '%'; }
+    });
+    npAudio.addEventListener('ended', function () { advance(); });
+    function toggle() {
+      if (npAudio.paused) { npAudio.play().then(function () { el.classList.add('is-playing'); }).catch(function () {}); }
+      else { npAudio.pause(); el.classList.remove('is-playing'); }
+    }
+    npAudio.play().then(function () { el.classList.add('is-playing'); }).catch(function () {});
+
+    // scrubbing
+    var scrubbing = false;
+    function seekAt(clientX) {
+      var r = bar.getBoundingClientRect();
+      var ratio = Math.min(1, Math.max(0, (clientX - r.left) / r.width));
+      fill.style.width = (ratio * 100) + '%'; knob.style.left = (ratio * 100) + '%';
+      if (npAudio.duration) npAudio.currentTime = ratio * npAudio.duration;
+    }
+    bar.addEventListener('pointerdown', function (e) { scrubbing = true; bar.setPointerCapture(e.pointerId); seekAt(e.clientX); });
+    bar.addEventListener('pointermove', function (e) { if (scrubbing) seekAt(e.clientX); });
+    bar.addEventListener('pointerup', function (e) { scrubbing = false; try { bar.releasePointerCapture(e.pointerId); } catch (x) {} });
+    bar.addEventListener('keydown', function (e) {
+      if (!npAudio.duration) return;
+      if (e.key === 'ArrowRight') { e.preventDefault(); npAudio.currentTime = Math.min(npAudio.duration, npAudio.currentTime + 5); }
+      else if (e.key === 'ArrowLeft') { e.preventDefault(); npAudio.currentTime = Math.max(0, npAudio.currentTime - 5); }
+    });
+
+    function advance() { npIdx = (npIdx + 1) % NOW_PLAYING.length; npRender(); }
+    function bye() { if (npAudio) npAudio.pause(); el.classList.remove('is-in'); setTimeout(function () { el.remove(); }, 420); }
+    el.querySelector('.nowp__art').addEventListener('click', toggle);
+    el.querySelector('.nowp__next').addEventListener('click', advance);
+    el.querySelector('.nowp__x').addEventListener('click', bye);
+  }
+
+  /* ---- Palette peek: the site's live colors, click a chip to copy the hex ---- */
+  window.__palettePeek = function () {
+    var old = document.querySelector('.pklt'); if (old) { old.remove(); return; }
+    var cs = getComputedStyle(document.documentElement);
+    function hex(v) {
+      v = (v || '').trim();
+      if (v.charAt(0) === '#') return v.toUpperCase();
+      var m = v.match(/rgba?\(([^)]+)\)/i);
+      if (m) { var p = m[1].split(/[ ,\/]+/).map(Number); return '#' + p.slice(0, 3).map(function (n) { return ('0' + n.toString(16)).slice(-2); }).join('').toUpperCase(); }
+      return v.toUpperCase();
+    }
+    var SWATCHES = [
+      { name: 'Accent',  var: '--accent' },
+      { name: 'Highlight', var: '--yellow' },
+      { name: 'Ink',     var: '--ink' },
+      { name: 'Muted',   var: '--ink-2' },
+      { name: 'Surface', var: '--surface' },
+      { name: 'Base',    var: '--bg' }
+    ].map(function (s) { s.hex = hex(cs.getPropertyValue(s.var)); return s; });
+    var el = document.createElement('div');
+    el.className = 'pklt';
+    el.innerHTML =
+      '<div class="pklt__head mono"><span>Palette</span><button class="pklt__x" aria-label="Close">✕</button></div>' +
+      '<div class="pklt__grid">' + SWATCHES.map(function (s) {
+        return '<button class="pklt__chip" data-hex="' + s.hex + '">' +
+          '<span class="pklt__sw" style="background:' + s.hex + '"></span>' +
+          '<span class="pklt__lbl">' + s.name + '</span>' +
+          '<span class="pklt__hex mono">' + s.hex + '</span></button>';
+      }).join('') + '</div>' +
+      '<div class="pklt__foot mono">Click a chip to copy</div>';
+    document.body.appendChild(el);
+    requestAnimationFrame(function () { el.classList.add('is-in'); });
+    function bye() { el.classList.remove('is-in'); setTimeout(function () { el.remove(); }, 320); }
+    el.querySelector('.pklt__x').addEventListener('click', bye);
+    el.querySelectorAll('.pklt__chip').forEach(function (c) {
+      c.addEventListener('click', function () {
+        var h = c.getAttribute('data-hex');
+        try { navigator.clipboard && navigator.clipboard.writeText(h); } catch (e) {}
+        c.classList.add('is-copied');
+        setTimeout(function () { c.classList.remove('is-copied'); }, 1100);
+      });
+    });
+  };
 
   /* secret letter — a quiet note for other designers who find this via ⌘K */
   window.__openDesignerNote = function () {
@@ -30,7 +197,7 @@
         '<div class="dnote__kicker mono">( For whoever opened this with ⌘K )</div>' +
         '<div class="dnote__body">' +
           '<p>If you found this, you probably build things too.</p>' +
-          '<p>A quick, honest note, designer to designer: I know what it feels like right now, trying to keep up with every new AI tool that drops and you “should” be using before you’ve even finished reading about the last one, the imposter syndrome that shows up when you open a blank Figma file, the job search that makes you feel like a spreadsheet row, and refining the same portfolio for the hundredth time because you just saw someone else’s work and quietly spiraled.</p>' +
+          '<p>A quick, honest note, designer to designer: I know what it feels like right now, trying to keep up with every new AI tool that drops which you “should” be using before you’ve even finished reading about the last one, the imposter syndrome that shows up when you open a blank Figma file, the job search that makes you feel like a spreadsheet row, and refining the same portfolio for the hundredth time because you just saw someone else’s work and quietly spiraled.</p>' +
           '<p>I have done all of that; I’m still doing some of it. Comparison is the tax we pay for caring about the craft, and it’s loudest in the people who are actually good.</p>' +
           '<p>So here’s the thing I keep having to relearn: your work does not have to be louder than theirs, it just has to be honestly yours. Tools come and go. Taste doesn’t.</p>' +
           '<p>Keep going. Keep building. You’re closer than it feels.</p>' +

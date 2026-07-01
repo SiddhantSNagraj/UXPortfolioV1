@@ -123,7 +123,9 @@ img { display: block; max-width: 100%; }
    CUSTOM CURSOR (data-cursor: off | hover | precise | crosshair | invert | label)
    precise layer (.curx) tracks 1:1; only 'invert' uses the trailing .curx-trail
    ========================================================================= */
-.curx, .curx-trail { position: fixed; top: 0; left: 0; z-index: 9999; pointer-events: none; transition: opacity .25s var(--ease); }
+/* z-index sits above every overlay (cmd-k, notes, palette, now-playing) so the
+   custom cursor stays visible over them; pointer-events:none keeps clicks passing through */
+.curx, .curx-trail { position: fixed; top: 0; left: 0; z-index: 2147483000; pointer-events: none; transition: opacity .25s var(--ease); }
 .curx { display: none; }
 .curx-trail { display: none; }
 .curx > * { position: absolute; top: 0; left: 0; display: none; }
@@ -871,6 +873,89 @@ a.colophon:hover { color: var(--yellow-ink); }
   background: transparent; border: 1px solid var(--line); border-radius: 999px; padding: 8px 15px; cursor: pointer; transition: color .2s var(--ease), border-color .2s var(--ease); }
 .dnote__close:hover { color: var(--ink); border-color: var(--line-2); }
 @media (prefers-reduced-motion: reduce) { .dnote__scrim, .dnote__card { transition: none; } }
+
+/* =========================================================================
+   NOW PLAYING — little media card, bottom-left (opened via ⌘K)
+   ========================================================================= */
+.nowp {
+  position: fixed; left: 24px; bottom: 24px; z-index: 10002;
+  display: flex; align-items: center; gap: 14px;
+  width: min(320px, calc(100vw - 48px));
+  background: var(--surface); border: 1px solid var(--line-2); border-radius: 14px;
+  padding: 12px 14px; box-shadow: 0 24px 60px rgba(0,0,0,.5);
+  opacity: 0; transform: translateY(14px) scale(.98);
+  transition: opacity .42s var(--ease), transform .42s var(--ease);
+}
+.nowp.is-in { opacity: 1; transform: none; }
+.nowp__art {
+  flex: none; width: 46px; height: 46px; border-radius: 8px; border: none; cursor: pointer; padding: 0; overflow: hidden;
+  background: linear-gradient(135deg, var(--accent), color-mix(in srgb, var(--accent) 45%, #000));
+  display: flex; align-items: center; justify-content: center; position: relative;
+}
+.nowp__cover { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity .3s var(--ease); }
+.nowp.has-art .nowp__cover { opacity: 1; }
+.nowp.has-art .nowp__art::after { content: ""; position: absolute; inset: 0; background: rgba(0,0,0,.28); opacity: 0; transition: opacity .2s var(--ease); }
+.nowp.has-art .nowp__art:hover::after { opacity: 1; }
+.nowp__eq { display: flex; align-items: flex-end; gap: 2.5px; height: 18px; opacity: 0; transition: opacity .2s var(--ease); position: relative; z-index: 1; }
+.nowp.is-playing:not(.has-art) .nowp__eq { opacity: 1; }
+.nowp__eq i { width: 3px; background: #fff; border-radius: 1px; animation: nowpEq 1s ease-in-out infinite; animation-play-state: paused; }
+.nowp.is-playing .nowp__eq i { animation-play-state: running; }
+.nowp__eq i:nth-child(1) { height: 55%; animation-delay: -.1s; }
+.nowp__eq i:nth-child(2) { height: 95%; animation-delay: -.5s; }
+.nowp__eq i:nth-child(3) { height: 70%; animation-delay: -.3s; }
+.nowp__eq i:nth-child(4) { height: 40%; animation-delay: -.7s; }
+@keyframes nowpEq { 0%, 100% { transform: scaleY(.35); } 50% { transform: scaleY(1); } }
+.nowp__play { position: absolute; z-index: 1; color: #fff; font-size: 15px; line-height: 1; padding-left: 2px; transition: opacity .2s var(--ease); }
+.nowp.is-playing:not(.has-art) .nowp__play { opacity: 0; }
+.nowp.has-art .nowp__play { opacity: 0; }
+.nowp.has-art:not(.is-playing) .nowp__play,
+.nowp.has-art .nowp__art:hover .nowp__play { opacity: 1; text-shadow: 0 1px 4px rgba(0,0,0,.6); }
+.nowp__meta { flex: 1; min-width: 0; }
+.nowp__kick { font-size: 9.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); margin-bottom: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.nowp__track { font-family: var(--display); font-weight: 600; font-size: 15px; color: var(--ink); letter-spacing: -.01em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.nowp__artist { font-family: var(--body); font-size: 13px; color: var(--ink-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.nowp__ctrls { display: flex; align-items: center; gap: 10px; margin-top: 8px; }
+.nowp__bar { position: relative; flex: 1; height: 14px; display: flex; align-items: center; cursor: pointer; touch-action: none; }
+.nowp__bar::before { content: ""; position: absolute; left: 0; right: 0; height: 3px; border-radius: 2px; background: var(--surface-2); }
+.nowp__fill { position: absolute; left: 0; height: 3px; width: 0; border-radius: 2px; background: var(--accent); }
+.nowp__knob { position: absolute; left: 0; width: 9px; height: 9px; border-radius: 50%; background: var(--accent); transform: translateX(-50%); opacity: 0; transition: opacity .15s var(--ease); box-shadow: 0 1px 4px rgba(0,0,0,.4); }
+.nowp__bar:hover .nowp__knob, .nowp__bar:focus-visible .nowp__knob { opacity: 1; }
+.nowp__next { flex: none; background: transparent; border: none; color: var(--ink-2); font-size: 13px; cursor: pointer; padding: 2px 4px; line-height: 1; transition: color .18s var(--ease), transform .12s var(--ease); }
+.nowp__next:hover { color: var(--ink); }
+.nowp__next:active { transform: scale(.88); }
+.nowp__x { flex: none; align-self: flex-start; background: transparent; border: none; color: var(--ink-3); font-size: 13px; cursor: pointer; padding: 2px; line-height: 1; transition: color .2s var(--ease); }
+.nowp__x:hover { color: var(--ink); }
+@media (prefers-reduced-motion: reduce) { .nowp { transition: none; } .nowp__eq i { animation: none; } }
+
+/* =========================================================================
+   PALETTE PEEK — live color chips, bottom-right (opened via ⌘K)
+   ========================================================================= */
+.pklt {
+  position: fixed; right: 24px; bottom: 24px; z-index: 10002;
+  width: min(260px, calc(100vw - 48px));
+  background: var(--surface); border: 1px solid var(--line-2); border-radius: 14px;
+  padding: 14px; box-shadow: 0 24px 60px rgba(0,0,0,.5);
+  opacity: 0; transform: translateY(14px) scale(.98);
+  transition: opacity .32s var(--ease), transform .32s var(--ease);
+}
+.pklt.is-in { opacity: 1; transform: none; }
+.pklt__head { display: flex; align-items: center; justify-content: space-between; font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 12px; }
+.pklt__x { background: transparent; border: none; color: var(--ink-3); font-size: 12px; cursor: pointer; padding: 2px; line-height: 1; transition: color .2s var(--ease); }
+.pklt__x:hover { color: var(--ink); }
+.pklt__grid { display: flex; flex-direction: column; gap: 4px; }
+.pklt__chip {
+  display: flex; align-items: center; gap: 11px; width: 100%; text-align: left;
+  background: transparent; border: none; border-radius: 8px; padding: 7px 8px; cursor: pointer;
+  transition: background .18s var(--ease);
+}
+.pklt__chip:hover { background: var(--surface-2); }
+.pklt__sw { flex: none; width: 22px; height: 22px; border-radius: 6px; border: 1px solid var(--line-2); }
+.pklt__lbl { flex: 1; font-family: var(--display); font-weight: 500; font-size: 13px; color: var(--ink); }
+.pklt__hex { font-size: 11px; letter-spacing: .04em; color: var(--ink-3); transition: color .18s var(--ease); }
+.pklt__chip.is-copied .pklt__hex { color: var(--accent); }
+.pklt__chip.is-copied .pklt__hex::after { content: ' ✓ copied'; }
+.pklt__foot { margin-top: 10px; font-size: 9.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-4); text-align: center; }
+@media (prefers-reduced-motion: reduce) { .pklt { transition: none; } }
 
 /* =========================================================================
    RETRO VIBE — structural touches (fonts/texture set via JS + this block)

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Descriptive work layout · options</title>
+<link rel="preconnect" href="https://api.fontshare.com" />
+<link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=general-sans@500,600,700&f[]=gambetta@400,500,600,700&display=swap" />
+<style>
+  :root{
+    --bg:#F4ECDD; --surface:#fff;
+    --line:rgba(40,26,13,.12); --line-2:rgba(40,26,13,.2);
+    --ink:#271a0d; --ink-2:#5c4a36; --ink-3:#8a7a64; --ink-4:#b3a589;
+    --display:'General Sans',system-ui,sans-serif; --body:'Gambetta',Georgia,serif;
+    --ease:cubic-bezier(.4,0,.2,1);
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:#e7ddc9;color:var(--ink);font-family:var(--display);padding:40px clamp(14px,3vw,44px) 100px;}
+  .ph{font-family:var(--body);font-weight:500;font-size:clamp(24px,4vw,38px);letter-spacing:-.01em;margin:0 0 4px;}
+  .ph em{font-style:italic;color:#5c2838;}
+  .psub{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-bottom:30px;}
+  .lbl{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin:44px 0 12px;font-weight:600;}
+  .lbl b{color:var(--ink);}
+  .frame{border:1px solid var(--line);border-radius:16px;background:var(--bg);overflow:hidden;}
+
+  /* ============ shared row bits ============ */
+  .r{position:relative;overflow:hidden;border-top:1px solid var(--line);transition:color .5s var(--ease);}
+  .r:last-child{border-bottom:1px solid var(--line);}
+  .r__flood{position:absolute;inset:0;background:var(--c);transform:scaleY(0);transform-origin:bottom;transition:transform .5s var(--ease);z-index:0;}
+  .r:hover .r__flood{transform:scaleY(1);}
+  .r > *{position:relative;z-index:1;}
+  .r:hover, .r:hover *{color:var(--ct,#fff)!important;}
+  .r:hover .chip{border-color:rgba(255,255,255,.6)!important;}
+  .r:hover .r__thumb{box-shadow:0 20px 40px -16px rgba(0,0,0,.5);}
+  .no{font-size:13px;color:var(--ink-4);font-variant-numeric:tabular-nums;}
+  .brand{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--c);font-weight:600;}
+  .r:hover .brand{color:var(--ct,#fff)!important;}
+  .head{font-family:var(--body);font-weight:600;letter-spacing:-.02em;line-height:1.03;color:var(--ink);}
+  .sub{font-family:var(--body);color:var(--ink-3);line-height:1.45;}
+  .metric{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--c);}
+  .r:hover .metric{color:var(--ct,#fff)!important;}
+  .metric svg{width:14px;height:14px;}
+  .chip{font-size:10px;letter-spacing:.1em;text-transform:uppercase;border:1px solid var(--line-2);color:var(--ink-2);border-radius:999px;padding:4px 10px;white-space:nowrap;}
+  .yr{font-size:12px;color:var(--ink-3);}
+  .r__thumb{border-radius:10px;overflow:hidden;background:#ccc;transition:box-shadow .5s var(--ease);flex:none;}
+  .r__thumb img{display:block;width:100%;height:100%;object-fit:cover;}
+
+  /* ============ A · editorial ============ */
+  .A .r{display:grid;grid-template-columns:56px 1fr 150px auto;gap:30px;align-items:center;padding:30px clamp(20px,3vw,44px);}
+  .A .head{font-size:clamp(26px,3.2vw,44px);max-width:20ch;margin:10px 0 0;}
+  .A .brand+.head{margin-top:12px;}
+  .A .sub{font-size:15px;margin-top:12px;max-width:52ch;}
+  .A .metric{margin-top:16px;}
+  .A .r__thumb{width:150px;height:104px;}
+  .A .right{display:flex;flex-direction:column;align-items:flex-end;gap:10px;}
+
+  /* ============ B · modern product (thumb left) ============ */
+  .B .r{display:grid;grid-template-columns:132px 1fr auto;gap:28px;align-items:center;padding:26px clamp(20px,3vw,44px);}
+  .B .r__thumb{width:132px;height:132px;border-radius:14px;}
+  .B .brand{margin-bottom:9px;display:block;}
+  .B .head{font-size:clamp(22px,2.5vw,32px);max-width:22ch;}
+  .B .sub{font-size:14px;margin-top:9px;max-width:56ch;}
+  .B .metric{margin-top:13px;}
+  .B .right{display:flex;flex-direction:column;align-items:flex-end;gap:9px;}
+
+  /* ============ C · bold statement ============ */
+  .C .r{display:block;padding:38px clamp(20px,3vw,44px);}
+  .C .topline{display:flex;align-items:center;gap:16px;margin-bottom:16px;}
+  .C .topline .no{margin-left:auto;}
+  .C .head{font-size:clamp(30px,4.6vw,62px);max-width:16ch;}
+  .C .botline{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-top:20px;}
+  .C .r__thumb{width:200px;height:120px;}
+  .C .sub{display:none;}
+</style>
+</head>
+<body>
+  <h1 class="ph">Descriptive work layout · <em>a range</em></h1>
+  <div class="psub">Light theme · color-flood hover · thumbnail per row · metric kept · hover a row to see the flood</div>
+
+  <!-- ============ A ============ -->
+  <div class="lbl"><b>A</b> &nbsp;·&nbsp; Editorial — big serif headline, thumbnail + chip on the right, index number</div>
+  <div class="frame A">
+    <div class="r" style="--c:#1f7a4d;--ct:#fff">
+      <span class="no">01</span>
+      <div><span class="brand">Greenstand</span><div class="head">The design system that finally got two apps to agree</div>
+        <div class="metric"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17.5 9.5 11l4 4L21 7.5"/><path d="M15.5 7.5H21V13"/></svg>27% faster dev velocity · 32% fewer a11y issues</div></div>
+      <div class="r__thumb"><img src="assets/greenstand/app-wallet.png" alt=""></div>
+      <div class="right"><span class="chip">Design System</span><span class="yr">2025</span></div>
+    </div>
+    <div class="r" style="--c:#c0392b;--ct:#fff">
+      <span class="no">02</span>
+      <div><span class="brand">APMC</span><div class="head">Still the club’s live site, two years after I left</div>
+        <div class="metric"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17.5 9.5 11l4 4L21 7.5"/><path d="M15.5 7.5H21V13"/></svg>28.7% faster task completion · 700+ MAU</div></div>
+      <div class="r__thumb"><img src="assets/apmc/final-home-web.jpg" alt=""></div>
+      <div class="right"><span class="chip">Web · UX</span><span class="yr">2023</span></div>
+    </div>
+    <div class="r" style="--c:#d8a200;--ct:#271a0d">
+      <span class="no">03</span>
+      <div><span class="brand">CoffeeHouse</span><div class="head">Coffee ordering, minus the eleven taps</div>
+        <div class="metric"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17.5 9.5 11l4 4L21 7.5"/><path d="M15.5 7.5H21V13"/></svg>4.0 avg test rating · 68% rated 5★</div></div>
+      <div class="r__thumb"><img src="assets/coffee/flow2/menu.png" alt=""></div>
+      <div class="right"><span class="chip">Mobile · App</span><span class="yr">2023</span></div>
+    </div>
+    <div class="r" style="--c:#5b2a63;--ct:#fff">
+      <span class="no">04</span>
+      <div><span class="brand">Slack</span><div class="head">I redesigned Slack mobile out of pure spite</div>
+        <div class="metric"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17.5 9.5 11l4 4L21 7.5"/><path d="M15.5 7.5H21V13"/></svg>Self-initiated concept · 7 hi-fi screens</div></div>
+      <div class="r__thumb"><img src="assets/slack/hi-home.png" alt=""></div>
+      <div class="right"><span class="chip">Concept</span><span class="yr">2026</span></div>
+    </div>
+  </div>
+
+  <!-- ============ B ============ -->
+  <div class="lbl"><b>B</b> &nbsp;·&nbsp; Modern product — square thumbnail left, structured columns</div>
+  <div class="frame B">
+    <div class="r" style="--c:#1f7a4d;--ct:#fff">
+      <div class="r__thumb"><img src="assets/greenstand/app-wallet.png" alt=""></div>
+      <div><span class="brand">Greenstand · Design System · 2025</span><div class="head">The design system that finally got two apps to agree</div>
+        <div class="sub">Rescued two siloed apps with one scalable, accessible language, then led the team that shipped it.</div></div>
+      <div class="right"><div class="metric"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17.5 9.5 11l4 4L21 7.5"/><path d="M15.5 7.5H21V13"/></svg>27% faster</div><span class="yr">32% fewer a11y issues</span></div>
+    </div>
+    <div class="r" style="--c:#c0392b;--ct:#fff">
+      <div class="r__thumb"><img src="assets/apmc/final-home-web.jpg" alt=""></div>
+      <div><span class="brand">APMC · Web · UX · 2023</span><div class="head">Still the club’s live site, two years after I left</div>
+        <div class="sub">From buried info and vague CTAs to a clear, conversion-driven experience.</div></div>
+      <div class="right"><div class="metric"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17.5 9.5 11l4 4L21 7.5"/><path d="M15.5 7.5H21V13"/></svg>28.7% faster</div><span class="yr">700+ MAU</span></div>
+    </div>
+    <div class="r" style="--c:#d8a200;--ct:#271a0d">
+      <div class="r__thumb"><img src="assets/coffee/flow2/menu.png" alt=""></div>
+      <div><span class="brand">CoffeeHouse · Mobile · 2023</span><div class="head">Coffee ordering, minus the eleven taps</div>
+        <div class="sub">Research, IA, design system and usability testing on a daily ritual.</div></div>
+      <div class="right"><div class="metric"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17.5 9.5 11l4 4L21 7.5"/><path d="M15.5 7.5H21V13"/></svg>4.0 rating</div><span class="yr">68% rated 5★</span></div>
+    </div>
+    <div class="r" style="--c:#5b2a63;--ct:#fff">
+      <div class="r__thumb"><img src="assets/slack/hi-home.png" alt=""></div>
+      <div><span class="brand">Slack · Concept · 2026</span><div class="head">I redesigned Slack mobile out of pure spite</div>
+        <div class="sub">A rigorous exercise in reaching what actually matters, fast.</div></div>
+      <div class="right"><div class="metric"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17.5 9.5 11l4 4L21 7.5"/><path d="M15.5 7.5H21V13"/></svg>Self-initiated</div><span class="yr">7 hi-fi screens</span></div>
+    </div>
+  </div>
+
+  <!-- ============ C ============ -->
+  <div class="lbl"><b>C</b> &nbsp;·&nbsp; Bold statement — huge headline, thumbnail + metric on the base line</div>
+  <div class="frame C">
+    <div class="r" style="--c:#1f7a4d;--ct:#fff">
+      <div class="topline"><span class="brand">Greenstand</span><span class="chip">Design System</span><span class="no">01 / 2025</span></div>
+      <div class="head">The design system that finally got two apps to agree</div>
+      <div class="botline"><div class="metric"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17.5 9.5 11l4 4L21 7.5"/><path d="M15.5 7.5H21V13"/></svg>27% faster dev velocity · 32% fewer a11y issues</div><div class="r__thumb"><img src="assets/greenstand/app-wallet.png" alt=""></div></div>
+    </div>
+    <div class="r" style="--c:#c0392b;--ct:#fff">
+      <div class="topline"><span class="brand">APMC</span><span class="chip">Web · UX</span><span class="no">02 / 2023</span></div>
+      <div class="head">Still the club’s live site, two years after I left</div>
+      <div class="botline"><div class="metric"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17.5 9.5 11l4 4L21 7.5"/><path d="M15.5 7.5H21V13"/></svg>28.7% faster task completion · 700+ MAU</div><div class="r__thumb"><img src="assets/apmc/final-home-web.jpg" alt=""></div></div>
+    </div>
+    <div class="r" style="--c:#d8a200;--ct:#271a0d">
+      <div class="topline"><span class="brand">CoffeeHouse</span><span class="chip">Mobile · App</span><span class="no">03 / 2023</span></div>
+      <div class="head">Coffee ordering, minus the eleven taps</div>
+      <div class="botline"><div class="metric"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17.5 9.5 11l4 4L21 7.5"/><path d="M15.5 7.5H21V13"/></svg>4.0 avg test rating · 68% rated 5★</div><div class="r__thumb"><img src="assets/coffee/flow2/menu.png" alt=""></div></div>
+    </div>
+    <div class="r" style="--c:#5b2a63;--ct:#fff">
+      <div class="topline"><span class="brand">Slack</span><span class="chip">Concept</span><span class="no">04 / 2026</span></div>
+      <div class="head">I redesigned Slack mobile out of pure spite</div>
+      <div class="botline"><div class="metric"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17.5 9.5 11l4 4L21 7.5"/><path d="M15.5 7.5H21V13"/></svg>Self-initiated concept · 7 hi-fi screens</div><div class="r__thumb"><img src="assets/slack/hi-home.png" alt=""></div></div>
+    </div>
+  </div>
+</body>
+</html>
