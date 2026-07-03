@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="design_doc_mode" content="canvas" />
+<title>Sticker styles — 6 mockups</title>
+<link rel="preconnect" href="https://api.fontshare.com" />
+<link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&f[]=clash-display@600,700&f[]=tanker@400&display=swap" />
+<style>
+  :root {
+    --bg: #0b0b0c;
+    --ink: #f2f1ec;
+    --ink-2: #b9b8b2;
+    --ink-3: #75746f;
+    --line: rgba(255,255,255,.12);
+    --cream: #f4ecdd;
+    --yellow: #f7c14a;
+    --blue: #2b6fff;
+    --green: #1f8a5b;
+    --sage: #6f9683;
+    --black: #14140f;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: 'General Sans', system-ui, sans-serif; background: #e8e6df; color: var(--ink); }
+
+  .panel {
+    position: absolute; width: 700px; height: 1040px;
+    background: var(--bg); border-radius: 18px; overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,.16);
+  }
+  .panel__head { position: absolute; top: 30px; left: 34px; right: 34px; z-index: 10; }
+  .panel__idx { font-size: 12px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--yellow); }
+  .panel__name { font-family: 'Clash Display', sans-serif; font-weight: 700; font-size: 30px; letter-spacing: -.01em; color: var(--ink); margin-top: 4px; }
+  .panel__desc { font-size: 13.5px; line-height: 1.5; color: var(--ink-3); margin-top: 8px; max-width: 560px; }
+
+  .slots { position: absolute; inset: 150px 0 40px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 60px; }
+  .slot { display: flex; flex-direction: column; align-items: center; gap: 14px; }
+  .slot__cap { font-size: 12px; letter-spacing: .04em; color: var(--ink-3); }
+  .slot__cap b { color: var(--ink-2); font-weight: 600; }
+  .stk { filter: drop-shadow(0 10px 14px rgba(0,0,0,.45)); }
+  .stk svg { display: block; }
+</style>
+</head>
+<body>
+
+<!-- ============ STYLE 1 — OUTDOORSY RETRO ============ -->
+<div class="panel" style="left:40px; top:40px;">
+  <div class="panel__head">
+    <div class="panel__idx">Style 01</div>
+    <div class="panel__name">Outdoorsy retro</div>
+    <div class="panel__desc">roam &amp; return energy — chunky rounded wordmark + a compass emblem. Cream die-cut, soft shadow, your yellow &amp; a muted sage.</div>
+  </div>
+  <div class="slots">
+    <div class="slot">
+      <div class="stk" style="transform:rotate(-3deg)" id="s1a"></div>
+      <div class="slot__cap"><b>1A</b> · rounded wordmark</div>
+    </div>
+    <div class="slot">
+      <div class="stk" style="transform:rotate(4deg)" id="s1b"></div>
+      <div class="slot__cap"><b>1B</b> · compass badge</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ STYLE 2 — EMBROIDERED PATCH ============ -->
+<div class="panel" style="left:760px; top:40px;">
+  <div class="panel__head">
+    <div class="panel__idx">Style 02</div>
+    <div class="panel__name">Embroidered patch</div>
+    <div class="panel__desc">Northwoods merit-badge feel — merrow stitch border, monoline emblem, condensed type. Black twill with yellow &amp; cream thread.</div>
+  </div>
+  <div class="slots">
+    <div class="slot">
+      <div class="stk" style="transform:rotate(-4deg)" id="s2a"></div>
+      <div class="slot__cap"><b>2A</b> · triangle patch</div>
+    </div>
+    <div class="slot">
+      <div class="stk" style="transform:rotate(3deg)" id="s2b"></div>
+      <div class="slot__cap"><b>2B</b> · arch patch</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ STYLE 3 — BOLD OFFSET TYPE ============ -->
+<div class="panel" style="left:1480px; top:40px;">
+  <div class="panel__head">
+    <div class="panel__idx">Style 03</div>
+    <div class="panel__name">Bold offset type</div>
+    <div class="panel__desc">Walk-collective punch — heavy type with a colour-offset drop shadow &amp; asterisk doodles. Recoloured to your yellow, blue &amp; cream.</div>
+  </div>
+  <div class="slots">
+    <div class="slot">
+      <div class="stk" style="transform:rotate(-3deg)" id="s3a"></div>
+      <div class="slot__cap"><b>3A</b> · type block</div>
+    </div>
+    <div class="slot">
+      <div class="stk" style="transform:rotate(4deg)" id="s3b"></div>
+      <div class="slot__cap"><b>3B</b> · arched circle</div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const C = { cream:'#f4ecdd', yellow:'#f7c14a', blue:'#2b6fff', green:'#1f8a5b', sage:'#6f9683', black:'#14140f', ink:'#f2f1ec' };
+  const NS = 'http://www.w3.org/2000/svg';
+  function set(id, svg) { document.getElementById(id).innerHTML = svg; }
+
+  // ---- circle full path for arced text (CW; startOffset 25% = top-centre) ----
+  function ring(id, cx, cy, r) {
+    return '<path id="'+id+'" fill="none" d="M '+cx+' '+cy+' m '+(-r)+' 0 a '+r+' '+r+' 0 1 1 '+(2*r)+' 0 a '+r+' '+r+' 0 1 1 '+(-2*r)+' 0"/>';
+  }
+
+  /* ========== 1A — rounded wordmark ========== */
+  set('s1a', (function () {
+    const w=470, h=158;
+    return '<svg width="'+w+'" height="'+h+'" viewBox="0 0 '+w+' '+h+'">' +
+      '<rect x="10" y="10" width="'+(w-20)+'" height="'+(h-20)+'" rx="26" fill="'+C.black+'" stroke="'+C.cream+'" stroke-width="11" paint-order="stroke"/>' +
+      '<text x="18" y="26" font-family="General Sans" font-weight="700" font-size="13" fill="'+C.cream+'">™</text>' +
+      '<text x="'+(w/2)+'" y="76" text-anchor="middle" font-family="Clash Display" font-weight="700" font-size="42" letter-spacing="-1" fill="'+C.cream+'">pixel <tspan fill="'+C.yellow+'">&amp;</tspan> ship</text>' +
+      '<rect x="'+(w/2-150)+'" y="96" width="300" height="26" rx="13" fill="'+C.yellow+'"/>' +
+      '<text x="'+(w/2)+'" y="114" text-anchor="middle" font-family="General Sans" font-weight="700" font-size="13" letter-spacing="3" fill="'+C.black+'">MICROMANAGE MORE</text>' +
+      '</svg>';
+  })());
+
+  /* ========== 1B — compass badge ========== */
+  set('s1b', (function () {
+    const s=250, r=s/2, cx=r, cy=r;
+    return '<svg width="'+s+'" height="'+s+'" viewBox="0 0 '+s+' '+s+'">' +
+      '<defs>'+ring('r1b', cx, cy, r-46)+'</defs>' +
+      '<circle cx="'+cx+'" cy="'+cy+'" r="'+(r-8)+'" fill="'+C.yellow+'" stroke="'+C.cream+'" stroke-width="10" paint-order="stroke"/>' +
+      '<circle cx="'+cx+'" cy="'+cy+'" r="'+(r-30)+'" fill="none" stroke="'+C.black+'" stroke-width="2.5"/>' +
+      // compass diamond
+      '<rect x="'+(cx-40)+'" y="'+(cy-40)+'" width="80" height="80" rx="8" transform="rotate(45 '+cx+' '+cy+')" fill="'+C.black+'"/>' +
+      // dumbbell (cream) in centre
+      '<g stroke="'+C.cream+'" stroke-width="4" stroke-linecap="round">' +
+        '<line x1="'+(cx-17)+'" y1="'+cy+'" x2="'+(cx+17)+'" y2="'+cy+'"/>' +
+        '<line x1="'+(cx-17)+'" y1="'+(cy-10)+'" x2="'+(cx-17)+'" y2="'+(cy+10)+'"/>' +
+        '<line x1="'+(cx+17)+'" y1="'+(cy-10)+'" x2="'+(cx+17)+'" y2="'+(cy+10)+'"/>' +
+        '<line x1="'+(cx-24)+'" y1="'+(cy-6)+'" x2="'+(cx-24)+'" y2="'+(cy+6)+'"/>' +
+        '<line x1="'+(cx+24)+'" y1="'+(cy-6)+'" x2="'+(cx+24)+'" y2="'+(cy+6)+'"/>' +
+      '</g>' +
+      // compass ticks N/E/S/W
+      '<text x="'+cx+'" y="34" text-anchor="middle" font-family="Tanker" font-size="16" fill="'+C.black+'">N</text>' +
+      '<text x="'+cx+'" y="'+(s-22)+'" text-anchor="middle" font-family="Tanker" font-size="16" fill="'+C.black+'">S</text>' +
+      '<text x="26" y="'+(cy+6)+'" text-anchor="middle" font-family="Tanker" font-size="16" fill="'+C.black+'">W</text>' +
+      '<text x="'+(s-26)+'" y="'+(cy+6)+'" text-anchor="middle" font-family="Tanker" font-size="16" fill="'+C.black+'">E</text>' +
+      '<text font-family="Tanker" font-size="20" letter-spacing="2" fill="'+C.black+'"><textPath href="#r1b" startOffset="25%" text-anchor="middle">GYM ENTHUSIAST</textPath></text>' +
+      '<text font-family="Tanker" font-size="14" letter-spacing="3" fill="'+C.black+'"><textPath href="#r1b" startOffset="75%" text-anchor="middle">EST · 2026</textPath></text>' +
+      '</svg>';
+  })());
+
+  /* ========== 2A — triangle patch ========== */
+  set('s2a', (function () {
+    const w=280, h=250;
+    const tri = 'M '+(w/2)+' 20 L '+(w-24)+' '+(h-40)+' Q '+(w-18)+' '+(h-20)+' '+(w-40)+' '+(h-20)+' L 40 '+(h-20)+' Q 18 '+(h-20)+' 24 '+(h-40)+' Z';
+    return '<svg width="'+w+'" height="'+h+'" viewBox="0 0 '+w+' '+h+'">' +
+      '<path d="'+tri+'" fill="'+C.black+'" stroke="'+C.cream+'" stroke-width="10" paint-order="stroke"/>' +
+      '<path d="'+tri+'" fill="none" stroke="'+C.yellow+'" stroke-width="2" stroke-dasharray="2 5" transform="scale(0.9) translate('+(w*0.055)+' '+(h*0.055)+')"/>' +
+      // crescent moon
+      '<g transform="translate('+(w/2)+' 74)"><circle r="12" fill="'+C.yellow+'"/><circle cx="5" cy="-3" r="11" fill="'+C.black+'"/></g>' +
+      // two pines + bolt (monoline yellow)
+      '<g stroke="'+C.yellow+'" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" fill="none">' +
+        '<path d="M '+(w/2-34)+' 150 l -16 22 h32 z M '+(w/2-34)+' 138 l -13 18 h26 z"/>' +
+        '<path d="M '+(w/2+34)+' 150 l -16 22 h32 z M '+(w/2+34)+' 138 l -13 18 h26 z"/>' +
+        '<path d="M '+(w/2)+' 120 l -9 20 h11 l -8 20"/>' +
+      '</g>' +
+      '<text x="'+(w/2)+'" y="200" text-anchor="middle" font-family="Tanker" font-size="24" letter-spacing="1" fill="'+C.cream+'">HORROR CLUB</text>' +
+      '<text x="'+(w/2)+'" y="218" text-anchor="middle" font-family="General Sans" font-weight="600" font-size="10.5" letter-spacing="3" fill="'+C.yellow+'">MOVIE · CONNOISSEUR</text>' +
+      '</svg>';
+  })());
+
+  /* ========== 2B — arch (tombstone) patch ========== */
+  set('s2b', (function () {
+    const w=250, h=278;
+    const arch = 'M 26 '+(h-26)+' L 26 120 A '+(w/2-26)+' '+(w/2-26)+' 0 0 1 '+(w-26)+' 120 L '+(w-26)+' '+(h-26)+' Z';
+    return '<svg width="'+w+'" height="'+h+'" viewBox="0 0 '+w+' '+h+'">' +
+      '<defs><path id="r2b" fill="none" d="M '+(w/2)+' 122 m '+(-(w/2-52))+' 0 a '+(w/2-52)+' '+(w/2-52)+' 0 0 1 '+(2*(w/2-52))+' 0"/></defs>' +
+      '<path d="'+arch+'" fill="'+C.black+'" stroke="'+C.cream+'" stroke-width="11" paint-order="stroke"/>' +
+      '<path d="'+arch+'" fill="none" stroke="'+C.cream+'" stroke-width="2" stroke-dasharray="2 5" opacity="0.5" transform="scale(0.9) translate(14 15)"/>' +
+      // top arched text
+      '<text font-family="Tanker" font-size="26" letter-spacing="1" fill="'+C.cream+'"><textPath href="#r2b" startOffset="50%" text-anchor="middle">CLEAN DESK</textPath></text>' +
+      // monoline monitor-on-desk emblem
+      '<g transform="translate('+(w/2)+' 168)" stroke="'+C.cream+'" stroke-width="3.4" fill="none" stroke-linecap="round" stroke-linejoin="round">' +
+        '<rect x="-30" y="-24" width="60" height="40" rx="4"/>' +
+        '<line x1="0" y1="16" x2="0" y2="26"/><line x1="-14" y1="26" x2="14" y2="26"/>' +
+        '<line x1="-44" y1="38" x2="44" y2="38"/>' +
+        '<path d="M 34 -30 l 2 6 l 6 2 l -6 2 l -2 6 l -2 -6 l -6 -2 l 6 -2 z" fill="'+C.yellow+'" stroke="none"/>' +
+      '</g>' +
+      '<text x="'+(w/2)+'" y="242" text-anchor="middle" font-family="Tanker" font-size="22" letter-spacing="1" fill="'+C.yellow+'">EVANGELIST</text>' +
+      '<text x="'+(w/2)+'" y="258" text-anchor="middle" font-family="General Sans" font-weight="600" font-size="10" letter-spacing="3" fill="'+C.cream+'">EST · 2026</text>' +
+      '</svg>';
+  })());
+
+  /* ========== 3A — bold offset type block ========== */
+  set('s3a', (function () {
+    const w=400, h=200;
+    const blob = 'M 40 30 Q 200 12 360 30 Q 384 100 360 170 Q 200 190 40 170 Q 16 100 40 30 Z';
+    return '<svg width="'+w+'" height="'+h+'" viewBox="0 0 '+w+' '+h+'">' +
+      '<path d="'+blob+'" fill="'+C.blue+'" transform="translate(12 14)"/>' +          // offset colour shadow
+      '<path d="'+blob+'" fill="'+C.yellow+'" stroke="'+C.cream+'" stroke-width="9" paint-order="stroke"/>' +
+      '<text x="'+(w/2)+'" y="92" text-anchor="middle" font-family="Clash Display" font-weight="700" font-size="58" letter-spacing="-1" fill="'+C.black+'">GYM</text>' +
+      '<text x="'+(w/2)+'" y="140" text-anchor="middle" font-family="Clash Display" font-weight="700" font-size="34" letter-spacing="0" fill="'+C.black+'">ENTHUSIAST</text>' +
+      // asterisk doodles
+      '<g stroke="'+C.blue+'" stroke-width="5" stroke-linecap="round">' +
+        '<g transform="translate(70 60)"><line x1="-9" y1="0" x2="9" y2="0"/><line x1="0" y1="-9" x2="0" y2="9"/><line x1="-6" y1="-6" x2="6" y2="6"/><line x1="-6" y1="6" x2="6" y2="-6"/></g>' +
+        '<g transform="translate(332 150)"><line x1="-9" y1="0" x2="9" y2="0"/><line x1="0" y1="-9" x2="0" y2="9"/><line x1="-6" y1="-6" x2="6" y2="6"/><line x1="-6" y1="6" x2="6" y2="-6"/></g>' +
+      '</g>' +
+      '</svg>';
+  })());
+
+  /* ========== 3B — arched circle ========== */
+  set('s3b', (function () {
+    const s=250, r=s/2, cx=r, cy=r;
+    return '<svg width="'+s+'" height="'+s+'" viewBox="0 0 '+s+' '+s+'">' +
+      '<defs>'+ring('r3b', cx, cy, r-40)+'</defs>' +
+      '<circle cx="'+(cx+9)+'" cy="'+(cy+11)+'" r="'+(r-10)+'" fill="'+C.yellow+'"/>' +   // offset shadow
+      '<circle cx="'+cx+'" cy="'+cy+'" r="'+(r-10)+'" fill="'+C.blue+'" stroke="'+C.cream+'" stroke-width="9" paint-order="stroke"/>' +
+      // cursor + marquee doodle (cream)
+      '<g transform="translate('+cx+' '+(cy+6)+')" stroke="'+C.cream+'" stroke-width="3.4" fill="none" stroke-linecap="round" stroke-linejoin="round">' +
+        '<path d="M -20 -16 v-6 h6 M 14 -22 h6 v6 M 20 14 v6 h-6 M -14 20 h-6 v-6"/>' +
+        '<path d="M -6 -6 L 12 2 L 4 5 L 9 13 L 5 15 L 1 8 L -6 12 Z" fill="'+C.cream+'"/>' +
+      '</g>' +
+      '<text font-family="Clash Display" font-weight="700" font-size="22" letter-spacing="0.5" fill="'+C.cream+'"><textPath href="#r3b" startOffset="25%" text-anchor="middle">PIXEL MICROMANAGER</textPath></text>' +
+      '<text font-family="General Sans" font-weight="700" font-size="12" letter-spacing="3" fill="'+C.cream+'"><textPath href="#r3b" startOffset="75%" text-anchor="middle">1PX AT A TIME</textPath></text>' +
+      '</svg>';
+  })());
+</script>
+</body>
+</html>

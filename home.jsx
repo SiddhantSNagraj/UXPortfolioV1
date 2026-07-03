@@ -16,6 +16,11 @@ const CARD_SHOTS = {
 function Hero({ projects, onOpen }) {
   const stripRef = useRefH(null);
   const heroRef = useRefH(null);
+  const stickerRef = useRefH(null);
+
+  useEffectH(() => {
+    if (stickerRef.current && window.buildHeroStickers) window.buildHeroStickers(stickerRef.current);
+  }, []);
 
   useEffectH(() => {
     let raf = 0;
@@ -37,6 +42,7 @@ function Hero({ projects, onOpen }) {
     onScroll();
     return () => { window.removeEventListener('scroll', onScroll); window.removeEventListener('resize', onScroll); cancelAnimationFrame(raf); };
   }, []);
+
 
   // varying heights for the strip cards
   const cards = [
@@ -75,8 +81,8 @@ function Hero({ projects, onOpen }) {
                 <path id="avatarOrbitPath" d="M50,50 m-43,0 a43,43 0 1,1 86,0 a43,43 0 1,1 -86,0"></path>
               </defs>
               <text>
-                <textPath xlinkHref="#avatarOrbitPath" href="#avatarOrbitPath" startOffset="0" textLength="270" lengthAdjust="spacing">
-                  PIXEL MICROMANAGER · GYM ENTHUSIAST · HORROR MOVIE CONNOISSEUR
+                <textPath xlinkHref="#avatarOrbitPath" href="#avatarOrbitPath" startOffset="0" textLength="278" lengthAdjust="spacing">
+                  PIXEL MICROMANAGER · GYM ENTHUSIAST · HORROR MOVIE CONNOISSEUR · CLEAN-DESK EVANGELIST
                 </textPath>
               </text>
             </svg>
@@ -84,12 +90,15 @@ function Hero({ projects, onOpen }) {
               <span className="hero__avatar-tipline">Pixel Micromanager</span>
               <span className="hero__avatar-tipline">Gym Enthusiast</span>
               <span className="hero__avatar-tipline">Horror Movie Connoisseur</span>
+              <span className="hero__avatar-tipline">Clean-Desk Evangelist</span>
             </div>
             <div className="hero__avatar-comic" aria-hidden="true">
               <span className="hero__comic-bubble hero__comic-bubble--1">Pixel Micromanager</span>
               <span className="hero__comic-bubble hero__comic-bubble--2">Gym Enthusiast</span>
               <span className="hero__comic-bubble hero__comic-bubble--3">Horror Movie Connoisseur</span>
+              <span className="hero__comic-bubble hero__comic-bubble--4">Clean-Desk Evangelist</span>
             </div>
+            <div className="hero__avatar-stickers" aria-hidden="true" ref={stickerRef}></div>
           </div>
         </div>
 

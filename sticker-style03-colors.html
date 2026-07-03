@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="design_doc_mode" content="canvas" />
+<title>Style 03 — all 4 traits, colour explorations</title>
+<link rel="preconnect" href="https://api.fontshare.com" />
+<link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&f[]=clash-display@600,700&display=swap" />
+<style>
+  :root {
+    --bg: #0b0b0c; --ink: #f2f1ec; --ink-2: #b9b8b2; --ink-3: #75746f;
+    --cream: #f4ecdd; --yellow: #f7c14a; --blue: #2b6fff; --green: #1f8a5b;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: 'General Sans', system-ui, sans-serif; background: #e8e6df; color: var(--ink); }
+
+  .panel { position: absolute; width: 640px; height: 1180px; background: var(--bg); border-radius: 18px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,.16); }
+  .panel__head { position: absolute; top: 30px; left: 34px; right: 34px; z-index: 10; }
+  .panel__idx { font-size: 12px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--yellow); }
+  .panel__name { font-family: 'Clash Display', sans-serif; font-weight: 700; font-size: 28px; letter-spacing: -.01em; color: var(--ink); margin-top: 4px; }
+  .swatches { display: flex; gap: 7px; margin-top: 12px; }
+  .swatches i { width: 22px; height: 22px; border-radius: 6px; border: 1px solid rgba(255,255,255,.15); display: block; }
+
+  .slots { position: absolute; inset: 165px 0 30px; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; gap: 34px; padding-top: 8px; }
+  .stk { filter: drop-shadow(0 9px 13px rgba(0,0,0,.42)); }
+  .stk svg { display: block; }
+</style>
+</head>
+<body>
+<div class="panel" style="left:40px; top:40px;">
+  <div class="panel__head"><div class="panel__idx">Palette 1</div><div class="panel__name">Sunset Press</div>
+    <div class="swatches"><i style="background:#dd5a34"></i><i style="background:#f7c14a"></i><i style="background:#f4ecdd"></i><i style="background:#14140f"></i><i style="background:#2b6fff"></i></div>
+  </div>
+  <div class="slots" id="colA"></div>
+</div>
+<div class="panel" style="left:700px; top:40px;">
+  <div class="panel__head"><div class="panel__idx">Palette 2</div><div class="panel__name">Electric Pop</div>
+    <div class="swatches"><i style="background:#2b6fff"></i><i style="background:#ff6b4a"></i><i style="background:#f7c14a"></i><i style="background:#f4ecdd"></i></div>
+  </div>
+  <div class="slots" id="colB"></div>
+</div>
+<div class="panel" style="left:1360px; top:40px;">
+  <div class="panel__head"><div class="panel__idx">Palette 3</div><div class="panel__name">Riso Soft</div>
+    <div class="swatches"><i style="background:#8b86ee"></i><i style="background:#ff6b4a"></i><i style="background:#2ba79a"></i><i style="background:#f4c95d"></i></div>
+  </div>
+  <div class="slots" id="colC"></div>
+</div>
+
+<script>
+  const C = { cream:'#f4ecdd', yellow:'#f7c14a', blue:'#2b6fff', green:'#1f8a5b', black:'#14140f',
+    burnt:'#dd5a34', coral:'#ff6b4a', lilac:'#8b86ee', teal:'#2ba79a', butter:'#f4c95d' };
+  let uid = 0;
+
+  function ast(x, y, color, sz) {
+    sz = sz || 9;
+    return '<g transform="translate('+x+' '+y+')" stroke="'+color+'" stroke-width="'+(sz*0.55)+'" stroke-linecap="round">' +
+      '<line x1="'+(-sz)+'" y1="0" x2="'+sz+'" y2="0"/><line x1="0" y1="'+(-sz)+'" x2="0" y2="'+sz+'"/>' +
+      '<line x1="'+(-sz*0.7)+'" y1="'+(-sz*0.7)+'" x2="'+(sz*0.7)+'" y2="'+(sz*0.7)+'"/><line x1="'+(-sz*0.7)+'" y1="'+(sz*0.7)+'" x2="'+(sz*0.7)+'" y2="'+(-sz*0.7)+'"/></g>';
+  }
+
+  // wavy blob, two stacked words
+  function blob(o) {
+    const w=380, h=168;
+    const path='M 34 30 Q 190 12 346 30 Q 374 92 346 156 Q 190 176 34 156 Q 8 92 34 30 Z';
+    return '<div class="stk" style="transform:rotate('+(o.rot||0)+'deg)"><svg width="'+w+'" height="'+h+'" viewBox="0 0 '+w+' '+h+'">' +
+      '<path d="'+path+'" fill="'+o.offset+'" transform="translate(11 13)"/>' +
+      '<path d="'+path+'" fill="'+o.fill+'" stroke="'+(o.halo||C.cream)+'" stroke-width="9" paint-order="stroke"/>' +
+      '<text x="190" y="88" text-anchor="middle" font-family="Clash Display" font-weight="700" font-size="54" letter-spacing="-1.5" fill="'+o.text+'">'+o.l1+'</text>' +
+      '<text x="190" y="132" text-anchor="middle" font-family="Clash Display" font-weight="700" font-size="30" letter-spacing="0" fill="'+o.text+'">'+o.l2+'</text>' +
+      ast(70, 52, o.dood, 10) + ast(320, 138, o.dood, 10) +
+      '</svg></div>';
+  }
+
+  // wide rounded pill, two lines
+  function pill(o) {
+    const w=410, h=140;
+    return '<div class="stk" style="transform:rotate('+(o.rot||0)+'deg)"><svg width="'+w+'" height="'+h+'" viewBox="0 0 '+w+' '+h+'">' +
+      '<rect x="14" y="14" width="'+(w-28)+'" height="'+(h-28)+'" rx="'+((h-28)/2)+'" fill="'+o.offset+'" transform="translate(11 13)"/>' +
+      '<rect x="14" y="14" width="'+(w-28)+'" height="'+(h-28)+'" rx="'+((h-28)/2)+'" fill="'+o.fill+'" stroke="'+(o.halo||C.cream)+'" stroke-width="9" paint-order="stroke"/>' +
+      '<text x="'+(w/2)+'" y="66" text-anchor="middle" font-family="Clash Display" font-weight="700" font-size="34" letter-spacing="-0.5" fill="'+o.text+'">'+o.l1+'</text>' +
+      '<text x="'+(w/2)+'" y="102" text-anchor="middle" font-family="Clash Display" font-weight="700" font-size="24" letter-spacing="0" fill="'+o.text+'">'+o.l2+'</text>' +
+      ast(58, 44, o.dood, 8) + ast(w-58, 96, o.dood, 8) +
+      '</svg></div>';
+  }
+
+  // arched circle
+  function circle(o) {
+    const s=248, r=s/2, cx=r, cy=r, tr=r-40, id='rr'+(uid++);
+    const doodle = o.icon === 'cursor'
+      ? '<g transform="translate('+cx+' '+(cy+8)+')" stroke="'+o.text+'" stroke-width="3.4" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M -20 -16 v-6 h6 M 14 -22 h6 v6 M 20 14 v6 h-6 M -14 20 h-6 v-6"/><path d="M -6 -6 L 12 2 L 4 5 L 9 13 L 5 15 L 1 8 L -6 12 Z" fill="'+o.text+'"/></g>'
+      : '<g transform="translate('+cx+' '+(cy+6)+')" stroke="'+o.text+'" stroke-width="3.6" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="-28" y="-22" width="56" height="38" rx="4"/><line x1="0" y1="16" x2="0" y2="25"/><line x1="-13" y1="25" x2="13" y2="25"/><line x1="-40" y1="36" x2="40" y2="36"/><path d="M 30 -28 l 2 6 l 6 2 l -6 2 l -2 6 l -2 -6 l -6 -2 l 6 -2 z" fill="'+o.dood+'" stroke="none"/></g>';
+    return '<div class="stk" style="transform:rotate('+(o.rot||0)+'deg)"><svg width="'+s+'" height="'+s+'" viewBox="0 0 '+s+' '+s+'">' +
+      '<defs><path id="'+id+'" fill="none" d="M '+cx+' '+cy+' m '+(-tr)+' 0 a '+tr+' '+tr+' 0 1 1 '+(2*tr)+' 0 a '+tr+' '+tr+' 0 1 1 '+(-2*tr)+' 0"/></defs>' +
+      '<circle cx="'+(cx+9)+'" cy="'+(cy+11)+'" r="'+(r-10)+'" fill="'+o.offset+'"/>' +
+      '<circle cx="'+cx+'" cy="'+cy+'" r="'+(r-10)+'" fill="'+o.fill+'" stroke="'+(o.halo||C.cream)+'" stroke-width="9" paint-order="stroke"/>' +
+      doodle +
+      '<text font-family="Clash Display" font-weight="700" font-size="21" letter-spacing="0.3" fill="'+o.text+'"><textPath href="#'+id+'" startOffset="25%" text-anchor="middle">'+o.top+'</textPath></text>' +
+      '<text font-family="General Sans" font-weight="700" font-size="12" letter-spacing="3" fill="'+o.text+'"><textPath href="#'+id+'" startOffset="75%" text-anchor="middle">'+o.bot+'</textPath></text>' +
+      '</svg></div>';
+  }
+
+  // ---- Palette 1 · Sunset Press (warm, ties to your ticket) ----
+  document.getElementById('colA').innerHTML =
+    circle({ fill:C.burnt,  offset:C.yellow, text:C.cream, dood:C.yellow, icon:'cursor', top:'PIXEL MICROMANAGER', bot:'1PX AT A TIME', rot:-3 }) +
+    blob({   fill:C.yellow, offset:C.burnt,  text:C.black, dood:C.burnt,  l1:'GYM', l2:'ENTHUSIAST', rot:2 }) +
+    pill({   fill:C.black,  offset:C.burnt,  text:C.cream, dood:C.yellow, halo:C.cream, l1:'HORROR MOVIE', l2:'CONNOISSEUR', rot:-2 }) +
+    blob({   fill:C.cream,  offset:C.blue,   text:C.black, dood:C.blue,   l1:'CLEAN DESK', l2:'EVANGELIST', rot:3 });
+
+  // ---- Palette 2 · Electric Pop (cool, vibrant) ----
+  document.getElementById('colB').innerHTML =
+    circle({ fill:C.blue,  offset:C.coral,  text:C.cream, dood:C.coral,  icon:'cursor', top:'PIXEL MICROMANAGER', bot:'1PX AT A TIME', rot:-3 }) +
+    blob({   fill:C.coral, offset:C.blue,   text:C.cream, dood:C.blue,   l1:'GYM', l2:'ENTHUSIAST', rot:2 }) +
+    pill({   fill:C.yellow,offset:C.blue,   text:C.black, dood:C.blue,   l1:'HORROR MOVIE', l2:'CONNOISSEUR', rot:-2 }) +
+    blob({   fill:C.cream, offset:C.coral,  text:C.black, dood:C.coral,  l1:'CLEAN DESK', l2:'EVANGELIST', rot:3 });
+
+  // ---- Palette 3 · Riso Soft (trendy, saturated pastels) ----
+  document.getElementById('colC').innerHTML =
+    circle({ fill:C.lilac,  offset:C.coral,  text:C.black, dood:C.coral,  icon:'cursor', top:'PIXEL MICROMANAGER', bot:'1PX AT A TIME', rot:-3 }) +
+    blob({   fill:C.coral,  offset:C.lilac,  text:C.black, dood:C.lilac,  l1:'GYM', l2:'ENTHUSIAST', rot:2 }) +
+    pill({   fill:C.teal,   offset:C.butter, text:C.cream, dood:C.butter, l1:'HORROR MOVIE', l2:'CONNOISSEUR', rot:-2 }) +
+    blob({   fill:C.butter, offset:C.teal,   text:C.black, dood:C.teal,   l1:'CLEAN DESK', l2:'EVANGELIST', rot:3 });
+</script>
+</body>
+</html>

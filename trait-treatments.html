@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="design_doc_mode" content="canvas" />
+<title>Trait Treatments — mockups</title>
+<link rel="preconnect" href="https://api.fontshare.com" />
+<link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&f[]=gambetta@400,500,600,700&display=swap" />
+<style>
+  :root {
+    --bg: #0b0b0c;
+    --surface: #141416;
+    --ink: #f2f1ec;
+    --ink-2: #b9b8b2;
+    --ink-3: #75746f;
+    --line: rgba(255,255,255,.12);
+    --line-2: rgba(255,255,255,.18);
+    --yellow: #f7c14a;
+    --accent: #2b6fff;
+    --display: 'General Sans', system-ui, sans-serif;
+    --serif: 'Gambetta', Georgia, serif;
+    --ease: cubic-bezier(.4,0,.2,1);
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: var(--display); background: #e8e6df; color: var(--ink); }
+
+  .frame {
+    position: absolute;
+    width: 600px; height: 660px;
+    background: var(--bg);
+    border: 1px solid #d6d3c8;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 16px 50px rgba(0,0,0,.14);
+  }
+  .frame__label {
+    position: absolute; top: 22px; left: 26px; z-index: 30;
+    font-size: 11px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--ink-3);
+  }
+  .frame__note {
+    position: absolute; bottom: 20px; left: 26px; right: 26px; z-index: 30;
+    font-size: 12px; line-height: 1.45; color: var(--ink-3);
+    border-top: 1px solid var(--line); padding-top: 12px;
+  }
+  .frame__note b { color: var(--ink-2); font-weight: 600; }
+
+  .stage {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 64px 46px 96px;
+  }
+
+  /* shared mini-identity bits */
+  .eyebrow { font-size: 11px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 14px; }
+  .who { font-family: var(--display); font-weight: 600; font-size: 30px; letter-spacing: -.02em; line-height: 1; }
+  .role { font-size: 14px; color: var(--ink-2); margin-top: 8px; }
+
+  .photo {
+    width: 150px; height: 150px; border-radius: 50%;
+    object-fit: cover; border: 2px solid var(--line-2);
+    filter: grayscale(1) contrast(1.03);
+  }
+
+  /* ============ 1 · ROTATING WORD ============ */
+  .rw__kicker { font-size: 11px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--yellow); margin-bottom: 18px; }
+  .rw__line { font-family: var(--serif); font-size: 19px; line-height: 1.5; color: var(--ink-2); max-width: 420px; }
+  .rw__rotor { display: block; font-family: var(--display); font-weight: 600; font-size: 40px; line-height: 1.05; letter-spacing: -.02em; color: var(--ink); margin-top: 6px; height: 48px; overflow: hidden; }
+  .rw__word { display: inline-block; transition: transform .5s var(--ease), opacity .5s var(--ease); }
+  .rw__word.out { transform: translateY(-110%); opacity: 0; }
+  .rw__word.in  { transform: translateY(0); opacity: 1; }
+
+  /* ============ 2 · TOGGLE CHIPS ============ */
+  .chips__head { display: flex; align-items: center; gap: 16px; margin-bottom: 26px; }
+  .chips__head .photo { width: 62px; height: 62px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 10px; max-width: 470px; }
+  .chip {
+    font-size: 12.5px; font-weight: 600; letter-spacing: .02em;
+    padding: 9px 15px; border-radius: 999px;
+    border: 1px solid var(--line-2); color: var(--ink-2);
+    background: transparent; cursor: pointer;
+    transition: all .22s var(--ease); white-space: nowrap;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .chip::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--ink-3); transition: all .22s var(--ease); }
+  .chip:hover, .chip.active { background: var(--yellow); border-color: var(--yellow); color: #0b0b0c; }
+  .chip:hover::before, .chip.active::before { background: #0b0b0c; transform: scale(1.3); }
+  .chips__detail { margin-top: 22px; font-family: var(--serif); font-style: italic; font-size: 18px; color: var(--ink); min-height: 26px; transition: opacity .3s var(--ease); }
+
+  /* ============ 3 · ORBIT RING ============ */
+  .orbit-wrap { position: relative; width: 340px; height: 340px; margin: 0 auto; display: flex; align-items: center; justify-content: center; }
+  .orbit-wrap .photo { width: 190px; height: 190px; }
+  .orbit-svg { position: absolute; inset: 0; width: 100%; height: 100%; animation: spin 34s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .orbit-svg text { font-family: var(--display); font-weight: 600; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; fill: var(--ink-2); }
+  .orbit-svg .sep { fill: var(--yellow); }
+
+  /* ============ 4 · CARD FLIP ============ */
+  .flip { width: 210px; height: 280px; margin: 0 auto; perspective: 1100px; cursor: pointer; }
+  .flip__inner { position: relative; width: 100%; height: 100%; transition: transform .7s var(--ease); transform-style: preserve-3d; }
+  .flip.flipped .flip__inner { transform: rotateY(180deg); }
+  .flip__face { position: absolute; inset: 0; backface-visibility: hidden; border-radius: 16px; overflow: hidden; border: 1px solid var(--line-2); }
+  .flip__front { background: #1b1b1e; }
+  .flip__front img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(1) contrast(1.03); }
+  .flip__hint { position: absolute; left: 0; right: 0; bottom: 0; padding: 10px; text-align: center; font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--ink); background: linear-gradient(transparent, rgba(0,0,0,.75)); }
+  .flip__back { transform: rotateY(180deg); background: linear-gradient(160deg, #17181b, #101012); padding: 22px 20px; display: flex; flex-direction: column; }
+  .flip__back-h { font-size: 10px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--yellow); padding-bottom: 12px; border-bottom: 1px solid var(--line); }
+  .flip__list { list-style: none; margin: 0; padding: 14px 0 0; display: flex; flex-direction: column; gap: 12px; flex: 1; }
+  .flip__list li { display: flex; gap: 10px; align-items: baseline; font-size: 13.5px; font-weight: 500; color: var(--ink); }
+  .flip__list .n { font-size: 10px; color: var(--ink-3); font-variant-numeric: tabular-nums; min-width: 16px; }
+  .flip__back-f { font-family: var(--serif); font-style: italic; font-size: 12px; color: var(--ink-3); padding-top: 12px; border-top: 1px solid var(--line); }
+</style>
+</head>
+<body>
+
+<!-- ============ 1 · ROTATING WORD ============ -->
+<div class="frame" style="left: 40px; top: 40px;">
+  <div class="frame__label">01 · Rotating word in the bio</div>
+  <div class="stage">
+    <div class="rw__kicker">Off the clock</div>
+    <div class="rw__line">I design it, build it, and lose sleep over the details. When the laptop closes, I'm a</div>
+    <span class="rw__rotor"><span class="rw__word in" id="rw">pixel micromanager</span></span>
+  </div>
+  <div class="frame__note"><b>Elegant + integrated.</b> One word swaps on a timer — no layout shift, reads like a sentence. Mobile: identical, just smaller type.</div>
+</div>
+
+<!-- ============ 2 · TOGGLE CHIPS ============ -->
+<div class="frame" style="left: 700px; top: 40px;">
+  <div class="frame__label">02 · Interactive toggle chips</div>
+  <div class="stage">
+    <div class="chips__head">
+      <img class="photo" src="assets/siddhant-opt.png" alt="" />
+      <div>
+        <div class="who">Siddhant Nagraj</div>
+        <div class="role">Product Designer</div>
+      </div>
+    </div>
+    <div class="chips" id="chips">
+      <button class="chip active" data-d="Will nudge it 1px. Then 1px back.">Pixel micromanager</button>
+      <button class="chip" data-d="Rest day? Never heard of her.">Gym enthusiast</button>
+      <button class="chip" data-d="The scarier, the better.">Horror-movie connoisseur</button>
+      <button class="chip" data-d="A tidy desk, a tidy mind.">Clean-desk evangelist</button>
+    </div>
+    <div class="chips__detail" id="chipDetail">Will nudge it 1px. Then 1px back.</div>
+  </div>
+  <div class="frame__note"><b>Always visible, no hunting.</b> Hover (or tap on mobile) a chip to reveal a one-liner. Chips wrap to 2 rows on narrow screens.</div>
+</div>
+
+<!-- ============ 3 · ORBIT RING ============ -->
+<div class="frame" style="left: 40px; top: 740px;">
+  <div class="frame__label">03 · Orbiting text ring</div>
+  <div class="stage" style="padding-top:48px;">
+    <div class="orbit-wrap">
+      <svg class="orbit-svg" viewBox="0 0 340 340">
+        <defs><path id="ring" d="M170,170 m-150,0 a150,150 0 1,1 300,0 a150,150 0 1,1 -300,0" /></defs>
+        <text><textPath href="#ring" startOffset="0%">Pixel micromanager&#160;&#160;<tspan class="sep">✦</tspan>&#160;&#160;Gym enthusiast&#160;&#160;<tspan class="sep">✦</tspan>&#160;&#160;Horror-movie connoisseur&#160;&#160;<tspan class="sep">✦</tspan>&#160;&#160;Clean-desk evangelist&#160;&#160;<tspan class="sep">✦</tspan>&#160;&#160;</textPath></text>
+      </svg>
+      <img class="photo" src="assets/siddhant-opt.png" alt="" />
+    </div>
+  </div>
+  <div class="frame__note"><b>Stays on the photo, never on the face.</b> A slow-spinning ring of traits framing the avatar. Mobile: ring scales down with the photo.</div>
+</div>
+
+<!-- ============ 4 · CARD FLIP ============ -->
+<div class="frame" style="left: 700px; top: 740px;">
+  <div class="frame__label">04 · Card flip (trading-card back)</div>
+  <div class="stage" style="padding-top:44px;">
+    <div class="flip" id="flip">
+      <div class="flip__inner">
+        <div class="flip__face flip__front">
+          <img src="assets/siddhant-opt.png" alt="" />
+          <div class="flip__hint">Hover to flip ⤿</div>
+        </div>
+        <div class="flip__face flip__back">
+          <div class="flip__back-h">Off-duty stats</div>
+          <ul class="flip__list">
+            <li><span class="n">01</span> Pixel micromanager</li>
+            <li><span class="n">02</span> Gym enthusiast</li>
+            <li><span class="n">03</span> Horror-movie connoisseur</li>
+            <li><span class="n">04</span> Clean-desk evangelist</li>
+          </ul>
+          <div class="flip__back-f">The stuff that doesn't fit on a résumé.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="frame__note"><b>The delightful one.</b> Photo flips to a card back listing all four. Mobile: tap to flip. Contained — nothing floats loose.</div>
+</div>
+
+<script>
+  // 1 · rotating word
+  (function () {
+    var words = ['pixel micromanager', 'gym enthusiast', 'horror-movie connoisseur', 'clean-desk evangelist'];
+    var i = 0, el = document.getElementById('rw');
+    setInterval(function () {
+      el.classList.remove('in'); el.classList.add('out');
+      setTimeout(function () {
+        i = (i + 1) % words.length;
+        el.textContent = words[i];
+        el.classList.remove('out');
+        // force reflow then animate in
+        void el.offsetWidth;
+        el.classList.add('in');
+      }, 500);
+    }, 2400);
+  })();
+
+  // 2 · chips
+  (function () {
+    var chips = document.querySelectorAll('#chips .chip');
+    var detail = document.getElementById('chipDetail');
+    function show(chip) {
+      chips.forEach(function (c) { c.classList.remove('active'); });
+      chip.classList.add('active');
+      detail.style.opacity = 0;
+      setTimeout(function () { detail.textContent = chip.dataset.d; detail.style.opacity = 1; }, 160);
+    }
+    chips.forEach(function (c) {
+      c.addEventListener('mouseenter', function () { show(c); });
+      c.addEventListener('click', function () { show(c); });
+    });
+  })();
+
+  // 4 · flip (hover on desktop, tap toggles for touch)
+  (function () {
+    var f = document.getElementById('flip');
+    f.addEventListener('mouseenter', function () { f.classList.add('flipped'); });
+    f.addEventListener('mouseleave', function () { f.classList.remove('flipped'); });
+    f.addEventListener('click', function () { f.classList.toggle('flipped'); });
+  })();
+</script>
+</body>
+</html>

@@ -7,7 +7,7 @@ html[data-ticket="none"] .footticket { display: none; }
 @media (max-width: 860px) { .footticket { align-self: flex-start; align-items: flex-start; margin-top: 40px; } }
 
 .tkn {
-  --tkbg: #c8472a; --tkink: #f7ecd2;
+  --tkbg: #c8472a; --tkink: #f4ecdd;
   position: relative; display: flex; width: 100%; min-height: 198px;
   background: var(--tkbg); color: var(--tkink); border-radius: 10px;
   transform: rotate(-2.5deg); transition: transform .4s var(--ease);
@@ -38,7 +38,7 @@ html[data-ticket="noir"]   .tkn { --tkbg: #1a1a1a; --tkink: #f7c14a; }
   background-size: 100% 100%, 100% 100%, 150px 150px;
 }
 
-.tkn .mono { font-family: var(--mono); }
+.tkn .mono { font-family: var(--mono); color: var(--tkink); }
 
 .tkn__main { flex: 1; min-width: 0; padding: 17px 20px 16px 34px; display: flex; flex-direction: column; position: relative; z-index: 1; }
 /* decorative gradient wavy lines along the left margin */

@@ -218,6 +218,8 @@ html[data-herotype="bleed"] .hero__name { line-height: 0.8; }
   filter: grayscale(0) contrast(1.04);
   transform: scale(1.04);
 }
+/* Stickers variant keeps the photo in full color even at rest */
+html[data-avhover="stickers"] .hero__avatar-img { filter: grayscale(0) contrast(1.03); }
 
 /* dashed rings (used by Reveal) */
 .hero__avatar-ring {
@@ -359,6 +361,7 @@ html:not([data-avhover="orbit"]):not([data-avhover="fusion"]):not([data-avhover=
 .hero__avatar:hover .hero__avatar-tipline:nth-child(1) { transition-delay: .06s; }
 .hero__avatar:hover .hero__avatar-tipline:nth-child(2) { transition-delay: .14s; }
 .hero__avatar:hover .hero__avatar-tipline:nth-child(3) { transition-delay: .22s; }
+.hero__avatar:hover .hero__avatar-tipline:nth-child(4) { transition-delay: .30s; }
 @media (max-width: 600px) { .hero__avatar-tip { white-space: normal; max-width: 220px; } }
 
 /* ===== variant: COMIC, roles burst out as outlined speech bubbles ===== */
@@ -393,6 +396,9 @@ html:not([data-avhover="orbit"]):not([data-avhover="fusion"]):not([data-avhover=
 .hero__comic-bubble--2 { --r: 5deg;  --bub: var(--yellow); --txt: #0b0b0c; top: calc(100% - 4px); right: 52%; left: auto; }
 .hero__comic-bubble--3 { --r: -4deg; --bub: var(--accent); --txt: #ffffff; top: calc(100% - 4px); left: 52%; right: auto; }
 .hero__comic-bubble--3::after { border-left-color: var(--accent); }
+/* 4th tag = clean-desk, dark espresso fill with a warm brown bottom layer */
+.hero__comic-bubble--4 { --r: 6deg; --bub: #271a0d; --txt: #ffffff; --tx: 0; right: calc(100% + 12px); left: auto; top: 42%; bottom: auto; transform-origin: 100% 50%; box-shadow: 4px 4px 0 #5b4836; }
+.hero__comic-bubble--4::after { border-left-color: var(--bub); }
 
 html[data-avhover="comic"] .hero__avatar:hover .hero__comic-bubble,
 html[data-avhover="comic"] .hero__avatar:focus-visible .hero__comic-bubble {
@@ -401,39 +407,128 @@ html[data-avhover="comic"] .hero__avatar:focus-visible .hero__comic-bubble {
 html[data-avhover="comic"] .hero__avatar:hover .hero__comic-bubble--1 { transition-delay: .04s; }
 html[data-avhover="comic"] .hero__avatar:hover .hero__comic-bubble--2 { transition-delay: .13s; }
 html[data-avhover="comic"] .hero__avatar:hover .hero__comic-bubble--3 { transition-delay: .22s; }
+html[data-avhover="comic"] .hero__avatar:hover .hero__comic-bubble--4 { transition-delay: .31s; }
 
 /* ----- TAG LAYOUT options (override positions only) ----- */
 /* Triangle: one below centre, two at the top corners */
 html[data-taglayout="triangle"] .hero__comic-bubble--1 { --tx: -50%; left: 50%; right: auto; top: calc(100% - 4px); bottom: auto; transform-origin: 50% -30%; }
 html[data-taglayout="triangle"] .hero__comic-bubble--2 { --tx: 0; right: 56%; left: auto; top: auto; bottom: calc(100% + 8px); }
 html[data-taglayout="triangle"] .hero__comic-bubble--3 { --tx: 0; left: 56%; right: auto; top: auto; bottom: calc(100% + 8px); }
+html[data-taglayout="triangle"] .hero__comic-bubble--4 { --tx: 0; right: calc(100% + 12px); left: auto; top: 42%; bottom: auto; transform-origin: 100% 50%; }
 
 /* Right stack: all three down the right side of the photo */
 html[data-taglayout="rightstack"] .hero__comic-bubble { --tx: 0; left: calc(100% + 14px); right: auto; bottom: auto; transform-origin: 0% 50%; }
-html[data-taglayout="rightstack"] .hero__comic-bubble--1 { top: 4%; }
-html[data-taglayout="rightstack"] .hero__comic-bubble--2 { top: 42%; }
-html[data-taglayout="rightstack"] .hero__comic-bubble--3 { top: 80%; }
+html[data-taglayout="rightstack"] .hero__comic-bubble--1 { top: 0%; }
+html[data-taglayout="rightstack"] .hero__comic-bubble--2 { top: 28%; }
+html[data-taglayout="rightstack"] .hero__comic-bubble--3 { top: 56%; }
+html[data-taglayout="rightstack"] .hero__comic-bubble--4 { top: 84%; }
 
 /* Left stack: all three down the left side of the photo */
 html[data-taglayout="leftstack"] .hero__comic-bubble { --tx: 0; right: calc(100% + 14px); left: auto; bottom: auto; transform-origin: 100% 50%; }
-html[data-taglayout="leftstack"] .hero__comic-bubble--1 { top: 4%; }
-html[data-taglayout="leftstack"] .hero__comic-bubble--2 { top: 42%; }
-html[data-taglayout="leftstack"] .hero__comic-bubble--3 { top: 80%; }
+html[data-taglayout="leftstack"] .hero__comic-bubble--1 { top: 0%; }
+html[data-taglayout="leftstack"] .hero__comic-bubble--2 { top: 28%; }
+html[data-taglayout="leftstack"] .hero__comic-bubble--3 { top: 56%; }
+html[data-taglayout="leftstack"] .hero__comic-bubble--4 { top: 84%; }
 
 /* Clock: spread around, top-right, left-middle, bottom-right */
 html[data-taglayout="clock"] .hero__comic-bubble--1 { --tx: 0; left: 44%; right: auto; top: auto; bottom: calc(100% + 6px); transform-origin: 0% 120%; }
 html[data-taglayout="clock"] .hero__comic-bubble--2 { --tx: 0; right: calc(100% + 12px); left: auto; top: 42%; bottom: auto; transform-origin: 100% 50%; }
 html[data-taglayout="clock"] .hero__comic-bubble--3 { --tx: 0; left: 44%; right: auto; top: calc(100% - 4px); bottom: auto; transform-origin: 0% -30%; }
+html[data-taglayout="clock"] .hero__comic-bubble--4 { --tx: 0; left: calc(100% + 12px); right: auto; top: 42%; bottom: auto; transform-origin: 0% 50%; }
 
 /* Scatter: staggered diagonal off the left edge (the original look) */
 html[data-taglayout="scatter"] .hero__comic-bubble--1 { --tx: 0; right: 42%; left: auto; top: 3%;  bottom: auto; transform-origin: 88% 60%; }
 html[data-taglayout="scatter"] .hero__comic-bubble--2 { --tx: 0; right: 54%; left: auto; top: 45%; bottom: auto; transform-origin: 88% 60%; }
 html[data-taglayout="scatter"] .hero__comic-bubble--3 { --tx: 0; right: 36%; left: auto; top: 86%; bottom: auto; transform-origin: 88% 60%; }
+html[data-taglayout="scatter"] .hero__comic-bubble--4 { --tx: 0; left: calc(100% + 12px); right: auto; top: 46%; bottom: auto; transform-origin: 0% 50%; }
 
 /* keep bubbles tucked away unless the comic variant is active */
 html:not([data-avhover="comic"]) .hero__avatar-comic { display: none; }
 /* comic bubbles are a desktop hover delight, never on touch (they overflow the screen) */
 @media (hover: none) { .hero__avatar-comic { display: none !important; } }
+
+/* ===== variant: STICKERS, die-cut personality stickers pop in around the photo ===== */
+.hero__avatar-stickers { position: absolute; inset: 0; pointer-events: none; z-index: 6; }
+.hero__sticker {
+  position: absolute;
+  transform-origin: center;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.35) rotate(var(--r, 0deg));
+  transition: opacity .35s ease, transform .55s cubic-bezier(.34, 1.56, .64, 1);
+  filter: drop-shadow(0 8px 12px rgba(0,0,0,.42));
+  will-change: transform, opacity;
+}
+.hero__sticker svg { display: block; width: 100%; height: auto; }
+/* size + placement, relative to the photo (kept tucked in so nothing runs off-screen) */
+.hero__sticker--1 { width: 50%; left: 8%;  top: 3%;  --r: -8deg; }   /* Pixel · top-left  */
+.hero__sticker--2 { width: 64%; left: 3%;  top: 66%; --r: 6deg;  }   /* Gym · lower-left  */
+.hero__sticker--3 { width: 46%; left: 84%; top: 86%; --r: 8deg; }   /* Horror · bottom-right, off the face */
+.hero__sticker--4 { width: 48%; left: 80%; top: 6%;  --r: 9deg;  }   /* Clean · top-right, on photo */
+
+html[data-avhover="stickers"] .hero__avatar:hover .hero__sticker,
+html[data-avhover="stickers"] .hero__avatar:focus-visible .hero__sticker {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1) rotate(var(--r, 0deg));
+}
+html[data-avhover="stickers"] .hero__avatar:hover .hero__sticker--1 { transition-delay: .04s; }
+html[data-avhover="stickers"] .hero__avatar:hover .hero__sticker--2 { transition-delay: .12s; }
+html[data-avhover="stickers"] .hero__avatar:hover .hero__sticker--3 { transition-delay: .20s; }
+html[data-avhover="stickers"] .hero__avatar:hover .hero__sticker--4 { transition-delay: .28s; }
+/* only rendered in the Stickers variant; desktop hover delight only */
+html:not([data-avhover="stickers"]) .hero__avatar-stickers { display: none; }
+/* the text tooltip list has no place in the Stickers variant */
+html[data-avhover="stickers"] .hero__avatar-tip { display: none !important; }
+@media (hover: none) { .hero__avatar-stickers { display: none !important; } }
+@media (prefers-reduced-motion: reduce) {
+  .hero__sticker { transition: opacity .3s ease; transform: translate(-50%, -50%) scale(1) rotate(var(--r, 0deg)); }
+}
+
+/* ----- STICKER LAYOUT options (override placement only; base = Corners) ----- */
+/* Stacked · all four hugging the left of the photo, face fully clear */
+html[data-stklayout="stacked"] .hero__sticker--1 { left: -4%;  top: 8%;  --r: -7deg; }
+html[data-stklayout="stacked"] .hero__sticker--2 { left: -10%; top: 40%; --r: 5deg;  }
+html[data-stklayout="stacked"] .hero__sticker--3 { left: -2%;  top: 66%; --r: -8deg; }
+html[data-stklayout="stacked"] .hero__sticker--4 { left: -6%;  top: 94%; --r: 7deg;  }
+
+/* Crown · arced across the top of the photo */
+html[data-stklayout="crown"] .hero__sticker--1 { left: 10%; top: -6%;  --r: -12deg; }
+html[data-stklayout="crown"] .hero__sticker--2 { left: 40%; top: -12%; --r: -3deg;  }
+html[data-stklayout="crown"] .hero__sticker--3 { left: 68%; top: -6%;  --r: 6deg;   }
+html[data-stklayout="crown"] .hero__sticker--4 { left: 84%; top: 4%;   --r: 11deg;  }
+
+/* Compass · one at each of top / left / bottom / right */
+html[data-stklayout="compass"] .hero__sticker--1 { left: 46%; top: -10%; --r: -4deg; }  /* pixel top   */
+html[data-stklayout="compass"] .hero__sticker--2 { left: -6%; top: 50%;  --r: 5deg;  }  /* gym left    */
+html[data-stklayout="compass"] .hero__sticker--3 { left: 48%; top: 98%;  --r: -6deg; }  /* horror below */
+html[data-stklayout="compass"] .hero__sticker--4 { left: 84%; top: 46%;  --r: 9deg;  }  /* clean right */
+
+/* Huddle · piled around the lower half, overlapping like a sticker sheet */
+html[data-stklayout="huddle"] .hero__sticker--1 { left: 16%; top: 74%; --r: -11deg; }
+html[data-stklayout="huddle"] .hero__sticker--2 { left: 52%; top: 96%; --r: 4deg;   }
+html[data-stklayout="huddle"] .hero__sticker--3 { left: 82%; top: 78%; --r: 10deg;  }
+html[data-stklayout="huddle"] .hero__sticker--4 { left: 40%; top: 62%; --r: -5deg;  }
+
+/* Orbit · stickers hug the photo edge and revolve around it on hover */
+html[data-stklayout="orbit"] .hero__sticker { width: 42%; filter: drop-shadow(0 6px 11px rgba(0,0,0,.42)); }
+html[data-stklayout="orbit"] .hero__sticker--1 { left: 50%;  top: -11%; --r: 0deg; }  /* 12 o'clock */
+html[data-stklayout="orbit"] .hero__sticker--2 { left: 111%; top: 50%;  --r: 0deg; width: 54%; }  /* 3 o'clock · gym, larger */
+html[data-stklayout="orbit"] .hero__sticker--3 { left: 50%;  top: 111%; --r: 0deg; }  /* 6 o'clock  */
+html[data-stklayout="orbit"] .hero__sticker--4 { left: -11%; top: 50%;  --r: 0deg; }  /* 9 o'clock  */
+@keyframes stkOrbitSpin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+@keyframes stkOrbitCounter { from { transform: translate(-50%, -50%) rotate(0deg); } to { transform: translate(-50%, -50%) rotate(-360deg); } }
+/* revolve the whole ring on hover; counter-spin each sticker so it stays upright */
+html[data-stklayout="orbit"][data-avhover="stickers"] .hero__avatar:hover .hero__avatar-stickers,
+html[data-stklayout="orbit"][data-avhover="stickers"] .hero__avatar:focus-visible .hero__avatar-stickers {
+  animation: stkOrbitSpin 24s linear infinite;
+}
+html[data-stklayout="orbit"][data-avhover="stickers"] .hero__avatar:hover .hero__sticker,
+html[data-stklayout="orbit"][data-avhover="stickers"] .hero__avatar:focus-visible .hero__sticker {
+  animation: stkOrbitCounter 24s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  html[data-stklayout="orbit"] .hero__avatar-stickers,
+  html[data-stklayout="orbit"] .hero__sticker { animation: none !important; }
+}
 
 /* ---- mobile hero polish: controlled avatar, clean stacking ---- */
 @media (max-width: 640px) {

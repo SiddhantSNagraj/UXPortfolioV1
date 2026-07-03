@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1200" height="900" viewBox="0 0 1200 900">
+  <rect width="1200" height="900" fill="#f5f3ec"></rect>
+  <text x="40" y="50" font-family="JetBrains Mono, monospace" font-size="16" fill="#8a8980">TAG LAYOUT KIT — drag each tag to rearrange, then export back</text>
+  <defs><clipPath id="pclip"><circle cx="600" cy="450" r="120"></circle></clipPath></defs>
+  <g id="photo">
+    <circle cx="600" cy="450" r="122" fill="#0b0b0c"></circle>
+    <image x="480" y="300" width="240" height="300" preserveAspectRatio="xMidYMid slice" clip-path="url(#pclip)"></image>
+    <circle cx="600" cy="450" r="120" fill="none" stroke="#0b0b0c" stroke-width="3"></circle>
+  </g>
+  
+  <g id="tag-pixel" transform="translate(510 260) rotate(-3)">
+    <rect x="4" y="4" width="180.79999999999998" height="34" rx="12" fill="#0b0b0c"></rect>
+    <rect x="0" y="0" width="180.79999999999998" height="34" rx="12" fill="#ffffff" stroke="#0b0b0c" stroke-width="2.5"></rect>
+    <text x="90.39999999999999" y="21" font-family="Space Grotesk, sans-serif" font-size="13" font-weight="700" letter-spacing="0.2" text-anchor="middle" fill="#0b0b0c">PIXEL MICROMANAGER</text>
+  </g>
+  
+  <g id="tag-gym" transform="translate(750 430) rotate(4)">
+    <rect x="4" y="4" width="146.39999999999998" height="34" rx="12" fill="#0b0b0c"></rect>
+    <rect x="0" y="0" width="146.39999999999998" height="34" rx="12" fill="#f2c14e" stroke="#0b0b0c" stroke-width="2.5"></rect>
+    <text x="73.19999999999999" y="21" font-family="Space Grotesk, sans-serif" font-size="13" font-weight="700" letter-spacing="0.2" text-anchor="middle" fill="#0b0b0c">GYM ENTHUSIAST</text>
+  </g>
+  
+  <g id="tag-horror" transform="translate(470 610) rotate(-3)">
+    <rect x="4" y="4" width="232.39999999999998" height="34" rx="12" fill="#0b0b0c"></rect>
+    <rect x="0" y="0" width="232.39999999999998" height="34" rx="12" fill="#9e2b25" stroke="#0b0b0c" stroke-width="2.5"></rect>
+    <text x="116.19999999999999" y="21" font-family="Space Grotesk, sans-serif" font-size="13" font-weight="700" letter-spacing="0.2" text-anchor="middle" fill="#ffffff">HORROR MOVIE CONNOISSEUR</text>
+  </g>
+  
+  <g id="tag-clean" transform="translate(220 430) rotate(4)">
+    <rect x="4" y="4" width="206.6" height="34" rx="12" fill="#0b0b0c"></rect>
+    <rect x="0" y="0" width="206.6" height="34" rx="12" fill="#0b0b0c" stroke="#0b0b0c" stroke-width="2.5"></rect>
+    <text x="103.3" y="21" font-family="Space Grotesk, sans-serif" font-size="13" font-weight="700" letter-spacing="0.2" text-anchor="middle" fill="#ffffff">CLEAN-DESK EVANGELIST</text>
+  </g>
+</svg>

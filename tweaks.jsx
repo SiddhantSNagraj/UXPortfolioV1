@@ -12,8 +12,9 @@ const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
   "heroType": "Classic",
   "ticket": "Sunset",
   "scheme": "Ink",
-  "avatarHover": "Comic",
-  "tagLayout": "Clock",
+  "avatarHover": "Stickers",
+  "stickerLayout": "Corners",
+  "tagLayout": "Crown",
   "fanStyle": "Bloom",
   "apmcHover": "Display",
   "gsHover": "Tokens",
@@ -79,15 +80,30 @@ const AVATAR_HOVER = {
   'Orbit': 'orbit',
   'Spotlight': 'spotlight',
   'Duotone': 'duotone',
+  'Stickers': 'stickers',
 };
 
-// Arrangement of the three comic personality tags around the photo.
+// Arrangement of the comic personality tags around the photo.
 const TAG_LAYOUTS = {
+  'Crown': 'crown',          // original burst — one above, two below, one to the left
   'Clock': 'clock',          // spread around the circle
+  'Triangle': 'triangle',    // one below centre, two at the top corners
+  'Left stack': 'leftstack', // stacked down the left of the photo
+  'Right stack': 'rightstack', // stacked down the right of the photo
 };
 
 // CoffeeHouse work-row hover: how the 3-phone fan blooms out.
 const FAN_STYLES = { 'Bloom': 'bloom' };
+
+// Placement of the personality stickers around the photo (Stickers hover variant).
+const STICKER_LAYOUTS = {
+  'Corners': 'corners',   // one tucked into each corner (default)
+  'Stacked': 'stacked',   // all four down the left, face fully clear
+  'Crown': 'crown',       // arced across the top
+  'Compass': 'compass',   // top / left / bottom / right
+  'Huddle': 'huddle',     // piled around the lower half like a sticker sheet
+  'Orbit': 'orbit',       // even ring that revolves around the photo on hover
+};
 
 // APMC work-row hover: which flat-screen treatment appears.
 const APMC_HOVER = { 'Display': 'display' };
@@ -252,6 +268,7 @@ function TweaksUI() {
     ensureMonoFont(mf);
     r.setProperty('--mono', mf.stack);
     document.documentElement.setAttribute('data-avhover', AVATAR_HOVER[t.avatarHover] || 'reveal');
+    document.documentElement.setAttribute('data-stklayout', STICKER_LAYOUTS[t.stickerLayout] || 'corners');
     document.documentElement.setAttribute('data-taglayout', TAG_LAYOUTS[t.tagLayout] || 'crown');
     document.documentElement.setAttribute('data-fan', FAN_STYLES[t.fanStyle] || 'bloom');
     document.documentElement.setAttribute('data-apmchover', APMC_HOVER[t.apmcHover] || 'display');
@@ -338,6 +355,12 @@ function TweaksUI() {
       <TweakSelect label="Avatar effect" value={t.avatarHover}
         options={Object.keys(AVATAR_HOVER)}
         onChange={(v) => setTweak('avatarHover', v)} />
+      <TweakSelect label="Sticker layout" value={t.stickerLayout}
+        options={Object.keys(STICKER_LAYOUTS)}
+        onChange={(v) => setTweak('stickerLayout', v)} />
+      <TweakSelect label="Tag layout" value={t.tagLayout}
+        options={Object.keys(TAG_LAYOUTS)}
+        onChange={(v) => setTweak('tagLayout', v)} />
       <TweakSection label="Motion" />
       <TweakSelect label="Hero status" value={t.heroStatus}
         options={Object.keys(HERO_STATUS)}
