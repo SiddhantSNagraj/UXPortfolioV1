@@ -266,6 +266,16 @@ html[data-theme="light"] .cc-iter, html[data-theme="light"] .gsk, html[data-them
 
 /* ── Guestbook · personal monogram seal wall ── */
 .gb-sec { padding: clamp(60px, 9vw, 120px) 0; border-top: 1px solid var(--line); }
+
+/* Guestbook secret overlay (opened from ⌘K) */
+.gb-ov { position: fixed; inset: 0; z-index: 9000; display: flex; align-items: center; justify-content: center; padding: clamp(14px, 4vw, 48px); }
+.gb-ov__scrim { position: absolute; inset: 0; background: rgba(var(--scrim), 0.72); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); animation: gbOvIn .3s ease; }
+.gb-ov__panel { position: relative; width: min(1040px, 100%); max-height: 90vh; overflow: auto; background: var(--bg); border: 1px solid var(--line-2); border-radius: 18px; box-shadow: 0 30px 80px rgba(0,0,0,.5); animation: gbOvPop .42s cubic-bezier(.34,1.56,.64,1); }
+.gb-ov__panel .gb-sec { padding: clamp(30px, 5vw, 56px) 0 clamp(24px, 4vw, 44px); border-top: none; }
+.gb-ov__close { position: absolute; top: 15px; right: 16px; z-index: 3; background: var(--surface); border: 1px solid var(--line-2); color: var(--ink-2); padding: 7px 14px; border-radius: 999px; cursor: pointer; transition: color .18s ease, border-color .18s ease; }
+.gb-ov__close:hover { color: var(--ink); border-color: var(--ink-3); }
+@keyframes gbOvIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes gbOvPop { from { opacity: 0; transform: translateY(16px) scale(.98); } to { opacity: 1; transform: none; } }
 .gb { margin-top: 0; }
 .gb__head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; }
 .gb__count { color: var(--ink-3); font-size: 11px; letter-spacing: .12em; }

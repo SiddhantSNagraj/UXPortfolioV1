@@ -121,3 +121,45 @@ html[data-vibe="retroslate"][data-theme="light"] {
   --ink: #23211b; --ink-2: #514e44; --ink-3: #827e72; --ink-4: #b0ab9d;
   --slot-stripe: rgba(40,38,32,0.06); --scrim: 228,225,216;
 }
+
+/* =========================================================================
+   FULL-RESKIN ACCENT PALETTES (data-accentset) — from Jenny Henderson swatches.
+   Unlike the accent-only sets in styles.css, these ALSO drive the background,
+   surfaces, ink and lines so all four/five colors appear throughout the site.
+   Placed after every scheme block so they win over the active scheme's
+   neutrals by source order (equal specificity). Both dark + light halves.
+   ========================================================================= */
+
+/* ---------- MIDNIGHT & MARIGOLD ----------
+   Midnight #013D5A · Lionsmane #FCF3E3 · Celeste #BDD3CE · Herb #708C69 · Marigold #FAA258 */
+html[data-accentset="henderson"] {
+  --bg: #061a24; --bg-2: #0a2531; --surface: #0e2c3a; --surface-2: #133544;
+  --line: rgba(189,211,206,0.13); --line-2: rgba(189,211,206,0.22);
+  --ink: #fcf3e3; --ink-2: #bcccc4; --ink-3: #7f978d; --ink-4: #4f6960;
+  --slot-stripe: rgba(252,243,227,0.045); --scrim: 6,26,36;
+  --blue: #6fb3d1; --accent: #6fb3d1; --yellow: #faa258; --yellow-ink: #faa258;
+}
+html[data-accentset="henderson"][data-theme="light"] {
+  --bg: #fcf3e3; --bg-2: #f2e7d0; --surface: #fffcf5; --surface-2: #e7ede3;
+  --line: rgba(112,140,105,0.34); --line-2: rgba(1,61,90,0.28);
+  --ink: #013d5a; --ink-2: #40616d; --ink-3: #6f8a86; --ink-4: #a9c2bc;
+  --slot-stripe: rgba(1,61,90,0.05); --scrim: 252,243,227;
+  --blue: #013d5a; --accent: #013d5a; --yellow: #faa258; --yellow-ink: #b9631a;
+}
+
+/* ---------- OCEANIC & NECTARINE ----------
+   Onyx #0A171D · Wheat #FFF6E9 · Oceanic #003F47 · Nectarine #FFBD76 */
+html[data-accentset="oceanic"] {
+  --bg: #101316; --bg-2: #16191d; --surface: #1c2023; --surface-2: #23282c;
+  --line: rgba(255,246,233,0.11); --line-2: rgba(255,246,233,0.19);
+  --ink: #fff6e9; --ink-2: #c8bca8; --ink-3: #8a8072; --ink-4: #565049;
+  --slot-stripe: rgba(255,246,233,0.045); --scrim: 16,19,22;
+  --blue: #3fa0aa; --accent: #3fa0aa; --yellow: #ffbd76; --yellow-ink: #ffbd76;
+}
+html[data-accentset="oceanic"][data-theme="light"] {
+  --bg: #fff6e9; --bg-2: #f6e9d2; --surface: #fffdf8; --surface-2: #e8efec;
+  --line: rgba(0,63,71,0.17); --line-2: rgba(0,63,71,0.30);
+  --ink: #0a171d; --ink-2: #003f47; --ink-3: #4a6e70; --ink-4: #a6bdba;
+  --slot-stripe: rgba(10,23,29,0.05); --scrim: 255,246,233;
+  --blue: #097680; --accent: #097680; --yellow: #ffbd76; --yellow-ink: #b96e1a;
+}

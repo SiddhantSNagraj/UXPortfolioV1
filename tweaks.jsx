@@ -1,10 +1,10 @@
 /* TWEAKS, accent, highlight, background tone, hero pixel style */
 
-const ACCENT_SETS = { 'Custom': null, 'Modern Atelier': 'atelier', 'Avant-Garde Press': 'press', 'Mid-Century Archive': 'archive', 'Cobalt & Marigold': 'cobalt', 'Pine & Coral': 'pine', 'Indigo & Chartreuse': 'indigo', 'Slate & Apricot': 'slate', 'Teal & Rose': 'teal', 'Mimosa & Wine': 'mimosa', 'Spicy & Teal': 'spicy' };
+const ACCENT_SETS = { 'Custom': null, 'Midnight & Marigold': 'henderson', 'Oceanic & Nectarine': 'oceanic', 'Modern Atelier': 'atelier', 'Avant-Garde Press': 'press', 'Mid-Century Archive': 'archive', 'Cobalt & Marigold': 'cobalt', 'Pine & Coral': 'pine', 'Indigo & Chartreuse': 'indigo', 'Slate & Apricot': 'slate', 'Teal & Rose': 'teal', 'Mimosa & Wine': 'mimosa', 'Spicy & Teal': 'spicy' };
 
 const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
   "vibe": "Default",
-  "accentSet": "Mimosa & Wine",
+  "accentSet": "Oceanic & Nectarine",
   "accent": "#2b6fff",
   "highlight": "#f7c14a",
   "heroFont": "Gambetta",

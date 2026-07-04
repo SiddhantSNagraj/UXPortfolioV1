@@ -140,7 +140,7 @@ function Guestbook() {
       <div className="wrap">
         <div className="gb">
           <div className="gb__head">
-            <span className="mono mono--accent">04 · GUESTBOOK</span>
+            <span className="mono mono--accent">✦ GUESTBOOK</span>
             <span className="gb__count mono">{seals.length} have signed</span>
           </div>
           <p className="gb__lead">Leave your mark. Type your initials, pick where you’re from, and press your seal anywhere on the wall.</p>
@@ -159,6 +159,32 @@ function Guestbook() {
         </div>
       </div>
     </section>
+  );
+}
+
+function GuestbookOverlay() {
+  const [open, setOpen] = useState(false);
+  useEffect(() => {
+    window.__openGuestbook = () => setOpen(true);
+    return () => { try { delete window.__openGuestbook; } catch (e) {} };
+  }, []);
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e) => { if (e.key === 'Escape') setOpen(false); };
+    document.addEventListener('keydown', onKey);
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => { document.removeEventListener('keydown', onKey); document.body.style.overflow = prev; };
+  }, [open]);
+  if (!open) return null;
+  return (
+    <div className="gb-ov" role="dialog" aria-modal="true" aria-label="Guestbook">
+      <div className="gb-ov__scrim" onClick={() => setOpen(false)} />
+      <div className="gb-ov__panel">
+        <button className="gb-ov__close mono" type="button" onClick={() => setOpen(false)} aria-label="Close guestbook">Close ✕</button>
+        <Guestbook />
+      </div>
+    </div>
   );
 }
 
@@ -181,7 +207,7 @@ function Contact({ profile }) {
   return (
     <section className="contact" id="contact">
       <div className="wrap">
-        <div className="mono mono--accent" style={{ marginBottom: 28 }}>05 · CONTACT, OPEN TO PRODUCT DESIGN ROLES</div>
+        <div className="mono mono--accent" style={{ marginBottom: 28 }}>04 · CONTACT, OPEN TO PRODUCT DESIGN ROLES</div>
         <div className="contact__split">
           <div className="contact__left">
             <a
@@ -279,4 +305,4 @@ function CaseTLDR({ items }) {
   );
 }
 
-Object.assign(window, { Slot, Reveal, TopNav, Contact, Marquee, CaseTLDR });
+Object.assign(window, { Slot, Reveal, TopNav, Contact, Marquee, CaseTLDR, Guestbook, GuestbookOverlay });

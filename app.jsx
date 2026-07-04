@@ -72,12 +72,12 @@ function App() {
     <React.Fragment>
       <TopNav onNav={onNav} active={activeSec} solid={route.view === 'case'} theme={theme} onToggleTheme={toggleTheme} resumeUrl={data.profile.resume} />
       <TweaksUI />
+      <GuestbookOverlay />
       {route.view === 'home' ? (
         <main className={`route-view ${hasNavigated ? 'route-anim' : ''}`} key="home">
           <Hero projects={data.projects} onOpen={openProject} />
           <WorkIndex projects={data.projects} onOpen={openProject} />
           <About profile={data.profile} reviews={data.reviews} />
-          <Guestbook />
           <Contact profile={data.profile} />
         </main>
       ) : (

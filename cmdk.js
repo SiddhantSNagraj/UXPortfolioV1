@@ -18,7 +18,7 @@
     { label: 'Surprise me — open a random project', kind: 'Secret', act: function () { window.__surpriseMe(); } },
     { label: 'Now playing ♪', kind: 'Secret', act: function () { window.__nowPlaying(); } },
     { label: 'Palette peek', kind: 'Secret', act: function () { window.__palettePeek(); } },
-    { label: 'Toggle Retro Slate theme ✦', kind: 'Secret', act: function () { window.__toggleVibe(); } },
+    { label: 'Sign the guestbook ✒', kind: 'Secret', act: function () { if (window.__openGuestbook) window.__openGuestbook(); } },
     { label: 'A note for fellow designers', kind: 'Secret', act: function () { window.__openDesignerNote(); } },
   ];
 
