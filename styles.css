@@ -561,7 +561,8 @@ html[data-reveal="off"] .case .reveal {
   mix-blend-mode: difference;
   color: #fff;
 }
-.nav__brand { display: flex; align-items: center; gap: 10px; font-family: var(--pixel); font-weight: 700; font-size: 19px; letter-spacing: 0.02em; }
+.nav__brand { display: flex; align-items: baseline; gap: 0; font-family: var(--display); font-weight: 700; font-size: 22px; letter-spacing: -0.02em; text-transform: lowercase; }
+.nav__brand .dot { color: var(--yellow-ink, #ffbd76); }
 .nav__brand .reg { font-family: var(--mono); font-size: 11px; vertical-align: super; }
 .nav__links { display: flex; gap: 28px; align-items: center; }
 .nav__link { font-family: var(--mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; position: relative; padding: 4px 0; }
@@ -715,7 +716,7 @@ html[data-nav="masthead"] .nav--solid { background-image: none; }
 .themetog__ico--sun  { right: 6px; color: var(--ink-3); }
 /* the active side's icon brightens */
 .themetog:not(.is-light) .themetog__ico--moon { color: var(--ink); }
-.themetog.is-light .themetog__ico--sun { color: #2b6fff; }
+.themetog.is-light .themetog__ico--sun { color: var(--accent, #097680); }
 
 .themetog__knob {
   position: absolute; top: 50%; left: 3px; z-index: 2;
@@ -727,9 +728,9 @@ html[data-nav="masthead"] .nav--solid { background-image: none; }
 .themetog.is-light .themetog__knob {
   transform: translateY(-50%) translateX(29px) rotate(360deg);
 }
-/* ring color tracks the active icon: amber over the moon (dark), blue over the sun (light) */
-.themetog:not(.is-light) .themetog__knob { border-color: #e89a4c; }
-.themetog.is-light .themetog__knob { border-color: #2b6fff; }
+/* ring color tracks the active icon: nectarine over the moon (dark), oceanic over the sun (light) */
+.themetog:not(.is-light) .themetog__knob { border-color: var(--yellow-ink, #ffbd76); }
+.themetog.is-light .themetog__knob { border-color: var(--accent, #003f47); }
 @media (max-width: 720px) {
   .themetog { width: 56px; height: 28px; }
   .themetog.is-light .themetog__knob { transform: translateY(-50%) translateX(25px) rotate(360deg); }
