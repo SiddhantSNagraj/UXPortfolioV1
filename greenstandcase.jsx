@@ -41,9 +41,12 @@ const GS = {
     ['Handoff & adoption', 'Shipped the first cut as a Figma library and assumed teams would pull from it.', 'Remote, rotating volunteer devs needed a living, coded reference, static specs weren’t enough.', 'Documented guidelines and integrated the system with Storybook so design and code stayed in sync.'],
   ],
   outcomes: [
-    ['150+', 'reusable components shipped in Figma, powering both apps'],
-    ['25%', 'reduction in developer rework after adoption'],
-    ['AA', 'WCAG compliance across key flows, verified not assumed'],
+    ['27%', 'faster developer velocity after adoption'],
+    ['32%', 'fewer accessibility issues across key flows'],
+    ['24%', 'lift in user engagement across both apps'],
+    ['150+', 'reusable components shipped in Figma'],
+    ['25%', 'reduction in developer rework'],
+    ['AA', 'WCAG compliance, verified not assumed'],
   ],
   anatomy: [
     ['1', 'Label', 'Display 600 · 14px', 'r'],
@@ -85,9 +88,9 @@ const GS = {
     ['wallet-04-created.png', '03', 'Success'],
   ],
   learnings: [
-    'Scaling a design system beyond a single app is a different discipline than designing one, it lives or dies on adoption.',
+    'Scaling a design system beyond a single app is a different discipline than designing one — it lives or dies on adoption.',
     'Collaboration drives adoption. The system spread because teams felt ownership of it, not because it was mandated.',
-    'Leading and mentoring designers grew me as much as the work did, the multiplier is people, not pixels.',
+    'Leading and mentoring designers grew me as much as the work did — the multiplier is people, not pixels.',
   ],
   nextSteps: [
     ['Clearer documentation', 'Build richer docs so new designers and developers can get started faster, with less hand-holding.'],
@@ -247,7 +250,7 @@ function GreenstandCase({ project, projects, onOpen, onHome }) {
         <div className="gs-sec__body">
           <h2 className="gs-h2">Tech that fights climate change, held back by its own UI</h2>
           <p className="gs-lead">Greenstand is a nonprofit building technology to fight climate change through verified tree planting. Its two flagship apps, <strong>TreeTracker</strong> for field mappers and <strong>TreeTrader</strong> for the tree-credit marketplace, serve a primary user base across Africa and Europe. I was brought in to lead a design-system initiative to unify the apps and set them up for global scale, working with leadership on priorities and adoption, global volunteer teams across both continents, and developers to integrate the system into the live apps.</p>
-          <p className="gs-lead gs-lead--sm" style={{ marginTop: 'clamp(20px,2.4vw,30px)' }}>I designed around real constraints: a <strong>volunteer-driven org</strong> where the system had to earn adoption rather than mandate it, <strong>remote async collaboration</strong> across three continents, and <strong>live codebases</strong> I had to design around, for a <strong>non-technical user base</strong> that needed radical simplicity.</p>
+          <p className="gs-lead gs-lead--sm" style={{ marginTop: 'clamp(20px,2.4vw,30px)' }}>I designed around real constraints: a <strong>volunteer-driven org</strong> where the system had to earn adoption rather than mandate it, <strong>remote async collaboration</strong> across three continents, and <strong>live codebases</strong> I had to design around — all for a <strong>non-technical user base</strong> that needed radical simplicity.</p>
         </div>
       </section>
 
@@ -268,7 +271,7 @@ function GreenstandCase({ project, projects, onOpen, onHome }) {
           </div>
 
           <h3 className="gs-h3">The clearest symptom: 7+ greens, no system</h3>
-          <p className="gs-lead gs-lead--sm">A brand built on trees had no agreed green. I found seven-plus shades in use across the two apps, none of them documented, several failing contrast.</p>
+          <p className="gs-lead gs-lead--sm">A brand built on trees had no agreed green. I found seven-plus shades in use across the two apps — none of them documented, several failing contrast.</p>
           <div className="gs-greens">
             {GS.greens.map((g, i) => (
               <span key={i} className="gs-greens__sw" style={{ background: g }}>{g}</span>
@@ -285,7 +288,7 @@ function GreenstandCase({ project, projects, onOpen, onHome }) {
               <div className="gs-fig gs-fig--phone gs-fig--dark"><img src="assets/greenstand/before-treetrader.png" alt="TreeTrader login screen before the redesign" loading="lazy" /></div>
             </div>
           </div>
-          <span className="gs-figcap">Two products, two unrelated login screens, different inputs, buttons, colours and states. The same job, designed twice.</span>
+          <span className="gs-figcap">Two products, two unrelated login screens — different inputs, buttons, colours and states. The same job, designed twice.</span>
         </div>
       </section>
 
@@ -312,7 +315,7 @@ function GreenstandCase({ project, projects, onOpen, onHome }) {
         <div className="gs-sec__label"><span className="pixel" style={{ color: 'var(--gs-400)' }}>02</span><span className="mono">Ownership</span></div>
         <div className="gs-sec__body">
           <h2 className="gs-h2">From a one-person experiment to a program I led</h2>
-          <p className="gs-lead">The most meaningful part of this project wasn’t the components, it was the trajectory. I started alone and earned the mandate to lead.</p>
+          <p className="gs-lead">The most meaningful part of this project wasn’t the components — it was the trajectory. I started alone and earned the mandate to lead.</p>
           <div className="gs-arc">
             <Reveal className="gs-arc__step" delay="d1">
               <span className="gs-arc__n">Phase 01</span>
@@ -327,7 +330,7 @@ function GreenstandCase({ project, projects, onOpen, onHome }) {
             <Reveal className="gs-arc__step" delay="d3">
               <span className="gs-arc__n">Phase 03</span>
               <h3 className="gs-arc__t">Led it to production</h3>
-              <p className="gs-arc__d">I mentored the team, deployed the system, and every software-engineering team adopted it, lifting user retention and cutting development time.</p>
+              <p className="gs-arc__d">I mentored the team, deployed the system, and every software-engineering team adopted it, cutting rework and speeding up delivery.</p>
             </Reveal>
           </div>
         </div>
@@ -408,7 +411,7 @@ function GreenstandCase({ project, projects, onOpen, onHome }) {
         <div className="gs-sec__label"><span className="pixel" style={{ color: 'var(--gs-400)' }}>05</span><span className="mono">Execution</span></div>
         <div className="gs-sec__body">
           <h2 className="gs-h2">The system, built and documented</h2>
-          <p className="gs-lead">Roots shipped as a token-driven Figma library plus a Storybook of coded components, foundations first, components composed only from tokens, every state and contrast ratio accounted for. Here it is, live:</p>
+          <p className="gs-lead">Roots shipped as a token-driven Figma library plus a Storybook of coded components: foundations first, components composed only from tokens, every state and contrast ratio accounted for. Here it is, live:</p>
           <div style={{ marginTop: 'clamp(20px,3vw,32px)' }}>
             <GSKit />
           </div>
@@ -476,7 +479,7 @@ function GreenstandCase({ project, projects, onOpen, onHome }) {
         <div className="gs-sec__label"><span className="pixel" style={{ color: 'var(--gs-400)' }}>07</span><span className="mono">Adoption</span></div>
         <div className="gs-sec__body">
           <h2 className="gs-h2">A system is only real once people use it</h2>
-          <p className="gs-lead">Roots didn't spread because it was mandated, it spread because I proved it, made it effortless to pull from, and governed it as it grew. That's the difference between a component file and a design system.</p>
+          <p className="gs-lead">Roots didn't spread because it was mandated — it spread because I proved it, made it effortless to pull from, and governed it as it grew. That's the difference between a component file and a design system.</p>
           <div className="gs-adopt">
             {GS.adoption.map(([n, t, d], i) => (
               <Reveal key={i} className="gs-adopt__row" delay={`d${(i % 3) + 1}`}>

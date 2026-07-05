@@ -82,7 +82,7 @@
      On every hash change we update document.title and report a virtual
      pageview so the dashboard shows /project/<id> paths. */
   var TITLES = {
-    '': 'Siddhant Nagraj · Product Designer',
+    '': 'Siddhant Nagraj · Portfolio',
     'project/greenstand': 'Greenstand, Roots Design System · Siddhant Nagraj',
     'project/apmc': 'APMC Website Redesign · Siddhant Nagraj',
     'project/coffeehouse': 'CoffeeHouse Mobile App · Siddhant Nagraj',

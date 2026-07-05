@@ -58,9 +58,9 @@ const AM = {
     ['36.2%', '↓', 'Drop-off rate, led me to simplify registration'],
   ],
   learnings: [
-    'Balancing speed with UX quality in a real launch scenario, when the event is in 3 months, every decision is a trade-off.',
+    'Balancing speed with UX quality in a real launch scenario — when the event is in 3 months, every decision is a trade-off.',
     'Rapid testing with real users uncovers critical gaps that no amount of internal review finds.',
-    'Cross-functional collaboration was the single biggest factor in shipping on time, design doesn\'t ship alone.',
+    'Cross-functional collaboration was the single biggest factor in shipping on time — design doesn\'t ship alone.',
   ],
   outcomes: [
     ['Shipped on deadline', 'Delivered the full redesign in the 3-month window, kickoff to live, in time for Protothon 5.0.'],
@@ -92,7 +92,7 @@ const AM = {
     ],
     [
       ['Red problem-statement card', 'Isolated highlight so it cannot be scrolled past unread. The brief is the whole event.'],
-      ['Mentor logos lifted up', 'Heatmaps showed cold engagement below the fold, logos moved up after testing; click rate doubled.'],
+      ['Mentor logos lifted up', 'Heatmaps showed cold engagement below the fold — logos moved up after testing; click rate doubled.'],
       ['Consistent photo-led system', 'Same visual language across every deep page: judges, prizes, resources, feels like one product.'],
     ],
   ],
@@ -103,7 +103,7 @@ const AM = {
       chosenWhy: 'The non-technical exec team could update content, swap sponsors and run the next Protothon entirely on their own.',
       rejected: 'A custom-coded site',
       rejectedWhy: 'More design control and polish, but it would quietly rot the moment I graduated and stopped maintaining it.',
-      tradeoff: 'I gave up pixel-level control for longevity. The bet held, it\u2019s still their live site two years and another Protothon later.',
+      tradeoff: 'I gave up pixel-level control for longevity. The bet held, the club still runs on it without me.',
     },
     {
       q: 'One homepage for everything, or a dedicated page for the flagship event?',
@@ -222,7 +222,7 @@ function ApmcCase({ project, projects, onOpen, onHome }) {
       {/* STATS BAND */}
       <section className="am-band" data-navskip="true" style={{ marginTop: 'clamp(20px,3vw,42px)' }}>
         <div className="wrap am-band__inner">
-          {[['450+', 'Sessions from launch'], ['700+', 'Daily active users'], ['2 yrs+', 'Still live &amp; in use today']].map(([n, l], i) => (
+          {[['450+', 'Sessions from launch'], ['700+', 'Monthly active users'], ['2 yrs+', 'Still live &amp; in use today']].map(([n, l], i) => (
             <Reveal key={i} className="am-stat" delay={`d${i + 1}`}>
               <span className="am-stat__n" style={{ color: i === 1 ? 'var(--ink)' : 'var(--accent)' }}>{n}</span>
               <span className="am-stat__l">{l}</span>
@@ -235,7 +235,7 @@ function ApmcCase({ project, projects, onOpen, onHome }) {
         ['The problem', 'The club\u2019s event site buried schedules and CTAs, so visitors couldn\u2019t tell what Protothon was or how to join.'],
         ['My role', 'Lead Product Designer, research through launch in 3 months, with 2 club designers and 3 engineers.'],
         ['What shipped', 'A conversion-driven redesign built on Wix, validated with usability tests and heatmaps.'],
-        ['The outcome', 'Shipped on a 3-month deadline and adopted wholesale by the club, the redesign is still their live site two years and another Protothon later.'],
+        ['The outcome', 'Shipped on the 3-month deadline and adopted wholesale as the club\u2019s permanent platform, task completion clocked 28.7% faster than the old site.'],
       ]} />
 
       {/* CONTEXT */}
@@ -244,7 +244,7 @@ function ApmcCase({ project, projects, onOpen, onHome }) {
         <div className="am-sec__label"><span className="pixel">00</span><span className="mono">Context</span></div>
         <div className="am-sec__body">
           <h2 className="am-h2">A student club, a real event, a tight deadline</h2>
-          <p className="am-lead">Sept 2023. The Aspiring Product Managers Club at Northeastern University needed a full redesign of their event website for Protothon 5.0, a hackathon bringing together students, judges, sponsors and faculty. The old site wasn't keeping up with the event's ambition. The redesign I shipped is <strong>still the club's live site two years on</strong>, now running Protothon 6.0.</p>
+          <p className="am-lead">Sept 2023. The Aspiring Product Managers Club at Northeastern University needed a full redesign of their event website for Protothon 5.0, a hackathon bringing together students, judges, sponsors and faculty. The old site wasn't keeping up with the event's ambition, and the deadline was hard: three months, kickoff to live.</p>
         </div>
       </section>
 
@@ -262,7 +262,7 @@ function ApmcCase({ project, projects, onOpen, onHome }) {
                 <span className="am-prob__num">1</span>
                 <div>
                   <span className="am-prob__t">Cluttered, flat navigation</span>
-                  <p className="am-prob__d">Seven peer links crammed across the top, schedules, registration and key info were buried with no hierarchy or clear path.</p>
+                  <p className="am-prob__d">Seven peer links crammed across the top — schedules, registration and key info were buried with no hierarchy or clear path.</p>
                   <span className="am-prob__ref">→ top navigation bar</span>
                 </div>
               </div>
@@ -270,7 +270,7 @@ function ApmcCase({ project, projects, onOpen, onHome }) {
                 <span className="am-prob__num">3</span>
                 <div>
                   <span className="am-prob__t">A dead-end events section</span>
-                  <p className="am-prob__d">The one place people came to act read “No upcoming events at the moment”, no CTA, no next step, no reason to sign up.</p>
+                  <p className="am-prob__d">The one place people came to act read “No upcoming events at the moment” — no CTA, no next step, no reason to sign up.</p>
                   <span className="am-prob__ref">→ community / events block</span>
                 </div>
               </div>
@@ -315,7 +315,7 @@ function ApmcCase({ project, projects, onOpen, onHome }) {
       <section className="wrap am-sec">
         <div className="am-sec__label"><span className="pixel">02</span><span className="mono">Process</span></div>
         <div className="am-sec__body">
-          <h2 className="am-h2">Three phases, three weeks, one launch</h2>
+          <h2 className="am-h2">Three phases, three months, one launch</h2>
           <div className="am-phases" style={{ marginTop: 8 }}>
             {AM.phases.map(([no, t, steps]) => (
               <Reveal key={no} className="am-phase">
@@ -361,7 +361,7 @@ function ApmcCase({ project, projects, onOpen, onHome }) {
           </div>
 
           <h3 className="am-h3">The community I designed for</h3>
-          <p className="am-lead am-lead--sm">Not abstract personas on a slide, a real, 400+ member club of Northeastern students chasing product careers. Designing for them meant designing for their energy.</p>
+          <p className="am-lead am-lead--sm">Not abstract personas on a slide — a real, 400+ member club of Northeastern students chasing product careers. Designing for them meant designing for their energy.</p>
           <Reveal>
             <div className="am-community">
               <div className="am-community__photo">
@@ -519,7 +519,7 @@ function ApmcCase({ project, projects, onOpen, onHome }) {
           </div>
 
           <h3 className="am-h3">Usability testing, what the data told me</h3>
-          <p className="am-lead am-lead--sm">I ran Hotjar across the live Protothon site, click maps and scroll depth showing where attention, and friction, actually landed. Three screens drove the biggest changes.</p>
+          <p className="am-lead am-lead--sm">I ran Hotjar across the live Protothon site, click maps and scroll depth showing where attention, and friction, actually landed. Timed task runs against the old site clocked <strong>28.7% faster task completion</strong> on the redesign, the number this case hangs on. Three screens drove the biggest changes.</p>
           <Reveal>
             <div className="am-heatgrid">
               <figure className="am-heatfig am-heatfig--reg">
@@ -528,7 +528,7 @@ function ApmcCase({ project, projects, onOpen, onHome }) {
                 </div>
                 <figcaption className="am-heatfig__note">
                   <span className="mono am-heatfig__tag">01 · Registration screen</span>
-                  <p>Clicks bunched on the top nav and the red register CTA. The problem-statement copy in the middle ran cold, people skim straight to the action.</p>
+                  <p>Clicks bunched on the top nav and the red register CTA. The problem-statement copy in the middle ran cold — people skim straight to the action.</p>
                 </figcaption>
               </figure>
               <figure className="am-heatfig am-heatfig--res">
@@ -537,7 +537,7 @@ function ApmcCase({ project, projects, onOpen, onHome }) {
                 </div>
                 <figcaption className="am-heatfig__note">
                   <span className="mono am-heatfig__tag">02 · Resources cards</span>
-                  <p>The middle “Previous Decks” card ran hottest, teams wanted prior examples first, so I led the lineup with it.</p>
+                  <p>The middle “Previous Decks” card ran hottest — teams wanted prior examples first, so I led the lineup with it.</p>
                 </figcaption>
               </figure>
               <figure className="am-heatfig am-heatfig--judges">

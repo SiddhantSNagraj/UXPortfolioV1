@@ -4,6 +4,35 @@
    Also defines the home-row hover peek (a mini redesigned Slack window).
    ========================================================================= */
 
+/* ── hero visual: polished single device, right side (no glow) ── */
+.sl-herovis {
+  position: absolute; right: clamp(30px, 6vw, 118px); top: 50%; transform: translateY(-45%);
+  z-index: 0; pointer-events: none;
+}
+.sl-herovis__ph {
+  position: relative; display: block;
+  height: clamp(310px, 46vh, 468px); aspect-ratio: 9 / 19.5; width: auto;
+  border-radius: clamp(30px, 2.6vw, 40px);
+  padding: clamp(6px, .6vw, 8px);
+  background: linear-gradient(155deg, #35313f 0%, #17141c 60%);
+  box-shadow: 0 46px 92px -34px rgba(0,0,0,.75), 0 10px 26px -12px rgba(0,0,0,.55),
+              inset 0 0 0 1px rgba(255,255,255,.08);
+  transform: rotate(-4deg);
+}
+.sl-herovis__ph img {
+  width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block;
+  border-radius: clamp(24px, 2.1vw, 33px);
+}
+.sl-herovis__ph::after {
+  content: ""; position: absolute; top: clamp(8px, .7vw, 11px); left: 50%; transform: translateX(-50%);
+  width: 30%; height: clamp(9px, .8vw, 13px); background: #0b0910; border-radius: 0 0 9px 9px; z-index: 3;
+}
+@media (max-width: 1120px) { .sl-herovis { display: none; } }
+@media (min-width: 1121px) {
+  .sl .case__hero .case__blurb, .sl .case__hero .case__subtitle, .sl .case__hero .case__meta { max-width: 50ch; }
+  .sl .case__hero .case__title, .sl .case__hero .case__subtitle, .sl .case__hero .case__blurb, .sl .case__hero .case__meta { position: relative; z-index: 1; }
+}
+
 :root {
   --sl-plum:   #4a154b;
   --sl-plum-2: #611f69;

@@ -21,7 +21,7 @@ function About({ profile, reviews }) {
           <Reveal className="about__lead">
             <p className="about__statement">
               I’m a product designer who believes the best work
-              <em> disappears</em> , you don’t notice the design, you just
+              <em> disappears</em>. You don’t notice the design, you just
               get what you came for.
             </p>
             <p className="about__body">
@@ -41,20 +41,20 @@ function About({ profile, reviews }) {
               <blockquote className="about__mantra-quote">
                 It ain’t about how hard you hit. It’s about how hard you can get hit and keep moving forward; how much you can take and keep moving forward. That’s how winning is done!
               </blockquote>
-              <figcaption className="about__mantra-cite">— Rocky Balboa</figcaption>
+              <figcaption className="about__mantra-cite">Rocky Balboa</figcaption>
             </figure>
           </Reveal>
 
           <div className="about__side">
             <div className="about__photo">
               <Slot img="assets/siddhant-about.jpg" alt="Siddhant Nagraj" corner="ME" objectPosition="50% 32%" style={{ aspectRatio: '4/5' }} />
-              <div className="abcl" aria-label="A few photos of me — hover to spread, click one to view">
+              <div className="abcl" aria-label="A few photos of me, hover to spread, click one to view">
                 <div className="abcl__poster abp1"><img src="assets/about/poster-hozier.jpeg" alt="" /><span className="abcl__pcap">five o’clock somewhere</span></div>
                 <div className="abcl__poster abp2"><img src="assets/about/poster-dietcoke.jpeg" alt="" /><span className="abcl__pcap">technically lunch</span></div>
                 <div className="abcl__poster abp3"><img src="assets/about/poster-porsche.jpeg" alt="" /><span className="abcl__pcap">on repeat, sorry</span></div>
                 <div className="abcl__poster abp4"><img src="assets/about/poster-norisk.jpeg" alt="" /><span className="abcl__pcap">the entire philosophy</span></div>
-                <div className="abcl__poster abp5"><img src="assets/about/poster-windsorwine.png" alt="" /><span className="abcl__pcap">my whole palette, basically</span></div>
-                <div className="abcl__poster abp6"><img src="assets/about/poster-mimosa.png" alt="" /><span className="abcl__pcap">brunch, codified</span></div>
+                <div className="abcl__poster abp5"><img src="assets/about/poster-oceanic.png" alt="" /><span className="abcl__pcap">my whole palette, basically</span></div>
+                <div className="abcl__poster abp6"><img src="assets/about/poster-nectarine.png" alt="" /><span className="abcl__pcap">the warm half</span></div>
                 <figure className="abcl__pol abc2"><img className="abcl__media" src="assets/about/p2-museum.jpg" alt="" /><figcaption className="abcl__cap">ink &amp; nerve</figcaption></figure>
                 <figure className="abcl__pol abc3"><img className="abcl__media" src="assets/about/p3-coffee.jpg" alt="" /><figcaption className="abcl__cap">third place</figcaption></figure>
                 <figure className="abcl__pol abc4"><img className="abcl__media" src="assets/about/p4-harley.jpg" alt="" /><figcaption className="abcl__cap">weekend</figcaption></figure>
@@ -69,6 +69,10 @@ function About({ profile, reviews }) {
                   <span className="fact__l mono">{l}</span>
                 </Reveal>
               ))}
+            </div>
+            <div className="about__now">
+              <span className="mono mono--accent about__now-k">/ Currently</span>
+              <p className="about__now-line">Deep in space documentaries, new Figma features and progressive overloading.</p>
             </div>
           </div>
         </div>

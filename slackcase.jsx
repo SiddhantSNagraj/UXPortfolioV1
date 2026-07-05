@@ -6,7 +6,7 @@ const { useEffect: useEffectSL, useState: useStateSL } = React;
 
 const SL = {
   problems: [
-    ['Clutter', 'Too much packed into every screen, the eye never gets to rest.'],
+    ['Clutter', 'Too much packed into every screen — the eye never gets to rest.'],
     ['Overwhelming', 'New users meet a wall of channels, threads and menus all at once.'],
     ['Complex', 'Core actions hide behind nested menus and long-press gestures.'],
     ['Unorganized', 'DMs, channels, saved items and people each follow a different mental model.'],
@@ -33,9 +33,9 @@ const SL = {
     ['hi-you.png', '07', 'You · profile'],
   ],
   decisions: [
-    ['Bottom tab bar', 'The biggest fix. Five core destinations, Home, DM’s, Search, Flags, You, sit in a persistent bottom bar, so the whole app is one tap away instead of buried behind a hamburger menu.'],
+    ['Bottom tab bar', 'The biggest fix. Five core destinations — Home, DM’s, Search, Flags, You — sit in a persistent bottom bar, so the whole app is one tap away instead of buried behind a hamburger menu.'],
     ['One calm dark surface', 'A single, consistent dark theme with generous spacing and a clear type hierarchy. The screen finally has room to breathe, and the eye knows where to land.'],
-    ['A real search hub', 'Search gets its own tab, Browse People, Channels and Workspaces, so finding something stops being a treasure hunt through menus.'],
+    ['A real search hub', 'Search gets its own tab — Browse People, Channels and Workspaces — so finding something stops being a treasure hunt through menus.'],
     ['Flagged, in one place', 'Saved people and channels collected under a single Flags tab, so the things you actually care about aren’t scattered across the app.'],
     ['A cleaner workspace switcher', 'Hopping between Mavericks, Apple, Nike and the rest becomes a calm, logo-led list instead of a cramped rail of tiny squares.'],
     ['Restrained accent', 'Slack’s yellow anchors just one job, the New Chat action and key CTAs, while pink and green unread badges carry only enough colour to signal what truly needs you.'],
@@ -58,6 +58,9 @@ function SlackCase({ project, projects, onOpen, onHome }) {
       <CaseSectionNav sectionSelector=".sl-sec, .sl-band" />
       {/* ---------- HERO ---------- */}
       <section className="case__hero">
+        <div className="sl-herovis" aria-hidden="true">
+          <span className="sl-herovis__ph"><img src="assets/slack/hi-search.png" alt="" loading="eager" /></span>
+        </div>
         <div className="wrap">
           <button className="case__back mono" onClick={onHome}>← Back to home</button>
           <div className="case__metatop">

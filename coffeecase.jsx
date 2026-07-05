@@ -6,7 +6,7 @@ const { useEffect: useEffectCC, useState: useStateCC } = React;
 
 const CC = {
   problems: [
-    ['Long waits', 'The morning rush meant queues and dead time, the app did nothing to give it back.'],
+    ['Long waits', 'The morning rush meant queues and dead time — the app did nothing to give it back.'],
     ['Limited customization', 'Tweaking a drink was buried and fiddly, so people defaulted to the same safe order.'],
     ['No discovery', 'Nothing nudged users beyond their one go-to café, local spots stayed invisible.'],
   ],
@@ -83,6 +83,10 @@ function CoffeeCase({ project, projects, onOpen, onHome }) {
       <CaseSectionNav sectionSelector=".cc-sec, .cc-band" />
       {/* ---------- HERO ---------- */}
       <section className="case__hero">
+        <div className="cc-herovis" aria-hidden="true">
+          <span className="cc-herovis__ph cc-herovis__ph--a"><img src="assets/coffee/flow2/menu.png" alt="" loading="eager" /></span>
+          <span className="cc-herovis__ph cc-herovis__ph--b"><img src="assets/coffee/flow2/details.png" alt="" loading="eager" /></span>
+        </div>
         <span className="cc-bean cc-bean--y" style={{ width: 120, height: 120, top: '12%', right: '6%', transform: 'rotate(24deg)' }} aria-hidden="true" />
         <span className="cc-bean cc-bean--b" style={{ width: 70, height: 70, bottom: '14%', right: '22%', transform: 'rotate(-18deg)', opacity: 0.35 }} aria-hidden="true" />
         <span className="cc-bean cc-bean--w" style={{ width: 54, height: 54, top: '30%', right: '40%', transform: 'rotate(50deg)', opacity: 0.18 }} aria-hidden="true" />
@@ -95,7 +99,7 @@ function CoffeeCase({ project, projects, onOpen, onHome }) {
           </div>
           <h1 className="case__title display">CoffeeHouse</h1>
           <p className="case__subtitle">Transforming the coffee ordering journey</p>
-          <p className="case__blurb">A four-month deep-dive that reimagines a daily ritual, cutting wait times, making customization effortless, and helping people discover cafés beyond their usual.</p>
+          <p className="case__blurb">Reordering a usual drink took <strong>eleven taps across four screens</strong>. This four-month deep-dive rebuilds the ritual around speed: one-tap reorders, effortless customization, and a reason to explore beyond your usual café.</p>
           <div className="case__meta">
             {[['Role', 'Design Lead, team of 3'], ['Context', '4-month academic project'], ['Focus', 'Research → IA → Hi-fi → Testing'], ['Tools', 'Figma · UXMetrics · Maze']].map(([k, v]) => (
               <div className="case__metacell" key={k}>
@@ -117,7 +121,7 @@ function CoffeeCase({ project, projects, onOpen, onHome }) {
           {[
             ['Led a team of three, end to end', 'As design lead I ran the whole arc, research, IA, a design system, and usability testing, over a focused four-month project.'],
             ['Designed for the morning rush', 'Cut wait times and made customization effortless, the flows are built around speed and one-handed use, not feature-stuffing.'],
-            ['Validated, not assumed', 'Usability-tested the core flows: 68% gave it five stars and the average rating landed at 4.0 across testers.'],
+            ['Validated, not assumed', 'Usability-tested the core flows: 71% of testers rated it four stars or higher, and the average rating landed at 4.0.'],
           ].map(([t, d], i) => (
             <div className="recsum__item" key={i}>
               <span className="recsum__n">0{i + 1}</span>
@@ -213,6 +217,7 @@ function CoffeeCase({ project, projects, onOpen, onHome }) {
           <p className="cc-lead">I started by aligning on product vision and business intent, then dug into how people actually behave around their daily coffee, setting the stage before a single screen.</p>
 
           <h3 className="cc-h3">Product objectives</h3>
+          <p className="cc-lead cc-lead--sm">Agreed up front with the team, these five became the yardstick for every scope call that followed, the MoSCoW pass later measured features against exactly this list.</p>
           <div className="cc-objgrid">
             {CC.objectives.map(([t, d], i) => (
               <div className="cc-obj" key={i}>
@@ -223,6 +228,7 @@ function CoffeeCase({ project, projects, onOpen, onHome }) {
           </div>
 
           <h3 className="cc-h3">Who I was designing for</h3>
+          <p className="cc-lead cc-lead--sm">Four patterns, one shared need, speed, but for different reasons. Commuters and professionals are why the home screen leads with one-tap reorder; tourists and students are why discovery and rewards earned a place in the MVP at all.</p>
           <div className="cc-cards4">
             {CC.personas.map(([t, d], i) => (
               <div className="cc-persona" key={i}>
@@ -233,12 +239,13 @@ function CoffeeCase({ project, projects, onOpen, onHome }) {
           </div>
 
           <h3 className="cc-h3">What users really needed</h3>
+          <p className="cc-lead cc-lead--sm">Six needs that map almost one-to-one onto the six tasks I later usability-tested, the research and the validation bookend the same list.</p>
           <ul className="cc-needs">
             {CC.needs.map((n, i) => (<li key={i}><span className="cc-needs__tick">✳︎</span>{n}</li>))}
           </ul>
 
           <h3 className="cc-h3">Mapping mental models, card sorting</h3>
-          <p className="cc-lead cc-lead--sm">Open and closed card sorting (run in UXMetrics) revealed how users naturally group features like ordering, profile and FAQs, the raw material for the information architecture.</p>
+          <p className="cc-lead cc-lead--sm">Open and closed card sorting (run in UXMetrics) did two different jobs: the open sort exposed the groupings users reached for naturally, and the closed sort stress-tested the five sections the IA would commit to. Ordering and cart clustered together in nearly every sort, which is why the redesign treats them as one continuous flow instead of separate destinations.</p>
 
           <div className="cc-sortblock">
             <span className="mono cc-sortblock__cap">Open card sort, user-generated groupings</span>
@@ -383,8 +390,8 @@ function CoffeeCase({ project, projects, onOpen, onHome }) {
           <h2 className="cc-h2 cc-h2--light">Usability testing said it worked</h2>
           <div className="cc-results">
             <div className="cc-bigstat">
-              <span className="cc-bigstat__n display">68%</span>
-              <span className="cc-bigstat__l">gave the app a 5-star rating</span>
+              <span className="cc-bigstat__n display">71%</span>
+              <span className="cc-bigstat__l">rated it 4★ or 5★</span>
             </div>
             <div className="cc-bigstat">
               <span className="cc-bigstat__n display" style={{ color: 'var(--blue)' }}>4.0</span>

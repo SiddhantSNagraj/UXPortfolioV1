@@ -588,27 +588,101 @@ html[data-stklayout="orbit"][data-avhover="stickers"] .hero__avatar:focus-visibl
 /* ════════ LAYOUT: OUTCOME (editorial rows + at-a-glance result) ════════ */
 html[data-worklayout="outcome"] .workrow__outcome { display: inline-flex; }
 
-/* ════════ LAYOUT: DESCRIPTIVE (brand kicker + headline + summary + outcome) ════════ */
+/* ════════ LAYOUT: DESCRIPTIVE (recruiter-first: kicker + hook + proof + live shots) ════════ */
 .workrow__brand, .workrow__headline { display: none; }
+html[data-worklayout="descriptive"] .workrow {
+  grid-template-columns: 56px minmax(0, 1fr) clamp(250px, 29vw, 400px);
+  grid-template-areas: "no title cover" "no meta cover";
+  align-items: start; row-gap: 0;
+  padding-block: clamp(28px, 3.4vw, 46px);
+}
+html[data-worklayout="descriptive"] .workrow__no { grid-area: no; }
+html[data-worklayout="descriptive"] .workrow__title { grid-area: title; align-self: center; }
 html[data-worklayout="descriptive"] .workrow__name { display: none; }
+
+/* kicker — brand, always one quiet line */
 html[data-worklayout="descriptive"] .workrow__brand {
   display: inline-flex; align-items: center; gap: 9px; font-size: 11px; letter-spacing: .18em; text-transform: uppercase;
-  color: var(--accent); font-weight: 600; margin-bottom: 14px;
+  color: var(--accent); font-weight: 600; margin-bottom: 10px; white-space: nowrap;
 }
 html[data-worklayout="descriptive"] .workrow__brand::before {
   content: ""; width: 22px; height: 2px; background: var(--accent); border-radius: 2px;
 }
+
+/* the hook — sized to read as a sentence, not a squeezed column */
 html[data-worklayout="descriptive"] .workrow__headline {
   display: block; font-family: var(--body); font-weight: 600;
-  font-size: clamp(27px, 3.7vw, 52px); line-height: 1.02; letter-spacing: -.02em;
-  color: var(--ink); max-width: 20ch; text-wrap: balance;
+  font-size: clamp(23px, 2.7vw, 40px); line-height: 1.1; letter-spacing: -.02em;
+  color: var(--ink); max-width: 30ch; text-wrap: balance;
 }
 html[data-worklayout="descriptive"] .workrow__sub {
-  margin-top: 14px; max-width: 52ch; font-family: var(--body); font-size: clamp(15px, 1.35vw, 18px);
+  margin-top: 10px; max-width: 54ch; font-family: var(--body); font-size: clamp(14px, 1.2vw, 16.5px);
   color: var(--ink-3); line-height: 1.5;
 }
-html[data-worklayout="descriptive"] .workrow__outcome { display: inline-flex; margin-top: 18px; }
-html[data-worklayout="descriptive"] .workrow { align-items: start; padding-block: clamp(30px, 3.6vw, 52px); }
+
+/* outcome — promoted from a whisper to the proof line */
+html[data-worklayout="descriptive"] .workrow__outcome { display: inline-flex; margin-top: 16px; }
+html[data-worklayout="descriptive"] .workrow__outcome-txt {
+  font-size: clamp(13px, 1.05vw, 15px); font-weight: 600; color: var(--ink); letter-spacing: 0;
+}
+
+/* meta — tag + year, one line under the content */
+html[data-worklayout="descriptive"] .workrow__tags { grid-area: meta; align-self: end; margin-top: 16px; }
+html[data-worklayout="descriptive"] .workrow__tags .chip { white-space: nowrap; }
+
+/* persistent screenshot panel — the reason to click, visible at rest */
+html[data-worklayout="descriptive"] .workrow__cover {
+  display: block; grid-area: cover; position: relative; z-index: 1; align-self: center;
+  height: clamp(175px, 16vw, 235px); width: 100%;
+  border-radius: 14px; overflow: hidden; border: 1px solid var(--line-2);
+  background: var(--rowbg); opacity: 1; transform: none;
+  box-shadow: 0 18px 40px -24px rgba(0,0,0,.5);
+  transition: transform .45s var(--ease), box-shadow .45s var(--ease), border-color .45s var(--ease);
+}
+html[data-worklayout="descriptive"] .workrow__shots { position: absolute; inset: 0; display: block; }
+html[data-worklayout="descriptive"] .workrow__shot {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; object-position: top center; opacity: 0;
+  transition: transform .5s var(--ease);
+}
+html[data-worklayout="descriptive"] .workrow__shot:first-child { opacity: 1; }
+@media (prefers-reduced-motion: no-preference) {
+  html[data-worklayout="descriptive"] .workrow:hover .workrow__shot {
+    animation: cardCycle var(--cyc, 8s) var(--ease) infinite;
+  }
+}
+html[data-worklayout="descriptive"] .workrow__cover-scrim {
+  position: absolute; left: 0; right: 0; bottom: 0; height: 46%; z-index: 2; pointer-events: none;
+  background: linear-gradient(to top, color-mix(in srgb, var(--rowbg) 80%, #000) 0%, transparent 100%);
+  opacity: .85;
+}
+html[data-worklayout="descriptive"] .workrow__cover-label { display: none; }
+
+/* CTA — a pill that lands on the imagery when the row is hovered */
+html[data-worklayout="descriptive"] .workrow__cta {
+  grid-area: cover; align-self: end; justify-self: start; z-index: 3;
+  margin: 0 0 14px 14px; padding: 8px 15px; border-radius: 999px;
+  background: var(--bg); color: var(--ink); border: 1px solid var(--line-2);
+  font-size: 12px;
+  opacity: 0; transform: translateY(8px);
+  transition: opacity .3s var(--ease), transform .38s var(--ease);
+}
+html[data-worklayout="descriptive"] .workrow:hover .workrow__cta,
+html[data-worklayout="descriptive"] .workrow:focus-visible .workrow__cta { opacity: 1; transform: translateY(0); }
+
+/* hover — the panel lifts, the shots cycle; no competing cursor-chasing peeks */
+html[data-worklayout="descriptive"] .workrow:hover .workrow__cover {
+  transform: translateY(-5px) scale(1.015);
+  box-shadow: 0 30px 56px -26px rgba(0,0,0,.6);
+  border-color: color-mix(in srgb, var(--rowtext, #fff) 35%, transparent);
+}
+html[data-worklayout="descriptive"] .workrow__fan,
+html[data-worklayout="descriptive"] .workrow__apmc,
+html[data-worklayout="descriptive"] .workrow__gs,
+html[data-worklayout="descriptive"] .workrow__slfan,
+html[data-worklayout="descriptive"] .workrow__peek { display: none !important; }
+
+/* flood inversion (when a solid row-hover style is active) */
 html[data-worklayout="descriptive"] .workrow:hover .workrow__headline { color: var(--rowtext, var(--ink)); }
 html[data-worklayout="descriptive"] .workrow:hover .workrow__brand,
 html[data-worklayout="descriptive"] .workrow:hover .workrow__brand::before { color: var(--rowtext, var(--ink)); background-color: var(--rowtext, var(--ink)); }
@@ -618,6 +692,16 @@ html[data-worklayout="descriptive"] .workrow:hover .workrow__outcome::before { b
 html[data-worklayout="descriptive"] .workrow--gs:hover .workrow__outcome-txt,
 html[data-worklayout="descriptive"] .workrow--apmc:hover .workrow__outcome-txt,
 html[data-worklayout="descriptive"] .workrow--sl:hover .workrow__outcome-txt { color: #ffffff; }
+
+/* narrow screens — content stacks, panel tucks below */
+@media (max-width: 900px) {
+  html[data-worklayout="descriptive"] .workrow {
+    grid-template-columns: 50px minmax(0, 1fr);
+    grid-template-areas: "no title" "no cover" "no meta";
+  }
+  html[data-worklayout="descriptive"] .workrow__cover { margin-top: 16px; height: clamp(150px, 30vw, 200px); }
+  html[data-worklayout="descriptive"] .workrow__cta { display: none; }
+}
 
 /* on hover the row floods with its colour — invert to the row's solid text
    colour (same system as the title/sub) so it's always crisply legible.
@@ -1368,6 +1452,9 @@ html[data-aboutspread="scatter"] .abcl:is(:hover,.spread) .abc5 { transform: tra
   .abp4 { top: 58%; left: 6%; }
 }
 .about__facts { display: flex; flex-direction: column; }
+.about__now { margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--line); display: flex; flex-direction: column; gap: 8px; }
+.about__now-k { font-size: 12px; letter-spacing: .14em; }
+.about__now-line { margin: 0; font-family: var(--body); font-size: clamp(14px, 1.15vw, 16px); line-height: 1.55; color: var(--ink-2); text-wrap: pretty; }
 .fact { display: flex; align-items: baseline; gap: 16px; padding: 16px 0; border-top: 1px solid var(--line); }
 .fact__n { font-size: 34px; color: var(--ink); min-width: 56px; }
 .fact__l { color: var(--ink-3); }
