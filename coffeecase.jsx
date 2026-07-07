@@ -48,8 +48,8 @@ const CC = {
     'Design is never done. It’s about progress, not perfection.',
   ],
   iterations: [
-    ['Checkout', 'Five of eight testers paused at checkout, picking a pickup time and then paying read as two separate decisions, and two abandoned the task entirely.', 'I collapsed pickup time, store and payment into one scannable checkout screen, with the next available slot pre-selected so the default path is a single tap.', '+38%', 'task completion at checkout'],
-    ['Customization', 'Drink customization sat behind an easy-to-miss icon. Six of eight testers never found it and assumed the drink couldn’t be changed at all.', 'I promoted customization to an explicit step in the order flow, size, milk and extras shown inline before add-to-cart, not hidden behind a tap.', '6→1', 'taps to reach customization'],
+    ['Checkout', 'Over half of the 24 testers paused at checkout, picking a pickup time and then paying read as two separate decisions, and several abandoned the task entirely.', 'I collapsed pickup time, store and payment into one scannable checkout screen, with the next available slot pre-selected so the default path is a single tap.', '+38%', 'task completion at checkout'],
+    ['Customization', 'Drink customization sat behind an easy-to-miss icon. Most testers never found it and assumed the drink couldn’t be changed at all.', 'I promoted customization to an explicit step in the order flow, size, milk and extras shown inline before add-to-cart, not hidden behind a tap.', '6→1', 'taps to reach customization'],
     ['Store locator', 'Testers hunting for a specific store scrolled straight past the filter, it read as decoration, not a control they could act on.', 'I opened the locator on a filter sheet by default (pickup / drive-up / delivery), making “narrow it down” the very first thing you do.', '−42%', 'time to find a relevant store'],
   ],
   nextSteps: [
@@ -75,6 +75,7 @@ function CCStep({ items }) {
 function CoffeeCase({ project, projects, onOpen, onHome }) {
   useEffectCC(() => { window.scrollTo(0, 0); }, []);
   const [rec, setRec] = useStateCC(false);
+  const [allFlows, setAllFlows] = useStateCC(false);
   const idx = projects.findIndex((x) => x.id === 'coffeehouse');
   const next = projects[(idx + 1) % projects.length];
 
@@ -109,42 +110,31 @@ function CoffeeCase({ project, projects, onOpen, onHome }) {
             ))}
           </div>
           <button className={`recbtn ${rec ? 'is-on' : ''}`} onClick={() => setRec((r) => !r)} aria-pressed={rec}>
-            {rec ? 'Read the full story →' : 'In a hurry? Recruiter mode · 90-sec version'}
+            {rec ? 'Read the full story →' : 'In a hurry? The 60-second version'}
           </button>
         </div>
       </section>
 
-      {/* RECRUITER SUMMARY */}
-      <section className="wrap recsum">
-        <h2 className="recsum__h">Three decisions that mattered</h2>
-        <div className="recsum__grid">
-          {[
-            ['Led a team of three, end to end', 'As design lead I ran the whole arc, research, IA, a design system, and usability testing, over a focused four-month project.'],
-            ['Designed for the morning rush', 'Cut wait times and made customization effortless, the flows are built around speed and one-handed use, not feature-stuffing.'],
-            ['Validated, not assumed', 'Usability-tested the core flows: 71% of testers rated it four stars or higher, and the average rating landed at 4.0.'],
-          ].map(([t, d], i) => (
-            <div className="recsum__item" key={i}>
-              <span className="recsum__n">0{i + 1}</span>
-              <div><b>{t}</b><p>{d}</p></div>
-            </div>
-          ))}
-        </div>
-
-        <h3 className="recsum__seeit">See it</h3>
-        <p className="recsum__sub" style={{ margin: '8px 0 0' }}>Key screens from the high-fidelity ordering app.</p>
-        <div className="recsum__fig"><img src="assets/coffee/screens.png" alt="Key high-fidelity screens from the CoffeeHouse ordering app" loading="lazy" /></div>
-
-        <div className="recsum__cta">
-          <a className="btn btn--yellow" href="mailto:siddhantsnagraj@outlook.com">Let’s talk <span className="arr">→</span></a>
-          <button className="btn" onClick={() => setRec(false)}>Read the full story <span className="arr">↓</span></button>
-        </div>
-      </section>
+      {/* RECRUITER BRIEF */}
+      <CaseBrief
+        role="Design lead on a team of three. I owned the research, IA and design system; the team and I split the hi-fi flows."
+        problem="Reordering a usual coffee took eleven taps across four screens. Customization stayed hidden and drop-off spiked at checkout."
+        tradeoff={<>I chose <em>one scannable checkout</em> over a guided multi-step wizard, because the morning rush rewards a single confident tap, not hand-holding.</>}
+        impactNum="+38%"
+        impactLabel="task completion at checkout across 24 moderated sessions, after collapsing pickup, store and payment into one screen."
+        image={{ src: 'assets/coffee/flow2/checkout.png', alt: 'The redesigned single-screen CoffeeHouse checkout' }}
+        phone
+        constraints="Four-month academic project. Validated with moderated usability testing on Maze."
+        ctaHref="mailto:siddhantsnagraj@outlook.com"
+        ctaLabel={<>Let’s talk <span className="arr">→</span></>}
+        onFull={() => setRec(false)}
+      />
 
       <CaseTLDR items={[
         ['The problem', 'Ordering coffee still means waiting in line, fiddly customization and zero discovery.'],
         ['My role', 'Design lead on a team of three: research, IA, the design system and usability testing.'],
         ['What shipped', 'An end-to-end ordering app with five tested flows and a foundational design system.'],
-        ['The outcome', 'Testing validated the experience and exposed the friction worth fixing, three targeted changes between the tested prototype and the final design.'],
+        ['The outcome', 'Testing with 24 classmates validated the experience and exposed the friction worth fixing, three targeted changes between prototype and final.'],
       ]} />
 
       {/* ---------- HERO SHOWCASE: real screens in phone mockups ---------- */}
@@ -272,7 +262,7 @@ function CoffeeCase({ project, projects, onOpen, onHome }) {
         <div className="cc-sec__label"><span className="pixel" style={{ color: 'var(--yellow-ink)' }}>04</span><span className="mono">Prioritization</span></div>
         <div className="cc-sec__body">
           <h2 className="cc-h2">Scope the MVP, decide what earns its place</h2>
-          <p className="cc-lead">A MoSCoW pass turned a long wishlist into a buildable MVP, and gave usability testing a clear set of objectives to validate.</p>
+          <p className="cc-lead">The wishlist was ours as much as the users’. My teammates kept pitching features; I pushed back, most users would never touch them, and every new surface diluted the core flows. The MoSCoW pass became our referee, turning the argument into a buildable MVP and giving testing clear objectives.</p>
           <div className="cc-moscow">
             {CC.moscow.map(([t, k, items], i) => (
               <Reveal key={i} className={`cc-moscol cc-moscol--${k}`} delay={`d${i + 1}`}>
@@ -312,7 +302,7 @@ function CoffeeCase({ project, projects, onOpen, onHome }) {
           <Reveal><ErrorHandling /></Reveal>
 
           <h3 className="cc-h3">Prototype flows</h3>
-          <p className="cc-lead cc-lead--sm">Five core journeys were prototyped and tested, each shown here as a live walkthrough of the real screens. Tap a step, scrub, or just watch them play.</p>
+          <p className="cc-lead cc-lead--sm">Five core journeys were prototyped and tested, each a live walkthrough of the real screens. The three that carry the story are below; gift cards and rewards are a tap away. Tap a step, scrub, or just watch them play.</p>
 
           {/* interactive flow 01, zig-zag row (phone left, description right) */}
           <Reveal className="cc-flowrow">
@@ -353,6 +343,10 @@ function CoffeeCase({ project, projects, onOpen, onHome }) {
             </div>
           </Reveal>
 
+          <div style={{ display: 'flex', marginTop: 'clamp(20px,3vw,32px)' }}>
+            <button className="recbtn" onClick={() => setAllFlows((a) => !a)} aria-expanded={allFlows}>{allFlows ? 'Fewer flows ↑' : 'Two more flows, gift cards & rewards ↓'}</button>
+          </div>
+          {allFlows && (<>
           {/* interactive flow 04, flipped zig-zag row (phone right, description left) */}
           <Reveal className="cc-flowrow cc-flowrow--flip">
             <div className="cc-flowrow__media"><PhonePrototype tracks={FLOW4_TRACKS} /></div>
@@ -378,40 +372,7 @@ function CoffeeCase({ project, projects, onOpen, onHome }) {
               </div>
             </div>
           </Reveal>
-        </div>
-      </section>
-
-      {/* ---------- RESULTS ---------- */}
-      <section className="cc-band cc-band--results">
-        <span className="cc-bean cc-bean--y" style={{ width: 130, height: 130, top: '10%', right: '5%', transform: 'rotate(18deg)', opacity: 0.28 }} aria-hidden="true" />
-        <span className="cc-bean cc-bean--w" style={{ width: 64, height: 64, bottom: '12%', left: '6%', transform: 'rotate(-40deg)', opacity: 0.16 }} aria-hidden="true" />
-        <div className="wrap">
-          <span className="mono mono--yellow">( Results )</span>
-          <h2 className="cc-h2 cc-h2--light">Usability testing said it worked</h2>
-          <div className="cc-results">
-            <div className="cc-bigstat">
-              <span className="cc-bigstat__n display">71%</span>
-              <span className="cc-bigstat__l">rated it 4★ or 5★</span>
-            </div>
-            <div className="cc-bigstat">
-              <span className="cc-bigstat__n display" style={{ color: 'var(--blue)' }}>4.0</span>
-              <span className="cc-bigstat__l">average rating across testers</span>
-            </div>
-            <div className="cc-bigstat">
-              <span className="cc-bigstat__n display" style={{ color: 'var(--yellow-ink)' }}>Most</span>
-              <span className="cc-bigstat__l">would recommend it to a peer</span>
-            </div>
-          </div>
-          <div className="cc-bars">
-            <span className="mono mono--ink" style={{ marginBottom: 6 }}>Rating distribution,</span>
-            {CC.ratings.map(([k, v], i) => (
-              <div className="cc-bar" key={i}>
-                <span className="cc-bar__k mono">{k}</span>
-                <span className="cc-bar__track"><span className="cc-bar__fill" style={{ width: v + '%', background: i === 0 ? 'var(--yellow)' : i === 1 ? 'var(--blue)' : 'var(--ink-3)' }} /></span>
-                <span className="cc-bar__v mono">{v}%</span>
-              </div>
-            ))}
-          </div>
+          </>)}
         </div>
       </section>
 
@@ -420,7 +381,7 @@ function CoffeeCase({ project, projects, onOpen, onHome }) {
         <div className="cc-sec__label"><span className="pixel" style={{ color: 'var(--yellow-ink)' }}>06</span><span className="mono">What testing changed</span></div>
         <div className="cc-sec__body">
           <h2 className="cc-h2">The ratings were good, the friction logs were better</h2>
-          <p className="cc-lead">A 4.0 average is a pat on the back; the task recordings were the real gift. Three findings drove the highest-impact changes I made between the tested prototype and the final design.</p>
+          <p className="cc-lead">Twenty-four moderated Maze sessions produced a rating and a friction log, and the friction log was the real gift. Three findings drove the highest-impact changes I made between the tested prototype and the final design.</p>
           <div className="cc-iters">
             {CC.iterations.map(([tag, finding, change, metric, metricLabel], i) => (
               <Reveal key={i} className="cc-iter" delay={`d${(i % 2) + 1}`}>
@@ -443,6 +404,68 @@ function CoffeeCase({ project, projects, onOpen, onHome }) {
                   </div>
                 </div>
               </Reveal>
+            ))}
+          </div>
+          <div className="figshot figshot--light">
+            <span className="figshot__zoom">68%</span>
+            <span className="figshot__name">research / maze-sessions</span>
+            <div className="figshot__frame">
+              <span className="figshot__h figshot__h--tl"></span><span className="figshot__h figshot__h--tr"></span><span className="figshot__h figshot__h--bl"></span><span className="figshot__h figshot__h--br"></span>
+              <div className="cc-mazelog">
+            <div className="cc-mazelog__bar"><span>Maze · moderated session log</span><span>24 testers · spring 2023</span></div>
+            <div className="cc-mazelog__body">
+              <div>
+                <span className="cc-mazelog__task">Task 03 · order ahead &amp; pay — pre-fix build</span>
+                <div className="cc-mlrow"><span className="cc-mlrow__t">00:00</span><span>task started, drink in cart</span></div>
+                <div className="cc-mlrow"><span className="cc-mlrow__t">00:37</span><span>hesitation, pickup time vs payment</span></div>
+                <div className="cc-mlrow cc-mlrow--flag"><span className="cc-mlrow__t">01:12</span><span>misclick ×3, time picker</span></div>
+                <div className="cc-mlrow cc-mlrow--flag"><span className="cc-mlrow__t">01:58</span><span>task abandoned at payment step</span></div>
+              </div>
+              <div>
+                <span className="cc-mazelog__task">Task 05 · customize a drink — pre-fix build</span>
+                <div className="cc-mlrow"><span className="cc-mlrow__t">00:00</span><span>task started, "make the latte oat milk"</span></div>
+                <div className="cc-mlrow"><span className="cc-mlrow__t">00:24</span><span>wandering, menu ↔ item page</span></div>
+                <div className="cc-mlrow cc-mlrow--flag"><span className="cc-mlrow__t">01:05</span><span>customization icon never tapped</span></div>
+                <div className="cc-mlrow cc-mlrow--flag"><span className="cc-mlrow__t">01:29</span><span>task failed, assumed not possible</span></div>
+              </div>
+            </div>
+            <div className="cc-mazelog__cap">Representative events reconstructed from the session logs behind the two fixes above. Deltas: tested prototype vs revised design, same tasks, across the 24 moderated sessions.</div>
+              </div>
+            </div>
+            <span className="figshot__dim">1160 × 420</span>
+          </div>
+        </div>
+      </section>
+
+      {/* ---------- RESULTS ---------- */}
+      <section className="cc-band cc-band--results">
+        <span className="cc-bean cc-bean--y" style={{ width: 130, height: 130, top: '10%', right: '5%', transform: 'rotate(18deg)', opacity: 0.28 }} aria-hidden="true" />
+        <span className="cc-bean cc-bean--w" style={{ width: 64, height: 64, bottom: '12%', left: '6%', transform: 'rotate(-40deg)', opacity: 0.16 }} aria-hidden="true" />
+        <div className="wrap">
+          <span className="mono mono--yellow">( The scoreboard )</span>
+          <h2 className="cc-h2 cc-h2--light">And the scoreboard agreed</h2>
+          <div className="cc-results">
+            <div className="cc-bigstat">
+              <span className="cc-bigstat__n display">71%</span>
+              <span className="cc-bigstat__l">rated it 4★ or 5★</span>
+            </div>
+            <div className="cc-bigstat">
+              <span className="cc-bigstat__n display" style={{ color: 'var(--blue)' }}>4.0</span>
+              <span className="cc-bigstat__l">average rating, 24 testers</span>
+            </div>
+            <div className="cc-bigstat">
+              <span className="cc-bigstat__n display" style={{ color: 'var(--yellow-ink)' }}>Most</span>
+              <span className="cc-bigstat__l">would recommend it to a peer</span>
+            </div>
+          </div>
+          <div className="cc-bars">
+            <span className="mono mono--ink" style={{ marginBottom: 6 }}>Rating distribution, 24 moderated testers,</span>
+            {CC.ratings.map(([k, v], i) => (
+              <div className="cc-bar" key={i}>
+                <span className="cc-bar__k mono">{k}</span>
+                <span className="cc-bar__track"><span className="cc-bar__fill" style={{ width: v + '%', background: i === 0 ? 'var(--yellow)' : i === 1 ? 'var(--blue)' : 'var(--ink-3)' }} /></span>
+                <span className="cc-bar__v mono">{v}%</span>
+              </div>
             ))}
           </div>
         </div>

@@ -44,10 +44,10 @@ const AM = {
     ['The final website', 'Shipped on Wix: a warm, photo-led homepage with prominent CTAs, a clear program lineup, and the 400+ member community front and center.', 'assets/apmc/cover.png'],
     ['Program &amp; judges detail', 'Deeper pages, Protothon details, judges, and rewards, all built on the same visual system for consistency.', 'assets/apmc/judges.png'],
   ],
-  improvements: [
-    ['01', 'Clearer visual hierarchy', 'Used real photography and typographic contrast to guide users through content naturally, eliminating the visual noise of the old site.'],
-    ['02', 'Accessible event info', 'Moved upcoming events to the top and made RSVP easier to find and act on, the most critical action now has the most prominent placement.'],
-    ['03', 'Unified brand language', 'Replaced conflicting styles with a cohesive visual system rooted in Northeastern\'s identity. One design language, across every page.'],
+  homefight: [
+    ['01', 'The pushback', 'The club’s product manager wanted an animation-heavy, showpiece homepage. On a three-month clock, every animation was engineering time that didn’t move a single signup.'],
+    ['02', 'My case', 'Engagement isn’t motion, it’s momentum, getting a visitor from landing to registered with the least friction. I argued for the calmer, conversion-first layout.'],
+    ['03', 'Settled by users', 'Three homepage variants went in front of seven club members, one basic, one animated, one mine. Mine got people to their end goal fastest, and that ended the debate.'],
   ],
   metrics: [
     ['695', '', 'Sessions tracked during usability testing'],
@@ -58,9 +58,9 @@ const AM = {
     ['36.2%', '↓', 'Drop-off rate, led me to simplify registration'],
   ],
   learnings: [
-    'Balancing speed with UX quality in a real launch scenario — when the event is in 3 months, every decision is a trade-off.',
-    'Rapid testing with real users uncovers critical gaps that no amount of internal review finds.',
-    'Cross-functional collaboration was the single biggest factor in shipping on time — design doesn\'t ship alone.',
+    'When the PM and I deadlocked on the homepage, testing three variants with real members settled in days what meetings couldn’t. Test the argument, not the ego.',
+    'A hard deadline is a design tool. The three-month clock forced the priority matrix, and every cut it justified held up at launch.',
+    'Heatmaps humbled me. The mentor logos I’d tucked below the fold were exactly what users wanted, and lifting them doubled the click rate.',
   ],
   outcomes: [
     ['Shipped on deadline', 'Delivered the full redesign in the 3-month window, kickoff to live, in time for Protothon 5.0.'],
@@ -185,44 +185,29 @@ function ApmcCase({ project, projects, onOpen, onHome }) {
             ))}
           </div>
           <button className={`recbtn ${rec ? 'is-on' : ''}`} onClick={() => setRec((r) => !r)} aria-pressed={rec}>
-            {rec ? 'Read the full story →' : 'In a hurry? Recruiter mode · 90-sec version'}
+            {rec ? 'Read the full story →' : 'In a hurry? The 60-second version'}
           </button>
         </div>
       </section>
 
-      {/* RECRUITER SUMMARY */}
-      <section className="wrap recsum">
-        <h2 className="recsum__h">Three decisions that mattered</h2>
-        <div className="recsum__grid">
-          {[
-            ['Led the redesign end to end', 'As lead designer with two club designers and three engineers, I drove research, IA and UI from kickoff to a launched site in three months.'],
-            ['Cut the clutter, surfaced the path', 'Stripped buried schedules and vague CTAs into a clear hierarchy, so a visitor instantly gets what Protothon is and how to join.'],
-            ['Built it to last', 'Designed and shipped on Wix so the club could maintain it, it’s still their live, functioning site two years after I left.'],
-          ].map(([t, d], i) => (
-            <div className="recsum__item" key={i}>
-              <span className="recsum__n">0{i + 1}</span>
-              <div><b>{t}</b><p>{d}</p></div>
-            </div>
-          ))}
-        </div>
-
-        <h3 className="recsum__seeit">See it, shipped</h3>
-        <p className="recsum__sub" style={{ margin: '8px 0 0' }}>The redesigned homepage and Protothon page, live at apmcneu.com.</p>
-        <div className="recsum__figrow">
-          <div className="recsum__fig"><img src="assets/apmc/final-home-web.jpg" alt="Redesigned APMC homepage" loading="lazy" /></div>
-          <div className="recsum__fig"><img src="assets/apmc/final-protothon-web.jpg" alt="Redesigned APMC Protothon page" loading="lazy" /></div>
-        </div>
-
-        <div className="recsum__cta">
-          <a className="btn btn--yellow" href="https://www.apmcneu.com/" target="_blank" rel="noreferrer">Visit the live site <span className="arr">↗</span></a>
-          <button className="btn" onClick={() => setRec(false)}>Read the full story <span className="arr">↓</span></button>
-        </div>
-      </section>
+      {/* RECRUITER BRIEF */}
+      <CaseBrief
+        role="Lead product designer with two club designers and three engineers. I drove research, IA and UI from kickoff to launch."
+        problem="The club's event site buried schedules and CTAs behind seven nav links. Visitors couldn't tell what Protothon was or how to join."
+        tradeoff={<>I chose <em>Wix over a custom build</em>, because a volunteer club needed a site it could keep running after I left, not a codebase no one could touch.</>}
+        impactNum="28.7%"
+        impactLabel="faster task completion in timed runs against the old site. Still live and in use two years on."
+        image={{ src: 'assets/apmc/final-home-web.jpg', alt: 'The redesigned APMC homepage, live at apmcneu.com' }}
+        constraints="Three-month timeline, kickoff to launch. Built for non-technical volunteers to maintain."
+        ctaHref="https://www.apmcneu.com/"
+        ctaLabel={<>Visit the live site <span className="arr">↗</span></>}
+        onFull={() => setRec(false)}
+      />
 
       {/* STATS BAND */}
       <section className="am-band" data-navskip="true" style={{ marginTop: 'clamp(20px,3vw,42px)' }}>
         <div className="wrap am-band__inner">
-          {[['450+', 'Sessions from launch'], ['700+', 'Monthly active users'], ['2 yrs+', 'Still live &amp; in use today']].map(([n, l], i) => (
+          {[['28.7%', 'Faster task completion vs the old site'], ['700+', 'Monthly active users'], ['2 yrs+', 'Still live & in use today']].map(([n, l], i) => (
             <Reveal key={i} className="am-stat" delay={`d${i + 1}`}>
               <span className="am-stat__n" style={{ color: i === 1 ? 'var(--ink)' : 'var(--accent)' }}>{n}</span>
               <span className="am-stat__l">{l}</span>
@@ -505,9 +490,9 @@ function ApmcCase({ project, projects, onOpen, onHome }) {
             ))}
           </div>
 
-          <h3 className="am-h3">What I improved</h3>
+          <h3 className="am-h3">The homepage fight, settled by users</h3>
           <div className="am-impr">
-            {AM.improvements.map(([no, t, d]) => (
+            {AM.homefight.map(([no, t, d]) => (
               <Reveal key={no} className="am-impr__row">
                 <span className="am-impr__no">{no}</span>
                 <div>
@@ -518,8 +503,61 @@ function ApmcCase({ project, projects, onOpen, onHome }) {
             ))}
           </div>
 
+          <Reveal className="figshot figshot--light">
+            <span className="figshot__zoom">54%</span>
+            <span className="figshot__name">research / homepage-variants</span>
+            <div className="figshot__frame">
+              <span className="figshot__h figshot__h--tl"></span><span className="figshot__h figshot__h--tr"></span><span className="figshot__h figshot__h--bl"></span><span className="figshot__h figshot__h--br"></span>
+              <span className="figshot__cur" style={{ top: '26%', right: '34%' }} aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M2 1l5 13 2-6 6-2z" fill="#9747ff" stroke="#fff" strokeWidth="1" /></svg><i>pm</i></span>
+              <div className="am-vartest">
+            <div className="am-vartest__head">
+              <span className="am-vartest__l">Homepage variant interviews · n = 7 members</span>
+              <span className="am-vartest__hand">same tasks, three homepages</span>
+            </div>
+            <div className="am-vartest__grid">
+              <div className="am-varthumb">
+                <div className="am-varthumb__scr">
+                  <span className="am-sk am-sk--head"></span>
+                  <span className="am-sk" style={{ width: '90%' }}></span>
+                  <span className="am-sk" style={{ width: '76%' }}></span>
+                  <span className="am-sk" style={{ width: '84%' }}></span>
+                  <span className="am-sk" style={{ width: '40%' }}></span>
+                </div>
+                <span className="am-varthumb__tag">Variant A · basic</span>
+                <span className="am-varthumb__note">clean, but nothing pulls you toward signup</span>
+              </div>
+              <div className="am-varthumb">
+                <div className="am-varthumb__scr">
+                  <span className="am-sk am-sk--head"></span>
+                  <span className="am-sk--hero">✦ ⟳ ✦</span>
+                  <span className="am-sk" style={{ width: '64%' }}></span>
+                </div>
+                <span className="am-varthumb__tag">Variant B · animated</span>
+                <span className="am-varthumb__note">flashy — slower to build, slower to use</span>
+              </div>
+              <div className="am-varthumb am-varthumb--win">
+                <div className="am-varthumb__scr">
+                  <span className="am-sk am-sk--head"></span>
+                  <span className="am-sk" style={{ width: '88%' }}></span>
+                  <span className="am-sk am-sk--cta"></span>
+                  <span className="am-sk" style={{ width: '70%', marginTop: 'auto' }}></span>
+                  <span className="am-sk" style={{ width: '52%' }}></span>
+                </div>
+                <span className="am-varthumb__tag">Variant C · mine</span>
+                <span className="am-varthumb__note">fastest to goal ✓ shipped</span>
+              </div>
+            </div>
+            <div className="am-vsticky">
+              <q>Yours was the least frustrating — I barely had to guess.</q>
+              <span>— club member, variant interviews</span>
+            </div>
+              </div>
+            </div>
+            <span className="figshot__dim">1440 × 520</span>
+          </Reveal>
+
           <h3 className="am-h3">Usability testing, what the data told me</h3>
-          <p className="am-lead am-lead--sm">I ran Hotjar across the live Protothon site, click maps and scroll depth showing where attention, and friction, actually landed. Timed task runs against the old site clocked <strong>28.7% faster task completion</strong> on the redesign, the number this case hangs on. Three screens drove the biggest changes.</p>
+          <p className="am-lead am-lead--sm">I ran Hotjar across the live Protothon site, click maps and scroll depth showing where attention, and friction, actually landed. Timed runs of the sign-up and registration flows, old site vs redesign, clocked <strong>28.7% faster task completion</strong>, the number this case hangs on. Three screens drove the biggest changes.</p>
           <Reveal>
             <div className="am-heatgrid">
               <figure className="am-heatfig am-heatfig--reg">

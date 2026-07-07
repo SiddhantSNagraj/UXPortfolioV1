@@ -103,7 +103,10 @@ function Hero({ projects, onOpen }) {
         </div>
 
         <div className="hero__sub">
-          <div className="hero__role display" id="hero-role" title="Hover me">Product&nbsp;Designer</div>
+          <div className="hero__rolecol">
+            <div className="hero__role display" id="hero-role" title="Hover me">Product&nbsp;Designer</div>
+            <HeroStackCircles />
+          </div>
           <p className="hero__phil">
             <span className="mono mono--yellow">✳︎</span> I design it, build it in code, and lose sleep over the parts people scroll past.
             <em>This site is the evidence.</em>

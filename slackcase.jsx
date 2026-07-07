@@ -81,39 +81,25 @@ function SlackCase({ project, projects, onOpen, onHome }) {
           </div>
           <p className="sl-disclaimer">An independent concept made for practice, not affiliated with, endorsed by, or commissioned by Slack. All trademarks belong to their owners.</p>
           <button className={`recbtn ${rec ? 'is-on' : ''}`} onClick={() => setRec((r) => !r)} aria-pressed={rec}>
-            {rec ? 'Read the full story →' : 'In a hurry? Recruiter mode · 90-sec version'}
+            {rec ? 'Read the full story →' : 'In a hurry? The 60-second version'}
           </button>
         </div>
       </section>
 
-      {/* RECRUITER SUMMARY */}
-      <section className="wrap recsum">
-        <h2 className="recsum__h">Three decisions that mattered</h2>
-        <div className="recsum__grid">
-          {[
-            ['A self-initiated concept', 'No brief, no client. I redesigned Slack’s mobile app for fun, because its sidebar genuinely frustrated me, then treated it with real rigor.'],
-            ['Fixed the navigation first', 'The whole redesign hangs on one idea: make the things that actually matter easy to reach, with a calmer information hierarchy.'],
-            ['Full arc, lo-fi to hi-fi', 'Problem framing → lo-fi wireframes → a complete high-fidelity system, so the concept holds together end to end, not just one pretty screen.'],
-          ].map(([t, d], i) => (
-            <div className="recsum__item" key={i}>
-              <span className="recsum__n">0{i + 1}</span>
-              <div><b>{t}</b><p>{d}</p></div>
-            </div>
-          ))}
-        </div>
-
-        <h3 className="recsum__seeit">See it</h3>
-        <p className="recsum__sub" style={{ margin: '8px 0 0' }}>A few screens from the high-fidelity redesign.</p>
-        <div className="recsum__figrow">
-          <div className="recsum__fig"><img src="assets/slack/hi-home.png" alt="Redesigned Slack home / channels screen" loading="lazy" /></div>
-          <div className="recsum__fig"><img src="assets/slack/hi-dms.png" alt="Redesigned Slack direct messages screen" loading="lazy" /></div>
-        </div>
-
-        <div className="recsum__cta">
-          <a className="btn btn--yellow" href="mailto:siddhantsnagraj@outlook.com">Let’s talk <span className="arr">→</span></a>
-          <button className="btn" onClick={() => setRec(false)}>Read the full story <span className="arr">↓</span></button>
-        </div>
-      </section>
+      {/* RECRUITER BRIEF */}
+      <CaseBrief
+        role="Self-initiated concept, solo. No brief, no client. Problem framing through a full high-fidelity system."
+        problem="Slack's mobile app buried its core destinations behind a hamburger drawer, so finding a person or channel was a treasure hunt."
+        tradeoff={<>I chose <em>a persistent bottom tab bar</em> over Slack's hidden drawer, because the five things people do constantly should cost one tap, not three.</>}
+        impactNum="3 → 1"
+        impactLabel="taps to reach any core destination, moved out of a hidden drawer and into reach."
+        image={{ src: 'assets/slack/hi-home.png', alt: 'The redesigned Slack home with a persistent bottom tab bar' }}
+        phone
+        constraints="A concept, not client work. Scoped to iOS mobile, taken from lo-fi wireframes to a full hi-fi system."
+        ctaHref="mailto:siddhantsnagraj@outlook.com"
+        ctaLabel={<>Let’s talk <span className="arr">→</span></>}
+        onFull={() => setRec(false)}
+      />
 
       <CaseTLDR items={[
         ['The itch', 'Slack\u2019s mobile navigation always felt confusing to me, so I redesigned it for fun.'],

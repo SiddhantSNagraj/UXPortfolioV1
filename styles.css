@@ -1338,13 +1338,83 @@ html[data-vibe^="retro"][data-retrorow="pinstripe"] .workrow__fill {
 .recbtn:hover { opacity: 1; transform: rotate(0deg); box-shadow: 1px 1px 0 color-mix(in srgb, var(--accent) 45%, transparent); }
 .recbtn.is-on { transform: none; box-shadow: none; }
 
-/* recruiter summary hidden until recruiter mode */
-.recsum { display: none; padding-top: clamp(36px,5vw,64px); padding-bottom: clamp(8px,1vw,16px); }
-.case.is-rec .recsum { display: block; animation: recFade .45s var(--ease) both; }
+/* ---- recruiter mode: show only the brief, compress the hero, hide the rest ---- */
 @keyframes recFade { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
-/* hide every full-story section except the kept ones */
-.case.is-rec > section:not(.case__hero):not(.tldr):not(.recsum):not(.gs-recsum):not(.gs-keep):not(.case__next) { display: none; }
+/* hide every full-story section except hero + the brief + the next-project footer */
+.case.is-rec > section:not(.case__hero):not(.cbrief):not(.case__next) { display: none; }
 .case.is-rec .csnav { display: none; }
+/* compress the hero: drop the long blurb, meta grid and decorative art so the brief leads */
+.case.is-rec .case__blurb,
+.case.is-rec .case__meta,
+.case.is-rec .cc-herovis, .case.is-rec .cc-bean,
+.case.is-rec .gs-heromark, .case.is-rec .gs-leaf,
+.case.is-rec .sl-herovis, .case.is-rec .sl-disclaimer,
+.case.is-rec .am-hero__devices, .case.is-rec .am-hero__husky, .case.is-rec .am-herocta { display: none; }
+.case.is-rec .am-hero__wrap { display: block; }
+.case.is-rec .case__hero { min-height: 0; }
+
+/* =========================================================================
+   RECRUITER BRIEF — the 60-second version. One systematized card, all cases.
+   ========================================================================= */
+.cbrief { display: none; padding-top: clamp(20px,3vw,36px); padding-bottom: clamp(8px,1vw,16px); }
+.case.is-rec .cbrief { display: block; }
+@media (prefers-reduced-motion: no-preference) {
+  .case.is-rec .cbrief { animation: recFade .45s var(--ease) both; }
+}
+.cbrief__card {
+  border: 1px solid var(--line); border-radius: 16px; background: var(--surface);
+  padding: clamp(24px,3.4vw,52px);
+  display: flex; flex-direction: column; gap: clamp(26px,3vw,42px);
+}
+.cbrief__kick { color: var(--accent); font-size: 12px; letter-spacing: .16em; text-transform: uppercase; }
+.cbrief__k { display: block; color: var(--ink-3); font-size: 11px; letter-spacing: .15em; text-transform: uppercase; margin-bottom: 8px; }
+.cbrief__line { font-family: var(--display); font-weight: 500; font-size: clamp(16px,1.5vw,20px); line-height: 1.4; letter-spacing: -.01em; color: var(--ink); text-wrap: pretty; }
+
+/* role + problem, side by side */
+.cbrief__pair { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(20px,3vw,44px); }
+@media (max-width: 760px) { .cbrief__pair { grid-template-columns: 1fr; gap: 22px; } }
+
+/* the loud part — the single trade-off */
+.cbrief__call { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: clamp(24px,3vw,40px) 0; }
+.cbrief__call .cbrief__k { color: var(--yellow-ink); }
+.cbrief__big {
+  font-family: var(--display); font-weight: 700;
+  font-size: clamp(26px,4vw,50px); line-height: 1.08; letter-spacing: -.025em;
+  color: var(--ink); max-width: 22ch; text-wrap: balance;
+}
+.cbrief__big em { font-style: normal; color: var(--accent); }
+
+/* impact number + single visual anchor */
+.cbrief__proof { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: clamp(22px,3vw,44px); align-items: center; }
+@media (max-width: 760px) { .cbrief__proof { grid-template-columns: 1fr; gap: 24px; } }
+.cbrief__impact { display: flex; flex-direction: column; }
+.cbrief__num { font-family: var(--display); font-weight: 800; font-size: clamp(48px,7vw,84px); line-height: 1; letter-spacing: -.03em; color: var(--accent); }
+.cbrief__numlabel { margin-top: 12px; font-size: clamp(14px,1.2vw,16px); line-height: 1.45; color: var(--ink-2); max-width: 32ch; text-wrap: pretty; }
+.cbrief__anchor { margin: 0; border: 1px solid var(--line); border-radius: 12px; overflow: hidden; background: var(--bg-2); box-shadow: 0 24px 48px -28px rgba(0,0,0,.6); }
+.cbrief__anchor img { width: 100%; height: auto; max-height: 420px; object-fit: cover; object-position: top center; display: block; }
+
+/* phone-framed anchor — matches the device mockups used in the case heroes */
+.cbrief__anchor--phone { border: none; background: none; box-shadow: none; border-radius: 0; overflow: visible; display: flex; justify-content: center; }
+.cbrief__phone {
+  position: relative; display: block;
+  width: clamp(158px, 15vw, 208px); aspect-ratio: 9 / 19.5;
+  border-radius: clamp(26px,2.2vw,34px); padding: clamp(5px,.5vw,7px);
+  background: linear-gradient(155deg, #2c3339 0%, #14181b 60%);
+  box-shadow: 0 34px 66px -28px rgba(0,0,0,.72), 0 8px 22px -10px rgba(0,0,0,.5), inset 0 0 0 1px rgba(255,255,255,.08);
+}
+.cbrief__phone img { width: 100%; height: 100%; max-height: none; object-fit: cover; object-position: top center; border-radius: clamp(21px,1.8vw,28px); display: block; }
+.cbrief__phone::after { content: ""; position: absolute; top: clamp(7px,.6vw,10px); left: 50%; transform: translateX(-50%); width: 32%; height: clamp(9px,.8vw,12px); background: #0c0f11; border-radius: 0 0 9px 9px; }
+
+/* constraints + CTA footer */
+.cbrief__foot { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: clamp(20px,3vw,40px); border-top: 1px solid var(--line); padding-top: clamp(22px,2.6vw,34px); }
+.cbrief__block--cons { max-width: 46ch; }
+.cbrief__block--cons .cbrief__line { font-family: var(--body); font-weight: 400; font-size: clamp(14px,1.2vw,16px); color: var(--ink-2); line-height: 1.5; }
+.cbrief__cta { display: flex; flex-wrap: wrap; gap: 12px; }
+.cbrief__cta .btn { cursor: pointer; }
+
+/* recruiter summary (legacy, retained for safety) hidden until recruiter mode */
+.recsum { display: none; padding-top: clamp(36px,5vw,64px); padding-bottom: clamp(8px,1vw,16px); }
+.case.is-rec .recsum { display: block; }
 
 .recsum__h { font-family: var(--display); font-weight: 800; font-size: clamp(28px,3.6vw,46px); line-height: 1.05; letter-spacing: -.02em; margin-bottom: 8px; }
 .recsum__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(14px,1.8vw,22px); margin-top: 26px; }

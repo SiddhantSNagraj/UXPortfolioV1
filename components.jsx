@@ -305,4 +305,62 @@ function CaseTLDR({ items }) {
   );
 }
 
-Object.assign(window, { Slot, Reveal, TopNav, Contact, Marquee, CaseTLDR, Guestbook, GuestbookOverlay });
+/* Recruiter brief — the tweet-length version of a case, shown in recruiter mode.
+   One systematized layout across every case study: role, problem, the single
+   key trade-off (the loud part), impact, one visual anchor, constraints. */
+function CaseBrief({ role, problem, tradeoff, impactNum, impactLabel, image, phone, constraints, ctaHref, ctaLabel, onFull }) {
+  const external = ctaHref && ctaHref.indexOf('http') === 0;
+  return (
+    <section className="wrap cbrief" aria-label="The 60-second version">
+      <div className="cbrief__card">
+        <span className="cbrief__kick mono">( The 60-second version )</span>
+
+        <div className="cbrief__pair">
+          <div className="cbrief__block">
+            <span className="cbrief__k mono">Role &amp; scope</span>
+            <p className="cbrief__line">{role}</p>
+          </div>
+          <div className="cbrief__block">
+            <span className="cbrief__k mono">The problem</span>
+            <p className="cbrief__line">{problem}</p>
+          </div>
+        </div>
+
+        <div className="cbrief__call">
+          <span className="cbrief__k mono">The call I made</span>
+          <p className="cbrief__big">{tradeoff}</p>
+        </div>
+
+        <div className="cbrief__proof">
+          <div className="cbrief__impact">
+            <span className="cbrief__k mono">Impact</span>
+            <span className="cbrief__num">{impactNum}</span>
+            <span className="cbrief__numlabel">{impactLabel}</span>
+          </div>
+          {phone ? (
+            <figure className="cbrief__anchor cbrief__anchor--phone">
+              <span className="cbrief__phone"><img src={image.src} alt={image.alt} loading="lazy" /></span>
+            </figure>
+          ) : (
+            <figure className="cbrief__anchor">
+              <img src={image.src} alt={image.alt} loading="lazy" />
+            </figure>
+          )}
+        </div>
+
+        <div className="cbrief__foot">
+          <div className="cbrief__block cbrief__block--cons">
+            <span className="cbrief__k mono">Constraints</span>
+            <p className="cbrief__line">{constraints}</p>
+          </div>
+          <div className="cbrief__cta">
+            <a className="btn btn--yellow" href={ctaHref} {...(external ? { target: '_blank', rel: 'noreferrer' } : {})}>{ctaLabel}</a>
+            <button className="btn" onClick={onFull} type="button">Read the full story <span className="arr">↓</span></button>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+Object.assign(window, { Slot, Reveal, TopNav, Contact, Marquee, CaseTLDR, CaseBrief, Guestbook, GuestbookOverlay });

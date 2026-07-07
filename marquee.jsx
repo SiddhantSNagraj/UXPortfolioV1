@@ -106,6 +106,35 @@ function HmqToolSeq() {
   );
 }
 
+/* circles variant: "My stack" badge row with hover tooltips */
+const STACK_TIPS = [
+  ['Figma', 'Where everything is designed.'],
+  ['Claude', 'Design partner & second brain.'],
+  ['Cursor', 'Where the prototypes get built.'],
+  ['Google Antigravity', 'Agent-first coding.'],
+  ['WisprFlow', 'Talking instead of typing.'],
+  ['FigJam', 'Workshops & messy thinking.'],
+  ['Framer', 'Sites that ship themselves.'],
+  ['Storybook', 'The system’s source of truth.'],
+  ['Miro', 'Research walls & affinity maps.'],
+  ['Notion', 'Docs, specs, everything else.'],
+];
+function HeroStackCircles() {
+  return (
+    <div className="hmqc" aria-label="My tool stack">
+      <span className="hmqc__label">My stack</span>
+      <div className="hmqc__row">
+        {STACK_TIPS.map(([t, tip], i) => (
+          <span className="hmqc__tool" style={{ '--i': i }} key={t} tabIndex={0}>
+            {TL[t]}
+            <span className="hmqc__tip" role="tooltip"><b>{t}</b><span>{tip}</span></span>
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function HeroMarquee() {
   return (
     <div className="hmq" aria-label="AI-first capabilities and tools">
@@ -115,4 +144,4 @@ function HeroMarquee() {
   );
 }
 
-Object.assign(window, { HeroMarquee });
+Object.assign(window, { HeroMarquee, HeroStackCircles });

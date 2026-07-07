@@ -43,6 +43,9 @@ const GS_TYPE = [
   ['Body', '15px', 'Every tree is geo-tagged, time-stamped and reviewed before a credit is issued.', 400],
   ['Caption', '12px', 'Last synced 2 minutes ago', 500],
 ];
+const GS_ICONS = [
+  ['icon.xs', 14], ['icon.sm', 16], ['icon.md', 20], ['icon.lg', 24], ['icon.xl', 32], ['icon.2xl', 48], ['icon.3xl', 64],
+];
 
 function GSKit() {
   const [tab, setTab] = useStateGSK(0);
@@ -86,6 +89,25 @@ function GSKit() {
                   </div>
                 ))}
               </div>
+            </div>
+            <div className="gsk__group">
+              <span className="gsk__gl">Icon tokens, one glyph family, seven sizes</span>
+              <div className="gsk-icons">
+                {GS_ICONS.map(([t, px]) => (
+                  <div key={t} className="gsk-icons__cell">
+                    <span className="gsk-ileaf" style={{ width: px, height: px }} aria-hidden="true"></span>
+                    <span className="gsk-icons__t">{t}</span>
+                    <span className="gsk-icons__px">{px}px</span>
+                  </div>
+                ))}
+              </div>
+              <div className="gsk-irule">
+                <span className="gsk-ileaf" style={{ width: 18, height: 18 }} aria-hidden="true"></span>
+                <span className="gsk-irule__t">outline · the default</span>
+                <span className="gsk-ileaf gsk-ileaf--fill" style={{ width: 18, height: 18 }} aria-hidden="true"></span>
+                <span className="gsk-irule__t">filled · active &amp; selected states only</span>
+              </div>
+              <span className="gsk__cap">Material Design base for dev efficiency · borrowed icons must match stroke weight &amp; corner treatment</span>
             </div>
           </div>
         )}

@@ -36,17 +36,17 @@ const GS = {
   ],
   explored: [
     ['Framework foundation', 'Benchmarked Material UI and Adobe Spectrum as the base for Roots.', 'Material gave scalable atomic structure; Spectrum modelled accessibility-first patterns, but neither fit a non-technical, low-bandwidth field user out of the box.', 'Adopted atomic design, adapted for radical simplicity and AA accessibility from the very first token.'],
-    ['The primary green', 'Started from the seven-plus greens already living across both apps, Sprout, Chlorophyll and more.', 'Several failed contrast: Sprout, Sunshine and Sunset were unreadable behind small white text.', 'Consolidated to one primary green on a ten-step scale, and moved body text onto Midnight (#222629) for AA.'],
+    ['The primary green', 'Proposed retiring the original brand green — and hit real pushback. It was the colour the org grew up with, and stakeholders didn’t want it touched.', 'The original failed contrast behind small white text and sat oddly against the new neutrals — but a contrast checker alone moves nobody off a colour they’re attached to.', 'Prototyped several signature-green candidates in real screens and let stakeholders choose. The winner became the new primary, on a ten-step scale with body text on Midnight (#222629) for AA.'],
     ['Accent & data colour', 'Tried carrying the bright Sunrise / Sunset oranges through as supporting UI colours.', 'At small sizes they fought the content and undercut the calm, trustworthy tone the apps needed.', 'Demoted them to rare accents, leaned on neutral greys for type, and defined a dedicated data-viz set.'],
     ['Handoff & adoption', 'Shipped the first cut as a Figma library and assumed teams would pull from it.', 'Remote, rotating volunteer devs needed a living, coded reference, static specs weren’t enough.', 'Documented guidelines and integrated the system with Storybook so design and code stayed in sync.'],
   ],
   outcomes: [
-    ['27%', 'faster developer velocity after adoption'],
-    ['32%', 'fewer accessibility issues across key flows'],
-    ['24%', 'lift in user engagement across both apps'],
+    ['27%', 'faster ticket cycle time after adoption'],
+    ['32%', 'fewer accessibility bugs filed'],
     ['150+', 'reusable components shipped in Figma'],
-    ['25%', 'reduction in developer rework'],
     ['AA', 'WCAG compliance, verified not assumed'],
+    ['↑', 'noticeably higher engagement, both apps'],
+    ['1', 'source of truth for design and code'],
   ],
   anatomy: [
     ['1', 'Label', 'Display 600 · 14px', 'r'],
@@ -65,8 +65,8 @@ const GS = {
   ],
   adoption: [
     ['01', 'Proof before mandate', 'I started as the only designer. Rather than pitch a system in the abstract, I built a handful of core components and dropped them straight into the existing product screens, then showed leadership the before-and-after. Seeing the system working in real designs is what earned the green light to build Roots properly.'],
-    ['02', 'A living reference, not static specs', 'Remote, rotating volunteers can’t onboard from a PDF. I paired the Figma library with documented guidelines and a Storybook of coded components, so designers and engineers always pulled from one source of truth that stayed in sync with production.'],
-    ['03', 'Governance as it scaled', 'When leadership grew the effort into a team of four, I set the contribution standards, reviewed every new addition, and ran the system like a product, so it stayed coherent and on-brand as more hands began building with it.'],
+    ['02', 'A living reference, not static specs', 'Remote, rotating volunteers can’t onboard from a PDF. I paired the Figma library with a Storybook of coded components, and wired the two together with a token pipeline — below — so design and code physically can’t drift apart.'],
+    ['03', 'Governance as it scaled', 'When leadership grew the effort into a team of four, I kept the foundations — tokens, colour and typography — and handed the smaller components to the team. I set the contribution standards and reviewed every addition, so Roots stayed coherent as more hands built with it.'],
   ],
   anno: [
     ['anno-1-signup.png', 'Sign-up screen with the standardized form fields and buttons annotated'],
@@ -88,9 +88,9 @@ const GS = {
     ['wallet-04-created.png', '03', 'Success'],
   ],
   learnings: [
-    'Scaling a design system beyond a single app is a different discipline than designing one — it lives or dies on adoption.',
-    'Collaboration drives adoption. The system spread because teams felt ownership of it, not because it was mandated.',
-    'Leading and mentoring designers grew me as much as the work did — the multiplier is people, not pixels.',
+    'Adoption is the product. Roots spread the day working components appeared in live screens, not the day the Figma file was finished.',
+    'Stakeholders don’t resist change, they resist uncertainty. The signature-green debate ended with prototypes they could pick from, not a contrast checker.',
+    'Leading four designers shifted my job from making components to keeping everyone’s components coherent — the multiplier is people, not pixels.',
   ],
   nextSteps: [
     ['Clearer documentation', 'Build richer docs so new designers and developers can get started faster, with less hand-holding.'],
@@ -193,43 +193,24 @@ function GreenstandCase({ project, projects, onOpen, onHome }) {
           </div>
           <button className={`gs-recbtn mono ${rec ? 'is-on' : ''}`} onClick={() => setRec((r) => !r)} aria-pressed={rec}>
             <span className="gs-recbtn__dot" aria-hidden="true" />
-            {rec ? 'Read the full story →' : 'In a hurry? Recruiter mode · 90-sec version'}
+            {rec ? 'Read the full story →' : 'In a hurry? The 60-second version'}
           </button>
         </div>
       </section>
 
-      {/* ---------- RECRUITER SUMMARY (only in recruiter mode) ---------- */}
-      <section className="wrap gs-recsum">
-        <h2 className="gs-h2">Three decisions that mattered</h2>
-        <div className="gs-recsum__grid">
-          {[
-            ['Proved it before pitching it', 'Built a few core components, dropped them into the live apps, and showed leadership the before/after. That earned the mandate to build Roots properly.'],
-            ['One green, ten steps', 'Consolidated 7+ undocumented greens (several failing contrast) into a single AA-compliant scale, the system’s backbone.'],
-            ['Made it a living, coded reference', 'Paired the Figma library with a Storybook of coded components so remote, rotating volunteers always pulled from one source of truth.'],
-          ].map(([t, d], i) => (
-            <div className="gs-recsum__item" key={i}>
-              <span className="gs-recsum__n mono">0{i + 1}</span>
-              <div><b>{t}</b><p>{d}</p></div>
-            </div>
-          ))}
-        </div>
-
-        <h3 className="gs-h3 gs-recsum__seeit">See it, live</h3>
-        <p className="gs-lead gs-lead--sm">The real Roots components, rendered in code, not screenshots. Switch tabs.</p>
-        <GSKit />
-
-        <figure className="gs-quote gs-recsum__quote">
-          <p className="gs-quote__text">Siddhant played a big role in building a design system that works today and scales with us. He doesn't just make things look good, he researches trends and truly understands our products.</p>
-          <figcaption className="gs-quote__by">
-            <span className="gs-quote__name">Karthikeyan Dhanasekaran</span>
-            <span className="gs-quote__role">Principal UX Leader · managed me at Greenstand</span>
-          </figcaption>
-        </figure>
-        <div className="gs-recsum__cta">
-          <a className="btn btn--yellow" href="mailto:siddhantsnagraj@outlook.com">Let’s talk <span className="arr">→</span></a>
-          <button className="btn" onClick={() => setRec(false)}>Read the full story <span className="arr">↓</span></button>
-        </div>
-      </section>
+      {/* ---------- RECRUITER BRIEF (only in recruiter mode) ---------- */}
+      <CaseBrief
+        role="Started as the only designer and earned the mandate to lead. I built Roots from scratch, then led a team of four to ship it into production."
+        problem="Two apps built in silos: seven-plus undocumented greens, duplicated components and broken accessibility, slowing every team down."
+        tradeoff={<>I chose to <em>earn adoption over mandating it</em>, proving a few components in the live apps first, because a volunteer org adopts a system it can pull from effortlessly, not one it is told to use.</>}
+        impactNum="27%"
+        impactLabel="faster ticket cycle time, plus 32% fewer accessibility bugs filed, once teams built from Roots."
+        image={{ src: 'assets/greenstand/foundations-color.png', alt: 'The consolidated Roots colour scale: one accessible green system' }}
+        constraints="Remote and async across three continents. A rotating volunteer team and live codebases I had to design around."
+        ctaHref="mailto:siddhantsnagraj@outlook.com"
+        ctaLabel={<>Let’s talk <span className="arr">→</span></>}
+        onFull={() => setRec(false)}
+      />
 
       <CaseTLDR items={[
         ['The problem', 'Two apps built in silos: 7+ greens, duplicated components, missing states and broken accessibility.'],
@@ -352,7 +333,7 @@ function GreenstandCase({ project, projects, onOpen, onHome }) {
             ))}
           </div>
           <div className="gs-figwide">
-            <span className="gs-ba__tag gs-ba__tag--before"><span className="gs-ba__dot" />Prioritised audit, scored by severity &amp; effort</span>
+            <span className="gs-ba__tag gs-ba__tag--before"><span className="gs-ba__dot" />Prioritised audit, scored by severity &amp; effort · Aug 2024</span>
             <div className="gs-fig"><img src="assets/greenstand/audit-table.png" alt="Audit table scoring each issue by severity and effort, with a suggestion and priority for buttons, typography, colour, icons and contrast" loading="lazy" /></div>
           </div>
         </div>
@@ -403,6 +384,44 @@ function GreenstandCase({ project, projects, onOpen, onHome }) {
               </div>
             ))}
           </div>
+
+          <Reveal className="figshot">
+            <span className="figshot__zoom">62%</span>
+            <span className="figshot__name">explorations / signature-green</span>
+            <div className="figshot__frame">
+              <span className="figshot__h figshot__h--tl"></span><span className="figshot__h figshot__h--tr"></span><span className="figshot__h figshot__h--bl"></span><span className="figshot__h figshot__h--br"></span>
+              <div className="gs-greenlab">
+            <div className="gs-greenlab__head">
+              <span className="gs-greenlab__l">Working file · signature-green exploration</span>
+              <span className="gs-greenlab__hand">the original + 4 candidates, as presented to stakeholders</span>
+            </div>
+            <div className="gs-greenlab__row">
+              <div className="gs-glchip gs-glchip--dead">
+                <span className="gs-glchip__sw" style={{ background: 'color-mix(in srgb, var(--gs-400) 52%, #dcE8d4)' }}>Aa</span>
+                <span className="gs-glchip__note">the old green — white text just disappears</span>
+              </div>
+              <div className="gs-glchip">
+                <span className="gs-glchip__sw" style={{ background: 'color-mix(in srgb, var(--gs-500) 58%, #b8cc1a)' }}>Aa</span>
+                <span className="gs-glchip__note">too loud next to the neutrals</span>
+              </div>
+              <div className="gs-glchip">
+                <span className="gs-glchip__sw" style={{ background: 'color-mix(in srgb, var(--gs-600) 58%, #0e7a6e)' }}>Aa</span>
+                <span className="gs-glchip__note">reads fintech, not forest</span>
+              </div>
+              <div className="gs-glchip gs-glchip--win">
+                <span className="gs-glchip__ring" aria-hidden="true"></span>
+                <span className="gs-glchip__sw" style={{ background: 'var(--gs-600)' }}>Aa</span>
+                <span className="gs-glchip__note">5.13 : 1 — the one ✓</span>
+              </div>
+              <div className="gs-glchip">
+                <span className="gs-glchip__sw" style={{ background: 'color-mix(in srgb, var(--gs-700) 78%, #06110c)' }}>Aa</span>
+                <span className="gs-glchip__note">passes AA, but murky in dark UI</span>
+              </div>
+            </div>
+              </div>
+            </div>
+            <span className="figshot__dim">1240 × 348</span>
+          </Reveal>
         </div>
       </section>
 
@@ -492,6 +511,32 @@ function GreenstandCase({ project, projects, onOpen, onHome }) {
             ))}
           </div>
 
+          <div className="gs-sync">
+            <span className="gs-sync__l mono">How it stays in sync</span>
+            <div className="gs-sync__flow">
+              <div className="gs-sync__node">
+                <b>Figma</b>
+                <span>variables &amp; components</span>
+              </div>
+              <span className="gs-sync__arr"><i>Tokens Studio</i>→</span>
+              <div className="gs-sync__node gs-sync__node--file">
+                <b>tokens.json</b>
+                <span>raw token file</span>
+              </div>
+              <span className="gs-sync__arr"><i>Style Dictionary</i>→</span>
+              <div className="gs-sync__node gs-sync__node--file">
+                <b>tokens.ts</b>
+                <span>typed, in the codebase</span>
+              </div>
+              <span className="gs-sync__arr"><i>consumed by</i>→</span>
+              <div className="gs-sync__node">
+                <b>Storybook + apps</b>
+                <span>coded components, one truth</span>
+              </div>
+            </div>
+            <p className="gs-sync__cap">Tokens are the contract: change a variable in Figma and it lands in code as a generated file, not a handoff ticket. Component drafts follow the same rail — Figma frame → AI-agent draft via Figma MCP → human review → Storybook. That pipeline is why rotating volunteers could trust the system without me in the room.</p>
+          </div>
+
           <div className="gs-proof">
             <span className="gs-proof__n">Days, not weeks</span>
             <p className="gs-proof__t">The real test came when a new UX designer joined. Because I'd built Roots to scale, documented, consistent, single-source-of-truth, <strong>she got up to speed in days</strong>, following the system confidently instead of guessing. Onboarding speed is the truest measure of a system that works.</p>
@@ -522,6 +567,7 @@ function GreenstandCase({ project, projects, onOpen, onHome }) {
               </Reveal>
             ))}
           </div>
+          <span className="gs-figcap" style={{ marginTop: 'clamp(14px,1.8vw,22px)' }}>Measured after v1.0 shipped, Oct 2024 · cycle time from engineering tickets before vs after adoption, corroborated by the eng lead · a11y counted from bugs filed · engagement stated directionally.</span>
         </div>
       </section>
 

@@ -27,7 +27,8 @@ const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
   "retroCursor": "Diamond",
   "heroBg": "None",
   "navShell": "Pill",
-  "marquee": "Chips",
+  "marquee": "Off",
+  "heroStack": "Circles",
   "artifact": "Sticky",
   "rowHover": "Diagonal",
   "retroRowHover": "Ink",
@@ -145,7 +146,10 @@ const TICKETS = { 'Sunset': 'sunset', 'Cobalt': 'cobalt', 'Forest': 'forest', 'N
 const NAV_SHELLS = { 'Pill': 'pill', 'FAB': 'fab', 'Top bar': 'topbar', 'Rail': 'rail' };
 
 // Hero capabilities-and-tools marquee layout.
-const MARQUEE = { 'AI-first': 'aifirst', 'Dual rail': 'dual', 'Chips': 'chips' };
+const MARQUEE = { 'AI-first': 'aifirst', 'Dual rail': 'dual', 'Chips': 'chips', 'Caps only': 'capsonly', 'Off': 'off' };
+
+// "My stack" circle badges under the Product Designer tag.
+const HERO_STACK = { 'Circles': 'circles', 'Hidden': 'hidden' };
 
 // APMC research artifacts (affinity map + priority matrix) visual style.
 const ARTIFACT_STYLES = { 'Sticky': 'sticky', 'Whiteboard': 'whiteboard', 'On-brand': 'brand' };
@@ -285,6 +289,7 @@ function TweaksUI() {
     document.documentElement.setAttribute('data-ticket', TICKETS[t.ticket] || 'sunset');
     document.documentElement.setAttribute('data-csnavshell', NAV_SHELLS[t.navShell] || 'pill');
     document.documentElement.setAttribute('data-marquee', MARQUEE[t.marquee] || 'chips');
+    document.documentElement.setAttribute('data-herostack', HERO_STACK[t.heroStack] || 'circles');
     document.documentElement.setAttribute('data-artifact', ARTIFACT_STYLES[t.artifact] || 'sticky');
     document.documentElement.setAttribute('data-rowhover', ROW_HOVER[t.rowHover] || 'fill');
     document.documentElement.setAttribute('data-retrorow', RETRO_ROW_HOVER[t.retroRowHover] || 'ink');
@@ -417,6 +422,9 @@ function TweaksUI() {
       <TweakSelect label="Hero marquee" value={t.marquee}
         options={Object.keys(MARQUEE)}
         onChange={(v) => setTweak('marquee', v)} />
+      <TweakSelect label="My stack badges" value={t.heroStack}
+        options={Object.keys(HERO_STACK)}
+        onChange={(v) => setTweak('heroStack', v)} />
       <TweakSelect label="APMC artifacts" value={t.artifact}
         options={Object.keys(ARTIFACT_STYLES)}
         onChange={(v) => setTweak('artifact', v)} />
