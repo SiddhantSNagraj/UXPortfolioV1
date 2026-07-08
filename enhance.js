@@ -104,6 +104,58 @@
   window.addEventListener('hashchange', function () { routeChanged(false); });
   routeChanged(true);
 
+  /* ---- 3b. deep-link section scroll ----
+     /about and /contact are rewritten to index.html (see vercel.json), so a
+     visitor who guesses/types those URLs — or follows an old #about link —
+     lands on the homepage and gets scrolled to the matching section instead
+     of a 404. Runs once, and backs off the moment the visitor scrolls. */
+  (function () {
+    var SECTIONS = { work: 1, about: 1, contact: 1 };
+    var path = (location.pathname || '').replace(/^\/+|\/+$/g, '').toLowerCase();
+    var hash = (location.hash || '').replace(/^#\/?/, '').replace(/\/+$/, '').toLowerCase();
+    var target = SECTIONS[path] ? path : (SECTIONS[hash] ? hash : null);
+    if (!target) return;
+
+    function navOffset() {
+      var n = document.querySelector('.nav, nav, header');
+      if (!n) return 0;
+      var p = getComputedStyle(n).position;
+      return (p === 'fixed' || p === 'sticky') ? n.offsetHeight + 12 : 0;
+    }
+    function jump() {
+      var el = document.getElementById(target);
+      if (!el) return false;
+      var y = el.getBoundingClientRect().top + window.pageYOffset - navOffset();
+      window.scrollTo({ top: Math.max(0, y), behavior: 'auto' });
+      return true;
+    }
+
+    var tries = 0, userScrolled = false;
+    function onUser() { userScrolled = true; }
+    window.addEventListener('wheel', onUser, { passive: true, once: true });
+    window.addEventListener('touchmove', onUser, { passive: true, once: true });
+    window.addEventListener('keydown', onUser, { once: true });
+
+    var si = setInterval(function () {
+      if (userScrolled) { clearInterval(si); return; }
+      if (jump()) {
+        clearInterval(si);
+        // correct for late layout shifts (fonts, images loading in above)
+        setTimeout(function () { if (!userScrolled) jump(); }, 500);
+      } else if (++tries > 50) {
+        clearInterval(si);
+      }
+    }, 100);
+  })();
+
+  /* ---- 3c. keep case-study / home URLs clean if the visitor landed on a
+     rewritten /about or /contact path ---- */
+  window.addEventListener('hashchange', function () {
+    if (location.hash && location.pathname !== '/') {
+      history.replaceState(null, '', '/' + location.hash);
+    }
+  });
+
   /* ---- 4. role cycler: hover the hero role to cycle playful titles ---- */
   (function () {
     var roles = ['Product Designer', 'Problem Untangler', 'Pixel Diplomat', 'Flow Architect', 'Systems Thinker', 'Coffee → UI Converter'];
