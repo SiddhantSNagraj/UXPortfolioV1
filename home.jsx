@@ -121,6 +121,7 @@ function Hero({ projects, onOpen }) {
           <span>Work ↓</span>
         </div>
         <HeroMarquee />
+        <SkillsMarquee />
       </div>
     </header>
   );
@@ -381,4 +382,29 @@ function WorkIndex({ projects, onOpen }) {
   );
 }
 
-Object.assign(window, { Hero, WorkIndex, CoffeeFan, ApmcPeek, GreenstandPeek, SlackPeek });
+Object.assign(window, { Hero, WorkIndex, CoffeeFan, ApmcPeek, GreenstandPeek, SlackPeek, SkillsMarquee });
+
+/* ---- SKILLS MARQUEE, full-bleed inverted band between Work & About ------
+   Inverts with the theme (bright strip on the dark site, black strip on the
+   light theme) so it always reads as a distinct band. Seamless loop (two
+   identical sets → -50%), pauses on hover, respects reduced-motion. */
+function SkillsMarquee() {
+  const items = [
+    'User research', 'Product design', 'Micro-interactions', 'Design systems',
+    'AI-assisted UX', 'Prototyping', 'Growth & conversion',
+  ];
+  const seps = ['a', 'g', 'y'];   // accent · green · yellow diamonds
+  const set = items.map((label, i) => (
+    <React.Fragment key={i}>
+      <span className={`skmq__sep skmq__sep--${seps[i % seps.length]}`} aria-hidden="true" />
+      <span className="skmq__item display">{label}</span>
+    </React.Fragment>
+  ));
+  return (
+    <div className="skmq" aria-label="Skills">
+      <div className="skmq__track">
+        {set}{set}
+      </div>
+    </div>
+  );
+}

@@ -148,12 +148,16 @@
     }, 100);
   })();
 
-  /* ---- 3c. keep case-study / home URLs clean if the visitor landed on a
-     rewritten /about or /contact path ---- */
+  /* ---- 3c. keep URLs clean if the visitor landed on a rewritten
+     /about or /contact path, then navigated. Only touches that exact
+     segment and preserves the directory base — so it's a harmless no-op
+     when the site is served from a subpath (editor preview, local build)
+     rather than the domain root. ---- */
   window.addEventListener('hashchange', function () {
-    if (location.hash && location.pathname !== '/') {
-      history.replaceState(null, '', '/' + location.hash);
-    }
+    if (!location.hash) return;
+    if (!/\/(about|contact)\/?$/i.test(location.pathname)) return;
+    var base = location.pathname.replace(/\/(about|contact)\/?$/i, '/');
+    history.replaceState(null, '', base + location.hash);
   });
 
   /* ---- 4. role cycler: hover the hero role to cycle playful titles ---- */
