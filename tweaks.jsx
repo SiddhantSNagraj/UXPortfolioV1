@@ -39,7 +39,9 @@ const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
   "footerBadge": "Hidden",
   "workLayout": "Outcome",
   "aboutPhotos": "Cluster",
-  "aboutSpread": "Cross"
+  "aboutSpread": "Cross",
+  "howLayout": "Filed",
+  "signoff": "Vinyl"
 }/*EDITMODE-END*/;
 
 // Scroll-reveal treatment for case studies (Option 2 = editorial clip wipe)
@@ -68,6 +70,18 @@ const WORK_LAYOUT = { 'Index': 'index', 'Outcome': 'outcome', 'Descriptive': 'de
 
 // About photo treatment: single portrait, or an interactive polaroid cluster.
 const ABOUT_PHOTOS = { 'Single': 'single', 'Cluster': 'cluster' };
+
+// Sign-off under the Rocky mantra — fills the negative space with personality.
+const SIGNOFF = { 'Signature': 'sign', 'Vinyl': 'vinyl', 'Stamp': 'stamp', 'None': 'none' };
+
+// "How I work" habits block — five layouts, each with its own personality.
+const HOW_LAYOUT = {
+  'Ledger': 'ledger',       // editorial numbered list, hairline rules
+  'Manifesto': 'manifesto', // oversized statements + ghost numbers
+  'Filed': 'filed',         // pinned index cards, taped + tilted
+  'Terminal': 'terminal',   // mono build-log checklist
+  'Cards': 'cards',         // tidy 2×2 grid
+};
 
 // How the polaroid cluster reveals on hover (only applies in Cluster mode).
 const ABOUT_SPREAD = { 'Cross': 'cross', 'Fan': 'fan', 'Cascade': 'cascade', 'Scatter': 'scatter' };
@@ -301,6 +315,8 @@ function TweaksUI() {
     document.documentElement.setAttribute('data-worklayout', WORK_LAYOUT[t.workLayout] || 'index');
     document.documentElement.setAttribute('data-aboutphotos', ABOUT_PHOTOS[t.aboutPhotos] || 'single');
     document.documentElement.setAttribute('data-aboutspread', ABOUT_SPREAD[t.aboutSpread] || 'cross');
+    document.documentElement.setAttribute('data-howlayout', HOW_LAYOUT[t.howLayout] || 'ledger');
+    document.documentElement.setAttribute('data-aboutsignoff', SIGNOFF[t.signoff] || 'sign');
 
     // ---- overall vibe (retro overrides accent + display fonts) ----
     // a public visitor toggle (cmdk / logo easter egg) persists to 'sn-vibe'
@@ -380,9 +396,15 @@ function TweaksUI() {
       <TweakSelect label="Work layout" value={t.workLayout}
         options={Object.keys(WORK_LAYOUT)}
         onChange={(v) => setTweak('workLayout', v)} />
+      <TweakSelect label="How I work" value={t.howLayout}
+        options={Object.keys(HOW_LAYOUT)}
+        onChange={(v) => setTweak('howLayout', v)} />
       <TweakSelect label="About photos" value={t.aboutPhotos}
         options={Object.keys(ABOUT_PHOTOS)}
         onChange={(v) => setTweak('aboutPhotos', v)} />
+      <TweakSelect label="Sign-off" value={t.signoff}
+        options={Object.keys(SIGNOFF)}
+        onChange={(v) => setTweak('signoff', v)} />
       <TweakSelect label="Photo reveal" value={t.aboutSpread}
         options={Object.keys(ABOUT_SPREAD)}
         onChange={(v) => setTweak('aboutSpread', v)} />

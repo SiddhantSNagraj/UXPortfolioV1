@@ -1,10 +1,81 @@
 /* ABOUT + REVIEWS */
 
+function Turntable() {
+  const [playing, setPlaying] = React.useState(false);
+  const [secs, setSecs] = React.useState(0);
+  const [cover, setCover] = React.useState('');
+  const audioRef = React.useRef(null);
+
+  // real cover art via iTunes (no local Infinity image in assets) — same
+  // source the ⌘K "now playing" uses; falls back to the gradient tile.
+  React.useEffect(() => {
+    const cb = '__tt_np_' + Math.random().toString(36).slice(2);
+    const s = document.createElement('script');
+    const timer = setTimeout(() => finish(''), 4500);
+    function finish(url) { clearTimeout(timer); setCover(url); try { delete window[cb]; } catch (e) {} if (s.parentNode) s.parentNode.removeChild(s); }
+    window[cb] = (d) => { const r = d && d.results && d.results[0]; finish(r && r.artworkUrl100 ? r.artworkUrl100.replace('100x100', '400x400') : ''); };
+    s.src = 'https://itunes.apple.com/search?term=' + encodeURIComponent('The Band Camino Infinity') + '&entity=song&limit=1&callback=' + cb;
+    s.onerror = () => finish('');
+    document.head.appendChild(s);
+    return () => { clearTimeout(timer); };
+  }, []);
+
+  // audio from assets: play on hover, stop + rewind on leave
+  React.useEffect(() => {
+    if (!audioRef.current) {
+      const a = new Audio('assets/music/Infinity.mp3');
+      a.volume = 0.7; a.loop = true; audioRef.current = a;
+    }
+    const a = audioRef.current;
+    if (playing) { try { a.currentTime = 0; } catch (e) {} a.play().catch(() => {}); }
+    else { a.pause(); try { a.currentTime = 0; } catch (e) {} }
+  }, [playing]);
+  React.useEffect(() => () => { if (audioRef.current) audioRef.current.pause(); }, []);
+
+  // elapsed-time readout
+  React.useEffect(() => {
+    if (!playing) { setSecs(0); return; }
+    const id = setInterval(() => setSecs((s) => s + 1), 1000);
+    return () => clearInterval(id);
+  }, [playing]);
+  const time = `${Math.floor(secs / 60)}:${String(secs % 60).padStart(2, '0')}`;
+  return (
+    <div className={'tt' + (playing ? ' is-playing' : '')}
+         onMouseEnter={() => setPlaying(true)}
+         onMouseLeave={() => setPlaying(false)}>
+      <div className="tt__deck">
+        <div className="tt__record" aria-hidden="true"><span className="tt__spindle"></span></div>
+        <div className="tt__sleeve" aria-hidden="true">
+          <div className="tt__art"><span className="tt__inf">∞</span><span className="tt__artname">The Band Camino</span></div>
+          {cover ? <img className="tt__cover" src={cover} alt="" /> : null}
+        </div>
+        <div className="tt__arm" aria-hidden="true"><span className="tt__head"></span></div>
+      </div>
+      <div className="tt__meta">
+        <span className="mono mono--accent tt__eyebrow">{playing ? '/ Now playing' : '/ On repeat'}</span>
+        <span className="tt__title">Infinity</span>
+        <span className="tt__artist">The Band Camino</span>
+        <div className="tt__lcd">
+          <span className="tt__play">{playing ? '❚❚' : '▶'}</span>
+          <span className="tt__time">{time}</span>
+          <span className="tt__eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function About({ profile, reviews }) {
   const facts = [
-    ['05', 'Years designing products'],
-    ['03', 'Disciplines, systems, web, mobile'],
-    ['∞', 'Pixels sweated'],
+    ['50K+', 'People reached worldwide'],
+    ['03', 'Products shipped, one taken 0→1'],
+    ['05', 'Years in the messy middle'],
+  ];
+  const habits = [
+    { n: '01', t: 'Systems over screens', d: 'I fix the source, not the symptom. On Greenstand I built one design system so two apps finally spoke the same language.', proof: 'Greenstand', id: 'greenstand' },
+    { n: '02', t: 'Research earns the pixels', d: 'Opinions are cheap; tests aren’t. CoffeeHouse ran 24 usability sessions before I trusted a single flow.', proof: 'CoffeeHouse', id: 'coffeehouse' },
+    { n: '03', t: 'Prototype to decide', d: 'I argue with prototypes, not slides. The fastest way to kill a weak idea is to feel it in your hand.', proof: 'Slack', id: 'slack' },
+    { n: '04', t: 'Ship, then measure', d: 'Design isn’t done at handoff. APMC’s site is still live and in use two years after I moved on.', proof: 'APMC', id: 'apmc' },
   ];
   return (
     <section className="about" id="about">
@@ -41,8 +112,29 @@ function About({ profile, reviews }) {
               <blockquote className="about__mantra-quote">
                 It ain’t about how hard you hit. It’s about how hard you can get hit and keep moving forward; how much you can take and keep moving forward. That’s how winning is done!
               </blockquote>
-              <figcaption className="about__mantra-cite">Rocky Balboa</figcaption>
+              <figcaption className="about__mantra-cite">Rocky Balboa, and honestly, how I treat feedback.</figcaption>
             </figure>
+
+            {/* sign-off — fills the space under the mantra; switch via Tweaks */}
+            <div className="signoff signoff--sign" aria-label="Signature">
+              <span className="signoff__name">Siddhant</span>
+              <svg className="signoff__underline" viewBox="0 0 240 12" preserveAspectRatio="none" aria-hidden="true">
+                <path d="M3 8 C 46 2, 92 11, 138 6 S 214 2, 237 7" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" />
+              </svg>
+              <span className="signoff__tag mono">Boston, MA · still tinkering</span>
+            </div>
+            <div className="signoff signoff--vinyl" aria-label="On repeat">
+              <Turntable />
+            </div>
+            <div className="signoff signoff--stamp" aria-label="Made with care">
+              <div className="stamp" aria-hidden="true">
+                <svg className="stamp__ring" viewBox="0 0 120 120">
+                  <defs><path id="signoffStampPath" d="M60,16 a44,44 0 1,1 -0.01,0" /></defs>
+                  <text><textPath href="#signoffStampPath" startOffset="0">· MADE WITH CARE · BOSTON, MA · DESIGNED &amp; BUILT BY SIDDHANT </textPath></text>
+                </svg>
+                <span className="stamp__mark">✷</span>
+              </div>
+            </div>
           </Reveal>
 
           <div className="about__side">
@@ -77,12 +169,22 @@ function About({ profile, reviews }) {
           </div>
         </div>
 
-        {/* approach pills */}
-        <div className="about__approach">
-          <span className="mono mono--ink" style={{ marginRight: 8 }}>How I work,</span>
-          {['Systems thinking', 'Research-led', 'Prototype to decide', 'Ship & measure', 'Sweat the type'].map((t, i) => (
-            <span className="pill" key={i}>{t}</span>
-          ))}
+        {/* how I work */}
+        <div className="about__how">
+          <div className="how__head">
+            <span className="mono mono--accent">How I work</span>
+            <h3 className="how__title display">Four habits I bring<br />to every project</h3>
+          </div>
+          <div className="how__grid">
+            {habits.map((h, i) => (
+              <a className="how" key={i} href={`#project/${h.id}`}>
+                <span className="how__n pixel">{h.n}</span>
+                <span className="how__t display">{h.t}</span>
+                <span className="how__d">{h.d}</span>
+                <span className="how__link mono">See it in {h.proof} →</span>
+              </a>
+            ))}
+          </div>
         </div>
       </div>
 
