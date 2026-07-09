@@ -38,28 +38,64 @@ function Turntable() {
     const id = setInterval(() => setSecs((s) => s + 1), 1000);
     return () => clearInterval(id);
   }, [playing]);
-  const time = `${Math.floor(secs / 60)}:${String(secs % 60).padStart(2, '0')}`;
+  // track duration for the progress bar (falls back until metadata loads)
+  const [dur, setDur] = React.useState(0);
+  React.useEffect(() => {
+    const a = audioRef.current;
+    if (!a) return;
+    const onMeta = () => setDur(a.duration || 0);
+    a.addEventListener('loadedmetadata', onMeta);
+    if (a.duration) setDur(a.duration);
+    return () => a.removeEventListener('loadedmetadata', onMeta);
+  }, [audioRef.current]);
+
+  const fmt = (s) => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, '0')}`;
+  const totalSecs = dur || 201;                 // ~3:21 fallback
+  const time = fmt(Math.min(secs, totalSecs));
+  const total = fmt(totalSecs);
+  const pct = Math.min(100, (secs / totalSecs) * 100);
+
+  const Icon = ({ d, s = 16 }) => (
+    <svg viewBox="0 0 24 24" width={s} height={s} aria-hidden="true"><path d={d} /></svg>
+  );
+  const ICO = {
+    skipb: 'M6 6h2v12H6zM20 6v12l-9-6z',
+    prev:  'M8 6h2v12H8zM20 6v12l-9-6z',
+    play:  'M8 5v14l11-7z',
+    pause: 'M8 6h3v12H8zM13 6h3v12h-3z',
+    next:  'M14 6h2v12h-2zM4 6l9 6-9 6z',
+    skipf: 'M16 6h2v12h-2zM4 6l9 6-9 6z',
+  };
+
   return (
-    <div className={'tt' + (playing ? ' is-playing' : '')}
+    <div className={'vtt' + (playing ? ' is-playing' : '')}
          onMouseEnter={() => setPlaying(true)}
          onMouseLeave={() => setPlaying(false)}>
-      <div className="tt__deck">
-        <div className="tt__record" aria-hidden="true"><span className="tt__spindle"></span></div>
-        <div className="tt__sleeve" aria-hidden="true">
-          <div className="tt__art"><span className="tt__inf">∞</span><span className="tt__artname">The Band Camino</span></div>
-          {cover ? <img className="tt__cover" src={cover} alt="" /> : null}
+      <div className="vtt__left">
+        <div className="vtt__badge" aria-hidden="true">
+          <span className="vtt__cue"></span>
+          <span className="vtt__dots"></span>
         </div>
-        <div className="tt__arm" aria-hidden="true"><span className="tt__head"></span></div>
+        <div className="vtt__now">
+          <span className="mono mono--accent vtt__eyebrow">{playing ? '/ Now playing' : '/ On repeat'}</span>
+          <h3 className="vtt__title">Infinity</h3>
+          <p className="vtt__artist">The Band Camino</p>
+        </div>
+        <div className="vtt__progress">
+          <div className="vtt__bar"><span className="vtt__fill" style={{ width: pct + '%' }}></span><span className="vtt__knob" style={{ left: pct + '%' }}></span></div>
+          <div className="vtt__times"><span className="cur">{time}</span><span>{total}</span></div>
+        </div>
       </div>
-      <div className="tt__meta">
-        <span className="mono mono--accent tt__eyebrow">{playing ? '/ Now playing' : '/ On repeat'}</span>
-        <span className="tt__title">Infinity</span>
-        <span className="tt__artist">The Band Camino</span>
-        <div className="tt__lcd">
-          <span className="tt__play">{playing ? '❚❚' : '▶'}</span>
-          <span className="tt__time">{time}</span>
-          <span className="tt__eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+      <div className="vtt__deck" aria-hidden="true">
+        <div className="vtt__record">
+          <div className="vtt__disc">
+            <div className="vtt__label">
+              {cover ? <img src={cover} alt="" /> : <div className="vtt__fallback"><span>∞</span></div>}
+            </div>
+          </div>
+          <span className="vtt__spindle"></span>
         </div>
+        <div className="vtt__arm"><span className="vtt__head"></span></div>
       </div>
     </div>
   );
