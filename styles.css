@@ -890,42 +890,28 @@ a.colophon:hover { color: var(--yellow-ink); }
    ========================================================================= */
 .nowp {
   position: fixed; left: 24px; bottom: 24px; z-index: 10002;
-  display: flex; align-items: center; gap: 14px;
-  width: min(320px, calc(100vw - 48px));
-  background: var(--surface); border: 1px solid var(--line-2); border-radius: 14px;
-  padding: 12px 14px; box-shadow: 0 24px 60px rgba(0,0,0,.5);
+  width: min(380px, calc(100vw - 48px)); height: 152px;
+  background: var(--surface); border: 1px solid var(--line-2); border-radius: 16px;
+  overflow: hidden; isolation: isolate;
+  box-shadow: 0 24px 60px rgba(0,0,0,.5);
   opacity: 0; transform: translateY(14px) scale(.98);
   transition: opacity .42s var(--ease), transform .42s var(--ease);
 }
 .nowp.is-in { opacity: 1; transform: none; }
-.nowp__art {
-  flex: none; width: 46px; height: 46px; border-radius: 8px; border: none; cursor: pointer; padding: 0; overflow: hidden;
-  background: linear-gradient(135deg, var(--accent), color-mix(in srgb, var(--accent) 45%, #000));
-  display: flex; align-items: center; justify-content: center; position: relative;
+
+.nowp__left {
+  position: relative; z-index: 2;
+  width: 60%; height: 100%;
+  display: flex; flex-direction: column; justify-content: center;
+  padding-left: 18px;
 }
-.nowp__cover { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity .3s var(--ease); }
-.nowp.has-art .nowp__cover { opacity: 1; }
-.nowp.has-art .nowp__art::after { content: ""; position: absolute; inset: 0; background: rgba(0,0,0,.28); opacity: 0; transition: opacity .2s var(--ease); }
-.nowp.has-art .nowp__art:hover::after { opacity: 1; }
-.nowp__eq { display: flex; align-items: flex-end; gap: 2.5px; height: 18px; opacity: 0; transition: opacity .2s var(--ease); position: relative; z-index: 1; }
-.nowp.is-playing:not(.has-art) .nowp__eq { opacity: 1; }
-.nowp__eq i { width: 3px; background: #fff; border-radius: 1px; animation: nowpEq 1s ease-in-out infinite; animation-play-state: paused; }
-.nowp.is-playing .nowp__eq i { animation-play-state: running; }
-.nowp__eq i:nth-child(1) { height: 55%; animation-delay: -.1s; }
-.nowp__eq i:nth-child(2) { height: 95%; animation-delay: -.5s; }
-.nowp__eq i:nth-child(3) { height: 70%; animation-delay: -.3s; }
-.nowp__eq i:nth-child(4) { height: 40%; animation-delay: -.7s; }
-@keyframes nowpEq { 0%, 100% { transform: scaleY(.35); } 50% { transform: scaleY(1); } }
-.nowp__play { position: absolute; z-index: 1; color: #fff; font-size: 15px; line-height: 1; padding-left: 2px; transition: opacity .2s var(--ease); }
-.nowp.is-playing:not(.has-art) .nowp__play { opacity: 0; }
-.nowp.has-art .nowp__play { opacity: 0; }
-.nowp.has-art:not(.is-playing) .nowp__play,
-.nowp.has-art .nowp__art:hover .nowp__play { opacity: 1; text-shadow: 0 1px 4px rgba(0,0,0,.6); }
-.nowp__meta { flex: 1; min-width: 0; }
-.nowp__kick { font-size: 9.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); margin-bottom: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.nowp__track { font-family: var(--display); font-weight: 600; font-size: 15px; color: var(--ink); letter-spacing: -.01em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.nowp__artist { font-family: var(--body); font-size: 13px; color: var(--ink-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.nowp__ctrls { display: flex; align-items: center; gap: 10px; margin-top: 8px; }
+.nowp__kick { font-size: 9px; letter-spacing: .1em; text-transform: uppercase; color: var(--accent);
+  margin-bottom: 7px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.nowp__track { font-family: var(--display); font-weight: 700; font-size: 21px; color: var(--ink);
+  letter-spacing: -.015em; line-height: 1.02; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.nowp__artist { font-family: var(--body); font-size: 13px; color: var(--ink-2); margin-top: 3px;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.nowp__ctrls { display: flex; align-items: center; gap: 10px; margin-top: 14px; }
 .nowp__bar { position: relative; flex: 1; height: 14px; display: flex; align-items: center; cursor: pointer; touch-action: none; }
 .nowp__bar::before { content: ""; position: absolute; left: 0; right: 0; height: 3px; border-radius: 2px; background: var(--surface-2); }
 .nowp__fill { position: absolute; left: 0; height: 3px; width: 0; border-radius: 2px; background: var(--accent); }
@@ -934,9 +920,58 @@ a.colophon:hover { color: var(--yellow-ink); }
 .nowp__next { flex: none; background: transparent; border: none; color: var(--ink-2); font-size: 13px; cursor: pointer; padding: 2px 4px; line-height: 1; transition: color .18s var(--ease), transform .12s var(--ease); }
 .nowp__next:hover { color: var(--ink); }
 .nowp__next:active { transform: scale(.88); }
-.nowp__x { flex: none; align-self: flex-start; background: transparent; border: none; color: var(--ink-3); font-size: 13px; cursor: pointer; padding: 2px; line-height: 1; transition: color .2s var(--ease); }
-.nowp__x:hover { color: var(--ink); }
-@media (prefers-reduced-motion: reduce) { .nowp { transition: none; } .nowp__eq i { animation: none; } }
+
+/* turntable deck: record bleeds off the right edge */
+.nowp__art {
+  position: absolute; z-index: 1; top: 50%; right: -64px; transform: translateY(-50%);
+  width: 190px; height: 190px; border-radius: 50%;
+  background: none; border: none; padding: 0; cursor: pointer;
+  box-shadow: 0 16px 30px -14px rgba(0,0,0,.6), 0 0 0 1px rgba(255,255,255,.04);
+}
+.nowp__disc { position: absolute; inset: 0; border-radius: 50%;
+  background: repeating-radial-gradient(circle at 50% 50%, #0a0a0b 0 2px, #16161a 2px 3px, #0d0d0f 3px 4.4px);
+  background-color: #0b0b0d; }
+.nowp__disc::before { content: ""; position: absolute; inset: 0; border-radius: 50%;
+  background: conic-gradient(from 210deg at 50% 50%, rgba(255,255,255,.16), rgba(255,255,255,0) 32%, rgba(255,255,255,.09) 52%, rgba(255,255,255,0) 74%, rgba(255,255,255,.14) 92%, rgba(255,255,255,0));
+  mix-blend-mode: screen; }
+.nowp__disc::after { content: ""; position: absolute; inset: 0; border-radius: 50%; box-shadow: inset 0 0 40px rgba(0,0,0,.6); }
+@media (prefers-reduced-motion: no-preference) {
+  .nowp.is-playing .nowp__disc { animation: nowpSpin 3.2s linear infinite; }
+}
+@keyframes nowpSpin { to { transform: rotate(360deg); } }
+.nowp__label { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+  width: 74px; height: 74px; border-radius: 50%; overflow: hidden; background: #efe9dc;
+  box-shadow: 0 0 0 4px rgba(0,0,0,.28); display: grid; place-items: center; z-index: 1; }
+.nowp__cover { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity .3s var(--ease); }
+.nowp.has-art .nowp__cover { opacity: 1; }
+.nowp__fallback { width: 100%; height: 100%; display: grid; place-items: center;
+  font-family: var(--display); font-weight: 800; font-size: 26px; color: rgba(255,255,255,.94);
+  background: radial-gradient(120% 120% at 25% 18%, color-mix(in srgb, var(--yellow) 82%, #fff), transparent 55%), linear-gradient(150deg, var(--accent), #23324a); }
+.nowp.has-art .nowp__fallback { opacity: 0; }
+.nowp__spindle { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+  width: 8px; height: 8px; border-radius: 50%; background: #0b0b0d; z-index: 2; box-shadow: 0 0 0 2px rgba(255,255,255,.5); }
+.nowp__play { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); z-index: 3;
+  color: #fff; font-size: 20px; line-height: 1; padding-left: 2px; opacity: 0;
+  text-shadow: 0 1px 6px rgba(0,0,0,.6); transition: opacity .2s var(--ease); pointer-events: none; }
+.nowp:not(.is-playing) .nowp__play { opacity: 1; }
+
+/* tonearm: drops onto the record while playing */
+.nowp__arm { position: absolute; z-index: 4; pointer-events: none; top: 18px; right: 34px; width: 5px; height: 84px;
+  transform-origin: 50% 7px; transform: rotate(96deg); transition: transform .6s cubic-bezier(.5,1.2,.4,1); }
+.nowp.is-playing .nowp__arm { transform: rotate(66deg); }
+.nowp__arm::before { content: ""; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+  width: 14px; height: 14px; border-radius: 50%; background: linear-gradient(145deg, #dadade, #9a9aa2); box-shadow: 0 2px 5px rgba(0,0,0,.4); }
+.nowp__arm::after { content: ""; position: absolute; top: 9px; left: 50%; transform: translateX(-50%);
+  width: 4px; height: 74px; border-radius: 3px; background: linear-gradient(180deg, #cbcbd1, #86868e); box-shadow: 0 1px 3px rgba(0,0,0,.35); }
+.nowp__head { position: absolute; bottom: -3px; left: 50%; transform: translateX(-50%) rotate(8deg);
+  width: 10px; height: 14px; border-radius: 2px; z-index: 5; background: linear-gradient(160deg, #2b2b31, #17171b); box-shadow: 0 2px 5px rgba(0,0,0,.45); }
+.nowp__head::after { content: ""; position: absolute; bottom: -3px; left: 50%; transform: translateX(-50%); width: 2px; height: 4px; background: var(--yellow); }
+
+.nowp__x { position: absolute; z-index: 6; top: 10px; right: 12px; background: transparent; border: none;
+  color: rgba(255,255,255,.75); font-size: 12px; cursor: pointer; padding: 3px; line-height: 1;
+  text-shadow: 0 1px 3px rgba(0,0,0,.5); transition: color .2s var(--ease); }
+.nowp__x:hover { color: #fff; }
+@media (prefers-reduced-motion: reduce) { .nowp { transition: none; } .nowp__arm { transition: none; } }
 
 /* =========================================================================
    PALETTE PEEK — live color chips, bottom-right (opened via ⌘K)

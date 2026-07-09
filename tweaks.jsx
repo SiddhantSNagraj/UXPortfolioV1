@@ -42,7 +42,7 @@ const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
   "aboutPhotos": "Cluster",
   "aboutSpread": "Cross",
   "howLayout": "Filed",
-  "signoff": "Vinyl"
+  "signoff": "Signature"
 }/*EDITMODE-END*/;
 
 // Scroll-reveal treatment for case studies (Option 2 = editorial clip wipe)
@@ -73,7 +73,7 @@ const WORK_LAYOUT = { 'Index': 'index', 'Outcome': 'outcome', 'Descriptive': 'de
 const ABOUT_PHOTOS = { 'Single': 'single', 'Cluster': 'cluster' };
 
 // Sign-off under the Rocky mantra — fills the negative space with personality.
-const SIGNOFF = { 'Signature': 'sign', 'Vinyl': 'vinyl', 'Stamp': 'stamp', 'None': 'none' };
+const SIGNOFF = { 'Signature': 'sign', 'Monogram': 'monogram', 'Coordinates': 'coords', 'Status': 'status', 'Stamp': 'stamp', 'None': 'none' };
 
 // "How I work" habits block — five layouts, each with its own personality.
 const HOW_LAYOUT = {

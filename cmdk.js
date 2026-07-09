@@ -79,12 +79,7 @@
     var el = document.createElement('div');
     el.className = 'nowp';
     el.innerHTML =
-      '<button class="nowp__art" aria-label="Play / pause">' +
-        '<img class="nowp__cover" alt="" />' +
-        '<span class="nowp__eq"><i></i><i></i><i></i><i></i></span>' +
-        '<span class="nowp__play" aria-hidden="true">▶</span>' +
-      '</button>' +
-      '<div class="nowp__meta">' +
+      '<div class="nowp__left">' +
         '<div class="nowp__kick mono">Now playing · on repeat while I design</div>' +
         '<div class="nowp__track">' + t.track + '</div>' +
         '<div class="nowp__artist">' + t.artist + '</div>' +
@@ -93,6 +88,14 @@
           '<button class="nowp__next" aria-label="Next track">⏭</button>' +
         '</div>' +
       '</div>' +
+      '<button class="nowp__art" aria-label="Play / pause">' +
+        '<span class="nowp__disc">' +
+          '<span class="nowp__label"><img class="nowp__cover" alt="" /><span class="nowp__fallback">∞</span></span>' +
+        '</span>' +
+        '<span class="nowp__spindle"></span>' +
+        '<span class="nowp__play" aria-hidden="true">▶</span>' +
+      '</button>' +
+      '<span class="nowp__arm" aria-hidden="true"><span class="nowp__head"></span></span>' +
       '<button class="nowp__x" aria-label="Dismiss">✕</button>';
     document.body.appendChild(el);
     requestAnimationFrame(function () { el.classList.add('is-in'); });

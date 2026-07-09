@@ -159,8 +159,26 @@ function About({ profile, reviews }) {
               </svg>
               <span className="signoff__tag mono">Boston, MA · still tinkering</span>
             </div>
-            <div className="signoff signoff--vinyl" aria-label="On repeat">
-              <Turntable />
+            <div className="signoff signoff--monogram" aria-label="Monogram">
+              <span className="signoff__mono">SN</span>
+              <div className="signoff__monometa">
+                <span className="signoff__mononame">Siddhant Nagraj</span>
+                <span className="signoff__monorole mono">Product Designer · Boston</span>
+              </div>
+            </div>
+            <div className="signoff signoff--coords" aria-label="Location">
+              <span className="signoff__pin" aria-hidden="true"></span>
+              <div className="signoff__coordmeta">
+                <span className="signoff__coordval mono">42.3601° N, 71.0589° W</span>
+                <span className="signoff__coordtag">Designing from Boston, MA</span>
+              </div>
+            </div>
+            <div className="signoff signoff--status" aria-label="Availability">
+              <span className="signoff__statusdot" aria-hidden="true"></span>
+              <div className="signoff__statusmeta">
+                <span className="signoff__statustop mono">Currently</span>
+                <span className="signoff__statusmain">Open to product design roles</span>
+              </div>
             </div>
             <div className="signoff signoff--stamp" aria-label="Made with care">
               <div className="stamp" aria-hidden="true">

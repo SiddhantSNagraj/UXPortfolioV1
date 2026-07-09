@@ -1464,9 +1464,11 @@ html[data-worklayout="cards"] .workrow__fill { display: none !important; }
 
 /* ---------- ABOUT SIGN-OFF (under the mantra; switch via Tweaks) --------- */
 .signoff { display: none; margin-top: clamp(30px, 4vw, 48px); }
-[data-aboutsignoff="sign"]  .signoff--sign  { display: block; }
-[data-aboutsignoff="vinyl"] .signoff--vinyl { display: flex; }
-[data-aboutsignoff="stamp"] .signoff--stamp { display: block; }
+[data-aboutsignoff="sign"]     .signoff--sign     { display: block; }
+[data-aboutsignoff="monogram"] .signoff--monogram { display: flex; }
+[data-aboutsignoff="coords"]   .signoff--coords   { display: flex; }
+[data-aboutsignoff="status"]   .signoff--status   { display: flex; }
+[data-aboutsignoff="stamp"]    .signoff--stamp    { display: block; }
 
 /* Signature */
 .signoff--sign { position: relative; }
@@ -1477,6 +1479,39 @@ html[data-worklayout="cards"] .workrow__fill { display: none !important; }
   margin: 4px 0 0 6px; color: var(--accent); }
 .signoff__tag { display: block; margin-top: 16px; font-size: 12px; letter-spacing: .14em;
   text-transform: uppercase; color: var(--ink-3); }
+
+/* Monogram */
+.signoff--monogram { align-items: center; gap: 20px; }
+.signoff__mono { font-family: var(--display); font-weight: 800; font-size: clamp(40px, 5vw, 60px);
+  line-height: .78; letter-spacing: -.04em; color: var(--ink);
+  border: 2px solid var(--ink); border-radius: 14px; padding: 14px 18px 12px; }
+.signoff__monometa { display: flex; flex-direction: column; gap: 7px; }
+.signoff__mononame { font-family: var(--display); font-weight: 700; font-size: clamp(19px, 2vw, 25px);
+  letter-spacing: -.015em; color: var(--ink); line-height: 1; }
+.signoff__monorole { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-3); }
+
+/* Coordinates */
+.signoff--coords { align-items: center; gap: 16px; }
+.signoff__pin { flex: none; width: 30px; height: 30px; border-radius: 50% 50% 50% 0;
+  transform: rotate(-45deg); background: var(--accent); position: relative; }
+.signoff__pin::after { content: ''; position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%); width: 11px; height: 11px; border-radius: 50%; background: var(--surface); }
+.signoff__coordmeta { display: flex; flex-direction: column; gap: 6px; }
+.signoff__coordval { font-size: clamp(15px, 1.4vw, 18px); letter-spacing: .03em; color: var(--ink); }
+.signoff__coordtag { font-family: var(--body); font-size: 14px; color: var(--ink-3); }
+
+/* Status */
+.signoff--status { align-items: center; gap: 15px; }
+.signoff__statusdot { flex: none; position: relative; width: 12px; height: 12px; border-radius: 50%;
+  background: var(--available, #4bbf7a); }
+.signoff__statusdot::after { content: ''; position: absolute; inset: 0; border-radius: 50%;
+  background: var(--available, #4bbf7a); animation: signoffPulse 2s ease-out infinite; }
+@keyframes signoffPulse { 0% { transform: scale(1); opacity: .55; } 100% { transform: scale(2.8); opacity: 0; } }
+.signoff__statusmeta { display: flex; flex-direction: column; gap: 5px; }
+.signoff__statustop { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-3); }
+.signoff__statusmain { font-family: var(--display); font-weight: 700; font-size: clamp(18px, 1.8vw, 24px);
+  letter-spacing: -.01em; color: var(--ink); line-height: 1; }
+@media (prefers-reduced-motion: reduce) { .signoff__statusdot::after { animation: none; } }
 
 /* On repeat — 90s turntable (plays on hover: needle drops, record spins) */
 .signoff--vinyl { align-items: center; }
