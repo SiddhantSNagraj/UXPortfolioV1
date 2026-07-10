@@ -1513,6 +1513,16 @@ html[data-worklayout="cards"] .workrow__fill { display: none !important; }
   letter-spacing: -.01em; color: var(--ink); line-height: 1; }
 @media (prefers-reduced-motion: reduce) { .signoff__statusdot::after { animation: none; } }
 
+/* Wax seal (real pressed-seal images) — rose on cream, leaf on onyx */
+.waxseal { display: none; width: clamp(118px, 14vw, 152px); height: auto;
+  transform: rotate(-5deg); transform-origin: center;
+  transition: transform .4s var(--ease); }
+.waxseal--dark  { display: block; filter: drop-shadow(0 10px 20px rgba(0,0,0,.55)); }
+.waxseal--light { display: none;  filter: drop-shadow(0 12px 20px rgba(0,0,0,.32)); }
+html[data-theme="light"] .waxseal--dark  { display: none; }
+html[data-theme="light"] .waxseal--light { display: block; }
+.signoff--stamp:hover .waxseal { transform: rotate(0deg) scale(1.04); }
+
 /* On repeat — 90s turntable (plays on hover: needle drops, record spins) */
 .signoff--vinyl { align-items: center; }
 

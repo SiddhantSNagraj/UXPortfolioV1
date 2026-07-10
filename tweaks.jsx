@@ -42,7 +42,7 @@ const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
   "aboutPhotos": "Cluster",
   "aboutSpread": "Cross",
   "howLayout": "Filed",
-  "signoff": "Signature"
+  "signoff": "Stamp"
 }/*EDITMODE-END*/;
 
 // Scroll-reveal treatment for case studies (Option 2 = editorial clip wipe)

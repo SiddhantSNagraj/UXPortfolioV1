@@ -180,14 +180,9 @@ function About({ profile, reviews }) {
                 <span className="signoff__statusmain">Open to product design roles</span>
               </div>
             </div>
-            <div className="signoff signoff--stamp" aria-label="Made with care">
-              <div className="stamp" aria-hidden="true">
-                <svg className="stamp__ring" viewBox="0 0 120 120">
-                  <defs><path id="signoffStampPath" d="M60,16 a44,44 0 1,1 -0.01,0" /></defs>
-                  <text><textPath href="#signoffStampPath" startOffset="0">· MADE WITH CARE · BOSTON, MA · DESIGNED &amp; BUILT BY SIDDHANT </textPath></text>
-                </svg>
-                <span className="stamp__mark">✷</span>
-              </div>
+            <div className="signoff signoff--stamp" aria-label="Wax seal">
+              <img className="waxseal waxseal--light" src="assets/seal-rose.png" alt="Wax seal — gold rose on black" />
+              <img className="waxseal waxseal--dark" src="assets/seal-leaf.png" alt="Wax seal — embossed leaf in teal" />
             </div>
           </Reveal>
 
