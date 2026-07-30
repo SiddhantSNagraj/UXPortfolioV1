@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Favicon in place · dark & light</title>
+<link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600&display=swap" rel="stylesheet" />
+<style>
+:root{--display:'General Sans',system-ui,sans-serif}
+*{box-sizing:border-box}
+body{margin:0;background:#111113;color:#f2f1ec;font-family:var(--display);-webkit-font-smoothing:antialiased}
+.wrap{max-width:1000px;margin:0 auto;padding:56px 40px 88px;display:flex;flex-direction:column;gap:40px}
+h1{font-size:30px;font-weight:600;letter-spacing:-0.02em;margin:0}
+.sub{color:#75746f;font-size:14px;margin:6px 0 0;line-height:1.6;max-width:62ch}
+.pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}@media(max-width:780px){.pair{grid-template-columns:1fr}}
+.pane{min-width:0;border-radius:14px;padding:18px;border:1px solid rgba(255,255,255,.10);background:#0b0b0c;display:flex;flex-direction:column;gap:14px}
+.pane.light{background:#f2f1ec;border-color:rgba(0,0,0,.10)}
+.lbl{font-size:11px;letter-spacing:.10em;text-transform:uppercase;color:#75746f}
+.pane.light .lbl{color:#8a8880}
+/* tab strip */
+.chrome{border-radius:10px;overflow:hidden;border:1px solid rgba(255,255,255,.10)}
+.pane.light .chrome{border-color:rgba(0,0,0,.10)}
+.tabbar{background:#1d1d20;padding:7px 7px 0;display:flex;gap:5px;align-items:flex-end}
+.pane.light .tabbar{background:#dcdad3}
+.tab{background:#161618;border-radius:8px 8px 0 0;padding:8px 10px;display:flex;align-items:center;gap:8px;flex:1;min-width:0}
+.pane.light .tab{background:#f7f6f2}
+.tab.dim{background:transparent;opacity:.5;flex:0 0 92px}
+.tab span{font-size:11.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#b9b8b2}
+.pane.light .tab span{color:#4a4a47}
+.tab .x{margin-left:auto;color:#75746f;font-size:12px;line-height:1}
+.urlbar{background:#161618;padding:8px;display:flex;gap:8px;align-items:center}
+.pane.light .urlbar{background:#f7f6f2}
+.pill{flex:1;background:#0b0b0c;border:1px solid rgba(255,255,255,.10);border-radius:999px;padding:6px 12px;font-size:11.5px;color:#75746f;display:flex;align-items:center;gap:8px}
+.pane.light .pill{background:#eceae3;border-color:rgba(0,0,0,.08);color:#75746f}
+/* bookmark row + sizes */
+.bmk{display:flex;gap:18px;align-items:center;padding:2px 4px}
+.bmk div{display:flex;align-items:center;gap:7px;font-size:11.5px;color:#b9b8b2}
+.pane.light .bmk div{color:#4a4a47}
+.sizes{display:flex;align-items:flex-end;gap:18px;padding:4px}
+.sz{display:flex;flex-direction:column;align-items:center;gap:7px}
+.sz i{font-size:10px;font-style:normal;color:#75746f}
+.ico{display:block}
+a{color:#2b6fff}a:hover{color:#f7c14a}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header><h1>Live favicon · <span style="color:#f7c14a">yellow clover, transparent</span></h1><p class="sub">The exact file the site now links (<code>assets/favicon.svg</code>) rendered in dark and light browser chrome — tab strip, address bar, bookmarks bar, and at 16 / 24 / 32 / 96px.</p></header>
+<div class="pair" id="pair"></div>
+</div>
+<script>
+const ico=s=>`<img class="ico" src="assets/favicon.svg" width="${s}" height="${s}" alt="" />`;
+const pane=light=>`<div class="pane${light?' light':''}">
+  <div class="lbl">${light?'Light browser chrome':'Dark browser chrome'}</div>
+  <div class="chrome">
+    <div class="tabbar">
+      <div class="tab">${ico(16)}<span>Siddhant Nagraj · Portfolio</span><span class="x">×</span></div>
+      <div class="tab dim"><span>Figma</span></div>
+      <div class="tab dim"><span>Mail</span></div>
+    </div>
+    <div class="urlbar"><div class="pill">${ico(14)}siddhantnagraj.com</div></div>
+  </div>
+  <div class="lbl">Bookmarks bar</div>
+  <div class="bmk"><div>${ico(16)}Portfolio</div><div>${ico(16)}Case studies</div><div>${ico(16)}Resume</div></div>
+  <div class="lbl">Sizes</div>
+  <div class="sizes">
+    <div class="sz">${ico(96)}<i>96</i></div>
+    <div class="sz">${ico(32)}<i>32</i></div>
+    <div class="sz">${ico(24)}<i>24</i></div>
+    <div class="sz">${ico(16)}<i>16</i></div>
+  </div>
+</div>`;
+document.getElementById('pair').innerHTML=pane(false)+pane(true);
+</script>
+</body>
+</html>

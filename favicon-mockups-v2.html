@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Favicon options · Siddhant Nagraj</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600&display=swap" rel="stylesheet" />
+<style>
+:root{--bg:#0b0b0c;--bg-2:#111113;--surface:#161618;--surface-2:#1d1d20;--line:rgba(255,255,255,0.10);--line-2:rgba(255,255,255,0.18);--ink:#f2f1ec;--ink-2:#b9b8b2;--ink-3:#75746f;--blue:#2b6fff;--yellow:#f7c14a;--display:'General Sans',system-ui,sans-serif}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--display);-webkit-font-smoothing:antialiased}
+.wrap{max-width:1180px;margin:0 auto;padding:64px 40px 96px}
+h1{font-size:34px;font-weight:600;letter-spacing:-0.02em;margin:0 0 10px}
+.sub{color:var(--ink-3);font-size:14px;margin:0 0 48px;max-width:60ch;line-height:1.6}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:20px}
+.card{background:var(--bg-2);border:1px solid var(--line);border-radius:14px;padding:22px;display:flex;flex-direction:column;gap:20px}
+.head{display:flex;align-items:baseline;justify-content:space-between;gap:12px}
+.name{font-size:15px;font-weight:600}
+.no{font-size:11px;color:var(--ink-3);letter-spacing:0.08em}
+.spec{font-size:11.5px;color:var(--ink-3);line-height:1.6}
+.row{display:flex;align-items:flex-end;gap:22px}
+.sizes{display:flex;align-items:flex-end;gap:16px}
+.sz{display:flex;flex-direction:column;align-items:center;gap:8px}
+.sz i{font-size:10px;color:var(--ink-3);font-style:normal}
+.mark{display:block;border-radius:22%;overflow:hidden}
+.mark.circle{border-radius:50%}
+/* browser tab mock */
+.tabbar{background:var(--surface-2);border:1px solid var(--line);border-radius:10px 10px 6px 6px;padding:7px 7px 0;display:flex;gap:6px;align-items:flex-end}
+.tab{background:var(--surface);border-radius:8px 8px 0 0;padding:8px 10px;display:flex;align-items:center;gap:8px;min-width:0;flex:1}
+.tab.dim{background:transparent;opacity:.45;flex:0 0 96px}
+.tab span{font-size:11.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--ink-2)}
+.tab .x{margin-left:auto;color:var(--ink-3);font-size:12px;line-height:1}
+.pagestrip{height:8px;background:var(--surface);border-radius:0 0 6px 6px;border:1px solid var(--line);border-top:0}
+.lightpane{background:#f2f1ec;border-radius:10px;padding:7px 7px 0}
+.lightpane .tabbar{background:#e3e1da;border-color:rgba(0,0,0,.08)}
+.lightpane .tab{background:#f7f6f2}
+.lightpane .tab span{color:#4a4a47}
+.lightpane .pagestrip{background:#f7f6f2;border-color:rgba(0,0,0,.08)}
+a{color:var(--blue)}a:hover{color:var(--ink)}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>Favicon options · shortlist</h1>
+<p class="sub">Four discs: your two picks, plus the yellow clover reversed onto warm white and onto near-black. Each row shows the real 16px tab size, 32px, and a 96px blow-up, then the same icon in dark and light browser chrome.</p>
+<div class="grid" id="grid"></div>
+</div>
+<script>
+const PATH="M 164 0 C 188.301 0 208 19.7 208 44 C 208 45.417 207.93 46.818 207.799 48.2 C 209.182 48.07 210.583 48 212 48 C 236.301 48 256 67.7 256 92 C 256 106.883 248.609 120.037 237.3 128 C 248.609 135.963 256 149.117 256 164 C 256 188.301 236.301 208 212 208 C 210.583 208 209.182 207.93 207.799 207.799 C 207.93 209.182 208 210.583 208 212 C 208 236.301 188.301 256 164 256 C 149.117 256 135.963 248.609 128 237.3 C 120.037 248.609 106.883 256 92 256 C 67.7 256 48 236.301 48 212 C 48 210.583 48.07 209.182 48.2 207.799 C 46.804 207.932 45.402 207.999 44 208 C 19.7 208 0 188.301 0 164 C 0 149.118 7.39 135.963 18.7 128 C 7.39 120.037 0 106.882 0 92 C 0 67.7 19.7 48 44 48 C 45.417 48 46.818 48.07 48.2 48.2 C 48.07 46.818 48 45.417 48 44 C 48 19.7 67.7 0 92 0 C 106.882 0 120.037 7.39 128 18.7 C 135.963 7.39 149.118 0 164 0 Z M 128 69.3 C 120.037 80.61 106.883 88 92 88 C 90.583 88 89.182 87.93 87.799 87.799 C 87.932 89.195 87.999 90.597 88 92 C 88 106.883 80.61 120.037 69.3 128 C 80.61 135.963 88 149.117 88 164 C 88 165.417 87.93 166.818 87.799 168.2 C 89.182 168.069 90.583 168 92 168 C 106.882 168 120.037 175.39 128 186.699 C 135.963 175.39 149.118 168 164 168 C 165.417 168 166.818 168.069 168.2 168.2 C 168.067 166.804 168 165.402 168 164 C 168 149.118 175.39 135.963 186.699 128 C 175.39 120.037 168 106.882 168 92 C 168 90.583 168.069 89.182 168.2 87.799 C 166.804 87.932 165.402 87.999 164 88 C 149.117 88 135.963 80.61 128 69.3 Z";
+const OPTS=[
+ {name:"Near-black on yellow",spec:"Your 01. Palette yellow #f7c14a disc, mark in near-black. Loudest and most findable at 16px.",fg:"#0b0b0c",bg:"#f7c14a",pad:26,circle:1},
+ {name:"Near-black on warm white",spec:"Your 04. Warm white #f2f1ec disc, near-black mark. Editorial and quiet; nearly vanishes in light chrome.",fg:"#0b0b0c",bg:"#f2f1ec",pad:26,circle:1},
+ {name:"Yellow on warm white",spec:"Yellow clover on the warm-white disc. Softest of the four — low contrast, so the center hole starts closing at 16px.",fg:"#f7c14a",bg:"#f2f1ec",pad:26,circle:1},
+ {name:"Yellow on near-black",spec:"Yellow clover on the site background. Same warmth as 01 with less mass — the mark, not the color, is what you see.",fg:"#f7c14a",bg:"#0b0b0c",pad:26,circle:1}
+];
+const svg=(o,size)=>{const p=o.bg?o.pad:0,vb=256+p*2;
+ return `<svg class="mark${o.circle?' circle':''}" width="${size}" height="${size}" viewBox="${-p} ${-p} ${vb} ${vb}" xmlns="http://www.w3.org/2000/svg">${o.bg?`<rect x="${-p}" y="${-p}" width="${vb}" height="${vb}" fill="${o.bg}"/>`:''}<path d="${PATH}" fill="${o.fg}"/></svg>`};
+document.getElementById('grid').innerHTML=OPTS.map((o,i)=>`
+<div class="card">
+  <div class="head"><div class="name">${o.name}</div><div class="no">0${i+1}</div></div>
+  <div class="row"><div class="sizes">
+    <div class="sz">${svg(o,96)}<i>96</i></div>
+    <div class="sz">${svg(o,32)}<i>32</i></div>
+    <div class="sz">${svg(o,16)}<i>16</i></div>
+  </div></div>
+  <div class="spec">${o.spec}</div>
+  <div>
+    <div class="tabbar"><div class="tab">${svg(o,16)}<span>Siddhant Nagraj · Portfolio</span><span class="x">×</span></div><div class="tab dim"><span>Figma</span></div><div class="tab dim"><span>Mail</span></div></div>
+    <div class="pagestrip"></div>
+  </div>
+  <div class="lightpane">
+    <div class="tabbar"><div class="tab">${svg(o,16)}<span>Siddhant Nagraj · Portfolio</span><span class="x">×</span></div><div class="tab dim"><span>Figma</span></div></div>
+    <div class="pagestrip"></div>
+  </div>
+</div>`).join('');
+</script>
+</body>
+</html>
